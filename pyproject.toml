@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyYAHTS"
-version = "0.1.0"
+version = "0.1.1"
 description = "An interpretation, extension, and implementation of Cisco pyATS"
 authors = ["John Capobianco <ptcapo@gmail.com>"]
 packages = [{ include = "pyYAHTS", from = "src"}]
