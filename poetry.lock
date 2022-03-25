@@ -145,6 +145,18 @@ pygments = ">=2.6.0,<3.0.0"
 jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
 
 [[package]]
+name = "rich-click"
+version = "1.2.1"
+description = "Format click help output nicely with rich"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+click = ">=7"
+rich = ">=10"
+
+[[package]]
 name = "wcwidth"
 version = "0.2.5"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -155,7 +167,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "1d171f0a09fbc57ba6965f1c6394c7398782bcf2982fa9d5d45426a5eefd7825"
+content-hash = "993fcc295e509fc3f232f9db232062511a3e284fd2701df28b2448bc81e4d46a"
 
 [metadata.files]
 atomicwrites = [
@@ -209,6 +221,10 @@ pytest = [
 rich = [
     {file = "rich-12.0.1-py3-none-any.whl", hash = "sha256:ce5c714e984a2d185399e4e1dd1f8b2feacb7cecfc576f1522425643a36a57ea"},
     {file = "rich-12.0.1.tar.gz", hash = "sha256:3fba9dd15ebe048e2795a02ac19baee79dc12cc50b074ef70f2958cd651b59a9"},
+]
+rich-click = [
+    {file = "rich-click-1.2.1.tar.gz", hash = "sha256:43edaf6f89d9597e992040a56ac7f9236952d3e8c2df47db88115bc304005dff"},
+    {file = "rich_click-1.2.1-py3-none-any.whl", hash = "sha256:bd93b1d418241b71272dac70c45bc1ddf7a3d12c550d918407e1ba3f8906f123"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},

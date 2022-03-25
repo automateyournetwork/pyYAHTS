@@ -1,5 +1,5 @@
 import sys
-import click
+import rich_click as click
 import json
 import logging
 from pyats.topology import Testbed, Device
@@ -13,7 +13,6 @@ class GetJson():
         self.username = username
         self.password = password
         self.command = command
-        self.print_json()
 
     def print_json(self):
         print_json(json.dumps(self.capture_state(), indent=4, sort_keys=True))
@@ -81,7 +80,7 @@ class GetJson():
 @click.option('--hostname', prompt='Hostname', help='Hostname of device - must match the device', required=True)
 @click.option('--os', prompt='OS', type=click.Choice(['iosxe', 'nxos', 'iosxr'], case_sensitive=True), help='OS of device - must match the device', required=True)
 @click.option('--username', prompt='Username', help='Username', required=True)
-@click.option('--password', prompt='Password', help='Password of the user', required=True)
+@click.password_option(help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
 def cli(hostname, os, username, password, command):
     invoke_class = GetJson(hostname, os, username, password, command)
