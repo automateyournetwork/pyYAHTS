@@ -7,6 +7,8 @@ packages = [{ include = "pyYAHTS", from = "src"}]
 repository = "https://github.com/automateyournetwork/pyYAHTS"
 [tool.poetry.dependencies]
 python = "^3.9"
+rich = "^12.0.1"
+rich-click = "^1.2.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
