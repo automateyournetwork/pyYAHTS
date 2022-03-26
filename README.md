@@ -11,15 +11,7 @@ The results are Rich JSON printed to the screen
 pyYAHTS is an extension of pyATS, which is required, and only runs on Linux operating systems
 ## Installation
 
-1. Make sure you first install pyATS
-
-pip install pyats[full]
-
-2. Install Rich-Click 
-
-pip install rich-click
-
-3. That's it! You are ready to use pyYATS 
+1. pip install pyYAHTS
 
 ## Getting Started
 
@@ -54,7 +46,7 @@ In any virtual environment with pyATS installed pyYAHTS can be executed several 
 1. Prompted Inputs
 
 ```python
-(virtualenv)$ python3 pyYAHTS.py
+(virtualenv)$ pyYAHTS
 Hostname: dist-sw01
 OS (ios, iosxe, iosxr, nxos): nxos
 Username: cisco
@@ -65,13 +57,13 @@ Command: ospf
 2. Directly supplying options
 
 ```python
-(virtualenv)$ python3 pyYAHTS.py --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf
+(virtualenv)$ pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf
 ```
 
 3. Mixing supplied options and prompted responses
 
 ```python
-(virtualenv)$ python3 pyYAHTS.py --hostname dist-sw01 --os nxos --username cisco --password cisco
+(virtualenv)$ pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco
 Command: ospf
 ```
 
@@ -80,14 +72,14 @@ Command: ospf
 Of course you can also redirect the printed output to a JSON file! 
 
 ```python
-python3 pyYAHTS.py --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf > dist_sw01_learned_ospf.json
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf > dist_sw01_learned_ospf.json
 ```
 ## Help
 
 pyYAHTS includes a handy Rich Click Help! Simple type:
 
 ```python
-$ python3 pyYAHTS.py --help
+$ pyYAHTS --help
 ```
 
 ![More Help](images/help01.png)
