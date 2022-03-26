@@ -6,9 +6,12 @@ import logging
 from pyats.topology import Testbed, Device
 from genie import testbed
 from rich import print_json
+from rich.console import Console
 from json2table import convert
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
+from fpdf import FPDF
+
 
 class GetJson():
     def __init__(self, hostname, os, username, password, command, filetype):
@@ -26,7 +29,9 @@ class GetJson():
             self.pick_filetype(parsed_json)
 
     def pick_filetype(self, parsed_json):
-        if self.filetype == 'json':
+        if self.filetype == "none":
+            pass
+        elif self.filetype == 'json':
             self.json_file(parsed_json)
         elif self.filetype == 'yaml':
             self.yaml_file(parsed_json)
@@ -35,6 +40,8 @@ class GetJson():
         elif self.filetype == 'datatable':
             datatable = "True"
             self.html_file(parsed_json, datatable)
+        elif self.filetype == 'pdf':
+            self.pdf_file(parsed_json)
     
     def json_file(self, parsed_json):
         with open(f'{self.hostname} {self.command}.json', 'w') as f:
@@ -67,6 +74,15 @@ class GetJson():
         with open(f'{self.hostname} {self.command}_datatable.html', 'w') as f:
             f.write(datatable_output)
         click.secho(f"Datatable file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green')
+
+    def pdf_file(self, parsed_json):
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font('Arial', size = 6)
+        pdf.cell(200, 10, txt = f"{self.hostname} {self.command}", ln = 1, align = 'C')
+        pdf.multi_cell(200, 10, txt = parsed_json)
+        pdf.output(f'{self.hostname} {self.command}.pdf')
+        click.secho(f"PDF file created at { sys.path[0] }/{self.hostname} {self.command}.pdf", fg='green')
 
     # Create Testbed
     def connect_device(self):
@@ -133,7 +149,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['json','yaml','html','datatable'], case_sensitive=True), help='Filetype to output captured network state to', required=False)
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','datatable','pdf'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 def cli(hostname, os, username, password, command, filetype):
     invoke_class = GetJson(hostname, os, username, password, command, filetype)
     invoke_class.print_json()
