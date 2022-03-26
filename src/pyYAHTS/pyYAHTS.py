@@ -2,6 +2,8 @@ import sys
 import rich_click as click
 import json
 import yaml
+import pandas
+import tabulate
 import logging
 from pyats.topology import Testbed, Device
 from genie import testbed
@@ -11,6 +13,7 @@ from json2table import convert
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from fpdf import FPDF
+
 
 
 class GetJson():
@@ -42,6 +45,8 @@ class GetJson():
             self.html_file(parsed_json, datatable)
         elif self.filetype == 'pdf':
             self.pdf_file(parsed_json)
+        elif self.filetype == 'markdown':
+            self.markdown_file(parsed_json)
     
     def json_file(self, parsed_json):
         with open(f'{self.hostname} {self.command}.json', 'w') as f:
@@ -84,6 +89,12 @@ class GetJson():
         pdf.output(f'{self.hostname} {self.command}.pdf')
         click.secho(f"PDF file created at { sys.path[0] }/{self.hostname} {self.command}.pdf", fg='green')
 
+    def markdown_file(self, parsed_json):
+        df = pandas.json_normalize(json.loads(parsed_json),max_level=2)
+        markdown_table = df.to_markdown(index='false')
+        with open(f'{self.hostname} {self.command}.md', 'w') as f:
+            f.write(markdown_table)
+        click.secho(f"Markdown file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
     # Create Testbed
     def connect_device(self):
         try:
@@ -149,7 +160,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','datatable','pdf'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','datatable','markdown','pdf'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 def cli(hostname, os, username, password, command, filetype):
     invoke_class = GetJson(hostname, os, username, password, command, filetype)
     invoke_class.print_json()
