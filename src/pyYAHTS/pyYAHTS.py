@@ -1,21 +1,43 @@
 import sys
 import rich_click as click
 import json
+import yaml
 import logging
 from pyats.topology import Testbed, Device
 from genie import testbed
 from rich import print_json
 
 class GetJson():
-    def __init__(self, hostname, os, username, password, command):
+    def __init__(self, hostname, os, username, password, command, filetype):
         self.hostname = hostname
         self.os = os
         self.username = username
         self.password = password
         self.command = command
+        self.filetype = filetype
 
     def print_json(self):
-        print_json(json.dumps(self.capture_state(), indent=4, sort_keys=True))
+        parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
+        print_json(parsed_json)
+        if self.filetype:
+            self.pick_filetype(parsed_json)
+
+    def pick_filetype(self, parsed_json):
+        if self.filetype == 'json':
+            self.json_file(parsed_json)
+        elif self.filetype == 'yaml':
+            self.yaml_file(parsed_json)
+    
+    def json_file(self, parsed_json):
+        with open(f'{self.hostname}_{self.command}.json', 'w') as f:
+            f.write(parsed_json)
+        click.secho(f"JSON file created at { sys.path[0] }/{self.hostname}_{self.command}.json", fg='green')
+
+    def yaml_file(self, parsed_json):
+        clean_yaml = yaml.dump(json.loads(parsed_json), default_flow_style=False)
+        with open(f'{self.hostname}_{self.command}.yaml', 'w') as f:
+            f.write(clean_yaml)
+        click.secho(f"YAML file created at { sys.path[0] }/{self.hostname}_{self.command}.yaml", fg='green')
 
     # Create Testbed
     def connect_device(self):
@@ -82,8 +104,9 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-def cli(hostname, os, username, password, command):
-    invoke_class = GetJson(hostname, os, username, password, command)
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['json','yaml'], case_sensitive=True), help='Filetype to output captured network state to', required=False)
+def cli(hostname, os, username, password, command, filetype):
+    invoke_class = GetJson(hostname, os, username, password, command, filetype)
     invoke_class.print_json()
 
 if __name__ == "__main__":
