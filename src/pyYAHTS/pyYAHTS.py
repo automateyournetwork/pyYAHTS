@@ -2,10 +2,19 @@ import sys
 import rich_click as click
 import json
 import yaml
+import pandas
+import tabulate
 import logging
 from pyats.topology import Testbed, Device
 from genie import testbed
 from rich import print_json
+from rich.console import Console
+from json2table import convert
+from pathlib import Path
+from jinja2 import Environment, FileSystemLoader
+from fpdf import FPDF
+
+
 
 class GetJson():
     def __init__(self, hostname, os, username, password, command, filetype):
@@ -23,22 +32,69 @@ class GetJson():
             self.pick_filetype(parsed_json)
 
     def pick_filetype(self, parsed_json):
-        if self.filetype == 'json':
+        if self.filetype == "none":
+            pass
+        elif self.filetype == 'json':
             self.json_file(parsed_json)
         elif self.filetype == 'yaml':
             self.yaml_file(parsed_json)
+        elif self.filetype == 'html':
+            self.html_file(parsed_json)
+        elif self.filetype == 'datatable':
+            datatable = "True"
+            self.html_file(parsed_json, datatable)
+        elif self.filetype == 'pdf':
+            self.pdf_file(parsed_json)
+        elif self.filetype == 'markdown':
+            self.markdown_file(parsed_json)
     
     def json_file(self, parsed_json):
-        with open(f'{self.hostname}_{self.command}.json', 'w') as f:
+        with open(f'{self.hostname} {self.command}.json', 'w') as f:
             f.write(parsed_json)
-        click.secho(f"JSON file created at { sys.path[0] }/{self.hostname}_{self.command}.json", fg='green')
+        click.secho(f"JSON file created at { sys.path[0] }/{self.hostname} {self.command}.json", fg='green')
 
     def yaml_file(self, parsed_json):
         clean_yaml = yaml.dump(json.loads(parsed_json), default_flow_style=False)
-        with open(f'{self.hostname}_{self.command}.yaml', 'w') as f:
+        with open(f'{self.hostname} {self.command}.yaml', 'w') as f:
             f.write(clean_yaml)
-        click.secho(f"YAML file created at { sys.path[0] }/{self.hostname}_{self.command}.yaml", fg='green')
+        click.secho(f"YAML file created at { sys.path[0] }/{self.hostname} {self.command}.yaml", fg='green')
 
+    def html_file(self, parsed_json, datatable):
+        good_json = json.loads(parsed_json)
+        build_direction = "TOP_TO_BOTTOM"
+        table_attributes = {"style" : "width:100%"}
+        html_version = convert(good_json, build_direction=build_direction, table_attributes=table_attributes)
+        if datatable == "True":
+            self.datatable_file(html_version)
+        else:                    
+            with open(f'{self.hostname} {self.command}.html', 'w') as f:
+                f.write(html_version)
+            click.secho(f"HTML file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green') 
+
+    def datatable_file(self, html_version):
+        template_dir = Path(__file__).resolve().parent
+        env = Environment(loader=FileSystemLoader(template_dir))
+        datatable_template = env.get_template('datatable.j2')
+        datatable_output = datatable_template.render(table=html_version)
+        with open(f'{self.hostname} {self.command}_datatable.html', 'w') as f:
+            f.write(datatable_output)
+        click.secho(f"Datatable file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green')
+
+    def pdf_file(self, parsed_json):
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font('Arial', size = 6)
+        pdf.cell(200, 10, txt = f"{self.hostname} {self.command}", ln = 1, align = 'C')
+        pdf.multi_cell(200, 10, txt = parsed_json)
+        pdf.output(f'{self.hostname} {self.command}.pdf')
+        click.secho(f"PDF file created at { sys.path[0] }/{self.hostname} {self.command}.pdf", fg='green')
+
+    def markdown_file(self, parsed_json):
+        df = pandas.json_normalize(json.loads(parsed_json),max_level=2)
+        markdown_table = df.to_markdown(index='false')
+        with open(f'{self.hostname} {self.command}.md', 'w') as f:
+            f.write(markdown_table)
+        click.secho(f"Markdown file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
     # Create Testbed
     def connect_device(self):
         try:
@@ -104,7 +160,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['json','yaml'], case_sensitive=True), help='Filetype to output captured network state to', required=False)
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','datatable','markdown','pdf'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 def cli(hostname, os, username, password, command, filetype):
     invoke_class = GetJson(hostname, os, username, password, command, filetype)
     invoke_class.print_json()
