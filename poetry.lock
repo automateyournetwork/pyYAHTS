@@ -263,17 +263,6 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
-name = "flatten-json"
-version = "0.1.13"
-description = "Flatten JSON objects"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-six = "*"
-
-[[package]]
 name = "fpdf"
 version = "1.7.2"
 description = "Simple PDF generation for Python"
@@ -1432,7 +1421,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "3c7a377dddc2dc5a839d58c020122d10323262748ba18832bec5a4eb1f97a4bd"
+content-hash = "1424b5f83a7dbf38bd3ff0c93bc8815e348d09b0b22cfa728ff64d175c152cbd"
 
 [metadata.files]
 aiofiles = [
@@ -1660,9 +1649,6 @@ dill = [
 distro = [
     {file = "distro-1.7.0-py3-none-any.whl", hash = "sha256:d596311d707e692c2160c37807f83e3820c5d539d5a83e87cfb6babd8ba3a06b"},
     {file = "distro-1.7.0.tar.gz", hash = "sha256:151aeccf60c216402932b52e40ee477a939f8d58898927378a02abbe852c1c39"},
-]
-flatten-json = [
-    {file = "flatten_json-0.1.13.tar.gz", hash = "sha256:ee352333e8293e957ccb1b4597a111fc4f6da88ab74b8cb3f8f51eed1e12f500"},
 ]
 fpdf = [
     {file = "fpdf-1.7.2.tar.gz", hash = "sha256:125840783289e7d12552b1e86ab692c37322e7a65b96a99e0ea86cca041b6779"},
