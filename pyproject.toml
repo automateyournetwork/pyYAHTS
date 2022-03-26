@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pyYAHTS"
+version = "1.0.4"
+description = "An implementation of Cisco pyATS"
+authors = ["John Capobianco <ptcapo@gmail.com>"]
+packages = [{ include = "pyYAHTS", from = "src"}]
+readme = "README.md"
+repository = "https://github.com/automateyournetwork/pyYAHTS"
+
+[tool.poetry.scripts]
+pyYAHTS = 'pyYAHTS.script:run'
+
+[tool.poetry.dependencies]
+python = "^3.10"
+rich-click = "^1.2.1"
+pyats = {version = "22.1", extras = ["full"]}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
