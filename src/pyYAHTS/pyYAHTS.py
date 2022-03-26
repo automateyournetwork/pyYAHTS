@@ -5,6 +5,9 @@ import yaml
 import pandas as pd
 import tabulate
 import logging
+import email
+import smtplib
+import ssl
 from pyats.topology import Testbed, Device
 from genie import testbed
 from rich import print_json
@@ -13,21 +16,30 @@ from json2table import convert
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from fpdf import FPDF
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 class GetJson():
-    def __init__(self, hostname, os, username, password, command, filetype):
+    def __init__(self, hostname, os, username, password, command, filetype, from_email, email_password, to_email):
         self.hostname = hostname
         self.os = os
         self.username = username
         self.password = password
         self.command = command
         self.filetype = filetype
+        self.from_email = from_email
+        self.email_password = email_password
+        self.to_email = to_email
 
     def print_json(self):
         parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
         print_json(parsed_json)
         if self.filetype:
             self.pick_filetype(parsed_json)
+        if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
+            self.send_email(parsed_json)
 
     def pick_filetype(self, parsed_json):
         if self.filetype == "none":
@@ -101,6 +113,26 @@ class GetJson():
         df.to_csv(f'{self.hostname} {self.command}.csv', index=False)
         click.secho(f"CSV file created at { sys.path[0] }/{self.hostname} {self.command}.csv", fg='green')
 
+    def send_email(self, parsed_json):
+        subject = f"An Email from pyYAHTS Device {self.hostname} and Command {self.command}"
+        body = parsed_json
+        sender_email = self.from_email
+        receiver_email = self.to_email
+        password = self.email_password
+
+        message = MIMEMultipart("alternative")
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        message["Subject"] = subject
+
+        message.attach(MIMEText(body, "plain"))
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+            click.secho(f"Email sent to {receiver_email}", fg='green')
+
     # Create Testbed
     def connect_device(self):
         try:
@@ -167,8 +199,11 @@ class GetJson():
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
 @click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','datatable','markdown','pdf','csv'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
-def cli(hostname, os, username, password, command, filetype):
-    invoke_class = GetJson(hostname, os, username, password, command, filetype)
+@click.option('--from_email', prompt='From Email', help='Email address to send output from', required=False, default='none')
+@click.option('--email_password', prompt='Email Password', hide_input=True, help='Email account password', required=False, default='none')
+@click.option('--to_email', prompt='To Email', help='Email address to send output to', required=False, default='none')
+def cli(hostname, os, username, password, command, filetype, from_email, email_password, to_email):
+    invoke_class = GetJson(hostname, os, username, password, command, filetype, from_email, email_password, to_email)
     invoke_class.print_json()
 
 if __name__ == "__main__":
