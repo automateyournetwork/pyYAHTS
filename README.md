@@ -19,11 +19,12 @@ pyYAHTS works on any Cisco OS IOS / IOS-XE / IOS-XR / NXOS
 
 pyYAHTS requires the follow options be speficied at runtime:
 
-1. Hostname of the device - must exactly match the configured hostname
-2. Operating System - Either ios, iosxe, iosxr, or nxos
-3. Username
-4. Password
-5. Either a pyATS Learn Function, such as ospf, or any supported pyATS Parsed CLI Show Command, such as "show ip interface brief"
+1. (Required) Hostname of the device - must exactly match the configured hostname
+2. (Required) Operating System - Either ios, iosxe, iosxr, or nxos
+3. (Required) Username
+4. (Required) Password
+5. (Required) Command - Either a pyATS Learn Function, such as ospf, or any supported pyATS Parsed CLI Show Command, such as "show ip interface brief"
+6. (Optional) Filetype - Creates an output file - Supported filetpyes: JSON, YAML
 
 ![Help](images/help01.png)
 
@@ -67,12 +68,13 @@ Command: ospf
 Command: ospf
 ```
 
-## Creating JSON files
+## Creating Output files
 
-Of course you can also redirect the printed output to a JSON file! 
+If you include the optional --filetype flag you can create JSON and YAML files from the data 
 
 ```python
-pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf > dist_sw01_learned_ospf.json
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype json
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype yaml
 ```
 ## Help
 
