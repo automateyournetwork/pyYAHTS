@@ -24,7 +24,7 @@ pyYAHTS requires the follow options be speficied at runtime:
 3. (Required) Username
 4. (Required) Password
 5. (Required) Command - Either a pyATS Learn Function, such as ospf, or any supported pyATS Parsed CLI Show Command, such as "show ip interface brief"
-6. (Optional) Filetype - Creates an output file - Supported filetpyes: JSON, YAML
+6. (Optional) Filetype - Creates an output file - Supported filetpyes: JSON, YAML, HTML
 
 ![Help](images/help01.png)
 
@@ -75,6 +75,7 @@ If you include the optional --filetype flag you can create JSON and YAML files f
 ```python
 pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype json
 pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype yaml
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype html
 ```
 ## Help
 
