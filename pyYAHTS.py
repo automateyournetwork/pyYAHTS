@@ -78,7 +78,7 @@ class GetJson():
 
 @click.command()
 @click.option('--hostname', prompt='Hostname', help='Hostname of device - must match the device', required=True)
-@click.option('--os', prompt='OS', type=click.Choice(['ios', 'iosxe', 'nxos', 'iosxr'], case_sensitive=True), help='OS of device - must match the device', required=True)
+@click.option('--os', prompt='OS', type=click.Choice(['ios', 'iosxe', 'iosxr', 'nxos'], case_sensitive=True), help='OS of device - must match the device', required=True)
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
