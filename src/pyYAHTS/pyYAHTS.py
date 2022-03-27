@@ -36,10 +36,13 @@ class GetJson():
     def print_json(self):
         parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
         print_json(parsed_json)
-        if self.filetype:
-            self.pick_filetype(parsed_json)
-        if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
-            self.send_email(parsed_json)
+        if "Cannot" in parsed_json:
+            click.secho("No Data To Create File", fg='red')
+        else:
+            if self.filetype:
+                self.pick_filetype(parsed_json)
+            if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
+                self.send_email(parsed_json)            
 
     def pick_filetype(self, parsed_json):
         if self.filetype == "none":
@@ -88,7 +91,7 @@ class GetJson():
         env = Environment(loader=FileSystemLoader(template_dir))
         datatable_template = env.get_template('datatable.j2')
         datatable_output = datatable_template.render(table=html_version)
-        with open(f'{self.hostname} {self.command}_datatable.html', 'w') as f:
+        with open(f'{self.hostname} {self.command}.html', 'w') as f:
             f.write(datatable_output)
         click.secho(f"Datatable file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green')
 
@@ -108,9 +111,20 @@ class GetJson():
             f.write(markdown_table)
         click.secho(f"Markdown file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
 
-    def csv_file(self, parsed_json, expand_all=False):
-        df = pd.json_normalize(json.loads(parsed_json))
-        df.to_csv(f'{self.hostname} {self.command}.csv', index=False)
+    def csv_file(self, parsed_json):
+        supported_templates = ['acl','arp','bgp','dot1x','hsrp','interface','lldp','ntp','ospf','platform','routing','stp','vlan','show ip interface brief']
+        for template in supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(template_dir))
+                csv_template = env.get_template(f'{self.os} csv.j2')              
+                csv_output = csv_template.render(command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command}.csv', 'w') as f:
+                    f.write(csv_output)
+                break          
+            else:
+                df = pd.json_normalize(json.loads(parsed_json))
+                df.to_csv(f'{self.hostname} {self.command}.csv', index=False)
         click.secho(f"CSV file created at { sys.path[0] }/{self.hostname} {self.command}.csv", fg='green')
 
     def send_email(self, parsed_json):
@@ -197,17 +211,17 @@ class GetJson():
                 try:
                     command_output = device.learn(self.command)
                 except:
-                    command_output = "Cannot Learn Config"
+                    command_output = f"Cannot Parse { self.command }"
             elif self.command == "platform":
                 try:
                     command_output = device.learn(self.command).to_dict()
                 except:
-                    command_output = "Cannot Learn Platform"
+                    command_output = f"Cannot Parse { self.command }"
             else:
                 try:
                     command_output = device.learn(self.command).info
                 except:
-                    command_output = f"Cannot Learn { self.command }"
+                    command_output = f"Cannot Parse { self.command }"
             return(command_output)
 
 @click.command()
