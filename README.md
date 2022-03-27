@@ -24,7 +24,9 @@ pyYAHTS requires the follow options be speficied at runtime:
 3. (Required) Username
 4. (Required) Password
 5. (Required) Command - Either a pyATS Learn Function, such as ospf, or any supported pyATS Parsed CLI Show Command, such as "show ip interface brief"
-6. (Optional) Filetype - Creates an output file - Supported filetpyes: JSON, YAML, HTML
+6. (Optional) Filetype - Creates an output file - 
+
+    Supported filetpyes: JSON, YAML, HTML, Datatable HTML, Markdown, PDF, CSV
 
 ![Help](images/help01.png)
 
@@ -76,7 +78,29 @@ If you include the optional --filetype flag you can create JSON and YAML files f
 pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype json
 pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype yaml
 pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype html
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype datatable
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype markdown
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype pdf
+pyYAHTS --hostname dist-sw01 --os nxos --username cisco --password cisco --command ospf --filetype csv
 ```
+
+## E-Mail Network State
+
+If you include the optional E-Mail flags you can send the network state data using GMail 
+
+You will have to enable IMAP permissions on your GMail Account [Enable IMAP in GMail](https://support.google.com/mail/answer/7126229?hl=en#zippy=%2Cstep-check-that-imap-is-turned-on)
+
+You may also have to enable support for [Less Secure Apps](https://support.google.com/accounts/answer/6010255?hl=en)
+
+The three required flags to send an email are:
+
+--from_email - Your GMail Address
+
+--email_password - Your Gmail Password
+
+--to_email - The recipients Email
+
+Additonally if you specify a filetype (--filetype) the output file will be automatically attached to the email
 ## Help
 
 pyYAHTS includes a handy Rich Click Help! Simple type:
