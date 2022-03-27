@@ -28,6 +28,14 @@ pyYAHTS requires the follow options be speficied at runtime:
 
     Supported filetpyes: JSON, YAML, HTML, Datatable HTML, Markdown, PDF, CSV
 
+7. (Optional) Email - 3 required fields if you want to e-mail the output with GMail
+
+    --from_email - Your GMail Address
+
+    --email_password - Your Gmail Password
+
+    --to_email - The recipients Email
+    
 ![Help](images/help01.png)
 
 For a list of supported Learn Functions please visit [Available Learn Functions](https://pubhub.devnetcloud.com/media/genie-feature-browser/docs/#/models)
