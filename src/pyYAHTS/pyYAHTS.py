@@ -120,17 +120,35 @@ class GetJson():
         receiver_email = self.to_email
         password = self.email_password
 
-        message = MIMEMultipart("alternative")
+        message = MIMEMultipart()
         message["From"] = sender_email
         message["To"] = receiver_email
         message["Subject"] = subject
 
         message.attach(MIMEText(body, "plain"))
 
+        if self.filetype:
+            print(self.filetype)
+            filename = f'{self.hostname} {self.command}.{self.filetype}'
+            with open(filename, "rb") as attachment:
+                part = MIMEBase("application", "octet-stream")
+                part.set_payload(attachment.read())
+                
+            encoders.encode_base64(part)
+            part.add_header(
+                "Content-Disposition",
+                f"attachment; filename= {filename}",
+            )
+            message.attach(part)
+            text = message.as_string()
+        else:
+            print("if filetype is none")
+            text = message.as_string()
+
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, message.as_string())
+            server.sendmail(sender_email, receiver_email, text)
             click.secho(f"Email sent to {receiver_email}", fg='green')
 
     # Create Testbed
