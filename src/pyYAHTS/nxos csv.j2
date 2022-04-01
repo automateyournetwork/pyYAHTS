@@ -439,4 +439,46 @@ Total Entries
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
-{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}
+{%- else %}
+{%- if command == "show ip route" %}VRF,Address Family,Route,Active,Metric,Route Preference,Source Protocol,M Best,U Best,Next Hop Index,Next Hop,Best Unicast Nexthop,Metric,Route Preference,Source Protocol,Updated
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ vrf }},{{ address_family }},{{ route }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].mbest }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].ubest }},{{ next_hop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].best_ucast_nexthop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].metric }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].route_preference }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].source_protocol }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show ip route vrf all" %}VRF,Address Family,Route,Active,Metric,Route Preference,Source Protocol,M Best,U Best,Next Hop Index,Next Hop,Best Unicast Nexthop,Metric,Route Preference,Source Protocol,Updated
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ vrf }},{{ address_family }},{{ route }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].mbest }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].ubest }},{{ next_hop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].best_ucast_nexthop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].metric }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].route_preference }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].source_protocol }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show mac address-table" %}VLAN,MAC Address,Interface,Entry Type,Age
+{%-     for vlan in data_to_template['mac_table'].vlans %}
+{%-         for mac in data_to_template['mac_table'].vlans[vlan].mac_addresses %}
+{%-             for interface in data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces %}
+{{ vlan }},{{ mac }},{{ interface }},{{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].mac_type }},{{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].age }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show version" %}Bootflash,Chassis,CPU,Device Name,Memory,Model,Processor Board ID,RP,Slots,Kernel Uptime,Name,OS,Last Reload Reason,BIOS Compile Time,BIOS Version,Kickstart Compile Time,Kickstart Image,Kickstart Version,System Compile Time,System Image File,System Version
+{{ data_to_template['platform'].hardware.bootflash }},{{ data_to_template['platform'].hardware.chassis }},{{ data_to_template['platform'].hardware.cpu }},{{ data_to_template['platform'].hardware.device_name }},{{ data_to_template['platform'].hardware.memory }},{{ data_to_template['platform'].hardware.model }},{{ data_to_template['platform'].hardware.processor_board_id }},{{ data_to_template['platform'].hardware.rp }},{{ data_to_template['platform'].hardware.slots }},{{ data_to_template['platform'].kernel_uptime.days }} {{ data_to_template['platform'].kernel_uptime.hours }} {{ data_to_template['platform'].kernel_uptime.minutes }} {{ data_to_template['platform'].kernel_uptime.seconds }},{{ data_to_template['platform'].name }},{{ data_to_template['platform'].os }},{{ data_to_template['platform'].reason }},{{ data_to_template['platform'].software.bios_compile_time }},{{ data_to_template['platform'].software.bios_version }},{{ data_to_template['platform'].software.kickstart_compile_time }},{{ data_to_template['platform'].software.kickstart_image_file }},{{ data_to_template['platform'].software.kickstart_version }},{{ data_to_template['platform'].software.system_compile_time }},{{ data_to_template['platform'].software.system_image_file }},{{ data_to_template['platform'].software.system_version }}
+{%- else %}
+{%- if command == "show vlan" %}VLAN,Interface,Name,State,Shutdown,Type,Mode
+{%-     for vlan in data_to_template['vlans'] %}
+{%-         for interface in data_to_template['vlans'][vlan].interfaces %}
+{{ vlan }},{{ interface }},{{ data_to_template['vlans'][vlan].name }},{{ data_to_template['vlans'][vlan].state }},{{ data_to_template['vlans'][vlan].shutdown }},{{ data_to_template['vlans'][vlan].type }},{{ data_to_template['vlans'][vlan].mode }}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

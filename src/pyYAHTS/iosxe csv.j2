@@ -488,4 +488,62 @@ Number of Aggregators,Number of LAG in use
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
-{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}
+{%- else %}
+{%- if command == "show ip route" %}VRF,Address Family,Route,Active,Metric,Route Preference,Source Protocol,Source Protocol Code,Next Hop Number,Next Hop,Outgoing Interface,Updated
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-                 if data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list is defined %}
+{%-                     for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ vrf }},{{ address_family }},{{ route }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }},{{ next_hop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].outgoing_interface }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }}
+{%-                     endfor %}
+{%-                 else %}
+{{ vrf }},{{ address_family }},{{ route }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }},{{ next_hop }},N/A,N/A,N/A
+{%-                 endif %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show license summary' %}Name,License,Entitlement,Count,Status
+{%-     for license in data_to_template['license_usage'] %}
+{{ license }},{{ data_to_template['license_usage'][license].license }},{{ data_to_template['license_usage'][license].entitlement }},{{ data_to_template['license_usage'][license].count }},{{ data_to_template['license_usage'][license].status }}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show mac address-table" %}VLAN,MAC Address,Interface,Entry Type
+{%-     for vlan in data_to_template['mac_table'].vlans %}
+{%-         for mac in data_to_template['mac_table'].vlans[vlan].mac_addresses %}
+{%-             for interface in data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces %}
+{{ vlan }},{{ mac }},{{ interface }},{{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].entry_type }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show ntp associations" %}Server Address,Reference Clock,Stratum,Poll,Reach,Delay,Offset,Dispersion
+{%-     for peer in data_to_template.peer %}
+{{ peer }},{{ data_to_template['peer'][peer]['local_mode']['client']['refid'] }},{{ data_to_template['peer'][peer]['local_mode']['client']['stratum'] }},{{ data_to_template['peer'][peer]['local_mode']['client']['poll'] }},{{ data_to_template['peer'][peer]['local_mode']['client']['reach'] }},{{ data_to_template['peer'][peer]['local_mode']['client']['delay'] }},{{ data_to_template['peer'][peer]['local_mode']['client']['offset'] }},{{ data_to_template['peer'][peer]['local_mode']['client']['offset'] }}
+{%-     endfor %}
+Clock State
+{{ data_to_template['clock_state']['system_status']['clock_state'] }}
+{%- else %}
+{%- if command == "show version" %}Hostname,Platform,Chassis,Version,Image ID,OS,Uptime,Last Reload,Last Reload Reason,Interfaces,Total Memory,Used Memeory,Serial Number,License Type
+{{ data_to_template['version'].hostname }},{{ data_to_template['version'].platform }},{{ data_to_template['version'].chassis }},{{ data_to_template['version'].version }},{{ data_to_template['version'].image_id }},{{ data_to_template['version'].os }},{{ data_to_template['version'].uptime | replace(","," ") }},{{ data_to_template['version'].system_restarted_at | replace(","," ") }},{{ data_to_template['version'].last_reload_reason | replace(","," ") }},{{ data_to_template['version'].number_of_intfs | replace(","," ") | replace("{","") | replace("}","") }},{{ data_to_template['version'].main_mem }},{{ data_to_template['version'].mem_size | replace(","," ") | replace("{","") | replace("}","") }},{{ data_to_template['version'].chassis_sn }},{{ data_to_template['version'].license_type }}
+{%- else %}
+{%- if command == "show vlan" %}VLAN,Interface,Name,State,Shutdown,MTU
+{%-     for vlan in data_to_template['vlans'] %}
+{%-         for interface in data_to_template['vlans'][vlan].interfaces %}
+{{ vlan }},{{ interface }},{{ data_to_template['vlans'][vlan].name }},{{ data_to_template['vlans'][vlan].state }},{{ data_to_template['vlans'][vlan].shutdown }},{{ data_to_template['vlans'][vlan].mtu }}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if filetype_loop == 0 %}VRF,Protocols,Interfaces
+{%-     for vrf in to_parse_vrf %}
+{%-         for interface in to_parse_vrf[vrf].interfaces %}
+{%-             for protocol in to_parse_vrf[vrf].protocols %}
+{%-                 if interface != "ipv4" %}
+{{ vrf }},{{ protocol }},{{ interface }}
+{%-                 endif %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

@@ -151,7 +151,15 @@ class GetJson():
                             'show ip ospf neighbor detail',
                             'show ip ospf neighbors detail',
                             'show ip ospf neighbors detail vrf all',
-                            'show port-channel summary']
+                            'show ip route',
+                            'show ip route vrf all',
+                            'show license summary',
+                            'show mac address-table',
+                            'show ntp associations',
+                            'show port-channel summary',
+                            'show version',
+                            'show vlan',
+                            'show vrf']
         for template in supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
