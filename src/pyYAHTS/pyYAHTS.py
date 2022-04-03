@@ -256,27 +256,33 @@ class GetJson():
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
+        n=10
         for device in self.connect_device():
-            device.connect(log_stdout=False)
+            for n in track(range(n), description='Connecting to devices'):
+                device.connect(log_stdout=False)
         # Parse or Learn based on command
             if 'show' in self.command:
                 try:
-                    command_output = device.parse(self.command)
+                    for n in track(range(n), description='Parsing Show Command'):
+                        command_output = device.parse(self.command)
                 except:
                     command_output = f"Cannot Parse { self.command }"
             elif self.command == "config":
                 try:
-                    command_output = device.learn(self.command)
+                    for n in track(range(n), description='Parsing Show Config'):
+                        command_output = device.learn(self.command)
                 except:
                     command_output = f"Cannot Parse { self.command }"
             elif self.command == "platform":
                 try:
-                    command_output = device.learn(self.command).to_dict()
+                    for n in track(range(n), description='Parsing Show Platform'):
+                        command_output = device.learn(self.command).to_dict()
                 except:
                     command_output = f"Cannot Parse { self.command }"
             else:
                 try:
-                    command_output = device.learn(self.command).info
+                    for n in track(range(n), description='Parsing Learn Command'):
+                        command_output = device.learn(self.command).info
                 except:
                     command_output = f"Cannot Parse { self.command }"
             return(command_output)
