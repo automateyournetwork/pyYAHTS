@@ -12,6 +12,7 @@ from pyats.topology import Testbed, Device
 from genie import testbed
 from rich import print_json
 from rich.console import Console
+from rich.progress import track
 from json2table import convert
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
@@ -62,6 +63,8 @@ class GetJson():
             self.markdown_file(parsed_json)
         elif self.filetype == 'csv':
             self.csv_file(parsed_json)
+        elif self.filetype == 'svg':
+            self.svg_file(parsed_json)
     
     def json_file(self, parsed_json):
         with open(f'{self.hostname} {self.command}.json', 'w') as f:
@@ -174,6 +177,13 @@ class GetJson():
                 df.to_csv(f'{self.hostname} {self.command}.csv', index=False)
         click.secho(f"CSV file created at { sys.path[0] }/{self.hostname} {self.command}.csv", fg='green')
 
+    def svg_file(self, parsed_json):
+        console = Console(record=True)
+        console.print(parsed_json)
+        console.save_svg(f"{self.hostname} {self.command}.svg", title=f"{self.hostname} {self.command}")
+        import webbrowser
+        webbrowser.open(f"{self.hostname} {self.command}.svg")
+
     def send_email(self, parsed_json):
         subject = f"An Email from pyYAHTS Device {self.hostname} and Command {self.command}"
         body = parsed_json
@@ -277,7 +287,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','markdown','pdf','csv'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 @click.option('--from_email', prompt='From Email', help='Email address to send output from', required=False, default='none')
 @click.option('--email_password', prompt='Email Password', hide_input=True, help='Email account password', required=False, default='none')
 @click.option('--to_email', prompt='To Email', help='Email address to send output to', required=False, default='none')
