@@ -33,6 +33,54 @@ class GetJson():
         self.from_email = from_email
         self.email_password = email_password
         self.to_email = to_email
+        self.supported_templates = ['acl',
+                            'arp',
+                            'bgp',
+                            'dot1x',
+                            'hsrp',
+                            'interface',
+                            'lldp',
+                            'ntp',
+                            'ospf',
+                            'platform',
+                            'routing',
+                            'stp',
+                            'vlan',
+                            'vrf',
+                            'show access-lists',
+                            'show bgp process vrf all',
+                            'show bgp sessions',
+                            'show cdp neighbors',
+                            'show cdp neighbors detail',
+                            'show environment',
+                            'show etherchannel summary',
+                            'show interfaces',
+                            'show interfaces status',
+                            'show interfaces trunk',
+                            'show interface',
+                            'show interface status',
+                            'show interface transceiver',
+                            'show inventory',
+                            'show ip arp',
+                            'show ip arp vrf all',
+                            'show ip interface brief',
+                            'show ip ospf',
+                            'show ip ospf database',
+                            'show ip ospf interface',
+                            'show ip ospf interface vrf all',
+                            'show ip ospf neighbor',
+                            'show ip ospf neighbor detail',
+                            'show ip ospf neighbors detail',
+                            'show ip ospf neighbors detail vrf all',
+                            'show ip route',
+                            'show ip route vrf all',
+                            'show license summary',
+                            'show mac address-table',
+                            'show ntp associations',
+                            'show port-channel summary',
+                            'show version',
+                            'show vlan',
+                            'show vrf']
 
     def print_json(self):
         parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
@@ -108,62 +156,24 @@ class GetJson():
         click.secho(f"PDF file created at { sys.path[0] }/{self.hostname} {self.command}.pdf", fg='green')
 
     def markdown_file(self, parsed_json):
-        df = pd.json_normalize(json.loads(parsed_json),max_level=2)
-        markdown_table = df.to_markdown(index='false')
-        with open(f'{self.hostname} {self.command}.md', 'w') as f:
-            f.write(markdown_table)
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(template_dir))
+                markdown_template = env.get_template(f'{self.os} md.j2')              
+                markdown_output = markdown_template.render(command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command}.md', 'w') as f:
+                    f.write(markdown_output)
+                break          
+            else:
+                df = pd.json_normalize(json.loads(parsed_json),max_level=2)
+                markdown_table = df.to_markdown(index='false')
+                with open(f'{self.hostname} {self.command}.md', 'w') as f:
+                    f.write(markdown_table)
         click.secho(f"Markdown file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
 
     def csv_file(self, parsed_json):
-        supported_templates = ['acl',
-                            'arp',
-                            'bgp',
-                            'dot1x',
-                            'hsrp',
-                            'interface',
-                            'lldp',
-                            'ntp',
-                            'ospf',
-                            'platform',
-                            'routing',
-                            'stp',
-                            'vlan',
-                            'vrf',
-                            'show access-lists',
-                            'show bgp process vrf all',
-                            'show bgp sessions',
-                            'show cdp neighbors',
-                            'show cdp neighbors detail',
-                            'show environment',
-                            'show etherchannel summary',
-                            'show interfaces',
-                            'show interfaces status',
-                            'show interfaces trunk',
-                            'show interface',
-                            'show interface status',
-                            'show interface transceiver',
-                            'show inventory',
-                            'show ip arp',
-                            'show ip arp vrf all',
-                            'show ip interface brief',
-                            'show ip ospf',
-                            'show ip ospf database',
-                            'show ip ospf interface',
-                            'show ip ospf interface vrf all',
-                            'show ip ospf neighbor',
-                            'show ip ospf neighbor detail',
-                            'show ip ospf neighbors detail',
-                            'show ip ospf neighbors detail vrf all',
-                            'show ip route',
-                            'show ip route vrf all',
-                            'show license summary',
-                            'show mac address-table',
-                            'show ntp associations',
-                            'show port-channel summary',
-                            'show version',
-                            'show vlan',
-                            'show vrf']
-        for template in supported_templates:
+        for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(template_dir))

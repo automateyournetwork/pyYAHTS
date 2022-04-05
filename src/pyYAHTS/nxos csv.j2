@@ -102,7 +102,7 @@ Total Entries,Input Drops,Input Reply Packets,Input Request Packets,Input Total,
 {%-     endfor %}
 Hello Timer,Hold Timer,Aged Out Entries,Frame Discards,Frame Input Errors,Frame Input,Frame Output,TLV Unknown
 {{ data_to_template.hello_timer }},{{ data_to_template.hold_timer }},{{ data_to_template.counters.entries_aged_out }},{{ data_to_template.counters.frame_discard }},{{ data_to_template.counters.frame_error_in }},{{ data_to_template.counters.frame_in }},{{ data_to_template.counters.frame_out }},{{ data_to_template.counters.tlv_unknown }}
-Suppress TLV Advertisement Management Address,Suppress TLV Advertisement Port Descriptiom,Suppress TLV Advertisement System Capabilities,Suppress TLV Advertisement System Description,Suppress TLV Advertisement System Name
+Suppress TLV Advertisement Management Address,Suppress TLV Advertisement Port Description,Suppress TLV Advertisement System Capabilities,Suppress TLV Advertisement System Description,Suppress TLV Advertisement System Name
 {{ data_to_template.suppress_tlv_advertisement.management_address }},{{ data_to_template.suppress_tlv_advertisement.port_description }},{{ data_to_template.suppress_tlv_advertisement.system_capabilities }},{{ data_to_template.suppress_tlv_advertisement.system_description }},{{ data_to_template.suppress_tlv_advertisement.system_name }}
 {%- else %}
 {%- if command == "ntp" %}VRF,Association Address,Delay,Configured,Local Mode,Offset,Poll,Reach,Receive Time,Reference ID,Stratum
@@ -113,8 +113,6 @@ Suppress TLV Advertisement Management Address,Suppress TLV Advertisement Port De
 {{ vrf }},{{ address }},{{ value.delay }},{{ value.isconfigured }},{{ value.local_mode }},{{ value.offset }},{{ value.poll }},{{ value.reach }},{{ value.receive_time }},{{ value.refid }},{{ value.stratum }}
 {%-                endfor %}
 {%-            endfor %}
-{%-        else %}
-N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
 {%-        endif %}
 {%-    endfor %}
 VRF,Server Address,Source,Type,VRF
