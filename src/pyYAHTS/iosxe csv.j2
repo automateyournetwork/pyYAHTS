@@ -26,22 +26,24 @@
 {%-                if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}
 {%-                    if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}
 {%-                        if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
-{{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},Source Protocol,N/A,N/A,UDP,{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}{%- else %}N/A,N/A{% endif %}{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined %}
-{{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},N/A,Destination Protocol,N/A,UDP,{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}{% else %}N/A,N/A{% endif %}
-{%-                        endif %}
-{%-                    endif %}
-{%-                else %}
-{%-                    if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}
-{%-                        if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
-{{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},Source Protocol,N/A,N/A,TCP,{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}{% else %}N/A,N/A{% endif %}
+{{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},Source Protocol,N/A,N/A,UDP,{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}{%- else %}N/A,N/A{% endif %}
 {%-                        else %}
-{%-                            if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined %}
+{%-                            if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined %}
+{{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},N/A,Destination Protocol,N/A,UDP,{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}{% else %}N/A,N/A{% endif %}
+{%-                            endif %}
+{%-                        endif %}
+{%-                    else %}
+{%-                        if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}
+{%-                            if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+{{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},Source Protocol,N/A,N/A,TCP,{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}{% else %}N/A,N/A{% endif %}
+{%-                            else %}
+{%-                                if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined %}
 {{ list }},{{ ace }},{{ data_to_template['acls'][list].aces[ace].actions.forwarding }},{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},N/A,Destination Protocol,N/A,TCP,{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %}{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }},{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}{% else %}N/A,N/A{% endif %}
+{%-                                endif %}
 {%-                            endif %}
 {%-                        endif %}
 {%-                    endif %}
 {%-                endif %}
-{%-            endif %}
 {%-            endfor %}
 {%-      else %}
 {{ list }},No ACEs,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
@@ -128,8 +130,6 @@ Enabled,Hello Timer,Hold Timer,Aged Out Entries,Frame Discards,Frame Input Error
 {{ vrf }},{{ address }},{{ value.delay }},{{ value.isconfigured }},{{ value.local_mode }},{{ value.offset }},{{ value.poll }},{{ value.reach }},{{ value.receive_time }},{{ value.refid }},{{ value.stratum }}
 {%-                 endfor %}
 {%-             endfor %}
-{%-        else %}
-N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
 {%-         endif %}
 {%-     endfor %}
 VRF,Server Address,Preferred,Type
@@ -251,7 +251,7 @@ VLAN,IP IGMT Snooping
 {%-     for vlan in data_to_template['vlans'].configuration %}
 {{ vlan }},{{ data_to_template['vlans'][vlan].ip_igmp_snooping }}
 {%-     endfor %}
-Interface VLAN Enabled, VN Segment VLAN Based Enabled
+Interface VLAN Enabled,VN Segment VLAN Based Enabled
 {{ data_to_template['vlans'][interface_vlan_enabled] }},{{ data_to_template['vlans'][vn_segment_vlan_based_enabled] }}
 {%- else %}
 {%- if command == 'vrf' %}VRF,Description,Address Family,Route Target,Route Target Type,Route Distinguisher
@@ -452,7 +452,7 @@ Number of Aggregators,Number of LAG in use
 {%-         endfor %}
 {%-     endfor %}
 {%- else %}
-{%- if command == "show ip ospf interface" %}VRF,Address Family,Instance,Area,Interface,Name,Interface Type,Passive,IP Address,Router ID,,BFD,Cost,Dead Interval,Enabled,Graceful Restart Type,GR Helper,Hello Interval,Hello Timer,Index,Retransmit Interval,State,Neighbor Count,Transmit Delay,Wait Interval
+{%- if command == "show ip ospf interface" %}VRF,Address Family,Instance,Area,Interface,Name,Interface Type,Passive,IP Address,Router ID,BFD,Cost,Dead Interval,Enabled,Graceful Restart Type,GR Helper,Hello Interval,Hello Timer,Index,Retransmit Interval,State,Neighbor Count,Transmit Delay,Wait Interval
 {%-     for vrf in data_to_template['vrf'] %}
 {%-         for address_family in data_to_template['vrf'][vrf].address_family %}
 {%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
@@ -535,7 +535,7 @@ Clock State
 {%-         endfor %}
 {%-     endfor %}
 {%- else %}
-{%- if filetype_loop == 0 %}VRF,Protocols,Interfaces
+{%- if command == "show vrf" %}VRF,Protocols,Interfaces
 {%-     for vrf in to_parse_vrf %}
 {%-         for interface in to_parse_vrf[vrf].interfaces %}
 {%-             for protocol in to_parse_vrf[vrf].protocols %}
