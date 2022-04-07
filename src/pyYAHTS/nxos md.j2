@@ -237,7 +237,7 @@
 | {{ vlan }} | {{ data_to_template['vlans'][vlan].name }} | {{ data_to_template['vlans'][vlan].state }} | {{ data_to_template['vlans'][vlan].shutdown }} | N/A |
 {%-         endif %}
 {%-     endfor %}
-| VLAN | IP IGMT Snooping |
+| VLAN | IP IGMP Snooping |
 | ---- | ---------------- |
 {%-     for vlan in data_to_template['vlans'].configuration %}
 | {{ vlan }} | {{ data_to_template['vlans'].configuration[vlan].ip_igmp_snooping }} |
