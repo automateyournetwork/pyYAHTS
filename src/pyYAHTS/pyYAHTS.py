@@ -53,6 +53,7 @@ class GetJson():
                             'show cdp neighbors',
                             'show cdp neighbors detail',
                             'show environment',
+                            'show environment all',
                             'show etherchannel summary',
                             'show interfaces',
                             'show interfaces status',
@@ -102,9 +103,6 @@ class GetJson():
             self.yaml_file(parsed_json)
         elif self.filetype == 'html':
             self.html_file(parsed_json)
-        elif self.filetype == 'datatable':
-            datatable = "True"
-            self.html_file(parsed_json, datatable)
         elif self.filetype == 'pdf':
             self.pdf_file(parsed_json)
         elif self.filetype == 'markdown':
@@ -125,26 +123,24 @@ class GetJson():
             f.write(clean_yaml)
         click.secho(f"YAML file created at { sys.path[0] }/{self.hostname} {self.command}.yaml", fg='green')
 
-    def html_file(self, parsed_json, datatable):
-        good_json = json.loads(parsed_json)
-        build_direction = "TOP_TO_BOTTOM"
-        table_attributes = {"style" : "width:100%"}
-        html_version = convert(good_json, build_direction=build_direction, table_attributes=table_attributes)
-        if datatable == "True":
-            self.datatable_file(html_version)
-        else:                    
-            with open(f'{self.hostname} {self.command}.html', 'w') as f:
-                f.write(html_version)
-            click.secho(f"HTML file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green') 
-
-    def datatable_file(self, html_version):
-        template_dir = Path(__file__).resolve().parent
-        env = Environment(loader=FileSystemLoader(template_dir))
-        datatable_template = env.get_template('datatable.j2')
-        datatable_output = datatable_template.render(table=html_version)
-        with open(f'{self.hostname} {self.command}.html', 'w') as f:
-            f.write(datatable_output)
-        click.secho(f"Datatable file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green')
+    def html_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(template_dir))
+                html_template = env.get_template(f'{self.os} html.j2')              
+                html_output = html_template.render(command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command}.html', 'w') as f:
+                    f.write(html_output)
+                break          
+            else:        
+                good_json = json.loads(parsed_json)
+                build_direction = "TOP_TO_BOTTOM"
+                table_attributes = {"style" : "width:100%"}
+                html_version = convert(good_json, build_direction=build_direction, table_attributes=table_attributes)                 
+                with open(f'{self.hostname} {self.command}.html', 'w') as f:
+                    f.write(html_version)
+        click.secho(f"HTML file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green') 
 
     def pdf_file(self, parsed_json):
         pdf = FPDF()

@@ -1,0 +1,2637 @@
+{%- if command == "acl" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn Access-Lists</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>Access Control List</th>
+    <th>Access Control Entry</th>
+    <th>Permission</th>
+    <th>Logging</th>
+    <th>Source Network</th>
+    <th>Destination Network</th>
+    <th>L3 Protocol</th>
+    <th>L4 Protocol</th>
+    <th>Operator</th>
+    <th>Port</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for list in data_to_template['acls'] %}{% if data_to_template['acls'][list].aces is defined %}{% for ace in data_to_template['acls'][list].aces %}{% if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}{% for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endfor %}{% else %}{% for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endfor %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+<tr>
+    <td>{{ list }}</td>
+    <td>No ACEs</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endif %}{% endfor %}{% for list in data_to_template['acls'] %}{% if data_to_template['acls'][list].aces is defined %}{% for ace in data_to_template['acls'][list].aces %}{% if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>Source Protocol</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>UDP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>N/A</td>
+    <td>Destination Protocol</td>
+    <td>N/A</td>
+    <td>UDP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% endif %}{% endif %}{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>Source Protocol</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>TCP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>N/A</td>
+    <td>Destination Protocol</td>
+    <td>N/A</td>    
+    <td>TCP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+<tr>
+    <td>{{ list }}</td>
+    <td>No ACEs</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endif %}{% endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "arp" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn ARP</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>Interface</th>
+    <th>Neighbor IP Address</th>
+    <th>Neighbor MAC Address</th>
+    <th>Origin</th>
+    <th>ARP Dynamic Learning Local Proxy Enabled</th>
+    <th>ARP Dynamic Learning Proxy Enable</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in data_to_template['interfaces'] %}{% if data_to_template['interfaces'][interface].ipv4 is defined %}{% for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+<tr>
+    <td>{{ interface }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }}</td>
+    <td>{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }}</td>
+    <td>{{ data_to_template['interfaces'][interface].arp_dynamic_learning.local_proxy_enable }}</td>
+    <td>{{ data_to_template['interfaces'][interface].arp_dynamic_learning.proxy_enable }}</td>{% endfor %}{% else %}
+    <td>{{ interface }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['interfaces'][interface].arp_dynamic_learning.local_proxy_enable }}</td>
+    <td>{{ data_to_template['interfaces'][interface].arp_dynamic_learning.proxy_enable }}</td>
+  </tr>{% endif %}{% endfor %} 
+  </tbody>
+</table>
+<h1>Learn ARP Statistics</h1>
+<table id = "datatable02">
+  <thead>
+  <tr>
+    <th>Total Entries</th>
+    <th>Input Drops</th>
+    <th>Input Reply Packets</th>
+    <th>Input Request Packets</th>
+    <th>Input Total</th>
+    <th>Incomplete Total</th>
+    <th>Output Drops</th>
+    <th>Output Gratuitous Packets</th>
+    <th>Output Reply Packets</th>
+    <th>Output Request Packets</th>
+    <th>Output Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{ data_to_template['statistics'].entries_total }}</td>
+    <td>{{ data_to_template['statistics'].in_drops }}</td>
+    <td>{{ data_to_template['statistics'].in_replies_pkts }}</td>
+    <td>{{ data_to_template['statistics'].in_requests_pkts }}</td>
+    <td>{{ data_to_template['statistics'].in_total | default("N/A") }}</td>
+    <td>{{ data_to_template['statistics'].incomplete_total }}</td>
+    <td>{{ data_to_template['statistics'].out_drops | default("N/A") }}</td>
+    <td>{{ data_to_template['statistics'].out_gratuitous_pkts | default("N/A") }}</td>
+    <td>{{ data_to_template['statistics'].out_replies_pkts }}</td>
+    <td>{{ data_to_template['statistics'].out_requests_pkts }}</td>
+    <td>{{ data_to_template['statistics'].out_total| default("N/A") }}</td>
+  </tr>
+  </tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "bgp" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn BGP</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Instance</th>
+    <th>BGP ID</th>
+    <th>State</th>
+    <th>VRF</th>
+    <th>Router ID</th>
+    <th>Cluster ID</th>
+    <th>Confederation ID</th>
+    <th>Neighbor</th>
+    <th>Version</th>
+    <th>Hold Time</th>
+    <th>Keep Alive Interval</th>
+    <th>Local AS</th>
+    <th>Remote AS</th>
+    <th>Total Recieved Messages</th>
+    <th>Total Sent Messages</th>
+    <th>Connect Last Reset</th>
+    <th>Reset Reason</th>
+  </tr>
+  </thead>
+  <tbody>
+{%-             for instance in data_to_template['instance'] %}
+{%-                 for vrf in data_to_template['instance'][instance].vrf %}
+{%-                     for neighbor in data_to_template['instance'][instance].vrf[vrf].neighbor %}
+<tr>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template['instance'][instance].bgp_id }}</td>
+    <td>{{ data_to_template['instance'][instance].protocol_state }}</td>
+    <td>{{ vrf }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].router_id }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].cluster_id }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].confederation_identifier }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_version }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].holdtime }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].keepalive_interval }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].local_as_as_no }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].remote_as }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.last_reset }}</td>
+    <td>{{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.reset_reason }}</td>
+  </tr>
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "hsrp" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn HSRP</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>VLAN</th>
+    <th>Address Family</th>
+    <th>Version</th>
+    <th>Group</th>
+    <th>Active Router</th>
+    <th>HSRP State</th>
+    <th>Preempt</th>
+    <th>IPv4 Address</th>
+    <th>Virtual IP Learn</th>
+    <th>Priority</th>
+    <th>Session Name</th>
+    <th>Standby IP Address</th>
+    <th>Standby Router</th>
+    <th>Hello Timer</th>
+    <th>Hold Timer</th>
+    <th>Virtual MAC</th>
+    <th>Use BIA</th>
+  </tr>
+  </thead>
+  <tbody>
+{%-             for vlan in data_to_template %}
+{%-                 for address_family in data_to_template[vlan].address_family %}
+{%-                     for version in data_to_template[vlan].address_family[address_family].version %}
+{%-                         for group in data_to_template[vlan].address_family[address_family].version[version].groups %}
+<tr>
+    <td>{{ vlan }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ version }}</td>
+    <td>{{ group }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].active_router }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].hsrp_router_state }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].preempt }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.virtual_ip_learn }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].priority }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].session_name }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_ip_address }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_router }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].timers.hello_sec }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].timers.hold_sec }}</td>
+    <td>{{ data_to_template[vlan].address_family[address_family].version[version].groups[group].virtual_mac_address }}</td>
+    <td>{{ data_to_template[vlan].use_bia }}</td>
+  </tr>
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == 'interface' %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn Interface</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>Interface</th>
+    <th>Description</th>
+    <th>Enabled</th>
+    <th>Status</th>
+    <th>Access VLAN</th>
+    <th>Native VLAN</th>
+    <th>Switchport</th>
+    <th>Switchport Mode</th>
+    <th>Type</th>
+    <th>Bandwidth</th>
+    <th>Auto Negotiate</th>
+    <th>Speed</th>
+    <th>Duplex</th>
+    <th>MTU</th>
+    <th>MAC Address</th>
+    <th>Physical Address</th>
+    <th>IP Address</th>
+    <th>Medium</th>
+    <th>Delay</th>
+    <th>Encapsulation</th>
+    <th>Flow Control Receive</th>
+    <th>Flow Control Send</th>
+    <th>Port Channel</th>
+    <th>Port Channel Member</th>
+    <th>Last Change</th>
+    <th>Input Broadcast</th>
+    <th>Input CRC Errors</th>
+    <th>Input Errors</th>
+    <th>Input MAC Pause Frames</th>
+    <th>Input Multicast</th>
+    <th>Input Octets</th>
+    <th>Input Unicast</th>
+    <th>Input Unknown</th>
+    <th>Input Total</th>
+    <th>Output Broadcast</th>
+    <th>Output Discard</th>
+    <th>Output Errors</th>
+    <th>Output MAC Pause Frames</th>
+    <th>Output Multicast</th>
+    <th>Output Unicast</th>
+    <th>Output Total</th>
+    <th>Last Clear</th>
+    <th>Input Rate</th>
+    <th>Load Interval</th>
+    <th>Output Rate</th>
+  </tr>
+  </thead>
+  <tbody>
+{%-              for interface in data_to_template %}
+<tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template[interface].description | default("N/A") }}</td>
+    <td>{{ data_to_template[interface].enabled | default("N/A") }}</td>
+    <td>{{ data_to_template[interface].oper_status | default("N/A") }}</td>
+    <td>{% if data_to_template[interface].access_vlan is defined %}{{ data_to_template[interface].access_vlan }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].native_vlan is defined %}{{ data_to_template[interface].native_vlan }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].switchport_enable is defined %}{{ data_to_template[interface].switchport_enable }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].switchport_mode is defined %}{{ data_to_template[interface].switchport_mode }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].type is defined %}{{ data_to_template[interface].type }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].bandwidth is defined %}{{ data_to_template[interface].bandwidth }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].auto_negotiate is defined %}{{ data_to_template[interface].auto_negotiate }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].port_speed is defined %}{{ data_to_template[interface].port_speed }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].duplex_mode is defined %}{{ data_to_template[interface].duplex_mode }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].mtu is defined %}{{ data_to_template[interface].mtu }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].mac_address is defined %}{{ data_to_template[interface].mac_address }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].phys_address is defined %}{{ data_to_template[interface].phys_address }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].ipv4 is defined %}{% for ip_address in data_to_template[interface].ipv4 %}{{ ip_address }}{% endfor %}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].medium is defined %}{{ data_to_template[interface].medium }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].delay is defined %}{{ data_to_template[interface].delay }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].encapsulation is defined %}{{ data_to_template[interface].encapsulation.encapsulation }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].flow_control is defined %}{{ data_to_template[interface].flow_control.receive }}</td>
+    <td>{{ data_to_template[interface].flow_control.send }}{% else %}N/A</td>
+    <td>N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].port_channel is defined %}{% if data_to_template[interface].port_channel.port_channel_int is defined %}{{ data_to_template[interface].port_channel.port_channel_int }}{% else %}False{% endif %}</td>
+    <td>{% if data_to_template[interface].port_channel.port_channel_member_intfs is defined %}{% for member in data_to_template[interface].port_channel.port_channel_member_intfs %}{{ member }} {% endfor %}{% else %}{% if data_to_template[interface].port_channel.port_channel_member is defined %}{{ data_to_template[interface].port_channel.port_channel_member }}{% else %}N/A{% endif %}{% endif %}{% endif %}</td>
+    <td>{% if data_to_template[interface].last_change is defined %}{{ data_to_template[interface].last_change }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters is defined %}{% if data_to_template[interface].counters.in_broadcast_pkts is defined %}{{ data_to_template[interface].counters.in_broadcast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_crc_errors is defined %}{{ data_to_template[interface].counters.in_crc_errors }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_errors is defined %}{{ data_to_template[interface].counters.in_errors }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_mac_pause_frames is defined %}{{ data_to_template[interface].counters.in_mac_pause_frames }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_multicast_pkts is defined %}{{ data_to_template[interface].counters.in_multicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_octets is defined %}{{ data_to_template[interface].counters.in_octets }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_unicast_pkts is defined %}{{ data_to_template[interface].counters.in_unicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_unknown_protos is defined %}{{ data_to_template[interface].counters.in_unknown_protos }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_pkts is defined %}{{ data_to_template[interface].counters.in_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_broadcast_pkts is defined %}{{ data_to_template[interface].counters.out_broadcast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_discard is defined %}{{ data_to_template[interface].counters.out_discard }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_errors is defined %}{{ data_to_template[interface].counters.out_errors }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_mac_pause_frames is defined %}{{ data_to_template[interface].counters.out_mac_pause_frames }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_multicast_pkts is defined %}{{ data_to_template[interface].counters.out_multicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_unicast_pkts is defined %}{{ data_to_template[interface].counters.out_unicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_pkts is defined %}{{ data_to_template[interface].counters.out_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.last_clear is defined %}{{ data_to_template[interface].counters.last_clear }}{% else %}N/A{% endif %}{% else %}N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].rate is defined %}{{ data_to_template[interface].rate.in_rate }}</td>
+    <td>{{ data_to_template[interface].rate.load_interval }}</td>
+    <td>{{ data_to_template[interface].rate.out_rate }}{% else %}N/A</td>
+    <td>N/A</td>
+    <td>N/A{% endif %}</td>
+  </tr>
+{%-                 endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == 'lldp' %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn LLDP Interfaces</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>Interface</th>
+    <th>LLDP</th>
+    <th>Neighbor</th>
+    <th>Neighbor Port</th>
+    <th>Neighbor Port Description</th>
+    <th>Capabilities</th>
+    <th>Chassis ID</th>
+    <th>Management Address</th>
+    <th>System Description</th>
+  </tr>
+  </thead>
+  <tbody>
+{%- for interface in data_to_template['interfaces'] %}{% if data_to_template['interfaces'][interface].port_id is defined %}{% for port in data_to_template['interfaces'][interface].port_id %}{% for neighbor in data_to_template['interfaces'][interface].port_id[port].neighbors %}{% for capability in data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].capabilities %}
+<tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['interfaces'][interface].enabled }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ port }}</td>
+    <td>{{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].port_description }}</td>
+    <td>{{ capability }}</td>
+    <td>{{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].chassis_id }}</td>
+    <td>{{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].management_address }}</td>
+    <td>{{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].system_description | replace("\n"," ") }}</td>
+  </tr>{% endfor %}{% endfor %}{% endfor %}{% else %}
+<tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['interfaces'][interface].enabled }}</td>
+    <td>No Neighbor</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endif %}{% endfor %}
+  </tbody>
+</table>
+<h1>Learn LLDP Counters</h1>
+<table id ="datatable02">
+  <thead>
+  <tr>
+    <th>Enabled</th>
+    <th>Hello Timer</th>
+    <th>Hold Timer</th>
+    <th>Aged Out Entries</th>
+    <th>Frame Discards</th>
+    <th>Frame Input Errors</th>
+    <th>Frame Input</th>
+    <th>Frame Output</th>
+    <th>TLV Discard</th>
+    <th>TLV Unknown</th>
+  </tr>
+  </thead>
+  <tbody>  
+  <tr>
+    <td>{{ data_to_template.enabled }}</td>
+    <td>{{ data_to_template.hello_timer }}</td>
+    <td>{{ data_to_template.hold_timer }}</td>
+    <td>{{ data_to_template.counters.entries_aged_out }}</td>
+    <td>{{ data_to_template.counters.frame_discard }}</td>
+    <td>{{ data_to_template.counters.frame_error_in }}</td>
+    <td>{{ data_to_template.counters.frame_in }}</td>
+    <td>{{ data_to_template.counters.frame_out }}</td>
+    <td>{{ data_to_template.counters.tlv_discard }}</td>
+    <td>{{ data_to_template.counters.tlv_unknown }}</td>  
+  </tr>
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "ntp" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn NTP Associations</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>VRF</th>
+    <th>Association Address</th>
+    <th>Delay</th><th>Configured</th>
+    <th>Local Mode</th>
+    <th>Offset</th>
+    <th>Poll</th>
+    <th>Reach</th>
+    <th>Receive Time</th>
+    <th>Reference ID</th>
+    <th>Stratum</th>
+  </tr>
+  </thead>
+  <tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address in data_to_template['vrf'][vrf].associations.address %}{% for is_conf,value in data_to_template['vrf'][vrf].associations.address[address].local_mode.client.isconfigured.items() %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address }}</td>
+    <td>{{ value.delay }}</td>
+    <td>{{ value.isconfigured }}</td>
+    <td>{{ value.local_mode }}</td>
+    <td>{{ value.offset }}</td>
+    <td>{{ value.poll }}</td>
+    <td>{{ value.reach }}</td>
+    <td>{{ value.receive_time }}</td>
+    <td>{{ value.refid }}</td>
+    <td>{{ value.stratum }}</td>    
+  </tr>{% endfor %}{% endfor %}{% endfor %}
+  </tbody>  
+</table>
+<h1>Learn NTP Unicast</h1>
+<table id = "datatable02">
+  <thead>
+  <tr>
+    <th>VRF</th>
+    <th>Server Address</th>
+    <th>Preferred</th>
+    <th>Type</th>
+  </tr>
+  </thead>
+  <tbody>  
+{%- for vrf in data_to_template['vrf'] %}{% for address in data_to_template['vrf'][vrf].unicast_configuration.address %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address }}</td>
+    <td>{{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.preferred }}</td>
+    <td>{{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.type }}
+  </tr>{% endfor %}{% endfor %}
+  </tbody>
+</table>
+<h1>Learn NTP Clock State</h1>
+<table id = "datatable03">
+  <thead>
+  <tr>
+    <th>Association Address</th>
+    <th>Local Mode</th>
+    <th>Clock Offset</th>
+    <th>Clock Precision</th>
+    <th>Clock Reference ID</th>
+    <th>Clock State</th>
+    <th>Clock Statum</th>
+    <th>Reference Time</th>
+    <th>Root Delay</th>
+    <th>Root Dispersion</th>  
+  </tr>
+  </thead>
+  <tbody>  
+  <tr>
+    <td>{{ data_to_template['clock_state'].system_status.associations_address }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.associations_local_mode }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.clock_offset }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.clock_precision }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.clock_refid }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.clock_state }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.clock_stratum }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.reference_time }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.root_delay }}</td>
+    <td>{{ data_to_template['clock_state'].system_status.root_dispersion }}</td>
+  </tr>
+  </tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == 'ospf' %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn OSPF</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Auto Cost Enabled</th>
+    <th>Reference Bandwidth</th>
+    <th>Instance Enable</th>
+    <th>Graceful Restart Type</th>
+    <th>Graceful Restart Enable</th>
+    <th>Restart Timer</th>
+    <th>NSR Enable</th>
+    <th>Preference</th>
+    <th>Router ID</th>
+    <th>SPF Paths</th>
+    <th>LSA Hold</th>
+    <th>LSA Max</th>
+    <th>LSA Start</th>
+    <th>SPF Hold</th>
+    <th>SPF Max</th>
+    <th>SPF Start</th>
+    <th>Area</th>
+    <th>Area Type</th>
+    <th>LSA Type</th>
+    <th>LSA</th>
+    <th>Advertising Router</th>
+    <th>Age</th>
+    <th>Checksum</th>
+    <th>Length</th>
+    <th>Option</th>
+    <th>Sequence Number</th>
+    <th>Subnet Mask</th>
+    <th>Number of Links</th>
+    <th>Link</th>
+    <th>Link Data</th>
+    <th>Link Type</th>
+    <th>Topology</th>
+    <th>Metric</th>
+    <th>Interface</th>
+    <th>Enabled</th>
+    <th>BFD</th>
+    <th>Cost</th>
+    <th>Dead Interval</th>
+    <th>Hello Interval</th>
+    <th>Hello Timer</th>
+    <th>Interface Type</th>
+    <th>Neighbor</th>
+    <th>Neighbor Address</th>
+    <th>Dead Timer</th>
+    <th>Last State Change</th>
+    <th>State</th>
+    <th>NBR Events</th>
+    <th>Passive</th>
+    <th>Retransmit Interval</th>
+    <th>Link LSA Checksum</th>
+    <th>Link LSA Count</th>
+    <th>Transmit Delay</th>
+    <th>MPLS LDP Auto Config</th>
+    <th>MPLS LDP Sync</th>
+    <th>Area LSA Checksum</th>
+    <th>Area LSA Count</th>
+    <th>SPF Count</th>
+  </tr>
+  </thead>
+  <tbody>
+{%-             for vrf in data_to_template.vrf %}
+{%-                 for address_family in data_to_template.vrf[vrf].address_family %}
+{%-                     for instance in data_to_template.vrf[vrf].address_family[address_family].instance %}
+{%-                         for graceful_restart_type in data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart %}
+{%-                             if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas is defined %}
+{%-                                 for area in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas %}
+{%-                                     if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database is defined %}
+{%-                                         for lsa_type in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
+{%-                                             for lsa in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
+{%-                                                 if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 1 %}
+{%-                                                     for link in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}
+{%-                                                         for topology in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }}</td>
+    <td>{{ graceful_restart_type }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}</td>
+    <td>{{ area }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].area_type }}</td>
+    <td>{{ lsa_type }}</td>
+    <td>{{ lsa }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}</td>
+    <td>N/A</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }}</td>
+    <td>{{ link }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}</td>
+    <td>{{ topology }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.auto_config }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.sync }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_cksum_sum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}</td>
+  </tr>
+{%-                                                         endfor %}
+{%-                                                     endfor %}
+{%-                                                 endif %}
+{% if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 3 %}
+{%-                                                 for topology in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }}</td>
+    <td>{{ graceful_restart_type }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}</td>
+    <td>{{ area }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].area_type }}</td>
+    <td>{{ lsa_type }}</td>
+    <td>{{ lsa }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.network_mask }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ topology }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies[topology].metric }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.auto_config }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.sync }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_cksum_sum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}</td>
+  </tr>
+{%-                                                 endfor %}
+{%-                                             endif %}
+{%-                                         endfor %}
+{%-                                     endfor %}
+{%-                                 endif %}
+{%-                                 for interface in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{%-                                     for neighbor in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }}</td>
+    <td>{{ graceful_restart_type }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}</td>
+    <td>{{ area }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_state_change }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-                                     endfor %}
+{%-                                 endfor %}
+{%-                             endfor %}
+{%-                         else %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }}</td>
+    <td>{{ graceful_restart_type }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-                             endif %}
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "platform" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn Platform</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>Device Type</th>
+    <th>Chassis</th>
+    <th>Serial Number</th>
+    <th>Uptime</th>
+    <th>Directory</th>
+    <th>Total Disk</th>
+    <th>Used Disk</th>
+    <th>Free Disk</th>
+    <th>Image</th>
+    <th>Main Memory</th>
+    <th>OS</th>
+    <th>Version</th>
+    <th>Slot Name</th>
+    <th>Slot Serial Number</th>
+    <th>Slot State</th>
+    <th>Redundancy State</th>
+    <th>RP Boot Image</th>
+    <th>RP Uptime</th>
+    <th>Virtual Device Name</th>
+    <th>Virtual Device Status</th>
+    <th>Virtual Interface</th>
+    <th>Virtual Interface Type</th>
+    <th>Virtual Interface Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{ data_to_template.rtr_type | default("N/A") }}</td>
+    <td>{{ data_to_template.chassis | default("N/A") }}</td>
+    <td>{{ data_to_template.chassis_sn | default("N/A") }}</td>
+    <td>{{ data_to_template.rp_uptime | default("N/A") }}</td>
+    <td>{{ data_to_template.dir | default("N/A") }}</td>
+    <td>{{ data_to_template.disk_total_space | default("N/A") }}</td>
+    <td>{{ data_to_template.disk_used_space | default("N/A") }}</td>
+    <td>{{ data_to_template.disk_free_space | default("N/A") }}</td>
+    <td>{{ data_to_template.image | default("N/A") }}</td>
+    <td>{{ data_to_template.main_mem | default("N/A") }}</td>
+    <td>{{ data_to_template.os | default("N/A") }}</td>
+    <td>{{ data_to_template.version | default("N/A") }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-         for slot in data_to_template.slot %}
+{%-             for sub_slot in data_to_template.slot[slot] %}
+<tr>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template.slot[slot][sub_slot].name | default("N/A") }}</td>
+    <td>{{ data_to_template.slot[slot][sub_slot].sn | default("N/A") }}</td>
+    <td>{{ data_to_template.slot[slot][sub_slot].state | default("N/A") }}</td>{% if slot == "rp" %}
+    <td>{{ data_to_template.slot[slot][sub_slot].redundancy_state | default("N/A") }}</td>
+    <td>{{ data_to_template.slot[slot][sub_slot].rp_boot_image | default("N/A") }}</td>
+    <td>{{ data_to_template.slot[slot][sub_slot].rp_uptime | default("N/A") }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-             endfor %}
+{%-         endfor %}
+{%-         for virtual_device in data_to_template.virtual_device %}
+{%-             for interface in data_to_template.virtual_device[virtual_device].membership %}
+<tr>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template.virtual_device[virtual_device].vd_name | default("N/A") }}</td>
+    <td>{{ data_to_template.virtual_device[virtual_device].vd_status | default("N/A") }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template.virtual_device[virtual_device].membership[interface].type | default("N/A") }}</td>
+    <td>{{ data_to_template.virtual_device[virtual_device].membership[interface].status | default("N/A") }}</td>
+  </tr>
+{%-             endfor %}
+{%-         endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "routing" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn Routing</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Route</th>
+    <th>Active</th>
+    <th>Metric</th>
+    <th>Next Hop Index</th>
+    <th>Next Hop</th>
+    <th>Outgoing Interface</th>
+    <th>Route Preference</th>
+    <th>Source Protocol</th>
+  </tr>
+</thead>
+<tbody>
+{%-         for vrf in data_to_template['vrf'] %}
+{%-             for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-                 for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-                     if data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop is defined %}
+{%-                         for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ route }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }}</td>
+    <td>{{ next_hop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }}</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }}</td>
+{%-                         endfor %}
+{%-                     else %}
+{%-                         for outgoing_interface in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.outgoing_interface %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ route }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ outgoing_interface }}</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }}</td> 
+  </tr>
+{%-                         endfor %}
+{%-                     endif %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "vlan" %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn VLAN</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>VLAN</th>
+    <th>Name</th>
+    <th>State</th>
+    <th>Shutdown
+    <th>Interface</th>
+  </tr>
+  </thead>
+  <tbody>{% for vlan in data_to_template['vlans'] %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
+<tr>
+    <td>{{ vlan }}</td>
+    <td>{{ data_to_template['vlans'][vlan].name }}</td>
+    <td>{{ data_to_template['vlans'][vlan].state }}</td>
+    <td>{{ data_to_template['vlans'][vlan].shutdown }}</td>
+    <td>{{ interface }}</td>
+  </tr>{% endfor %}{% else %}
+<tr>
+    <td>{{ vlan }}</td>
+    <td>{{ data_to_template['vlans'][vlan].name }}</td>
+    <td>{{ data_to_template['vlans'][vlan].state }}</td>
+    <td>{{ data_to_template['vlans'][vlan].shutdown }}</td>
+    <td>N/A</td>
+  </tr>{% endif %}{% endfor %}
+  </tbody>  
+</table>
+<h1>Learn VLAN IGMP Snooping</h1>
+<table id = "datatable02">
+  <thead>
+  <tr>
+    <th>VLAN</th>
+    <th>IP IGMP Snooping</th>
+  </tr>
+  </thead>
+  <tbody>  
+{%-     for vlan in data_to_template['vlans'].configuration %}
+  <tr>
+    <td>{{ vlan }}</td>
+    <td>{{ data_to_template['vlans'][vlan].ip_igmp_snooping }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+<h1>Learn VLAN Status</h1>
+<table id = "datatable03">
+  <thead>
+  <tr>
+    <th>Interface VLAN Enabled</th>
+    <th>VN Segment VLAN Based Enabled</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ data_to_template.interface_vlan_enabled }}</td>
+      <td>{{ data_to_template.vn_segment_vlan_based_enabled }}</td>
+    </tr>
+  </tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == 'vrf' %}
+{%- include 'datatable_header.j2' %}
+<h1>Learn VRF</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>VRF</th>
+    <th>Description</th>
+    <th>Address Family</th>
+    <th>Route Target</th>
+    <th>Route Target Type</th>
+    <th>Route Distinguisher</th>
+  </tr>
+  </thead>
+  <tbody>
+{%- for vrf in data_to_template['vrfs'] %}
+{%-     for address_family in data_to_template['vrfs'][vrf].address_family %}
+{%-         if data_to_template['vrfs'][vrf].address_family[address_family].route_targets is defined %}
+{%-             for target in data_to_template['vrfs'][vrf].address_family[address_family].route_targets %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ data_to_template['vrfs'][vrf].description }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ target }}</td>
+    <td>{{ data_to_template['vrfs'][vrf].address_family[address_family].route_targets[target].rt_type }}</td>
+    <td>{{ data_to_template['vrfs'][vrf].route_distinguisher }}</td>
+  </tr>
+{%-             endfor %}
+{%-         else %}
+<tr>
+    <td>{{ vrf }}</td>
+    <td>{{ data_to_template['vrfs'][vrf].description }}</td>
+    <td>{{ address_family }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['vrfs'][vrf].route_distinguisher }}</td>
+  </tr>
+{%-         endif %}
+{%-     endfor %}
+{%- endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show access-lists" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Access-Lists</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>Access Control List</th>
+    <th>Access Control Entry</th>
+    <th>Permission</th>
+    <th>Logging</th>
+    <th>Source Network</th>
+    <th>Destination Network</th>
+    <th>L3 Protocol</th>
+    <th>L4 Protocol</th>
+    <th>Operator</th>
+    <th>Port</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for list in data_to_template['acls'] %}{% if data_to_template['acls'][list].aces is defined %}{% for ace in data_to_template['acls'][list].aces %}{% if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}{% for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endfor %}{% else %}{% for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endfor %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+<tr>
+    <td>{{ list }}</td>
+    <td>No ACEs</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endif %}{% endfor %}{% for list in data_to_template['acls'] %}{% if data_to_template['acls'][list].aces is defined %}{% for ace in data_to_template['acls'][list].aces %}{% if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>Source Protocol</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>UDP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>N/A</td>
+    <td>Destination Protocol</td>
+    <td>N/A</td>
+    <td>UDP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% endif %}{% endif %}{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>Source Protocol</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>TCP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+<tr>
+    <td>{{ list }}</td>
+    <td>{{ ace }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.forwarding }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}</td>
+    <td>N/A</td>
+    <td>Destination Protocol</td>
+    <td>N/A</td>    
+    <td>TCP</td>{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %}
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }}</td>
+    <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+<tr>
+    <td>{{ list }}</td>
+    <td>No ACEs</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>{% endif %}{% endfor %}
+  </tbody>  
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show bgp process vrf all" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show BGP Process VRF All</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>BGP Tag</th>
+    <th>Router ID</th>
+    <th>BGP PID</th>
+    <th>BGP State</th>
+    <th>BGP Started Reason</th>
+    <th>AS Path Entries</th>
+    <th>AS Format</th>
+    <th>Memory State</th>
+    <th>Mode</th>
+    <th>Paths Per Attribute</th>
+    <th>Bytes Used</th>
+    <th>Entries Pending Delete</th>
+    <th>VRF</th>
+    <th>Cluster ID</th>
+    <th>Configured Router ID</th>
+    <th>Number of Configured Peers</th>
+    <th>Number of Established Peers</th>
+    <th>Pending Peers</th>
+    <th>VRF ID</th>
+    <th>VRF RD</th>
+    <th>VRF State</th>
+    <th>Address Family</th>
+    <th>Peer</th>
+    <th>Active Peers</th>
+    <th>Aggregates</th>
+    <th>Networks</th>
+    <th>Paths</th>
+    <th>Routes</th>
+    <th>Table ID</th>
+    <th>Table State</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template.vrf %}{% for address_family in data_to_template.vrf[vrf].address_family %}{% for peer in data_to_template.vrf[vrf].address_family[address_family].peers %}
+  <tr>
+    <td>{{ data_to_template.bgp_tag }}</td>
+    <td>{{ data_to_template.vrf[vrf].router_id }}</td>
+    <td>{{ data_to_template.bgp_pid }}</td>
+    <td>{{ data_to_template.bgp_protocol_state }}</td>
+    <td>{{ data_to_template.bgp_protocol_started_reason }}</td>
+    <td>{{ data_to_template.bgp_as_path_entries }}</td>
+    <td>{{ data_to_template.bgp_asformat }}</td>
+    <td>{{ data_to_template.bgp_memory_state }}</td>
+    <td>{{ data_to_template.bgp_mmode }}</td>
+    <td>{{ data_to_template.bgp_paths_per_hwm_attr }}</td>
+    <td>{{ data_to_template.bytes_used }}</td>
+    <td>{{ data_to_template.entries_pending_delete }}</td>
+    <td>{{ vrf }}</td>
+    <td>{{ data_to_template.vrf[vrf].cluster_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].conf_router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_conf_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_established_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_pending_conf_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].vrf_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].vrf_rd }}</td>
+    <td>{{ data_to_template.vrf[vrf].vrf_state }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ peer }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].active_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].aggregates }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].networks }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].paths }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].routes }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].table_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].address_family[address_family].table_state }}</td>
+  </tr>{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show bgp sessions" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show BGP Sessions</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Local AS</th>
+    <th>Total Established Peers</th>
+    <th>Total Peers</th>
+    <th>VRF</th>
+    <th>Router ID</th>
+    <th>VRF Established Peers</th>
+    <th>VRF Peers</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template.vrf %}
+  <tr>
+    <td>{{ data_to_template.bgp_tag }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_established_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_peers }}</td>
+    <td>{{ vrf }}</td>
+    <td>{{ data_to_template.vrf[vrf].router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_established_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].num_peers }}</td>
+  </tr>
+<tr>
+    <td>{{ data_to_template.local_as }}</td>
+    <td>{{ data_to_template.total_established_peers }}</td>
+    <td>{{ data_to_template.total_peers }}</td>
+    <td>{{ vrf }}</td>
+    <td>{{ data_to_template.vrf[vrf].router_id }}</td>
+    <td>{{ data_to_template.vrf[vrf].vrf_established_peers }}</td>
+    <td>{{ data_to_template.vrf[vrf].vrf_peers }}</td>
+  </tr>
+{%- endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{% else %}
+{% if command == "show cdp neighbors" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show CDP Neighbors</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Neighbor</th>
+    <th>Platform</th>
+    <th>Local Interface</th>
+    <th>Remote Interface</th>
+    <th>Capability</th>
+    <th>Hold Time</th>
+  </tr>
+</thead>
+<tbody>
+{%- for neighbor in data_to_template['cdp'].index %}
+  <tr>
+    <td>{{ data_to_template['cdp'].index[neighbor].device_id }}</td>
+    <td>{{ data_to_template['cdp'].index[neighbor].platform }}</td>
+    <td>{{ data_to_template['cdp'].index[neighbor].local_interface }}</td>
+    <td>{{ data_to_template['cdp'].index[neighbor].port_id }}</td>
+    <td>{{ data_to_template['cdp'].index[neighbor].capability }}</td>
+    <td>{{ data_to_template['cdp'].index[neighbor].hold_time }}</td>
+  </tr>{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show cdp neighbors detail" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show CDP Neighbors Detail</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Local Interface</th>
+    <th>Neighbor</th>
+    <th>Platform</th>
+    <th>Remote Interface</th>
+    <th>Remote Interface Address</th>
+    <th>Neighbor Management Address</th>
+    <th>Neighbor Capabilities</th>
+    <th>Duplex Mode</th>
+    <th>Hold Time</th>
+    <th>Native VLAN</th>
+    <th>Software Version</th>
+    <th>System Name</th>
+    <th>VTP Domain</th>
+    <th>Physical Location</th>
+    <th>Advertisement Version</th>
+  </tr>
+</thead>
+<tbody>  
+{%- for neighbor in data_to_template['index'] %}
+  <tr>
+    <td>{{ data_to_template['index'][neighbor].local_interface }}</td>
+    <td>{{ data_to_template['index'][neighbor].device_id }}</td>
+    <td>{{ data_to_template['index'][neighbor].platform }}</td>
+    <td>{{ data_to_template['index'][neighbor].port_id }}</td>
+    <td>{{ data_to_template['index'][neighbor].interface_addresses | replace("{'","") | replace("'","") | replace(":","") | replace("{}}","") | replace(",","") }}</td>
+    <td>{{ data_to_template['index'][neighbor].management_addresses | replace("{'","") | replace("'","") | replace(":","") | replace("}","") | replace("{}","") | replace("{","") }}</td>
+    <td>{{ data_to_template['index'][neighbor].capabilities }}</td>
+    <td>{{ data_to_template['index'][neighbor].duplex_mode }}</td>
+    <td>{{ data_to_template['index'][neighbor].hold_time }}</td>
+    <td>{{ data_to_template['index'][neighbor].native_vlan }}</td>
+    <td>{{ data_to_template['index'][neighbor].software_version | replace(","," ") | replace("\n"," ") }}</td>
+    <td>{{ data_to_template['index'][neighbor].system_name | default("N/A") }}</td>
+    <td>{{ data_to_template['index'][neighbor].vtp_management_domain | default("N/A") }}</td>
+    <td>{{ data_to_template['index'][neighbor].physical_location | default("N/A") }}</td>
+    <td>{{ data_to_template['index'][neighbor].advertisement_ver }}</td>
+  </tr>{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show environment" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Enviroment All - Fans</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Fan</th>
+    <th>Direction</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Air Filter</th>
+    <th>Fan Zone Speed</th>
+  </tr>
+</thead>
+<tbody>
+{%- for fan in data_to_template.fans %}
+{%-     if (fan != "fan_air_filter") and (fan != "fan_zone_speed") %}
+  <tr>
+    <td>{{ fan }}</td>
+    <td>{{ data_to_template.fans[fan].direction }}</td>
+{%- if data_to_template.fans[fan].model is defined %}
+    <td>{{ data_to_template.fans[fan].model }}</td>
+{%- else %}
+    <td>N/A</td>{% endif %}
+    <td>{{ data_to_template.fans[fan].status }}</td>
+    <td>{{ data_to_template.fans.fan_air_filter }}</td>
+    <td>{{ data_to_template.fans.fan_zone_speed }}</td>
+  </tr>
+{%-     endif %}
+{%- endfor %}
+</tbody>
+</table>
+<h1>Show Enviroment All - Power Supplies</h1>
+<table id = "datatable02">
+<thead>
+  <tr>
+    <th>Power Supply</th>
+    <th>Actual Input</th>
+    <th>Actual Output</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Capacity</th>
+    <th>Voltage</th>
+    <th>Config Mode</th>
+    <th>Operation Mode</th>
+    <th>Total Grid A</th>
+    <th>Total Grid B</th>
+    <th>Total Power Capacity</th>
+    <th>Total Power Cumulative</th>
+    <th>Total Power Input</th>
+    <th>Total Power Output</th>
+    <th>Power Supply Configured Mode</th>
+    <th>Power Supply Operational Mode</th>
+  </tr>
+</thead>
+<tbody>
+{%- for power_supply in data_to_template.power.power_supply %}
+  <tr>
+    <td>{{ power_supply }}</td>
+    <td>{{ data_to_template.power.power_supply[power_supply].actual_input_watts }}</td>
+    <td>{{ data_to_template.power.power_supply[power_supply].actual_output_watts }}</td>
+    <td>{{ data_to_template.power.power_supply[power_supply].model }}</td>
+    <td>{{ data_to_template.power.power_supply[power_supply].status }}</td>
+    <td>{{ data_to_template.power.power_supply[power_supply].total_capacity_watts }}</td>
+    <td>{{ data_to_template.power.voltage }}</td>
+    <td>{{ data_to_template.power.power_supply_mode.config_mode }}</td>
+    <td>{{ data_to_template.power.power_supply_mode.oper_mode }}</td>
+    <td>{{ data_to_template.power.power_usage_summary.total_grid_a_power_watts }}</td>
+    <td>{{ data_to_template.power.power_usage_summary.total_grid_b_power_watts }}</td>
+    <td>{{ data_to_template.power.power_usage_summary.total_power_capacity_watts }}</td>
+    <td>{{ data_to_template.power.power_usage_summary.total_power_cumulative_watts }}</td>
+    <td>{{ data_to_template.power.power_usage_summary.total_power_input_watts }}</td>
+    <td>{{ data_to_template.power.power_usage_summary.total_power_output_watts }}</td>
+    <td>{{ data_to_template.power.power_supply_mode.config_mode }}</td>
+    <td>{{ data_to_template.power.power_supply_mode.oper_mode }}</td>
+  </tr>
+{%- endfor %}
+</tbody>
+</table>
+<h1>Show Enviroment All - Temperature</h1>
+<table id = "datatable03">
+<thead>
+  <tr>
+    <th>Temperature Area</th>
+    <th>Current Temp</th>
+    <th>Major Threshold</th>
+    <th>Minor Threshold</th>
+    <th>Status</th>
+  </tr>
+</thead>
+<tbody>
+{%- for temp_number in data_to_template.temperature %}
+{%-     for area in data_to_template.temperature[temp_number] %}
+  <tr>
+    <td>{{ area }}</td>
+    <td>{{ data_to_template.temperature[temp_number][area].current_temp_celsius }}</td>
+    <td>{{ data_to_template.temperature[temp_number][area].major_threshold_celsius }}</td>
+    <td>{{ data_to_template.temperature[temp_number][area].minor_threshold_celsius }}</td>
+    <td>{{ data_to_template.temperature[temp_number][area].status }}</td>
+  </tr>
+{%-     endfor %}
+{%- endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show port-channel summary" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Port Channel Summary</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Port-Channel</th>
+    <th>Bundle ID</th>
+    <th>Layer</th>
+    <th>Type</th>
+    <th>Status</th>
+    <th>Protocol</th>
+    <th>Member Interface</th>
+    <th>Flags</th>
+  </tr>
+</thead>
+<tbody>
+{%- for interface in data_to_template['interfaces'] %}{% for member in data_to_template['interfaces'][interface].members %}  
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['interfaces'][interface].bundle_id }}</td>
+    <td>{{ data_to_template['interfaces'][interface].layer }}</td>
+    <td>{{ data_to_template['interfaces'][interface].type }}</td>
+    <td>{{ data_to_template['interfaces'][interface].oper_status }}</td>
+    <td>{{ data_to_template['interfaces'][interface].protocol }}</td>
+    <td>{{ member }}</td>
+    <td>{{ data_to_template['interfaces'][interface].members[member].flags }}</td>
+  </tr>
+{%- endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show interface" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Interface</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+   <th>Interface</th>
+   <th>Description</th>
+   <th>Admin State</th>
+   <th>Enabled</th>
+   <th>Operational Status</th>
+   <th>Line Protocol</th>
+   <th>Link State</th>
+   <th>MAC Address</th>
+   <th>Phsyical Address</th>
+   <th>IP Address</th>
+   <th>Port Speed</th>
+   <th>Duplex</th>
+   <th>Bandwidth</th>
+   <th>Delay</th>
+   <th>Media Type</th>
+   <th>Ether Type</th>
+   <th>Medium</th>
+   <th>MTU</th>
+   <th>Port Mode</th>
+   <th>Type</th>
+   <th>Port Channel Interface</th>
+   <th>Port Channel Member</th>
+   <th>Last Link Flap</th>
+   <th>Interface Reset</th>
+   <th>Dedicated Interface</th>
+   <th>Efficient Ethernet</th>
+   <th>Encapsulation</th>
+   <th>Flow Control Send</th>
+   <th>Flow Control Receive</th>
+   <th>Auto MDIX</th>
+   <th>Reliability</th>
+   <th>Switchport Monitor</th>
+   <th>Beacon</th>
+   <th>Auto State</th>
+   <th>RX Load</th>
+   <th>TX Load</th>
+   <th>Input Bad Etype Drop</th>
+   <th>Input Broadcast</th>
+   <th>Input CRC Errors</th>
+   <th>Input Discard</th>
+   <th>Input Errors</th>
+   <th>Input Down Drop</th>
+   <th>Input Ignored</th>
+   <th>Input MAC Pause Frames</th>
+   <th>Input Multicast</th>
+   <th>Input No Buffer</th>
+   <th>Input Octets</th>
+   <th>Input Overrun</th>
+   <th>Input Oversize Frame</th>
+   <th>Input Total</th>
+   <th>Input Runts</th>
+   <th>Input Short Frame</th>
+   <th>Input Underrun</th>
+   <th>Input Unicast</th>
+   <th>Input Unknown</th>
+   <th>Input Watchdog</th>
+   <th>Input With Dribble</th>
+   <th>Output Babble</th>
+   <th>Output Broadcast</th>
+   <th>Output Collision</th>
+   <th>Output Deferred</th>
+   <th>Output Discard</th>
+   <th>Output Errors</th>
+   <th>Output Jumbo</th>
+   <th>Output Late Collision</th>
+   <th>Output Lost Carrier</th>
+   <th>Output MAC Pause Frames</th>
+   <th>Output Multicast</th>
+   <th>Output No Carrier</th>
+   <th>Output Octets</th>
+   <th>Output Total</th>
+   <th>Output Unicast</th>
+   <th>Last Counter Clear</th>
+   <th>Input rate</th>
+   <th>Input Rate Packets</th>
+   <th>Output Rate</th>
+   <th>Output Rate Packets</th>
+   <th>Load Interval</th>
+   <th>RX</th>
+   <th>TX</th>
+  </tr>
+</thead>
+<tbody>
+{%- for interface in data_to_template %}   
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{% if data_to_template[interface].description is defined %}{{ data_to_template[interface].description }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].admin_state is defined %}{{ data_to_template[interface].admin_state }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].enabled is defined %}{{ data_to_template[interface].enabled }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].oper_status is defined %}{{ data_to_template[interface].oper_status }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].line_protocol is defined %}{{ data_to_template[interface].line_protocol }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].link_state is defined %}{{ data_to_template[interface].link_state }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].mac_address is defined %}{{ data_to_template[interface].mac_address }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].phys_address is defined %}{{ data_to_template[interface].phys_address }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].ipv4 is defined %}{% for ip in data_to_template[interface].ipv4 %}{{ ip }}{% endfor%}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].port_speed is defined %}{{ data_to_template[interface].port_speed }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].duplex_mode is defined %}{{ data_to_template[interface].duplex_mode }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].bandwidth is defined %}{{ data_to_template[interface].bandwidth }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].delay is defined %}{{ data_to_template[interface].delay }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].media_type is defined %}{{ data_to_template[interface].media_type }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].ethertype is defined %}{{ data_to_template[interface].ethertype }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].medium is defined %}{{ data_to_template[interface].medium }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].mtu is defined %}{{ data_to_template[interface].mtu }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].port_mode is defined %}{{ data_to_template[interface].port_mode }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].types is defined %}{{ data_to_template[interface].types }}{% else %}N/A{% endif %}</td>
+    <td>{% if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_int) is defined %}{{ data_to_template[interface].port_channel.port_channel_int }}{% else %}{% if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_member_intfs) is defined %}{{ interface }}{% else %}N/A{% endif %}{% endif %}</td>
+    <td>{% if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_member) is defined %}{{ data_to_template[interface].port_channel.port_channel_member }}{% else %}{% if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_member_intfs) is defined %}{% for member in data_to_template[interface].port_channel.port_channel_member_intfs %}{{ member }}{% endfor %}{% else %}N/A{% endif %}{% endif %}</td>
+    <td>{% if data_to_template[interface].last_link_flapped is defined %}{{ data_to_template[interface].last_link_flapped }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].interface_reset is defined %}{{ data_to_template[interface].interface_reset }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].dedicated_interface is defined %}{{ data_to_template[interface].dedicated_interface }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].efficient_ethernet is defined %}{{ data_to_template[interface].efficient_ethernet }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].encapsulations is defined %}{{ data_to_template[interface].encapsulations.encapsulation }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].flow_control is defined %}{{ data_to_template[interface].flow_control.send }}</td><td>{{ data_to_template[interface].flow_control.receive }}{% else %}N/A</td>
+    <td>N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].auto_mdix is defined %}{{ data_to_template[interface].auto_mdix }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].reliability is defined %}{{ data_to_template[interface].reliability }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].switchport_monitor is defined %}{{ data_to_template[interface].switchport_monitor }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].beacon is defined %}{{ data_to_template[interface].beacon }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].autostate is defined %}{{ data_to_template[interface].autostate }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].rxload is defined %}{{ data_to_template[interface].rxload }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].txload is defined %}{{ data_to_template[interface].txload }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters is defined %}{% if data_to_template[interface].counters.in_bad_etype_drop is defined %}{{ data_to_template[interface].counters.in_bad_etype_drop }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_broadcast_pkts is defined %}{{ data_to_template[interface].counters.in_broadcast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_crc_errors is defined %}{{ data_to_template[interface].counters.in_crc_errors }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_discard is defined %}{{ data_to_template[interface].counters.in_discard }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_errors is defined %}{{ data_to_template[interface].counters.in_errors }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_if_down_drop is defined %}{{ data_to_template[interface].counters.in_if_down_drop }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_ignored is defined %}{{ data_to_template[interface].counters.in_ignored }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_mac_pause_frames is defined %}{{ data_to_template[interface].counters.in_mac_pause_frames }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_multicast_pkts is defined %}{{ data_to_template[interface].counters.in_multicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_no_buffer is defined %}{{ data_to_template[interface].counters.in_no_buffer }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_octets is defined %}{{ data_to_template[interface].counters.in_octets }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_overrun is defined %}{{ data_to_template[interface].counters.in_overrun }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_oversize_frame is defined %}{{ data_to_template[interface].counters.in_oversize_frame }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_pkts is defined %}{{ data_to_template[interface].counters.in_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_runts is defined %}{{ data_to_template[interface].counters.in_runts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_short_frame is defined %}{{ data_to_template[interface].counters.in_short_frame }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_underrun is defined %}{{ data_to_template[interface].counters.in_underrun }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_unicast_pkts is defined %}{{ data_to_template[interface].counters.in_unicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_unknown_protos is defined %}{{ data_to_template[interface].counters.in_unknown_protos }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_watchdog is defined %}{{ data_to_template[interface].counters.in_watchdog }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.in_with_dribble is defined %}{{ data_to_template[interface].counters.in_with_dribble }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_babble is defined %}{{ data_to_template[interface].counters.out_babble }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_broadcast_pkts is defined %}{{ data_to_template[interface].counters.out_broadcast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_collision is defined %}{{ data_to_template[interface].counters.out_collision }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_deferred is defined %}{{ data_to_template[interface].counters.out_deferred }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_discard is defined %}{{ data_to_template[interface].counters.out_discard }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_errors is defined %}{{ data_to_template[interface].counters.out_errors }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_jumbo_packets is defined %}{{ data_to_template[interface].counters.out_jumbo_packets }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_late_collision is defined %}{{ data_to_template[interface].counters.out_late_collision }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_lost_carrier is defined %}{{ data_to_template[interface].counters.out_lost_carrier }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_mac_pause_frames is defined %}{{ data_to_template[interface].counters.out_mac_pause_frames }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_multicast_pkts is defined %}{{ data_to_template[interface].counters.out_multicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_no_carrier is defined %}{{ data_to_template[interface].counters.out_no_carrier }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_octets is defined %}{{ data_to_template[interface].counters.out_octets }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_pkts is defined %}{{ data_to_template[interface].counters.out_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.out_unicast_pkts is defined %}{{ data_to_template[interface].counters.out_unicast_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.last_clear is defined %}{{ data_to_template[interface].counters.last_clear }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.rate is defined %}{% if data_to_template[interface].counters.rate.in_rate is defined %}{{ data_to_template[interface].counters.rate.in_rate }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.rate.in_rate_pkts is defined %}{{ data_to_template[interface].counters.rate.in_rate_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.rate.out_rate is defined %}{{ data_to_template[interface].counters.rate.out_rate }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.rate.out_rate_pkts is defined %}{{ data_to_template[interface].counters.rate.out_rate_pkts }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.rate.load_interval is defined %}{{ data_to_template[interface].counters.rate.load_interval }}{% else %}N/A{% endif %}{% else %}N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.rx is defined %}{{ data_to_template[interface].counters.rx }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template[interface].counters.tx is defined %}{{ data_to_template[interface].counters.tx }}{% else %}N/A{% endif %}{% else %}N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>
+{%- endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{% else %}
+{%- if command == "show interface status" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Interface Status</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Interface</th>
+    <th>Status</th>
+    <th>Type</th>
+    <th>VLAN</th>
+    <th>Port Speed</th>
+    <th>Duplex</th>
+  </tr>
+</thead>
+<tbody>
+{%- for interface in data_to_template.interfaces %}
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template.interfaces[interface].status }}</td>
+    <td>{{ data_to_template.interfaces[interface].type }}</td>
+    <td>{{ data_to_template.interfaces[interface].vlan }}</td>
+    <td>{{ data_to_template.interfaces[interface].port_speed }}</td>
+    <td>{{ data_to_template.interfaces[interface].duplex_code }}</td>    
+  </tr>
+{%- endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show interface transceiver" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Interface Transceiver</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Interface</th>
+    <th>Transceiver Present</th>
+    <th>Transceiver Type</th>
+    <th>Name</th>
+    <th>Nominal Bitrate</th>
+    <th>Part Number</th>
+    <th>Revision</th>
+    <th>Serial Number</th>
+  </tr>
+</thead>
+<tbody>
+{%- for interface in data_to_template %}{% if data_to_template[interface].transceiver_present %}
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template[interface].transceiver_present }}</td>
+    <td>{{ data_to_template[interface].transceiver_type }}</td>
+    <td>{{ data_to_template[interface].name }}</td>
+    <td>{{ data_to_template[interface].nominal_bitrate }}</td>
+    <td>{{ data_to_template[interface].part_number }}</td>
+    <td>{{ data_to_template[interface].revision }}</td>
+    <td>{{ data_to_template[interface].serial_number }}
+{%- else %}
+  <tr>
+    <td>{{ interface }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}
+  </tr>{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show inventory" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Inventory</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+  </tr>
+</thead>
+<tbody>
+{%- for part in data_to_template['name'] %}
+  <tr>
+    <td>{{ part }}</td>
+    <td>{{ data_to_template['name'][part].description | replace(",","") }}</td>
+    <td>{{ data_to_template['name'][part].pid }}</td>
+    <td>{{ data_to_template['name'][part].serial_number }}</td>
+  </tr>
+{%- endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{% if command == "show ip arp vrf all" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP ARP VRF All</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Interface</th>
+    <th>Neighbor IP Address</th>
+    <th>MAC Address</th>
+    <th>Origin</th>
+    <th>Age</th>
+  </tr>
+</thead>
+<tbody>  
+{%- for interface in data_to_template['interfaces'] %}{% for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }}</td>
+    <td>{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }}</td>
+    <td>{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].age }}</td>
+  </tr>
+{%- endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip interface brief" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP Interface Brief</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+  </tr>
+</thead>
+<tbody>
+{%- for interface in data_to_template['interface'] %}
+{%-     if data_to_template['interface'][interface].vlan_id is defined %}
+{%-         for vlan_id in data_to_template['interface'][interface].vlan_id %}
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['interface'][interface].vlan_id[vlan_id].ip_address }}</td>
+    <td>{{ data_to_template['interface'][interface].vlan_id[vlan_id].interface_status }}</td>
+  </tr>
+{%- endfor %}{% else %}
+  <tr>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['interface'][interface].ip_address }}</td>
+    <td>{{ data_to_template['interface'][interface].interface_status }}</td>
+  </tr>{% endif %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip ospf" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP OSPF</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Router ID</th>
+    <th>Area</th>
+    <th>Area Type</th>
+    <th>Authentication</th>
+    <th>Existed</th>
+    <th>Enabled</th>
+    <th>Active Interfaces</th>
+    <th>Passive Interfaces</th>
+    <th>Loopback Interfaces</th>
+    <th>Total Interfaces</th>
+    <th>Total SPF</th>
+    <th>Last SPF</th>
+    <th>Auto Cost Unit</th>
+    <th>Auto Cost Enabled</th>
+    <th>Reference Bandwidth</th>
+    <th>Discard External Route</th>
+    <th>Discard Interal Route</th>
+    <th>Graceful Restart Type</th>
+    <th>Graceful Restart Enabled</th>
+    <th>Restart Interval</th>
+    <th>State</th>
+    <th>NSR Enabled</th>
+    <th>Active Normal Areas</th>
+    <th>Active NSSA Areas</th>
+    <th>Active Stub Areas</th>
+    <th>Total Active Areas</th>
+    <th>Number of Paths</th>
+  </tr>
+</thead>
+<tbody>
+{% for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas is defined %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}                  
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id}}</td>
+    <td>{{ area }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].authentication }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].existed }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.active_interfaces }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.passive_interfaces }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.loopback_interfaces }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.interfaces }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_last_run_time }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.bandwidth_unit }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_external }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_internal }}</td>
+    <td>{{ graceful_restart }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].restart_interval }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].state }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.normal }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.nssa }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.stub }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.total }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}</td>
+  </tr>{% endfor %}{% else %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id}}</td>
+    <td>No Areas</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.bandwidth_unit }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_external }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_internal }}</td>
+    <td>{{ graceful_restart }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].restart_interval }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].state }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.normal }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.nssa }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.stub }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.total }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}</td>
+  </tr>{% endif %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip ospf interface" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP OSPF Interface</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Area</th>
+    <th>Interface</th>
+    <th>Name</th>
+    <th>BFD</th>
+    <th>Cost</th>
+    <th>Dead Interval</th>
+    <th>Enabled</th>
+    <th>Hello Interval</th>
+    <th>Hello Timer</th>
+    <th>Index</th>
+    <th>Interface Type</th>
+    <th>IP Address</th>
+    <th>Line Protocol</th>
+    <th>Passive</th>
+    <th>Retransmit Interval</th>
+    <th>State</th>
+    <th>LSA Checksums</th>
+    <th>LSA Count</th>
+    <th>Neighbor Adjacencies</th>
+    <th>Neighbor Flooding</th>
+    <th>Total Neighbors</th>
+    <th>Transmit Delay</th>
+    <th>Wait Interval</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ area }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].line_protocol }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}</td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics is defined %}
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_adjacent }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_flooding }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.total_neighbors }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}    
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }}{% else %}N/A{% endif %}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip ospf interface vrf all" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP OSPF Interface VRF All</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Area</th>
+    <th>Interface</th>
+    <th>Name</th>
+    <th>BFD</th>
+    <th>Cost</th>
+    <th>Dead Interval</th>
+    <th>Enabled</th>
+    <th>Hello Interval</th>
+    <th>Hello Timer</th>
+    <th>Index</th>
+    <th>Interface Type</th>
+    <th>IP Address</th>
+    <th>Line Protocol</th>
+    <th>Passive</th>
+    <th>Retransmit Interval</th>
+    <th>State</th>
+    <th>LSA Checksums</th>
+    <th>LSA Count</th>
+    <th>Neighbor Adjacencies</th>
+    <th>Neighbor Flooding</th>
+    <th>Total Neighbors</th>
+    <th>Transmit Delay</th>
+    <th>Wait Interval</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ area }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].line_protocol }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}{% else %}N/A{% endif %}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}</td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics is defined %}
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_adjacent }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_flooding }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.total_neighbors }}</td>{% else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>{% endif %}    
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}{% else %}N/A{% endif %}</td>
+    <td>{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval is defined %}{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }}{% else %}N/A{% endif %}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip ospf neighbors detail" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP OSPF Neighbors Detail</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Area</th>
+    <th>Interface</th>
+    <th>Neighbor</th>
+    <th>Neighbor Address</th>
+    <th>Neighbor Events</th>
+    <th>DBD Options</th>
+    <th>Dead Timer</th>
+    <th>Hello Options</th>
+    <th>Last Non Hello Received</th>
+    <th>Last State Change</th>
+    <th>Neighbor Router ID</th>
+    <th>State</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{% for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ area }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dbd_options }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].hello_options }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_non_hello_packet_received }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_state_change }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip ospf neighbors detail vrf all" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP OSPF Neighbors Detail VRF All</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Area</th>
+    <th>Interface</th>
+    <th>Neighbor</th>
+    <th>Neighbor Address</th>
+    <th>Neighbor Events</th>
+    <th>DBD Options</th>
+    <th>Dead Timer</th>
+    <th>Hello Options</th>
+    <th>Last Non Hello Received</th>
+    <th>Last State Change</th>
+    <th>Neighbor Router ID</th>
+    <th>State</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{% for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ instance }}</td>
+    <td>{{ area }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ neighbor }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dbd_options }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].hello_options }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_non_hello_packet_received }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_state_change }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip route" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP Route</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Route</th>
+    <th>Active</th>
+    <th>Metric</th>
+    <th>Route Preference</th>
+    <th>Source Protocol</th>
+    <th>M Best</th>
+    <th>U Best</th>
+    <th>Next Hop Index</th>
+    <th>Next Hop</th>
+    <th>Best Unicast Nexthop</th>
+    <th>Metric</th>
+    <th>Route Preference</th>
+    <th>Source Protocol</th>
+    <th>Updated</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}{% for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ route }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].mbest }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].ubest }}</td>
+    <td>{{ next_hop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].best_ucast_nexthop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].metric }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].route_preference }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].source_protocol }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show ip route vrf all" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show IP Route VRF All</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Route</th>
+    <th>Active</th>
+    <th>Metric</th>
+    <th>Route Preference</th>
+    <th>Source Protocol</th>
+    <th>M Best</th>
+    <th>U Best</th>
+    <th>Next Hop Index</th>
+    <th>Next Hop</th>
+    <th>Best Unicast Nexthop</th>
+    <th>Metric</th>
+    <th>Route Preference</th>
+    <th>Source Protocol</th>
+    <th>Updated</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}{% for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+  <tr>
+    <td>{{ vrf }}</td>
+    <td>{{ address_family }}</td>
+    <td>{{ route }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].mbest }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].ubest }}</td>
+    <td>{{ next_hop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].best_ucast_nexthop }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].metric }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].route_preference }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].source_protocol }}</td>
+    <td>{{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show mac address-table" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show MAC Address Table</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VLAN</th>
+    <th>MAC Address</th>
+    <th>Interface</th>
+    <th>Entry Type</th>
+    <th>Age</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vlan in data_to_template['mac_table'].vlans %}{% for mac in data_to_template['mac_table'].vlans[vlan].mac_addresses %}{% for interface in data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces %}
+  <tr>
+    <td>{{ vlan }}</td>
+    <td>{{ mac }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].mac_type }}</td>
+    <td>{{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].age }}</td>
+  </tr>
+{%- endfor %}{% endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show version" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show Version</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Bootflash</th>
+    <th>Chassis</th>
+    <th>CPU</th>
+    <th>Device Name</th>
+    <th>Memory</th>
+    <th>Model</th>
+    <th>Processor Board ID</th>
+    <th>RP</th>
+    <th>Slots</th>
+    <th>Kernel Uptime</th>
+    <th>Name</th>
+    <th>OS</th>
+    <th>Last Reload Reason</th>
+    <th>BIOS Compile Time</th>
+    <th>BIOS Version</th>
+    <th>Kickstart Compile Time</th>
+    <th>Kickstart Image</th>
+    <th>Kickstart Version</th>
+    <th>System Compile Time</th>
+    <th>System Image File</th>
+    <th>System Version</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>{{ data_to_template['platform'].hardware.bootflash }}</td>
+    <td>{{ data_to_template['platform'].hardware.chassis }}</td>
+    <td>{{ data_to_template['platform'].hardware.cpu }}</td>
+    <td>{{ data_to_template['platform'].hardware.device_name }}</td>
+    <td>{{ data_to_template['platform'].hardware.memory }}</td>
+    <td>{{ data_to_template['platform'].hardware.model }}</td>
+    <td>{{ data_to_template['platform'].hardware.processor_board_id }}</td>
+    <td>{{ data_to_template['platform'].hardware.rp }}</td>
+    <td>{{ data_to_template['platform'].hardware.slots }}</td>
+    <td>{{ data_to_template['platform'].kernel_uptime.days }} {{ data_to_template['platform'].kernel_uptime.hours }} {{ data_to_template['platform'].kernel_uptime.minutes }} {{ data_to_template['platform'].kernel_uptime.seconds }}</td>
+    <td>{{ data_to_template['platform'].name }}</td>
+    <td>{{ data_to_template['platform'].os }}</td>
+    <td>{{ data_to_template['platform'].reason }}</td>
+    <td>{{ data_to_template['platform'].software.bios_compile_time }}</td>
+    <td>{{ data_to_template['platform'].software.bios_version }}</td>
+    <td>{{ data_to_template['platform'].software.kickstart_compile_time }}</td>
+    <td>{{ data_to_template['platform'].software.kickstart_image_file }}</td>
+    <td>{{ data_to_template['platform'].software.kickstart_version }}</td>
+    <td>{{ data_to_template['platform'].software.system_compile_time }}</td>
+    <td>{{ data_to_template['platform'].software.system_image_file }}</td>
+    <td>{{ data_to_template['platform'].software.system_version }}</td>
+  </tr>
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- if command == "show vlan" %}
+{%- include 'datatable_header.j2' %}
+<h1>Show VLAN</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VLAN</th>
+    <th>Interface</th>
+    <th>Name</th>
+    <th>State</th>
+    <th>Shutdown</th>
+    <th>Type</th>
+    <th>Mode</th>
+  </tr>
+</thead>
+<tbody>
+{%- for vlan in data_to_template['vlans'] %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
+  <tr>
+    <td>{{ vlan }}</td>
+    <td>{{ interface }}</td>
+    <td>{{ data_to_template['vlans'][vlan].name }}</td>
+    <td>{{ data_to_template['vlans'][vlan].state }}</td>
+    <td>{{ data_to_template['vlans'][vlan].shutdown }}</td>
+    <td>{{ data_to_template['vlans'][vlan].type }}</td>
+    <td>{{ data_to_template['vlans'][vlan].mode }}</td>
+  </tr>
+{%- endfor %}{% endfor %}
+</tbody>
+</table>
+{%- include 'datatable_footer.j2' %}
+{%- else %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

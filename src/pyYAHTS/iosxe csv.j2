@@ -1,5 +1,5 @@
 {%- if command == "acl" %}Access Control List,Access Control Entry,Permission,Logging,Source Network,Destination Network,L3 Protocol,L4 Protocol,Operator,Port
-{%-    for list in to_parse_access_list %}
+{%-    for list in data_to_template['acls'] %}
 {%-        if data_to_template['acls'][list].aces is defined %}
 {%-            for ace in data_to_template['acls'][list].aces %}
 {%-                if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}
@@ -247,7 +247,7 @@ Domain,Name,Revision
 {{ vlan }},{{ data_to_template['vlans'][vlan].name }},{{ data_to_template['vlans'][vlan].state }},{{ data_to_template['vlans'][vlan].shutdown }},N/A
 {%-         endif %}
 {%-     endfor %}
-VLAN,IP IGMT Snooping
+VLAN,IP IGMP Snooping
 {%-     for vlan in data_to_template['vlans'].configuration %}
 {{ vlan }},{{ data_to_template['vlans'][vlan].ip_igmp_snooping }}
 {%-     endfor %}
@@ -536,9 +536,9 @@ Clock State
 {%-     endfor %}
 {%- else %}
 {%- if command == "show vrf" %}VRF,Protocols,Interfaces
-{%-     for vrf in to_parse_vrf %}
-{%-         for interface in to_parse_vrf[vrf].interfaces %}
-{%-             for protocol in to_parse_vrf[vrf].protocols %}
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for interface in data_to_template['vrf'][vrf].interfaces %}
+{%-             for protocol in data_to_template['vrf'][vrf].protocols %}
 {%-                 if interface != "ipv4" %}
 {{ vrf }},{{ protocol }},{{ interface }}
 {%-                 endif %}
