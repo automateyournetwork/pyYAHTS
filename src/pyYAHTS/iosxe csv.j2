@@ -333,15 +333,15 @@ Interface VLAN Enabled,VN Segment VLAN Based Enabled
 {{ data_to_template.local_as }},{{ data_to_template.total_established_peers }},{{ data_to_template.total_peers }},{{ vrf }},{{ data_to_template.vrf[vrf].router_id }},{{ data_to_template.vrf[vrf].vrf_established_peers }},{{ data_to_template.vrf[vrf].vrf_peers }}
 {%-     endfor %}
 {% else %}
-{%- if command == "show cdp neighbors" %}Neighbor,Platform,Local Interface,Remote Interface,Capability,Hold Time
+{%- if command == "show cdp neighbors" %}Switch,Neighbor,Platform,Local Interface,Remote Interface,Capability,Hold Time
 {%-    for neighbor in data_to_template['cdp'].index %}
-{{ data_to_template['cdp'].index[neighbor].device_id }},{{ data_to_template['cdp'].index[neighbor].platform }},{{ data_to_template['cdp'].index[neighbor].local_interface }},{{ data_to_template['cdp'].index[neighbor].port_id }},{{ data_to_template['cdp'].index[neighbor].capability }},{{ data_to_template['cdp'].index[neighbor].hold_time }}
+{{ hostname }},{{ data_to_template['cdp'].index[neighbor].device_id }},{{ data_to_template['cdp'].index[neighbor].platform }},{{ data_to_template['cdp'].index[neighbor].local_interface }},{{ data_to_template['cdp'].index[neighbor].port_id }},{{ data_to_template['cdp'].index[neighbor].capability }},{{ data_to_template['cdp'].index[neighbor].hold_time }}
 {%-    endfor %}
 {%- else %}
-{%- if command == "show cdp neighbors detail" %}Local Interface,Device ID,Remote Interface,IP Address,Platform,Native VLAN,Hold Time,Duplex,Capaibilities,Software Version
+{%- if command == "show cdp neighbors detail" %}Switch,Local Interface,Device ID,Remote Interface,IP Address,Platform,Native VLAN,Hold Time,Duplex,Capaibilities,Software Version
 {%-     for neighbor in data_to_template['index'] %}
 {%-         for ip_address in data_to_template['index'][neighbor].entry_addresses %}
-{{ data_to_template['index'][neighbor].local_interface }},{{ data_to_template['index'][neighbor].device_id }},{{ data_to_template['index'][neighbor].port_id }},{{ ip_address }},{{ data_to_template['index'][neighbor].platform }},{{ data_to_template['index'][neighbor].native_vlan }},{{ data_to_template['index'][neighbor].hold_time }},{{ data_to_template['index'][neighbor].duplex_mode }},{{ data_to_template['index'][neighbor].capabilities }},{{ data_to_template['index'][neighbor].software_version | replace(","," ") | replace("\n"," ") }}
+{{ hostname }},{{ data_to_template['index'][neighbor].local_interface }},{{ data_to_template['index'][neighbor].device_id }},{{ data_to_template['index'][neighbor].port_id }},{{ ip_address }},{{ data_to_template['index'][neighbor].platform }},{{ data_to_template['index'][neighbor].native_vlan }},{{ data_to_template['index'][neighbor].hold_time }},{{ data_to_template['index'][neighbor].duplex_mode }},{{ data_to_template['index'][neighbor].capabilities }},{{ data_to_template['index'][neighbor].software_version | replace(","," ") | replace("\n"," ") }}
 {%-         endfor %}
 {%-     endfor %}
 Total CDP Neighbors

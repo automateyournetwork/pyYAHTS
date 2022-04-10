@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyYAHTS"
-version = "1.0.20"
+version = "1.0.24"
 description = "An implementation of Cisco pyATS"
 authors = ["John Capobianco <ptcapo@gmail.com>"]
 packages = [{ include = "pyYAHTS", from = "src"}]
@@ -19,6 +19,8 @@ fpdf = "^1.7.2"
 pandas = "^1.4.1"
 tabulate = "^0.8.9"
 rich = "^12.1.0"
+networkx = "^2.7.1"
+pyvis = "^0.1.9"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
