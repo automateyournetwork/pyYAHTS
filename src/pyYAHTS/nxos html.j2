@@ -1142,7 +1142,7 @@
     <th>Interface</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in data_to_template['vlans'] %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
+  <tbody>{%- for vlan in data_to_template['vlans'] if (vlan != "configuration") or (vlan != "interface_vlan_enabled") or (vlan != "vn_segment_vlan_based_enabled")  %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
 <tr>
     <td>{{ vlan }}</td>
     <td>{{ data_to_template['vlans'][vlan].name }}</td>
@@ -1606,8 +1606,6 @@
     <th>Total Power Cumulative</th>
     <th>Total Power Input</th>
     <th>Total Power Output</th>
-    <th>Power Supply Configured Mode</th>
-    <th>Power Supply Operational Mode</th>
   </tr>
 </thead>
 <tbody>
@@ -1628,8 +1626,6 @@
     <td>{{ data_to_template.power.power_usage_summary.total_power_cumulative_watts }}</td>
     <td>{{ data_to_template.power.power_usage_summary.total_power_input_watts }}</td>
     <td>{{ data_to_template.power.power_usage_summary.total_power_output_watts }}</td>
-    <td>{{ data_to_template.power.power_supply_mode.config_mode }}</td>
-    <td>{{ data_to_template.power.power_supply_mode.oper_mode }}</td>
   </tr>
 {%- endfor %}
 </tbody>
@@ -1973,7 +1969,7 @@
     <td>{{ data_to_template[interface].nominal_bitrate }}</td>
     <td>{{ data_to_template[interface].part_number }}</td>
     <td>{{ data_to_template[interface].revision }}</td>
-    <td>{{ data_to_template[interface].serial_number }}
+    <td>{{ data_to_template[interface].serial_number }}</td>
 {%- else %}
   <tr>
     <td>{{ interface }}</td>

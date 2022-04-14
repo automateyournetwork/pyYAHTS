@@ -1,0 +1,1943 @@
+Source,Target,Weight
+{%- if command == "acl" %}
+{%-     for list in data_to_template['acls'] %}
+{%-         if data_to_template['acls'][list].aces is defined %}
+{%-             for ace in data_to_template['acls'][list].aces %}
+{%-                 if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}
+{%-                     if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}
+{%-                         if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}
+{%-                             for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Source Network: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }},4
+Matches,Destination Network: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }},4
+Matches,Protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }},4
+{%-                             endfor %}
+{%-                         else %}
+{%-                             for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Destination Network: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }},4
+Matches,Protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }},4
+{%-                             endfor %}
+{%-                         endif %}
+{%-                     endif %}
+{%-                 endif %}
+{%-             endfor %}
+{%-         else %}
+{{ hostname }},{{ list }},1
+{%-         endif %}
+{%-     endfor %}
+{%-     for list in data_to_template['acls'] %}
+{%-         if data_to_template['acls'][list].aces is defined %}
+{%-             for ace in data_to_template['acls'][list].aces %}
+{%-                 if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}
+{%-                     if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}
+{%-                         if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Source Protocol,4
+Source Protocol,UDP,5
+{%-                             if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}
+UDP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }},7
+{%-                             endif %}
+{%-                         else %}
+{%-                             if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Destination Protocol,4
+Destination Protocol,UDP,5
+{%-                                 if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}
+UDP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }},7
+{%-                                 endif %}
+{%-                             endif %}
+{%-                         endif %}
+{%-                     else %}
+{%-                         if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}
+{%-                             if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Source Protocol,4
+Source Protocol,TCP,5
+{%-                                 if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}
+TCP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }},7
+{%-                                 endif %}
+{%-                             else %}
+{%-                                 if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Destination Protocol,4
+Destination Protocol,TCP,5
+{%-                                     if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %}
+TCP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }},7
+{%-                                     endif %}
+{%-                                 endif %}
+{%-                             endif %}
+{%-                         endif %}
+{%-                     endif %}
+{%-                 endif %}
+{%-             endfor %}
+{%-         else %}
+{{ hostname }},{{ list }},1
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "arp" %}
+{%-     for interface in data_to_template['interfaces'] %}
+{%-         if data_to_template['interfaces'][interface].ipv4 is defined %}
+{%-             for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+{{ hostname }},{{ interface }},1
+{{ interface }},{{ neighbor }},2
+{{ neighbor }},{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }},3
+{{ neighbor }},Origin: {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }},3 
+{{ hostname }},Statistics,1
+Statistics,Totals,1
+Statistics,Input,2
+Statistics,Output,2
+Totals,Entries: {{ data_to_template['statistics'].entries_total }},3
+Totals,Incomplete: {{ data_to_template['statistics'].incomplete_total }},3
+Totals,Input: {{ data_to_template['statistics'].in_total | default("N/A") }},3
+Totals,Output: {{ data_to_template['statistics'].out_total| default("N/A") }},3
+Input,Drops: {{ data_to_template['statistics'].in_drops }},3
+Input,Reply Packets: {{ data_to_template['statistics'].in_replies_pkts }},3
+Input,Request Packets: {{ data_to_template['statistics'].in_requests_pkts }},3
+Output,Drops: {{ data_to_template['statistics'].out_drops | default("N/A") }},3
+Output,Gratuitious: {{ data_to_template['statistics'].out_gratuitous_pkts | default("N/A") }},3
+Output,Replies: {{ data_to_template['statistics'].out_replies_pkts }},3
+Output,Requests: {{ data_to_template['statistics'].out_requests_pkts }},3
+{%-             endfor %}
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "bgp" %}
+{%-     for instance in data_to_template['instance'] %}
+{%-         for vrf in data_to_template['instance'][instance].vrf %}
+{%-             for neighbor in data_to_template['instance'][instance].vrf[vrf].neighbor %}
+{{ hostname }},{{ instance }},1
+{{ instance }},BGP ID: {{ data_to_template['instance'][instance].bgp_id }},2
+{{ instance }},Protocol State: {{ data_to_template['instance'][instance].protocol_state }}
+{{ instance }},{{ vrf }},1
+{{ vrf }},Router ID: {{ data_to_template['instance'][instance].vrf[vrf].router_id }},2
+{{ vrf }},Cluster ID: {{ data_to_template['instance'][instance].vrf[vrf].cluster_id }},2
+{{ vrf }},Confederation ID: {{ data_to_template['instance'][instance].vrf[vrf].confederation_identifier }},2
+{{ vrf }},{{ neighbor }},1
+{{ neighbor }},BGP Version: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_version }},2
+{{ neighbor }},Holdtime: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].holdtime }},2
+{{ neighbor }},Keepalive Interval: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].keepalive_interval }},2
+{{ neighbor }},Local AS Number: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].local_as_as_no }},2
+{{ neighbor }},Remote AS Number: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].remote_as }},2
+{{ neighbor }},Counters,2
+{%-                 if data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters is defined %}    
+Counters,Total Received: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }},3
+Counters,Total Sent: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }},3
+{%                  endif %}
+{{ neighbor }},Last Reset: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.last_reset }},2
+Last Reset: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.last_reset }},Reason: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.reset_reason }},3
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "hsrp" %}
+{%-     for vlan in data_to_template %}
+{%-         for address_family in data_to_template[vlan].address_family %}
+{%-             for version in data_to_template[vlan].address_family[address_family].version %}
+{%-                 for group in data_to_template[vlan].address_family[address_family].version[version].groups %}
+{{ hostname }},{{ vlan }},1
+{{ vlan }},{{ address_family }},1
+{{ address_family }},Version: {{ version }},1
+Version: {{ version }},Group: {{ group }},1
+Group: {{ group }},Routers,1
+Group: {{ group }},Details,1
+Routers,Active Router: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].active_router }},2
+Routers,Standby Router: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_router }},2
+Details,HSRP Router State: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].hsrp_router_state }},2
+Details,Preempt: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].preempt }},2
+Group: {{ group }},IP Addresses,2
+IP Addresses,Primary IPv4 Address: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }},2
+Primary IPv4 Address: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }},Virtual IP Learn: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.virtual_ip_learn }},2
+IP Addresses,Standby IP Address: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_ip_address }},2
+Details,Priority: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].priority }},2
+Group: {{ group }},Sessions,2
+Sessions,Session Name: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].session_name }},2
+Group: {{ group }},Timers,1
+Timers,Hello: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].timers.hello_sec }},2
+Timers,Hold: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].timers.hold_sec }},2
+Details,Virtual MAC Address: {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].virtual_mac_address }},2
+Details,User BIA: {{ data_to_template[vlan].use_bia }},2
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == 'interface' %}
+{%-     for interface in data_to_template %}
+{%-         if (data_to_template[interface].ipv4 is defined) and (data_to_template[interface].port_channel is defined) %}
+{%-             for ip_address in data_to_template[interface].ipv4 %}
+{%-                 if data_to_template[interface].port_channel.port_channel_member_intfs %}
+{%-                     for member in data_to_template[interface].port_channel.port_channel_member_intfs %}
+{{ hostname }},{{ interface }},1
+{%-                         if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].ipv4 is defined %}
+{{ interface }},{{ interface }} IP Address: {{ ip_address }},1
+{{ interface }} IP Address: {{ ip_address }},Origin: {{ data_to_template[interface].ipv4[ip_address].origin | default("No Origin") }},3
+{%-                         endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                         if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                         endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                         if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                         endif %}
+{%-                         if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                         endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                         if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                         endif %}
+{{ hostname }},{{ interface }},1
+{{ interface }},{{ interface}} Member: {{ member }},1
+{%-                         if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                         endif %}
+{%-                     endfor %}
+{%-                 else %}
+{%-                     if data_to_template[interface].port_channel.port_channel_member == "True" %}
+{{ hostname }},{{ interface }},1
+{%-                         if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].ipv4 is defined %}
+{{ interface }},{{ interface }} IP Address: {{ ip_address }},1
+{{ interface }} IP Address: {{ ip_address }},Origin: {{ data_to_template[interface].ipv4[ip_address].origin | default("No Origin") }},3
+{%-                         endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                         if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                         endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                         if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                         endif %}
+{%-                         if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                         endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                         if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                         endif %}
+{{ interface }},{{ interface}} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},1
+{{ interface }}, Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},Port Channel Member: {{ data_to_template[interface].port_channel.port_channel_member }},2
+{%-                         if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                         endif %}
+{%-                     else %}
+{{ hostname }},{{ interface }},1
+{%-                         if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].ipv4 is defined %}
+{{ interface }},{{ interface }} IP Address: {{ ip_address }},1
+{{ interface }} IP Address: {{ ip_address }},Origin: {{ data_to_template[interface].ipv4[ip_address].origin | default("No Origin") }},3
+{%-                         endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                         if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                         endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                         if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                         endif %}
+{%-                         if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                         endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                         if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                         endif %}
+{%-                         if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                         endif %}
+{{ interface }},{{ interface }},Port Channel Member: {{ data_to_template[interface].port_channel.port_channel_member }}
+{%-                         if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                         endif %}
+{%-                     endif %}
+{%-                 endif %}
+{%-             endfor %}
+{%-         else %}
+{%-             if data_to_template[interface].ipv4 is defined %}
+{{ hostname }},{{ interface }},1
+{%-                 if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                 endif %}
+{{ interface }},{{ interface }} IP Address: {{ ip_address }},1
+{{ interface }} IP Address: {{ ip_address }},Origin: {{ data_to_template[interface].ipv4[ip_address].origin | default("No Origin") }},3
+{{ interface }},{{ interface }} Physical,1
+{%-                 if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                 endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                 if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                 endif %}
+{%-                 if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                 endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                 if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                 endif %}
+{%-                 if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                 endif %}
+{%-                 if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                 endif %}
+{%-             else %}
+{%-                 if data_to_template[interface].port_channel is defined %}
+{%-                     if data_to_template[interface].port_channel.port_channel_member_intfs %}
+{%-                         for member in data_to_template[interface].port_channel.port_channel_member_intfs %}
+{{ hostname }},{{ interface }},1
+{%-                             if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                             endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                             if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                             endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                             if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                             endif %}
+{%-                             if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                             endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                             endif %}
+{{ hostname }},{{ interface }},1
+{{ interface }},{{ interface}} Member: {{ member }},1
+{%-                             if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                             endif %}
+{%-                         endfor %}
+{%-                     else %}
+{%-                         if data_to_template[interface].port_channel.port_channel_member == "True" %}
+{{ hostname }},{{ interface }},1
+{%-                             if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                             endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                             if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                             endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                             if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                             endif %}
+{%-                             if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                             endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                             endif %}
+{{ interface }},{{ interface }} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},1
+{{ interface }} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},Port Channel Member: {{ data_to_template[interface].port_channel.port_channel_member }},2
+{%-                             if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                             endif %}
+{%-                         else %}
+{{ hostname }},{{ interface }},1
+{%-                             if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                             endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                             if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                             endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                             if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                             endif %}
+{%-                             if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                             endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                             endif %}
+{%-                             if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                             endif %}
+{%-                             if data_to_template[interface].port_channel.port_channel_member == "True" %}
+{{ hostname }},{{ interface }},1
+{%-                             endif %}
+{{ interface }},{{ interface }} Members: {{ data_to_template[interface].port_channel.port_channel_member }},2
+{%-                             if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                             endif %}
+{%-                         endif %}
+{%-                     endif %}
+{%-                 else %}
+{{ hostname }},{{ interface }},1
+{%-                     if data_to_template[interface].description is defined %}
+{{ interface }},{{ interface }} Description: {{ data_to_template[interface].description }},2
+{%-                     endif %}
+{{ interface }},{{ interface }} Physical,1
+{%-                     if data_to_template[interface].type is defined %}
+{{ interface }} Physical,{{ interface }} Type: {{ data_to_template[interface].type }},2
+{%-                     endif %}
+{{ interface }},{{ interface }} Enabled: {{ data_to_template[interface].enabled }},2
+{{ interface }},{{ interface }} Operational: {{ data_to_template[interface].oper_status }},2
+{%-                     if data_to_template[interface].phys_address is defined %}
+{{ interface }} Physical,Physical: {{ data_to_template[interface].phys_address }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].mac_address is defined %}
+{{ interface }} Physical,MAC: {{ data_to_template[interface].mac_address }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].switchport_enable is defined %}
+{{ interface }},{{ interface }} Switchport,1
+{{ interface }} Switchport,Switchport Enable: {{ data_to_template[interface].switchport_enable }},2
+{{ interface }},{{ interface }} VLAN,1
+{%-                     endif %}
+{%-                     if data_to_template[interface].switchport_mode is defined %}
+{{ interface }} Switchport,Switchport Mode: {{ data_to_template[interface].switchport_mode }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].access_vlan is defined %}
+{{ interface }} VLAN,Access: {{ data_to_template[interface].access_vlan }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].trunk_vlans is defined %}
+{{ interface }} VLAN,Trunk: {{ data_to_template[interface].trunk_vlans }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].native_vlan is defined %}
+{{ interface }} VLAN,Native: {{ data_to_template[interface].native_vlan }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].vrf is defined %}
+{{ interface }},{{ interface }} VRF: {{ data_to_template[interface].vrf }},1
+{%-                     endif %}
+{{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
+{{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
+{{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{%-                             if data_to_template[interface].encapsulation is defined %}
+{{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%-                             endif %}
+{%-                     if data_to_template[interface].medium is defined %}
+{{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].flow_control is defined %}
+{{ interface }},{{ interface }} Flow Control,1
+{{ interface }} Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},2
+{{ interface }} Flow Control,Send: {{ data_to_template[interface].flow_control.send }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].last_change is defined %}
+{{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
+{%-                     endif %}
+{%-                     if data_to_template[interface].port_channel is defined %}
+{{ interface }},{{ interface }} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},1
+{{ interface }} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},Port Channel Member: {{ data_to_template[interface].port_channel.port_channel_member }},2
+{%-                     endif %}
+{%-                     if data_to_template[interface].counters is defined %}
+{{ interface }},{{ interface }} Counters,1
+{{ interface }} Counters,Input,1
+{{ interface }} Counters,Output,1
+{{ interface }} Counters,Rate,1
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }},2
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors | default("N/A") }},2
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},2
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts | default("N/A") }},2
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts | default("N/A") }},2
+Input,Total: {{ data_to_template[interface].counters.in_pkts | default("N/A") }},2
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts | default("N/A") }},2
+Output,Discard: {{ data_to_template[interface].counters.out_discard | default("N/A") }},2
+Output,Errors: {{ data_to_template[interface].counters.out_errors | default("N/A") }},2
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts | default("N/A") }},2
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts | default("N/A") }},2
+Output,Total: {{ data_to_template[interface].counters.out_pkts | default("N/A") }},2
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate | default("N/A") }},2
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/A") }},2
+{%-                     endif %}
+{%-                 endif %}
+{%-             endif %}
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "lldp" %}
+{%- for interface in data_to_template['interfaces'] %}
+{%-     if data_to_template['interfaces'][interface].port_id is defined %}
+{%-         for port in data_to_template['interfaces'][interface].port_id %}
+{%-             for neighbor in data_to_template['interfaces'][interface].port_id[port].neighbors %}
+{%-                 for capability in data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].capabilities %}
+{{ hostname }},{{ interface }},1
+{{ interface }},Enabled: {{ data_to_template['interfaces'][interface].enabled }},1
+{{ interface }},{{ neighbor }},1
+{{ neighbor }},{{ port }},1
+{{ port }},Description: {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].port_description }},2
+{{ port }},Capability: {{ capability }},2
+{{ neighbor }},Chassis ID: {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].chassis_id }},2
+{{ neighbor }},Management Address: {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].management_address }},2
+{{ neighbor }},System Description: {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].system_description | replace("\n"," ") | replace(","," ") }},2
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endif %}
+{%- endfor %}
+{{ hostname }},Counters,1
+{{ hostname }},Timers,1
+{{ hostname }},LLDP Enabled: {{ data_to_template.enabled }},1
+Timers,Hello: {{ data_to_template.hello_timer }},1
+Timers,Hold: {{ data_to_template.hold_timer }},1
+Counters,Entries Aged Out: {{ data_to_template.counters.entries_aged_out }},1
+Counters,Frames,1
+Frames,Discard: {{ data_to_template.counters.frame_discard }},1
+Frames,Error: {{ data_to_template.counters.frame_error_in }},1
+Frames,In: {{ data_to_template.counters.frame_in }},1
+Frames,Out: {{ data_to_template.counters.frame_out }},1
+Counters,TLV,1
+TLV,Discard: {{ data_to_template.counters.tlv_discard }},1
+TLV,Unknown: {{ data_to_template.counters.tlv_unknown }},1
+{%- else %}
+{%- if command == "ntp" %}
+{%- for vrf in data_to_template['vrf'] %}
+{%-     for address in data_to_template['vrf'][vrf].associations.address %}
+{%-         for is_conf,value in data_to_template['vrf'][vrf].associations.address[address].local_mode.client.isconfigured.items() %}
+{{ hostname }},{{ vrf }},1
+{{ vrf }},{{ address }},1
+{{ address }},Delay: {{ value.delay }},2
+{{ address }},Configured: {{ value.isconfigured }},2
+{{ address }},Local Mode: {{ value.local_mode }},2
+{{ address }},Offset: {{ value.offset }},2
+{{ address }},Poll: {{ value.poll }},2
+{{ address }},Reach: {{ value.reach }},2
+{{ address }},Receive Time: {{ value.receive_time }},2
+{{ address }},Reference ID: {{ value.refid }},2
+{{ address }},Statum: {{ value.stratum }},2
+{%-        endfor %}
+{%-    endfor %}
+{%- endfor %}
+{%- for vrf in data_to_template['vrf'] %}
+{%-     for address in data_to_template['vrf'][vrf].unicast_configuration.address %}
+{{ hostname }},{{ vrf }},1
+{{ vrf }},{{ address }},1
+{{ address }},Server,1
+Server,Preferred: {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.preferred }},2
+Server,Type: {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.type }},2
+{%-     endfor %}
+{%- endfor %}
+{{ hostname }},Associations,1
+Associations,Address: {{ data_to_template['clock_state'].system_status.associations_address }},2
+Associations,Local Mode: {{ data_to_template['clock_state'].system_status.associations_local_mode }},2
+{{ hostname }},Clock State,1
+Clock State,Offset: {{ data_to_template['clock_state'].system_status.clock_offset }},2
+Clock State,Precision: {{ data_to_template['clock_state'].system_status.clock_precision }},2
+Clock State,Reference ID: {{ data_to_template['clock_state'].system_status.clock_refid }},2
+Clock State,State: {{ data_to_template['clock_state'].system_status.clock_state }},2
+Clock State,Statum: {{ data_to_template['clock_state'].system_status.clock_stratum }},2
+{{ hostname }},Reference Time: {{ data_to_template['clock_state'].system_status.reference_time }},2
+{{ hostname }},Root,1
+Root,Delay: {{ data_to_template['clock_state'].system_status.root_delay }},2
+Root,Dispersion: {{ data_to_template['clock_state'].system_status.root_dispersion }},2
+{%- else %}
+{%- if command == 'ospf' %}
+{%-             for vrf in data_to_template.vrf %}
+{%-                 for address_family in data_to_template.vrf[vrf].address_family %}
+{%-                     for instance in data_to_template.vrf[vrf].address_family[address_family].instance %}
+{%-                         for graceful_restart_type in data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart %}
+{%-                             if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas is defined %}
+{%-                                 for area in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas %}
+{%-                                     if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database is defined %}
+{%-                                         for lsa_type in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
+{%-                                             for lsa in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
+{%-                                                 if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 1 %}
+{%-                                                     for link in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}
+{%-                                                         for topology in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}
+{{ hostname }},{{ vrf }},1
+{{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Auto Cost Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }},2
+Instance: {{ instance }},Reference Bandwidth: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }},2
+Instance: {{ instance }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }},2
+Instance: {{ instance }},Graceful Restart Type: {{ graceful_restart_type }},1
+Graceful Restart Type: {{ graceful_restart_type }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }},2
+Graceful Restart Type: {{ graceful_restart_type }},Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }},2
+Instance: {{ instance }},NSR Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }},2
+Instance: {{ instance }},Preference: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }},2
+Instance: {{ instance }},Router ID: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }},2
+Instance: {{ instance }},SPF,1
+SPF,Paths: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }},2
+SPF,LSA,1
+LSA,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }},2
+LSA,Maximum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }},2
+LSA,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }},2
+SPF,SPF Control,1
+SPF Control,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }},2
+SPF Control,Maxmimum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }},2
+SPF Control,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }},2
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},Type: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].area_type }},2
+Area: {{ area }},LSA Type: {{ lsa_type }},1
+LSA Type: {{ lsa_type }},LSA: {{ lsa }},1
+LSA: {{ lsa }},Advertising Router: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }},2
+LSA: {{ lsa }},Age: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }},2
+LSA: {{ lsa }},Checksum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }},2
+LSA: {{ lsa }},Length: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }},2
+LSA: {{ lsa }},Option: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }},2
+LSA: {{ lsa }},Sequence Number: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }},2
+LSA: {{ lsa }},Number of Links: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }},2
+LSA: {{ lsa }},Link: {{ link }},1
+Link: {{ link }},Data: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }},2
+Link: {{ link }},Type: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }},2
+Link: {{ link }},Topology: {{ topology }},1
+Topology: {{ topology }},Mertric: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }},2
+Topology: {{ topology }},MPLS LDP,1
+MPLS LDP,Auto Config: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.auto_config }},2
+MPLS LDP,Sync: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.sync }}
+Area: {{ area }},Checksum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_cksum_sum }},2
+Area: {{ area }},LSA Count: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }},2
+Area: {{ area }},LSA Runs: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }},2
+{%-                                                         endfor %}
+{%-                                                     endfor %}
+{%-                                                 endif %}
+{%-                                             if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 3 %}
+{%-                                                 for topology in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+{{ hostname }},{{ vrf }},1
+{{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Auto Cost Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }},2
+Instance: {{ instance }},Reference Bandwidth: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }},2
+Instance: {{ instance }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }},2
+Instance: {{ instance }},Graceful Restart Type: {{ graceful_restart_type }},1
+Graceful Restart Type: {{ graceful_restart_type }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }},2
+Graceful Restart Type: {{ graceful_restart_type }},Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }},2
+Instance: {{ instance }},NSR Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }},2
+Instance: {{ instance }},Preference: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }},2
+Instance: {{ instance }},Router ID: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }},2
+Instance: {{ instance }},SPF,1
+SPF,Paths: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }},2
+SPF,LSA,1
+LSA,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }},2
+LSA,Maximum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }},2
+LSA,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }},2
+SPF,SPF Control,1
+SPF Control,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }},2
+SPF Control,Maxmimum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }},2
+SPF Control,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }},2
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},Type: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].area_type }},2
+Area: {{ area }},LSA Type: {{ lsa_type }},1
+LSA Type: {{ lsa_type }},LSA: {{ lsa }},1
+LSA: {{ lsa }},Advertising Router: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }},2
+LSA: {{ lsa }},Age: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }},2
+LSA: {{ lsa }},Checksum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }},2
+LSA: {{ lsa }},Length: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }},2
+LSA: {{ lsa }},Option: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }},2
+LSA: {{ lsa }},Sequence Number: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }},2
+LSA: {{ lsa }},Number of Links: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }},2
+LSA: {{ lsa }},Network Mask: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.network_mask }},2
+Topology: {{ topology }},Mertric: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }},2
+Topology: {{ topology }},MPLS LDP,1
+MPLS LDP,Auto Config: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.auto_config }},2
+MPLS LDP,Sync: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.sync }}
+Area: {{ area }},Checksum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_cksum_sum }},2
+Area: {{ area }},LSA Count: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }},2
+Area: {{ area }},LSA Runs: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }},2
+{%-                                                 endfor %}
+{%-                                             endif %}
+{%-                                         endfor %}
+{%-                                     endfor %}
+{%-                                 endif %}
+{%-                                 for interface in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{%-                                     for neighbor in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+{{ hostname }},{{ vrf }},1
+{{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Auto Cost Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }},2
+Instance: {{ instance }},Reference Bandwidth: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }},2
+Instance: {{ instance }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }},2
+Instance: {{ instance }},Graceful Restart Type: {{ graceful_restart_type }},1
+Graceful Restart Type: {{ graceful_restart_type }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }},2
+Graceful Restart Type: {{ graceful_restart_type }},Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }},2
+Instance: {{ instance }},NSR Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }},2
+Instance: {{ instance }},Preference: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }},2
+Instance: {{ instance }},Router ID: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }},2
+Instance: {{ instance }},SPF,1
+SPF,Paths: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }},2
+SPF,LSA,1
+LSA,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }},2
+LSA,Maximum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }},2
+LSA,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }},2
+SPF,SPF Control,1
+SPF Control,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }},2
+SPF Control,Maxmimum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }},2
+SPF Control,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }},2
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},{{ interface }},1
+{{ interface }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }},2
+{{ interface }},BFD Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }},2
+{{ interface }},Cost: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }},2
+{{ interface }},Dead Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }},2
+{{ interface }},Hello Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }},2
+{{ interface }},Hello Timer: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }},2
+{{ interface }},Type: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }},2
+{{ interface }},{{ neighbor }},1
+{{ neighbor }},Address: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }},2
+{{ neighbor }},Dead Timer: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }},2
+{{ neighbor }},Last State Change: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_state_change }},2
+{{ neighbor }},State: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }},2
+{{ neighbor }},Event Count: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }},2
+{{ interface }},Passive: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }},2
+{{ interface }},Retransmit Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }},2
+{{ interface }},LSA Checksum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }},2
+{{ interface }},LSA Count: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }},2
+{{ interface }},Transmit Delay: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}
+{%-                                     endfor %}
+{%-                                 endfor %}
+{%-                             endfor %}
+{%-                         else %}
+{{ hostname }},{{ vrf }},1
+{{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Auto Cost Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.enable }},2
+Instance: {{ instance }},Reference Bandwidth: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }},2
+Instance: {{ instance }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].enable }},2
+Instance: {{ instance }},Graceful Restart Type: {{ graceful_restart_type }},1
+Graceful Restart Type: {{ graceful_restart_type }},Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }},2
+Graceful Restart Type: {{ graceful_restart_type }},Interval: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }},2
+Instance: {{ instance }},NSR Enable: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].nsr.enable }},2
+Instance: {{ instance }},Preference: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].preference.single_value.all }},2
+Instance: {{ instance }},Router ID: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }},2
+Instance: {{ instance }},SPF,1
+SPF,Paths: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.paths }},2
+SPF,LSA,1
+LSA,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.hold }},2
+LSA,Maximum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.maximum }},2
+LSA,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.lsa.start }},2
+SPF,SPF Control,1
+SPF Control,Hold: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }},2
+SPF Control,Maxmimum: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }},2
+SPF Control,Start: {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }},2
+{%-                             endif %}
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%- else %}
+{%- if command == "platform" %}
+{{ hostname }},Router Type: {{ data_to_template.rtr_type | default("N/A") }},1
+{{ hostname }},Chassis,1
+Chassis,{{ data_to_template.chassis | default("N/A") }},1
+{{ data_to_template.chassis | default("N/A") }},Serial Number: {{ data_to_template.chassis_sn | default("N/A") }},2
+{{ hostname }},RP Uptime: {{ data_to_template.rp_uptime | default("N/A") }},1
+{{ hostname }},Directory: {{ data_to_template.dir | default("N/A") }},1
+{{ hostname }},Disk Space,1
+Disk Space,Total: {{ data_to_template.disk_total_space | default("N/A") }},2
+Disk Space,Used: {{ data_to_template.disk_used_space | default("N/A") }},2
+Disk Space,Free: {{ data_to_template.disk_free_space | default("N/A") }},2
+{{ hostname }},Image: {{ data_to_template.image | default("N/A") }},1
+{{ hostname }},Main Memory: {{ data_to_template.main_mem | default("N/A") }},1
+{{ hostname }},OS: {{ data_to_template.os | default("N/A") }},1
+{{ hostname }},Version: {{ data_to_template.version | default("N/A") }},1
+{{ hostname }},Slot,1
+Slot,Subslot,1
+{%-         for slot in data_to_template.slot %}
+{%-             for sub_slot in data_to_template.slot[slot] %}
+Subslot,Name: {{ data_to_template.slot[slot][sub_slot].name | default("N/A") }},1
+Subslot,Serial Number: {{ data_to_template.slot[slot][sub_slot].sn | default("N/A") }},1
+Subslot,State: {{ data_to_template.slot[slot][sub_slot].state | default("N/A") }},1
+{%- if slot == "rp" %}
+Subslot,Redundancy State: {{ data_to_template.slot[slot][sub_slot].redundancy_state | default("N/A") }},1
+Subslot,Boot Image: {{ data_to_template.slot[slot][sub_slot].rp_boot_image | default("N/A") }},1
+Subslot,Uptime: {{ data_to_template.slot[slot][sub_slot].rp_uptime | default("N/A") }},1
+{%- endif %}
+{%-             endfor %}
+{%-         endfor %}
+{{ hostname }},Virtual Device,1
+{%-         for virtual_device in data_to_template.virtual_device %}
+{%-             for interface in data_to_template.virtual_device[virtual_device].membership %}
+Virtual Device,Name: {{ data_to_template.virtual_device[virtual_device].vd_name | default("N/A") }},1
+Virtual Device,Status: {{ data_to_template.virtual_device[virtual_device].vd_status | default("N/A") }},1
+Virtual Device,{{ interface }},1
+Virtual Device,Type: {{ data_to_template.virtual_device[virtual_device].membership[interface].type | default("N/A") }},1
+Virtual Device,Status: {{ data_to_template.virtual_device[virtual_device].membership[interface].status | default("N/A") }}
+{%-             endfor %}
+{%-         endfor %}
+{%- else %}
+{%- if command == "routing" %}
+{%- for vrf in data_to_template['vrf'] %}
+{%-     for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-         for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-             if data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list is defined %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},{{ route }},1
+{{ route }},Active: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},1
+{{ route }},Metric: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},1
+{{ route }},Next Hop: {{ next_hop }},1
+Next Hop: {{ next_hop }},Next Hop: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }},1
+{{ route }},Preference: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},1
+{{ route }},Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},1
+Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},Codes: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }},1
+{%-                 endfor %}
+{%-             else %}
+{%-                 for outgoing_interface in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.outgoing_interface %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},{{ route }},1
+{{ route }},Active: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},1
+{{ route }},Outgoing Interface: {{ outgoing_interface }},1
+{{ route }},Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},1
+Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},Codes: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }},1
+{%-                 endfor %}
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+{%- endfor %}
+{%- else %}
+{%- if command == 'stp' %}
+{{ hostname }},BPDU,1
+BPDU,Filter: {{ data_to_template['global'].bpdu_filter }},1
+BPDU,Guard: {{ data_to_template['global'].bpdu_guard }},1
+Guard: {{ data_to_template['global'].bpdu_guard }},Timeout Recovery: {{ data_to_template['global'].bpduguard_timeout_recovery }},2
+{{ hostname }},Etherchannel Misconfigure Guard: {{ data_to_template['global'].etherchannel_misconfig_guard }},1
+{{ hostname }},Loopguard: {{ data_to_template['global'].loop_guard }},1
+{%-     for id in data_to_template['rapid_pvst'] %}
+{%-         for vlan in data_to_template['rapid_pvst'][id].vlans %}
+{%-             for interface in data_to_template['rapid_pvst'][id].vlans[vlan].interfaces %}
+{{ hostname }},Forwarding Delay: {{ data_to_template['rapid_pvst'][id].forwarding_delay }},1
+{{ hostname }},Hello Time: {{ data_to_template['rapid_pvst'][id].hello_time }},1
+{{ hostname }},Hold Time: {{ data_to_template['rapid_pvst'][id].hold_count }},1
+{{ hostname }},Max Age: {{ data_to_template['rapid_pvst'][id].max_age }},1
+{{ hostname }},VLAN: {{ vlan }},1
+VLAN: {{ vlan }},Bridge,1
+Bridge,Address: {{ data_to_template['rapid_pvst'][id].vlans[vlan].bridge_address }},1
+Bridge,Priority: {{ data_to_template['rapid_pvst'][id].vlans[vlan].bridge_priority }},1
+Bridge,Configured Priority: {{ data_to_template['rapid_pvst'][id].vlans[vlan].configured_bridge_priority }},1
+VLAN: {{ vlan }},Designated Root,1
+Designated Root,Address: {{ data_to_template['rapid_pvst'][id].vlans[vlan].designated_root_address }},1
+Designated Root,Priority: {{ data_to_template['rapid_pvst'][id].vlans[vlan].designated_root_priority }},1
+VLAN: {{ vlan }},Forwarding Delay: {{ data_to_template['rapid_pvst'][id].vlans[vlan].forwarding_delay }},1
+VLAN: {{ vlan }},Hello Time: {{ data_to_template['rapid_pvst'][id].vlans[vlan].hello_time }},1
+VLAN: {{ vlan }},Hold Count: {{ data_to_template['rapid_pvst'][id].vlans[vlan].hold_count }},1
+VLAN: {{ vlan }},Hold Time: {{ data_to_template['rapid_pvst'][id].vlans[vlan].hold_time }},1
+VLAN: {{ vlan }},Max Age: {{ data_to_template['rapid_pvst'][id].vlans[vlan].max_age }},1
+VLAN: {{ vlan }},Time Since Topology Change: {{ data_to_template['rapid_pvst'][id].vlans[vlan].time_since_topology_change }},1
+VLAN: {{ vlan }},Topology Changes: {{ data_to_template['rapid_pvst'][id].vlans[vlan].topology_changes }},1
+VLAN: {{ vlan }},{{ interface }},1
+{{ interface }},Cost: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].cost | default("N/A") }},1
+{%-     if data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters is defined %}
+{{ interface }},BPDU Counters,1
+BPDU Counters,Received: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters.bpdu_received }},1
+BPDU Counters,Sent: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters.bpdu_sent }},1
+{%-     endif %}
+{{ interface }},Designated,1
+Designated,Bridge Address: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_bridge_address | default("N/A") }},1
+Designated,Bridge Priority: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_bridge_priority | default("N/A") }},1
+Designated,Cost: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_cost | default("N/A") }},1
+Designated,Port Number: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_port_num }},1
+Designated,Port Priority: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_port_priority }},1
+Designated,Root Address: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_root_address | default("N/A") }},1
+Designated,Root Priority: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_root_priority | default("N/A") }},1
+{{ interface }},Forward Transitions: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].forward_transitions | default("N/A") }},1
+{{ interface }},Port State: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].port_state }},1
+{{ interface }},Role: {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].role }},1
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%-     for domain in data_to_template['mstp'] %}  
+{{ hostname}},MSTP Domain: {{ domain }},1
+MSTP Domain: {{ domain }},Name: {{ data_to_template['mstp'][domain].name | default("Not named") }},1
+MSTP Domain: {{ domain }},Revision: {{ data_to_template['mstp'][domain].revision }},1
+{%-     endfor %}  
+{%- else %}
+{%- if command == "vlan" %}
+{%-     for vlan in data_to_template['vlans'] if (vlan != "configuration") or (vlan != "interface_vlan_enabled") or (vlan != "vn_segment_vlan_based_enabled")  %}
+{%-         if data_to_template['vlans'][vlan].interfaces is defined %}
+{%-             for interface in data_to_template['vlans'][vlan].interfaces %}
+{{ hostname }},VLAN: {{ vlan }},1
+VLAN: {{ vlan }},Name: {{ data_to_template['vlans'][vlan].name }},2
+VLAN: {{ vlan }},State: {{ data_to_template['vlans'][vlan].state }},2
+VLAN: {{ vlan }},Shutdown: {{ data_to_template['vlans'][vlan].shutdown }},2
+VLAN: {{ vlan }},{{ interface }},1
+{%-             endfor %}
+{%-         else %}
+{{ hostname }},VLAN: {{ vlan }},1
+VLAN: {{ vlan }},Name: {{ data_to_template['vlans'][vlan].name }},2
+VLAN: {{ vlan }},State: {{ data_to_template['vlans'][vlan].state }},2
+VLAN: {{ vlan }},Shutdown: {{ data_to_template['vlans'][vlan].shutdown }},2
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == 'vrf' %}
+{%- for vrf in data_to_template['vrfs'] %}
+{%-     for address_family in data_to_template['vrfs'][vrf].address_family %}
+{%-         if data_to_template['vrfs'][vrf].address_family[address_family].route_targets is defined %}
+{%-             for target in data_to_template['vrfs'][vrf].address_family[address_family].route_targets %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},Description: {{ data_to_template['vrfs'][vrf].description }},2
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Target: {{ target }},1
+Target: {{ target }},Router Type: {{ data_to_template['vrfs'][vrf].address_family[address_family].route_targets[target].rt_type }},1
+VRF: {{ vrf }},RD: {{ data_to_template['vrfs'][vrf].route_distinguisher }},1
+{%-             endfor %}
+{%-         else %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},Description: {{ data_to_template['vrfs'][vrf].description }},2
+VRF: {{ vrf }},{{ address_family }},1
+VRF: {{ vrf }},RD: {{ data_to_template['vrfs'][vrf].route_distinguisher }},1
+{%-         endif %}
+{%-     endfor %}
+{%- endfor %}
+{%- else %}
+{%- if command == "show access-lists" %}
+{%-     for list in data_to_template['acls'] %}
+{%-         if data_to_template['acls'][list].aces is defined %}
+{%-             for ace in data_to_template['acls'][list].aces %}
+{%-                 if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}
+{%-                     if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}
+{%-                         if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}
+{%-                             for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Source Network: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }},4
+Matches,Destination Network: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }},4
+Matches,Protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }},4
+{%-                             endfor %}
+{%-                         else %}
+{%-                             for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Destination Network: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }},4
+Matches,Protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }},4
+{%-                             endfor %}
+{%-                         endif %}
+{%-                     endif %}
+{%-                 endif %}
+{%-             endfor %}
+{%-         else %}
+{{ hostname }},{{ list }},1
+{%-         endif %}
+{%-     endfor %}
+{%-     for list in data_to_template['acls'] %}
+{%-         if data_to_template['acls'][list].aces is defined %}
+{%-             for ace in data_to_template['acls'][list].aces %}
+{%-                 if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}
+{%-                     if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}
+{%-                         if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Source Protocol,4
+Source Protocol,UDP,5
+{%-                             if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}
+UDP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }},7
+{%-                             endif %}
+{%-                         else %}
+{%-                             if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Destination Protocol,4
+Destination Protocol,UDP,5
+{%-                                 if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}
+UDP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }},7
+{%-                                 endif %}
+{%-                             endif %}
+{%-                         endif %}
+{%-                     else %}
+{%-                         if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}
+{%-                             if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Source Protocol,4
+Source Protocol,TCP,5
+{%-                                 if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}
+TCP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }},7
+{%-                                 endif %}
+{%-                             else %}
+{%-                                 if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+{{ hostname }},{{ list }},1
+{{ list }},{{ ace }},2
+{{ ace }},Actions,3
+{{ ace }},Matches,3
+Actions,Forwarding: {{ data_to_template['acls'][list].aces[ace].actions.forwarding }},4
+Actions,Logging: {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }},4
+Matches,Destination Protocol,4
+Destination Protocol,TCP,5
+{%-                                     if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %}
+TCP,Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }},6
+Port: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }},Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }},7
+{%-                                     endif %}
+{%-                                 endif %}
+{%-                             endif %}
+{%-                         endif %}
+{%-                     endif %}
+{%-                 endif %}
+{%-             endfor %}
+{%-         else %}
+{{ hostname }},{{ list }},1
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show bgp process vrf all" %}
+{%-     for vrf in data_to_template.vrf %}
+{%-         for address_family in data_to_template.vrf[vrf].address_family %}
+{%-             for peer in data_to_template.vrf[vrf].address_family[address_family].peers %}
+{{ hostname}},{{ data_to_template.bgp_tag }}
+{{ hostname}},{{ data_to_template.bgp_pid }}
+{{ hostname}},Protocol,1
+Protocol,State: {{ data_to_template.bgp_protocol_state }},1
+Protocol,,Started Reason: {{ data_to_template.bgp_protocol_started_reason }},1
+{{ hostname }},AS,1
+AS,Path Entries: {{ data_to_template.bgp_as_path_entries }},1
+AS,Format: {{ data_to_template.bgp_asformat }},1
+{{ hostname}},Memory State: {{ data_to_template.bgp_memory_state }},1
+{{ hostname}},Mode: {{ data_to_template.bgp_mmode }},1
+{{ hostname}},Paths Per Attribute: {{ data_to_template.bgp_paths_per_hwm_attr }},1
+{{ hostname}},Bytes Used: {{ data_to_template.bytes_used }},1
+{{ hostname}},Entries Pending Delete: {{ data_to_template.entries_pending_delete }},1
+{{ hostname}},VRF: {{ vrf }},1
+VRF: {{ vrf }},Router ID: {{ data_to_template.vrf[vrf].router_id }},1
+VRF: {{ vrf }},Cluster ID: {{ data_to_template.vrf[vrf].cluster_id }},1
+VRF: {{ vrf }},Configured Router ID: {{ data_to_template.vrf[vrf].conf_router_id }},1
+VRF: {{ vrf }},Number of Peers,1
+Number of Peers,Configured: {{ data_to_template.vrf[vrf].num_conf_peers }},1
+Number of Peers,Established: {{ data_to_template.vrf[vrf].num_established_peers }},1
+Number of Peers,Pending: {{ data_to_template.vrf[vrf].num_pending_conf_peers }},1
+VRF: {{ vrf }},ID: {{ data_to_template.vrf[vrf].vrf_id }},1
+VRF: {{ vrf }},RD: {{ data_to_template.vrf[vrf].vrf_rd }},1
+VRF: {{ vrf }},State: {{ data_to_template.vrf[vrf].vrf_state }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Peer: {{ peer }},1
+Peer: {{ peer }},Active: {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].active_peers }},1
+Peer: {{ peer }},Aggregates: {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].aggregates }},1
+Peer: {{ peer }},Networks: {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].networks }},1
+Peer: {{ peer }},Paths: {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].paths }},1
+Peer: {{ peer }},Routes: {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].routes }},1
+Peer: {{ peer }},Table,1
+Table,ID: {{ data_to_template.vrf[vrf].address_family[address_family].table_id }},1
+Table,State: {{ data_to_template.vrf[vrf].address_family[address_family].table_state }},1
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show bgp sessions" %}
+{%-     for vrf in data_to_template.vrf %}
+{{ hostname}},Local AS: {{ data_to_template.local_as }},1
+{{ hostname}},Total,1
+Total,Established Peers: {{ data_to_template.total_established_peers }},1
+Total,Peers: {{ data_to_template.total_peers }},1
+{{ hostname}},VRF: {{ vrf }},1
+VRF: {{ vrf }},Router ID: {{ data_to_template.vrf[vrf].router_id }},1
+VRF: {{ vrf }},Peers,1
+Peers,Established: {{ data_to_template.vrf[vrf].vrf_established_peers }},1
+Peers,Total: {{ data_to_template.vrf[vrf].vrf_peers }},1
+{%-     endfor %}
+{%- else %}
+{%- if command == "show cdp neighbors" %}
+{%-     for neighbor in data_to_template['cdp'].index %}
+{{ hostname}},{{ data_to_template['cdp'].index[neighbor].local_interface }},1
+{{ data_to_template['cdp'].index[neighbor].local_interface }},{{ data_to_template['cdp'].index[neighbor].port_id }},1
+{{ data_to_template['cdp'].index[neighbor].port_id }},{{ data_to_template['cdp'].index[neighbor].device_id }},2
+{{ data_to_template['cdp'].index[neighbor].device_id }},Platform: {{ data_to_template['cdp'].index[neighbor].platform }},3
+{{ data_to_template['cdp'].index[neighbor].device_id }},Capability: {{ data_to_template['cdp'].index[neighbor].capability }},3
+{{ data_to_template['cdp'].index[neighbor].device_id }},Hold Time: {{ data_to_template['cdp'].index[neighbor].hold_time }},3
+{%-     endfor %}
+{%- else %}
+{%- if command == "show cdp neighbors detail" %}
+{%-     for neighbor in data_to_template['index'] %}
+{{ hostname }},Local Interface: {{ data_to_template['index'][neighbor].local_interface }},1
+Local Interface: {{ data_to_template['index'][neighbor].local_interface }},Remote Interface: {{ data_to_template['index'][neighbor].port_id }},1
+Remote Interface: {{ data_to_template['index'][neighbor].port_id }},{{ data_to_template['index'][neighbor].device_id }},1
+{{ data_to_template['index'][neighbor].device_id }},Platform: {{ data_to_template['index'][neighbor].platform }},1
+{{ data_to_template['index'][neighbor].device_id }},Interface Addresses: {{ data_to_template['index'][neighbor].interface_addresses | replace("{'","") | replace("'","") | replace(":","") | replace("{}}","") | replace(",","") }},1
+{{ data_to_template['index'][neighbor].device_id }},Management Address: {{ data_to_template['index'][neighbor].management_addresses | replace("{'","") | replace("'","") | replace(":","") | replace("}","") | replace("{}","") | replace("{","") }},1
+{{ data_to_template['index'][neighbor].device_id }},Capabilities: {{ data_to_template['index'][neighbor].capabilities }},1
+{{ data_to_template['index'][neighbor].device_id }},Duplex Mode: {{ data_to_template['index'][neighbor].duplex_mode }},1
+{{ data_to_template['index'][neighbor].device_id }},Hold Time: {{ data_to_template['index'][neighbor].hold_time }},1
+{{ data_to_template['index'][neighbor].device_id }},Native VLAN: {{ data_to_template['index'][neighbor].native_vlan }},1
+{{ data_to_template['index'][neighbor].device_id }},Software Version: {{ data_to_template['index'][neighbor].software_version | replace(","," ") | replace("\n"," ") }},1
+{{ data_to_template['index'][neighbor].device_id }},System Name: {{ data_to_template['index'][neighbor].system_name | default("N/A") }},1
+{{ data_to_template['index'][neighbor].device_id }},VTP Domain: {{ data_to_template['index'][neighbor].vtp_management_domain | default("N/A") }},1
+{{ data_to_template['index'][neighbor].device_id }},Physical Location: {{ data_to_template['index'][neighbor].physical_location | default("N/A") }},1
+{{ data_to_template['index'][neighbor].device_id }},Advertisement Version: {{ data_to_template['index'][neighbor].advertisement_ver }},1
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show environment' %}
+{%- for fan in data_to_template.fans %}
+{%-     if (fan != "fan_air_filter") and (fan != "fan_zone_speed") %}
+{{ hostname }},Fan: {{ fan }},1
+Fan: {{ fan }},Direction: {{ data_to_template.fans[fan].direction }},1
+{%- if data_to_template.fans[fan].model is defined %}
+Fan: {{ fan }},Model: {{ data_to_template.fans[fan].model }},1
+{%- endif %}
+Fan: {{ fan }},Status: {{ data_to_template.fans[fan].status }},1
+Fan: {{ fan }},Air Filter: {{ data_to_template.fans.fan_air_filter }},1
+Fan: {{ fan }},Zone Speed: {{ data_to_template.fans.fan_zone_speed }},1
+{%-     endif %}
+{%- endfor %}
+{%- for power_supply in data_to_template.power.power_supply %}
+{{ hostname}},Power Supply: {{ power_supply }},1
+Power Supply: {{ power_supply }},Actual Watts,1
+Actual Watts,Input: {{ data_to_template.power.power_supply[power_supply].actual_input_watts }},1
+Actual Watts,Output: {{ data_to_template.power.power_supply[power_supply].actual_output_watts }},1
+Power Supply: {{ power_supply }},Model: {{ data_to_template.power.power_supply[power_supply].model }},1
+Power Supply: {{ power_supply }},Status: {{ data_to_template.power.power_supply[power_supply].status }},1
+Power Supply: {{ power_supply }},Total Capacity: {{ data_to_template.power.power_supply[power_supply].total_capacity_watts }},1
+Power Supply: {{ power_supply }},Voltage: {{ data_to_template.power.voltage }},1
+Power Supply: {{ power_supply }},Mode,1
+Mode,Config: {{ data_to_template.power.power_supply_mode.config_mode }},1
+Mode,Oper: {{ data_to_template.power.power_supply_mode.oper_mode }},1
+Power Supply: {{ power_supply }},Grid Power Watts,1
+Grid Power Watts,A: {{ data_to_template.power.power_usage_summary.total_grid_a_power_watts }},1
+Grid Power Watts,B: {{ data_to_template.power.power_usage_summary.total_grid_b_power_watts }},1
+Power Supply: {{ power_supply }},Total Power,1
+Total Power,Capacity: {{ data_to_template.power.power_usage_summary.total_power_capacity_watts }},1
+Total Power,Cumulative: {{ data_to_template.power.power_usage_summary.total_power_cumulative_watts }},1
+Total Power,Input: {{ data_to_template.power.power_usage_summary.total_power_input_watts }},1
+Total Power,Output: {{ data_to_template.power.power_usage_summary.total_power_output_watts }},1
+{%- endfor %}
+{%- for temp_number in data_to_template.temperature %}
+{%-     for area in data_to_template.temperature[temp_number] %}
+{{ hostname }},Area: {{ area }},1
+Area: {{ area }},Current Temperature: {{ data_to_template.temperature[temp_number][area].current_temp_celsius }},1
+Area: {{ area }},Threshold,1
+Threshold,Major: {{ data_to_template.temperature[temp_number][area].major_threshold_celsius }},1
+Threshold,Minor: {{ data_to_template.temperature[temp_number][area].minor_threshold_celsius }},1
+Area: {{ area }},Status: {{ data_to_template.temperature[temp_number][area].status }},1
+{%-     endfor %}
+{%- endfor %}
+{%- else %}
+{%- if command == 'show port-channel summary' %}
+{%-     for interface in data_to_template['interfaces'] %}
+{{ hostname }},{{ interface }},1
+{{ interface }},Bundle ID: {{ data_to_template['interfaces'][interface].bundle_id }},1
+{{ interface }},Layer: {{ data_to_template['interfaces'][interface].layer }},1
+{{ interface }},Type: {{ data_to_template['interfaces'][interface].type }},1
+{{ interface }},Oper Status: {{ data_to_template['interfaces'][interface].oper_status }},1
+{{ interface }},Protocol: {{ data_to_template['interfaces'][interface].protocol }},1
+{%-         for member in data_to_template['interfaces'][interface].members %}
+{{ interface }},Member: {{ member }},1
+Member: {{ member }},Flags: {{ data_to_template['interfaces'][interface].members[member].flags }},1
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show interface' %}
+{%-     for interface in data_to_template %}   
+{{ hostname }},{{ interface }},1
+{%-         if data_to_template[interface].description is defined %}
+{{ interface }},Description: {{ data_to_template[interface].description }},1
+{%-         endif %}
+{%-         if data_to_template[interface].admin_state is defined %}
+{{ interface }},Admin State: {{ data_to_template[interface].admin_state }},1
+{%-         endif %}
+{%-         if data_to_template[interface].enabled is defined %}
+{{ interface }},Enabled: {{ data_to_template[interface].enabled }},1
+{%-         endif %}
+{%-         if data_to_template[interface].oper_status is defined %}
+{{ interface }},Oper Status: {{ data_to_template[interface].oper_status }},1
+{%-         endif %}
+{%-         if data_to_template[interface].line_protocol is defined %}
+{{ interface }},Line Protocol: {{ data_to_template[interface].line_protocol }},1
+{%-         endif %}
+{%-         if data_to_template[interface].link_state is defined %}
+{{ interface }},Link State: {{ data_to_template[interface].link_state }},1
+{%-         endif %}
+{%-         if data_to_template[interface].mac_address is defined %}
+{{ interface }},MAC Address: {{ data_to_template[interface].mac_address }},1
+{%-         endif %}
+{%-         if data_to_template[interface].phys_address is defined %}
+{{ interface }},Physical Address: {{ data_to_template[interface].phys_address }},1
+{%-         endif %}
+{%-         if data_to_template[interface].ipv4 is defined %}
+{%-             for ip in data_to_template[interface].ipv4 %}
+{{ interface }},{{ ip }},1
+{%-             endfor%}
+{%-         endif %}
+{%-         if data_to_template[interface].port_speed is defined %}
+{{ interface }},Port Speed: {{ data_to_template[interface].port_speed }},1
+{%-         endif %}
+{%-         if data_to_template[interface].duplex_mode is defined %}
+{{ interface }},Duplex Mode: {{ data_to_template[interface].duplex_mode }},1
+{%-         endif %}
+{%-         if data_to_template[interface].bandwidth is defined %}
+{{ interface }},Bandwidth: {{ data_to_template[interface].bandwidth }},1
+{%-         endif %}
+{%-         if data_to_template[interface].delay is defined %}
+{{ interface }},Delay: {{ data_to_template[interface].delay }},1
+{%-         endif %}
+{%-         if data_to_template[interface].media_type is defined %}
+{{ interface }},Media Type: {{ data_to_template[interface].media_type }},1
+{%-         endif %}
+{%-         if data_to_template[interface].ethertype is defined %}
+{{ interface }},Ethertype: {{ data_to_template[interface].ethertype }},1
+{%-         endif %}
+{%-         if data_to_template[interface].medium is defined %}
+{{ interface }},Medium: {{ data_to_template[interface].medium }},1
+{%-         endif %}
+{%-         if data_to_template[interface].mtu is defined %}
+{{ interface }},MTU: {{ data_to_template[interface].mtu }},1
+{%-         endif %}
+{%-         if data_to_template[interface].port_mode is defined %}
+{{ interface }},Port Mode: {{ data_to_template[interface].port_mode }},1
+{%-         endif %}
+{%-         if data_to_template[interface].types is defined %}
+{{ interface }},Types: {{ data_to_template[interface].types }},1
+{%-         endif %}
+{%-         if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_int) is defined %}
+{{ interface }},Port Channel Interface: {{ data_to_template[interface].port_channel.port_channel_int }},1
+{%-         endif %}
+{%-         if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_member) is defined %}
+{{ interface }},Port Channel Member: {{ data_to_template[interface].port_channel.port_channel_member }},1
+{%-         else %}
+{%-             if (data_to_template[interface].port_channel) and (data_to_template[interface].port_channel.port_channel_member_intfs) is defined %}
+{%                 for member in data_to_template[interface].port_channel.port_channel_member_intfs %}
+{{ interface }},Members: {{ member }},1
+{%-                endfor %}
+{%-             endif %}
+{%-         endif %}
+{%-         if data_to_template[interface].last_link_flapped is defined %}
+{{ interface }},Last Link Flap: {{ data_to_template[interface].last_link_flapped }},1
+{%-         endif %}
+{%-         if data_to_template[interface].interface_reset is defined %}
+{{ interface }},Reset: {{ data_to_template[interface].interface_reset }},1
+{%-         endif %}
+{%-         if data_to_template[interface].dedicated_interface is defined %}
+{{ interface }},Dedicated Interface: {{ data_to_template[interface].dedicated_interface }},1
+{%-         endif %}
+{%-         if data_to_template[interface].efficient_ethernet is defined %}
+{{ interface }},Efficient Ethernet: {{ data_to_template[interface].efficient_ethernet }},1
+{%-         endif %}
+{%-         if data_to_template[interface].encapsulations is defined %}
+{{ interface }},Encapsulation: {{ data_to_template[interface].encapsulations.encapsulation }},1
+{%-         endif %}
+{%-         if data_to_template[interface].flow_control is defined %}
+{{ interface }},Flow Control,1
+Flow Control,Send: {{ data_to_template[interface].flow_control.send }},1
+Flow Control,Receive: {{ data_to_template[interface].flow_control.receive }},1
+{%-         endif %}
+{%-         if data_to_template[interface].auto_mdix is defined %}
+{{ interface }},Auto MDIX: {{ data_to_template[interface].auto_mdix }},1
+{%-         endif %}
+{%-         if data_to_template[interface].reliability is defined %}
+{{ interface }},Reliability: {{ data_to_template[interface].reliability }},1
+{%-         endif %}
+{%-         if data_to_template[interface].switchport_monitor is defined %}
+{{ interface }},Monitor: {{ data_to_template[interface].switchport_monitor }},1
+{%-         endif %}
+{%-         if data_to_template[interface].beacon is defined %}
+{{ interface }},Beacon: {{ data_to_template[interface].beacon }},1
+{%-         endif %}
+{%-         if data_to_template[interface].autostate is defined %}
+{{ interface }},Autostate: {{ data_to_template[interface].autostate }},1
+{%-         endif %}
+{%-         if data_to_template[interface].rxload is defined %}
+{{ interface }},RX Load: {{ data_to_template[interface].rxload }},1
+{%-         endif %}
+{%-         if data_to_template[interface].txload is defined %}
+{{ interface }},TX Load: {{ data_to_template[interface].txload }},1
+{%-         endif %}
+{%-         if data_to_template[interface].counters is defined %}
+{{ interface }},Counters,1
+Counters,Input,1
+Counters,Output,1
+{%-             if data_to_template[interface].counters.in_bad_etype_drop is defined %}
+Input,Bad EType Drop: {{ data_to_template[interface].counters.in_bad_etype_drop }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_broadcast_pkts is defined %}
+Input,Broadcast: {{ data_to_template[interface].counters.in_broadcast_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_crc_errors is defined %}
+Input,CRC Errors: {{ data_to_template[interface].counters.in_crc_errors }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_discard is defined %}
+Input,Discard: {{ data_to_template[interface].counters.in_discard }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_errors is defined %}
+Input,Errors: {{ data_to_template[interface].counters.in_errors }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_if_down_drop is defined %}
+Input,Down Drop: {{ data_to_template[interface].counters.in_if_down_drop }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_ignored is defined %}
+Input,Ignored: {{ data_to_template[interface].counters.in_ignored }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_mac_pause_frames is defined %}
+Input,MAC Pause Frames: {{ data_to_template[interface].counters.in_mac_pause_frames }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_multicast_pkts is defined %}
+Input,Multicast: {{ data_to_template[interface].counters.in_multicast_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_no_buffer is defined %}
+Input,No Buffer: {{ data_to_template[interface].counters.in_no_buffer }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_octets is defined %}
+Input,Octets: {{ data_to_template[interface].counters.in_octets }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_overrun is defined %}
+Input,Overrun: {{ data_to_template[interface].counters.in_overrun }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_oversize_frame is defined %}
+Input,Oversize Frame: {{ data_to_template[interface].counters.in_oversize_frame }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_pkts is defined %}
+Input,Packets: {{ data_to_template[interface].counters.in_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_runts is defined %}
+Input,Runts: {{ data_to_template[interface].counters.in_runts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_short_frame is defined %}
+Input,Short Frame: {{ data_to_template[interface].counters.in_short_frame }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_underrun is defined %}
+Input,Underrun: {{ data_to_template[interface].counters.in_underrun }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_unicast_pkts is defined %}
+Input,Unicast: {{ data_to_template[interface].counters.in_unicast_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_unknown_protos is defined %}
+Input,Unknown: {{ data_to_template[interface].counters.in_unknown_protos }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_watchdog is defined %}
+Input,Watchdog: {{ data_to_template[interface].counters.in_watchdog }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.in_with_dribble is defined %}
+Input,With Dribble: {{ data_to_template[interface].counters.in_with_dribble }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_babble is defined %}
+Output,Babble: {{ data_to_template[interface].counters.out_babble }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_broadcast_pkts is defined %}
+Output,Broadcast: {{ data_to_template[interface].counters.out_broadcast_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_collision is defined %}
+Output,Collision: {{ data_to_template[interface].counters.out_collision }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_deferred is defined %}
+Output,Deferred: {{ data_to_template[interface].counters.out_deferred }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_discard is defined %}
+Output,Discard: {{ data_to_template[interface].counters.out_discard }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_errors is defined %}
+Output,Errors: {{ data_to_template[interface].counters.out_errors }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_jumbo_packets is defined %}
+Output,Jumbo: {{ data_to_template[interface].counters.out_jumbo_packets }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_late_collision is defined %}
+Output,Late Collision: {{ data_to_template[interface].counters.out_late_collision }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_lost_carrier is defined %}
+Output,Lost Carrier: {{ data_to_template[interface].counters.out_lost_carrier }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_mac_pause_frames is defined %}
+Output,MAC Pause Frames: {{ data_to_template[interface].counters.out_mac_pause_frames }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_multicast_pkts is defined %}
+Output,Multicast: {{ data_to_template[interface].counters.out_multicast_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_no_carrier is defined %}
+Output,No Carrier: {{ data_to_template[interface].counters.out_no_carrier }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_octets is defined %}
+Output,Octets: {{ data_to_template[interface].counters.out_octets }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_pkts is defined %}
+Output,Packets: {{ data_to_template[interface].counters.out_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.out_unicast_pkts is defined %}
+Output,Unicast: {{ data_to_template[interface].counters.out_unicast_pkts }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.last_clear is defined %}
+Counters,Last Clear: {{ data_to_template[interface].counters.last_clear }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.rate is defined %}
+Counters,Rate,1
+{%-                 if data_to_template[interface].counters.rate.in_rate is defined %}
+Rate,Input: {{ data_to_template[interface].counters.rate.in_rate }},1
+{%-                 endif %}
+{%-                 if data_to_template[interface].counters.rate.in_rate_pkts is defined %}
+Rate,Input Packets: {{ data_to_template[interface].counters.rate.in_rate_pkts }},1
+{%-                 endif %}
+{%-                 if data_to_template[interface].counters.rate.out_rate is defined %}
+Rate,Output: {{ data_to_template[interface].counters.rate.out_rate }},1
+{%-                 endif %}
+{%-                 if data_to_template[interface].counters.rate.out_rate_pkts is defined %}
+Rate,Output Packets: {{ data_to_template[interface].counters.rate.out_rate_pkts }},1
+{%-                 endif %}
+{%-                 if data_to_template[interface].counters.rate.load_interval is defined %}
+Rate,Load Interval: {{ data_to_template[interface].counters.rate.load_interval }},1
+{%-                 endif %}
+{%-             endif %}
+{%-             if data_to_template[interface].counters.rx is defined %}
+Counters,RX: {{ data_to_template[interface].counters.rx }},1
+{%-             endif %}
+{%-             if data_to_template[interface].counters.tx is defined %}
+Counters,TX: {{ data_to_template[interface].counters.tx }},1
+{%-             endif %}
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show interface status' %}
+{%-     for interface in data_to_template.interfaces %}
+{{ hostname }},{{ interface }},1
+{{ interface }},Status: {{ data_to_template.interfaces[interface].status }},1
+{{ interface }},Type: {{ data_to_template.interfaces[interface].type }},1
+{{ interface }},VLAN: {{ data_to_template.interfaces[interface].vlan }},1
+{{ interface }},Port Speed: {{ data_to_template.interfaces[interface].port_speed }},1
+{{ interface }},Duplex: {{ data_to_template.interfaces[interface].duplex_code }},1
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show interface transceiver' %}
+{%-     for interface in data_to_template %}
+{%-         if data_to_template[interface].transceiver_present %}
+{{ hostname }},{{ interface }},1
+{{ interface }},Present: {{ data_to_template[interface].transceiver_present }},1
+{{ interface }},Type: {{ data_to_template[interface].transceiver_type }},1
+{{ interface }},Name: {{ data_to_template[interface].name }},1
+{{ interface }},Nominal Bitrate: {{ data_to_template[interface].nominal_bitrate }},1
+{{ interface }},Part Number: {{ data_to_template[interface].part_number }},1
+{{ interface }},Revision: {{ data_to_template[interface].revision }},1
+{{ interface }},Serial Number: {{ data_to_template[interface].serial_number }},1
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show inventory' %}
+{%-     for part in data_to_template['name'] %}
+{{ hostname }},Part: {{ part }},1
+Part: {{ part }},Description: {{ data_to_template['name'][part].description | replace(",","") }},1
+Part: {{ part }},PID: {{ data_to_template['name'][part].pid }},1
+Part: {{ part }},Serial Number: {{ data_to_template['name'][part].serial_number }},1
+{%-     endfor %}
+{%- else %}
+{%- if command == 'show ip arp vrf all' %}
+{%-     for interface in data_to_template['interfaces'] %}
+{%-         for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+{{ hostname }},{{ interface }},1
+{{ interface }},Neighbor: {{ neighbor }},1
+Neighbor: {{ neighbor }},Link Layer Address: {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }},1
+Neighbor: {{ neighbor }},Origin: {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }},1
+Neighbor: {{ neighbor }},Age: {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].age }},1
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show ip interface brief" %}
+{%-     for interface in data_to_template['interface'] %}
+{%-         if data_to_template['interface'][interface].vlan_id is defined %}
+{%-             for vlan_id in data_to_template['interface'][interface].vlan_id %}
+{{ hostname }},{{ interface }},1
+{{ interface }},IP Address: {{ data_to_template['interface'][interface].vlan_id[vlan_id].ip_address }},1
+{{ interface }},Status: {{ data_to_template['interface'][interface].vlan_id[vlan_id].interface_status }},1
+{%-             endfor %}
+{%-         else %}
+{{ interface }},{{ interface }},1
+{{ interface }},IP Address: {{ data_to_template['interface'][interface].ip_address }},1
+{{ interface }},Status: {{ data_to_template['interface'][interface].interface_status }},1
+{%-         endif %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show ip ospf" %}
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}
+{%-                     if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas is defined %}
+{%-                         for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}                  
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Router ID: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id}},1
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},Type: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }},1
+Area: {{ area }},Authentication: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].authentication }},1
+Area: {{ area }},Existed: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].existed }},1
+Instance: {{ instance }},Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].enable }},1
+Area: {{ area }},Interface Numbers,1
+Interface Numbers,Active Interfaces: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.active_interfaces }},1
+Interface Numbers,Passive: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.passive_interfaces }},1
+Interface Numbers,Loopback: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.loopback_interfaces }},1
+Interface Numbers,Total: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.interfaces }},1
+Area: {{ area }},SPF,1
+SPF,Total: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }},1
+SPF,Last Run: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_last_run_time }},1
+Instance: {{ instance }},Auto Cost,1
+Auto Cost,Bandwidth Unit: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.bandwidth_unit }},1
+Auto Cost,Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }},1
+Auto Cost,Reference: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }},1
+Instance: {{ instance }},Discard Route,1
+Discard Route,External: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_external }},1
+Discard Route,Internal: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_internal }},1
+Instance: {{ instance }},Graceful Restart: {{ graceful_restart }},1
+Graceful Restart: {{ graceful_restart }},Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }},1
+Graceful Restart: {{ graceful_restart }},Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].restart_interval }},1
+Graceful Restart: {{ graceful_restart }},State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].state }},1
+Instance: {{ instance }},NSR: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }},1
+Instance: {{ instance }},Active Areas,1
+Active Areas,Normal: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.normal }},1
+Active Areas,NSSA: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.nssa }},1
+Active Areas,Stub: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.stub }}
+Active Areas,Total: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.total }},1
+Instance: {{ instance }},SPF Paths: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }},1
+{%-                         endfor %}
+{%-                     else %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Router ID: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id}},1
+Instance: {{ instance }},Auto Cost,1
+Auto Cost,Bandwidth Unit: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.bandwidth_unit }},1
+Auto Cost,Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }},1
+Auto Cost,Reference: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }},1
+Instance: {{ instance }},Discard Route,1
+Discard Route,External: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_external }},1
+Discard Route,Internal: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].discard_route_internal }},1
+Instance: {{ instance }},Graceful Restart: {{ graceful_restart }},1
+Graceful Restart: {{ graceful_restart }},Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }},1
+Graceful Restart: {{ graceful_restart }},Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].restart_interval }},1
+Graceful Restart: {{ graceful_restart }},State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].state }},1
+Instance: {{ instance }},NSR: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }},1
+Instance: {{ instance }},Active Areas,1
+Active Areas,Normal: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.normal }},1
+Active Areas,NSSA: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.nssa }},1
+Active Areas,Stub: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.stub }}
+Active Areas,Total: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.total }},1
+Instance: {{ instance }},SPF Paths: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }},1
+{%-                     endif %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- else %}
+{%- if command == "show ip ospf interface" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface vrf all" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor detail" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor detail vrf all" %}
+
+{%- else %}
+{%- if command == "show ip route" %}
+
+{%- else %}
+{%- if command == "show ip route vrf all" %}
+
+{%- else %}
+{%- if command == "show mac address-table" %}
+
+{%- else %}
+{%- if command == "show version" %}
+
+{%- else %}
+{%- if command == "show vlan" %}
+
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

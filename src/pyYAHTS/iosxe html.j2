@@ -66,8 +66,9 @@
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }}</td>
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}</td>{% else %}
     <td>N/A</td>
-    <td>N/A</td>{% endif %}
-  </tr>{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+    <td>N/A</td>
+</tr>{% endif %}
+{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
 <tr>
     <td>{{ list }}</td>
     <td>{{ ace }}</td>
@@ -80,8 +81,9 @@
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }}</td>
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}</td>{% else %}
     <td>N/A</td>
-    <td>N/A</td>{% endif %}
-  </tr>{% endif %}{% endif %}{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+    <td>N/A</td>
+  </tr>{% endif %}
+{%- endif %}{% endif %}{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
 <tr>
     <td>{{ list }}</td>
     <td>{{ ace }}</td>
@@ -94,8 +96,9 @@
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}</td>
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}</td>{% else %}
     <td>N/A</td>
-    <td>N/A</td>{% endif %}
-  </tr>{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+    <td>N/A</td>
+  </tr>{% endif %}
+{%- else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
 <tr>
     <td>{{ list }}</td>
     <td>{{ ace }}</td>
@@ -108,8 +111,9 @@
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }}</td>
     <td>{{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}</td>{% else %}
     <td>N/A</td>
-    <td>N/A</td>{% endif %}
-  </tr>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+    <td>N/A</td>
+</tr>{% endif %}
+{%- endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
 <tr>
     <td>{{ list }}</td>
     <td>No ACEs</td>
@@ -1497,7 +1501,8 @@
       <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority| default ("N/A") }}</td>
       <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval| default ("N/A") }}</td>
       <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay| default ("N/A") }}</td>
-      <td>{{ neighbor }}</td><td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}</td>
+      <td>{{ neighbor }}</td>
+      <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}</td>
       <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].bdr_ip_addr }}</td>
       <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}</td>
       <td>{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dr_ip_addr }}</td>
@@ -1864,7 +1869,7 @@
     <th>Interface</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in data_to_template['vlans'] %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
+  <tbody>{%- for vlan in data_to_template['vlans'] if (vlan != "configuration") or (vlan != "interface_vlan_enabled") or (vlan != "vn_segment_vlan_based_enabled")  %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
 <tr>
     <td>{{ vlan }}</td>
     <td>{{ data_to_template['vlans'][vlan].name }}</td>
@@ -2443,7 +2448,7 @@
     </tr>
   </thead>
   <tbody>
-  {% for interface in data_to_template %}{% if ( (data_to_template[interface].port_channel.port_channel_member_intfs is defined) and (data_to_template[interface].ipv4 is defined)) %}{% for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}{% for ip_address in data_to_template[interface].ipv4 %}
+{%- for interface in data_to_template %}{% if ( (data_to_template[interface].port_channel.port_channel_member_intfs is defined) and (data_to_template[interface].ipv4 is defined)) %}{% for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}{% for ip_address in data_to_template[interface].ipv4 %}
 <tr>
     <td>{{ interface }}</td>
     <td>{{ data_to_template[interface].description | default ("No Description") }}</td>
@@ -2745,7 +2750,7 @@
     </tr>
   </thead>
   <tbody>
-{%-             for interface in data_to_template['interface'] %}  
+{%-    for interface in data_to_template['interface'] %}  
 <tr>
     <td>{{ interface }}</td>
     <td>{{ data_to_template['interface'][interface].ip_address }}</td>
@@ -2754,7 +2759,7 @@
     <td>{{ data_to_template['interface'][interface].method }}</td>
     <td>{{ data_to_template['interface'][interface].interface_is_ok }}</td>
   </tr>
-{%-             endfor %}
+{%-    endfor %}
   </tbody>
 </table>
 {%- include 'datatable_footer.j2' %}
@@ -3301,5 +3306,4 @@
   </tbody>
 </table>
 {%- include 'datatable_footer.j2' %}
-{%- else %}
 {%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

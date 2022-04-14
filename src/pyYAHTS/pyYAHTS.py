@@ -1,13 +1,15 @@
 import sys
+import os
 import rich_click as click
 import json
 import yaml
-import pandas as pd
 import tabulate
 import logging
 import email
 import smtplib
 import ssl
+import networkx as nx
+import pandas as pd
 from pyats.topology import Testbed, Device
 from genie import testbed
 from rich import print_json
@@ -21,6 +23,7 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pyvis.network import Network
 
 class GetJson():
     def __init__(self, hostname, os, username, password, command, filetype, from_email, email_password, to_email):
@@ -111,6 +114,8 @@ class GetJson():
             self.csv_file(parsed_json)
         elif self.filetype == 'svg':
             self.svg_file(parsed_json)
+        elif self.filetype == 'graph':
+            self.graph_file(parsed_json)            
     
     def json_file(self, parsed_json):
         with open(f'{self.hostname} {self.command}.json', 'w') as f:
@@ -127,7 +132,7 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 html_template = env.get_template(f'{self.os} html.j2')              
                 html_output = html_template.render(command = self.command, data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command}.html', 'w') as f:
@@ -155,7 +160,7 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 markdown_template = env.get_template(f'{self.os} md.j2')              
                 markdown_output = markdown_template.render(command = self.command, data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command}.md', 'w') as f:
@@ -172,9 +177,9 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 csv_template = env.get_template(f'{self.os} csv.j2')              
-                csv_output = csv_template.render(command = self.command, data_to_template=json.loads(parsed_json))
+                csv_output = csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
                 with open(f'{self.hostname} {self.command}.csv', 'w') as f:
                     f.write(csv_output)
                 break          
@@ -189,6 +194,27 @@ class GetJson():
         console.save_svg(f"{self.hostname} {self.command}.svg", title=f"{self.hostname} {self.command}")
         import webbrowser
         webbrowser.open(f"{self.hostname} {self.command}.svg")
+
+    def graph_csv_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                graph_csv_template = env.get_template(f'{self.os} graph_csv.j2')              
+                graph_csv_output = graph_csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
+                with open(f'{self.hostname} {self.command}.csv', 'w') as f:
+                    f.write(graph_csv_output)
+                break
+
+    def graph_file(self, parsed_json):
+        self.graph_csv_file(parsed_json)
+        df = pd.read_csv(f'{self.hostname} {self.command}.csv')
+        G = nx.from_pandas_edgelist(df,source='Source',target="Target",edge_attr=True)
+        net = Network(notebook=True, width=1500, height=1000)
+        net.show_buttons(True)
+        net.from_nx(G)
+        net.show(f'{self.hostname} {self.command}.html')
+        os.remove(f'{self.hostname} {self.command}.csv')
 
     def send_email(self, parsed_json):
         subject = f"An Email from pyYAHTS Device {self.hostname} and Command {self.command}"
@@ -265,7 +291,7 @@ class GetJson():
         n=10
         for device in self.connect_device():
             for n in track(range(n), description='Connecting to devices'):
-                device.connect(log_stdout=False)
+                device.connect(learn_hostname=True,log_stdout=False)
         # Parse or Learn based on command
             if 'show' in self.command:
                 try:
@@ -299,10 +325,10 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
-@click.option('--from_email', prompt='From Email', help='Email address to send output from', required=False, default='none')
-@click.option('--email_password', prompt='Email Password', hide_input=True, help='Email account password', required=False, default='none')
-@click.option('--to_email', prompt='To Email', help='Email address to send output to', required=False, default='none')
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
+@click.option('--from_email', help='Email address to send output from', required=False, default='none')
+@click.option('--email_password', hide_input=True, help='Email account password', required=False, default='none')
+@click.option('--to_email', help='Email address to send output to', required=False, default='none')
 def cli(hostname, os, username, password, command, filetype, from_email, email_password, to_email):
     invoke_class = GetJson(hostname, os, username, password, command, filetype, from_email, email_password, to_email)
     invoke_class.print_json()
