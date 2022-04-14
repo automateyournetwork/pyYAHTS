@@ -1869,7 +1869,7 @@
     <th>Interface</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in data_to_template['vlans'] %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
+  <tbody>{%- for vlan in data_to_template['vlans'] if (vlan != "configuration") or (vlan != "interface_vlan_enabled") or (vlan != "vn_segment_vlan_based_enabled")  %}{% if data_to_template['vlans'][vlan].interfaces is defined %}{% for interface in data_to_template['vlans'][vlan].interfaces %}
 <tr>
     <td>{{ vlan }}</td>
     <td>{{ data_to_template['vlans'][vlan].name }}</td>
@@ -2448,7 +2448,7 @@
     </tr>
   </thead>
   <tbody>
-  {% for interface in data_to_template %}{% if ( (data_to_template[interface].port_channel.port_channel_member_intfs is defined) and (data_to_template[interface].ipv4 is defined)) %}{% for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}{% for ip_address in data_to_template[interface].ipv4 %}
+{%- for interface in data_to_template %}{% if ( (data_to_template[interface].port_channel.port_channel_member_intfs is defined) and (data_to_template[interface].ipv4 is defined)) %}{% for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}{% for ip_address in data_to_template[interface].ipv4 %}
 <tr>
     <td>{{ interface }}</td>
     <td>{{ data_to_template[interface].description | default ("No Description") }}</td>
@@ -2750,7 +2750,7 @@
     </tr>
   </thead>
   <tbody>
-{%-             for interface in data_to_template['interface'] %}  
+{%-    for interface in data_to_template['interface'] %}  
 <tr>
     <td>{{ interface }}</td>
     <td>{{ data_to_template['interface'][interface].ip_address }}</td>
@@ -2759,7 +2759,7 @@
     <td>{{ data_to_template['interface'][interface].method }}</td>
     <td>{{ data_to_template['interface'][interface].interface_is_ok }}</td>
   </tr>
-{%-             endfor %}
+{%-    endfor %}
   </tbody>
 </table>
 {%- include 'datatable_footer.j2' %}
@@ -3306,5 +3306,4 @@
   </tbody>
 </table>
 {%- include 'datatable_footer.j2' %}
-{%- else %}
 {%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

@@ -3,7 +3,6 @@ import os
 import rich_click as click
 import json
 import yaml
-import pandas as pd
 import tabulate
 import logging
 import email
@@ -133,7 +132,7 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 html_template = env.get_template(f'{self.os} html.j2')              
                 html_output = html_template.render(command = self.command, data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command}.html', 'w') as f:
@@ -161,7 +160,7 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 markdown_template = env.get_template(f'{self.os} md.j2')              
                 markdown_output = markdown_template.render(command = self.command, data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command}.md', 'w') as f:
@@ -178,7 +177,7 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 csv_template = env.get_template(f'{self.os} csv.j2')              
                 csv_output = csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
                 with open(f'{self.hostname} {self.command}.csv', 'w') as f:
@@ -200,7 +199,7 @@ class GetJson():
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
-                env = Environment(loader=FileSystemLoader(template_dir))
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
                 graph_csv_template = env.get_template(f'{self.os} graph_csv.j2')              
                 graph_csv_output = graph_csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
                 with open(f'{self.hostname} {self.command}.csv', 'w') as f:
@@ -210,7 +209,7 @@ class GetJson():
     def graph_file(self, parsed_json):
         self.graph_csv_file(parsed_json)
         df = pd.read_csv(f'{self.hostname} {self.command}.csv')
-        G = nx.from_pandas_edgelist(df,source='Source',target="Target",edge_attr="Weight")
+        G = nx.from_pandas_edgelist(df,source='Source',target="Target",edge_attr=True)
         net = Network(notebook=True, width=1500, height=1000)
         net.show_buttons(True)
         net.from_nx(G)
@@ -292,7 +291,7 @@ class GetJson():
         n=10
         for device in self.connect_device():
             for n in track(range(n), description='Connecting to devices'):
-                device.connect(log_stdout=False)
+                device.connect(learn_hostname=True,log_stdout=False)
         # Parse or Learn based on command
             if 'show' in self.command:
                 try:
