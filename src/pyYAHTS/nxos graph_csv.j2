@@ -1912,32 +1912,280 @@ Instance: {{ instance }},SPF Paths: {{ data_to_template['vrf'][vrf].address_fami
 {%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf interface" %}
-
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},{{ interface }},1
+{{ interface }},Interval,1
+{{ interface }},Name: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }},1
+{{ interface }},BFD: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }},1
+{{ interface }},Cost: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval is defined %}
+Interval,Dead: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }},1
+{%-                         endif %}
+{{ interface }},Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval is defined %}
+Inteval,Hello: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }},1
+{%-                         endif %}
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer is defined %}
+{{ interface }},Hello Timer: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }},1
+{%-                         endif %}
+{{ interface }},Index: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }},1
+{{ interface }},Type: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address is defined %}
+{{ interface }},IP Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }},1
+{%-                         endif %}
+{{ interface }},Line Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].line_protocol }},1
+{{ interface }},Passive: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval is defined %}
+Interval,Retransmit: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }},1
+{%-                         endif %}
+{{ interface }},State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics is defined %}
+{{ interface }},Checksum: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }},1
+{{ interface }},Total LSA: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }},1
+{{ interface }},Neighbors,1
+Neighbors,Adjacent: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_adjacent }},1
+Neighbors,Flooding: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_flooding }},1
+Neighbors,Total: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.total_neighbors }},1
+{%-                         endif %}
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay is defined %}
+{{ interface }},Transmit Delay: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }},1
+{%-                         endif %}
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval is defined %}
+Interval,Wait: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }},1
+{%-                         endif %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf interface vrf all" %}
-
-{%- else %}
-{%- if command == "show ip ospf neighbor" %}
-
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},{{ interface }},1
+{{ interface }},Interval,1
+{{ interface }},Name: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }},1
+{{ interface }},BFD: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }},1
+{{ interface }},Cost: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval is defined %}
+Interval,Dead: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }},1
+{%-                         endif %}
+{{ interface }},Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval is defined %}
+Interval,Hello: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }},1
+{%-                         endif %}
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer is defined %}
+{{ interface }},Hello Timer: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }},1
+{%-                         endif %}
+{{ interface }},Index: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }},1
+{{ interface }},Type: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address is defined %}
+{{ interface }},IP Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }},1
+{%-                         endif %}
+{{ interface }},Line Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].line_protocol }},1
+{{ interface }},Passive: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval is defined %}
+Interval,Retransmit: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }},1
+{%-                         endif %}
+{{ interface }},State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }},1
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics is defined %}
+{{ interface }},Checksum: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }},1
+{{ interface }},Total LSA: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }},1
+{{ interface }},Neighbors,1
+Neighbors,Adjacent: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_adjacent }},1
+Neighbors,Flooding: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_flooding }},1
+Neighbors,Total: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.total_neighbors }},1
+{%-                         endif %}
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay is defined %}
+{{ interface }},Transmit Delay: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }},1
+{%-                         endif %}
+{%-                         if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval is defined %}
+Interval,Wait: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }},1
+{%-                         endif %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf neighbor detail" %}
-
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{%-                         for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},{{ interface }},1
+{{ interface }},Neighbor: {{ neighbor }},1
+Neighbor: {{ neighbor }},Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }},1
+Neighbor: {{ neighbor }},Events: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }},1
+Neighbor: {{ neighbor }},DBD Options: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dbd_options }},1
+Neighbor: {{ neighbor }},Dead Timer: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }},1
+Neighbor: {{ neighbor }},Hello Options: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].hello_options }},1
+Neighbor: {{ neighbor }},Last Non Hello: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_non_hello_packet_received }},1
+Neighbor: {{ neighbor }},Last State Change: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_state_change }},1
+Neighbor: {{ neighbor }},Router ID: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }},1
+Neighbor: {{ neighbor }},State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }},1
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf neighbor detail vrf all" %}
-
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{%-                         for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Instance: {{ instance }},1
+Instance: {{ instance }},Area: {{ area }},1
+Area: {{ area }},{{ interface }},1
+{{ interface }},Neighbor: {{ neighbor }},1
+Neighbor: {{ neighbor }},Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }},1
+Neighbor: {{ neighbor }},Events: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }},1
+Neighbor: {{ neighbor }},DBD Options: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dbd_options }},1
+Neighbor: {{ neighbor }},Dead Timer: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }},1
+Neighbor: {{ neighbor }},Hello Options: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].hello_options }},1
+Neighbor: {{ neighbor }},Last Non Hello: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_non_hello_packet_received }},1
+Neighbor: {{ neighbor }},Last State Change: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].last_state_change }},1
+Neighbor: {{ neighbor }},Router ID: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }},1
+Neighbor: {{ neighbor }},State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }},1
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip route" %}
-
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Router: {{ route }},1
+Router: {{ route }},Active: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},1
+Router: {{ route }},Metric: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},1
+Router: {{ route }},Preference: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},1
+Router: {{ route }},Source Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},1
+Router: {{ route }},Best,1
+Best,M: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].mbest }},1
+Best,U: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].ubest }},1
+Router: {{ route }},Next Hop: {{ next_hop }}.1
+Next Hop: {{ next_hop }},Next Hop: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }},1
+Next Hop: {{ next_hop }},Best UCast Next Hop: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].best_ucast_nexthop }},1
+Next Hop: {{ next_hop }},Metric: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].metric }},1
+Next Hop: {{ next_hop }},Preference: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].route_preference }},1
+Next Hop: {{ next_hop }},Source Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].source_protocol }},1
+Next Hop: {{ next_hop }},Updated: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }},1
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip route vrf all" %}
-
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ hostname }},VRF: {{ vrf }},1
+VRF: {{ vrf }},{{ address_family }},1
+{{ address_family }},Router: {{ route }},1
+Router: {{ route }},Active: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }},1
+Router: {{ route }},Metric: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }},1
+Router: {{ route }},Preference: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }},1
+Router: {{ route }},Source Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }},1
+Router: {{ route }},Best,1
+Best,M: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].mbest }},1
+Best,U: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].ubest }},1
+Router: {{ route }},Next Hop: {{ next_hop }}.1
+Next Hop: {{ next_hop }},Next Hop: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }},1
+Next Hop: {{ next_hop }},Best UCast Next Hop: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].best_ucast_nexthop }},1
+Next Hop: {{ next_hop }},Metric: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].metric }},1
+Next Hop: {{ next_hop }},Preference: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].route_preference }},1
+Next Hop: {{ next_hop }},Source Protocol: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].source_protocol }},1
+Next Hop: {{ next_hop }},Updated: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }},1
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show mac address-table" %}
-
+{%-     for vlan in data_to_template['mac_table'].vlans %}
+{%-         for mac in data_to_template['mac_table'].vlans[vlan].mac_addresses %}
+{%-             for interface in data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces %}
+{{ hostname }},VLAN: {{ vlan }},1
+VLAN: {{ vlan }},{{ mac }},1
+{{ mac }},{{ interface }},1
+{{ interface }},Type: {{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].mac_type }},1
+{{ interface }},Age: {{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].age }},1
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show version" %}
-
+{{ hostname }},Hardware,1
+Hardware,Bootflash: {{ data_to_template['platform'].hardware.bootflash }},1
+Hardware,Chassis: {{ data_to_template['platform'].hardware.chassis }},1
+Hardware,CPU: {{ data_to_template['platform'].hardware.cpu }},1
+Hardware,Device Name: {{ data_to_template['platform'].hardware.device_name }},1
+Hardware,Memory: {{ data_to_template['platform'].hardware.memory }},1
+Hardware,Model: {{ data_to_template['platform'].hardware.model }},1
+Hardware,Processor Board: {{ data_to_template['platform'].hardware.processor_board_id }},1
+Hardware,RP: {{ data_to_template['platform'].hardware.rp }},1
+Hardware,Slots: {{ data_to_template['platform'].hardware.slots }},1
+{{ hostname }},Uptime: {{ data_to_template['platform'].kernel_uptime.days }} {{ data_to_template['platform'].kernel_uptime.hours }} {{ data_to_template['platform'].kernel_uptime.minutes }} {{ data_to_template['platform'].kernel_uptime.seconds }},1
+{{ hostname }},Name: {{ data_to_template['platform'].name }},1
+{{ hostname }},OS: {{ data_to_template['platform'].os }},1
+{{ hostname }},Reload Reason: {{ data_to_template['platform'].reason }},1
+{{ hostname }},Software,1
+Software,BIOS,1
+BIOS,Compile Time: {{ data_to_template['platform'].software.bios_compile_time }},1
+BIOS,Version: {{ data_to_template['platform'].software.bios_version }},1
+Software,Kickstart,1
+Kickstart,Compile Time: {{ data_to_template['platform'].software.kickstart_compile_time }},1
+Kickstart,Image: {{ data_to_template['platform'].software.kickstart_image_file }},1
+Kickstart,Version: {{ data_to_template['platform'].software.kickstart_version }},1
+Software,System,1
+System,Compile Time: {{ data_to_template['platform'].software.system_compile_time }},1
+System,Image File: {{ data_to_template['platform'].software.system_image_file }},1
+System,Version: {{ data_to_template['platform'].software.system_version }},1
 {%- else %}
 {%- if command == "show vlan" %}
-
-{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}
+{%-     for vlan in data_to_template['vlans'] %}
+{%-         for interface in data_to_template['vlans'][vlan].interfaces %}
+{{ hostname }},VLAN: {{ vlan }},1
+VLAN: {{ vlan }},{{ interface }},1
+VLAN: {{ vlan }},Name: {{ data_to_template['vlans'][vlan].name }},1
+VLAN: {{ vlan }},State: {{ data_to_template['vlans'][vlan].state }},1
+VLAN: {{ vlan }},Shutdown: {{ data_to_template['vlans'][vlan].shutdown }},1
+VLAN: {{ vlan }},Type: {{ data_to_template['vlans'][vlan].type }},1
+VLAN: {{ vlan }},Mode: {{ data_to_template['vlans'][vlan].mode }},1
+{%-         endfor %}
+{%-     endfor %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}
