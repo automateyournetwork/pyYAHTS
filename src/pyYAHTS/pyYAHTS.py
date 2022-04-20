@@ -26,7 +26,7 @@ from email.mime.text import MIMEText
 from pyvis.network import Network
 
 class GetJson():
-    def __init__(self, hostname, os, username, password, command, filetype, from_email, email_password, to_email):
+    def __init__(self, hostname, os, username, password, command, filetype, from_email, email_password, to_email, verbose):
         self.hostname = hostname
         self.os = os
         self.username = username
@@ -36,6 +36,7 @@ class GetJson():
         self.from_email = from_email
         self.email_password = email_password
         self.to_email = to_email
+        self.verbose = verbose
         self.supported_templates = ['acl',
                             'arp',
                             'bgp',
@@ -303,8 +304,11 @@ class GetJson():
         # ---------------------------------------
         n=10
         for device in self.connect_device():
-            for n in track(range(n), description='Connecting to devices'):
-                device.connect(learn_hostname=True,log_stdout=False)
+            if self.verbose:
+                device.connect(learn_hostname=True,log_stdout=True)
+            else:
+                for n in track(range(n), description='Connecting to devices'):
+                    device.connect(learn_hostname=True,log_stdout=False)
         # Parse or Learn based on command
             if 'show' in self.command:
                 try:
@@ -342,8 +346,9 @@ class GetJson():
 @click.option('--from_email', help='Email address to send output from', required=False, default='none')
 @click.option('--email_password', hide_input=True, help='Email account password', required=False, default='none')
 @click.option('--to_email', help='Email address to send output to', required=False, default='none')
-def cli(hostname, os, username, password, command, filetype, from_email, email_password, to_email):
-    invoke_class = GetJson(hostname, os, username, password, command, filetype, from_email, email_password, to_email)
+@click.option('-v','--verbose', help='Display pyATS Logging', required=False, is_flag=True)
+def cli(hostname, os, username, password, command, filetype, from_email, email_password, to_email, verbose):
+    invoke_class = GetJson(hostname, os, username, password, command, filetype, from_email, email_password, to_email, verbose)
     invoke_class.print_json()
 
 if __name__ == "__main__":
