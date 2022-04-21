@@ -998,8 +998,14 @@
     <td>N/A</td>{% if data_to_template[interface].last_change is defined %}
     <td>{{ data_to_template[interface].last_change }}</td>{% else %}
     <td>N/A</td>{% endif %}
+{%- if data_to_template[interface].port_channel is defined %}
     <td>{{ data_to_template[interface].port_channel.port_channel_int }}</td>
-    <td>{{ data_to_template[interface].port_channel.port_channel_member }}</td>{% if data_to_template[interface].counters is defined %}
+    <td>{{ data_to_template[interface].port_channel.port_channel_member }}</td>
+{%- else %}
+    <td>N/A</td>
+    <td>N/A</td>
+{%- endif %}
+{%- if data_to_template[interface].counters is defined %}
     <td>{{ data_to_template[interface].counters.in_broadcast_pkts | default("N/A") }}</td>
     <td>{{ data_to_template[interface].counters.in_crc_errors | default("N/A") }}</td>
     <td>{{ data_to_template[interface].counters.in_errors }}</td>
