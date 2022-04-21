@@ -1,0 +1,144 @@
+{%- if command == "acl" %}
+
+{%- else %}
+{%- if command == "arp" %}
+```mermaid
+flowchart LR;
+{%- for interface in data_to_template['interfaces'] %}
+{%-     if data_to_template['interfaces'][interface].ipv4 is defined %}
+{%-         for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+{{ hostname }} <--> {{ interface }} <--> {{ neighbor }} <--> {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }}
+{%-        endfor %}
+{%-     endif %}
+{%- endfor %}
+```
+{%- else %}
+{%- if command == "bgp" %}
+
+{%- else %}
+
+{%- if command == "hsrp" %}
+```mermaid
+flowchart LR;
+{%-     for vlan in data_to_template %}
+{%-         for address_family in data_to_template[vlan].address_family %}
+{%-             for version in data_to_template[vlan].address_family[address_family].version %}
+{%-                 for group in data_to_template[vlan].address_family[address_family].version[version].groups %}
+{{ hostname }} <--> {{ vlan }} <--> {{ address_family }} <--> {{ version }} <--> {{ group }} <--> {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].active_router }} <--> {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }} <--> {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].session_name }} <--> {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_router }}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+```
+{%- else %}
+{%- if command == 'interface' %}
+```mermaid
+flowchart LR;
+{%-     for interface in data_to_template %}
+{%-         if data_to_template[interface].description %}
+{{ hostname }} <--> {{ data_to_template[interface].description | replace(" ","_") }} <--> {{ interface }}
+{%-         else %}
+{{ hostname }} <--> {{ interface }}
+{%-         endif %}
+{%-     endfor %}
+```
+{%- else %}
+{%- if command == 'lldp' %}
+
+{%- else %}
+{%- if command == "ntp" %}
+
+{%- else %}
+{%- if command == 'ospf' %}
+
+{%- else %}
+{%- if command == "platform" %}
+
+{%- else %}
+{%- if command == "routing" %}
+
+{%- else %}
+{%- if command == "vlan" %}
+
+{%- else %}
+{%- if command == 'vrf' %}
+
+{%- else %}
+{%- if command == "show access-lists" %}
+
+{%- else %}
+{%- if command == "show bgp process vrf all" %}
+
+{%- else %}
+{%- if command == "show bgp sessions" %}
+
+{% else %}
+{% if command == "show cdp neighbors" %}
+```mermaid
+flowchart LR;
+{%-     for neighbor in data_to_template['cdp'].index %}
+{%-         if data_to_template['cdp'].index[neighbor].local_interface == data_to_template['cdp'].index[neighbor].port_id %}
+{{ hostname }} <--> {{ data_to_template['cdp'].index[neighbor].local_interface }} <--> {{ data_to_template['cdp'].index[neighbor].device_id }}
+{%-         else %}
+{{ hostname }} <--> {{ data_to_template['cdp'].index[neighbor].local_interface }} <--> {{ data_to_template['cdp'].index[neighbor].port_id }} <--> {{ data_to_template['cdp'].index[neighbor].device_id }}
+{%-         endif %}
+{%-     endfor %}
+```
+{%- else %}
+{%- if command == "show cdp neighbors detail" %}
+
+{%- else %}
+{%- if command == "show environment" %}
+
+{%- else %}
+{%- if command == "show port-channel summary" %}
+
+{%- else %}
+{%- if command == "show interface" %}
+
+{%- else %}
+{%- if command == "show interface status" %}
+
+{%- else %}
+{%- if command == "show interface transceiver" %}
+
+{%- else %}
+{%- if command == "show inventory" %}
+
+{%- else %}
+{% if command == "show ip arp vrf all" %}
+
+{%- else %}
+{%- if command == "show ip interface brief" %}
+
+{%- else %}
+{%- if command == "show ip ospf" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface vrf all" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbors detail" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbors detail vrf all" %}
+
+{%- else %}
+{%- if command == "show ip route" %}
+
+{%- else %}
+{%- if command == "show ip route vrf all" %}
+
+{%- else %}
+{%- if command == "show mac address-table" %}
+
+{%- else %}
+{%- if command == "show version" %}
+
+{%- else %}
+{%- if command == "show vlan" %}
+
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

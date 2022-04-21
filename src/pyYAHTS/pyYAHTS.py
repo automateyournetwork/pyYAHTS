@@ -156,6 +156,8 @@ class GetJson():
             self.graph_file(parsed_json)
         elif self.filetype == 'mindmap':
             self.mindmap_file(parsed_json)
+        elif self.filetype == 'flowchart':
+            self.flowchart_file(parsed_json)
         elif self.filetype == 'all':
             self.all_files(parsed_json)
     
@@ -272,6 +274,17 @@ class GetJson():
                 click.secho(f"Mindmap file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
                 break        
 
+    def flowchart_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                flowchart_template = env.get_template(f'{self.os} flowchart.j2')              
+                flowchart_output = flowchart_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command} flowchart.md', 'w') as f:
+                    f.write(flowchart_output)
+                break
+
     def all_files(self, parsed_json):
         self.json_file(parsed_json)
         self.yaml_file(parsed_json)
@@ -281,6 +294,7 @@ class GetJson():
         self.csv_file(parsed_json)
         self.graph_file(parsed_json)
         self.mindmap_file(parsed_json)
+        self.flowchart_file(parsed_json)
         self.svg_file(parsed_json)
 
     def send_email(self, parsed_json):
@@ -396,7 +410,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap','all'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap','flowchart','all'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 @click.option('--from_email', help='Email address to send output from', required=False, default='none')
 @click.option('--email_password', hide_input=True, help='Email account password', required=False, default='none')
 @click.option('--to_email', help='Email address to send output to', required=False, default='none')
