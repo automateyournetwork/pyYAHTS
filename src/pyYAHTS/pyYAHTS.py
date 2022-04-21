@@ -123,7 +123,7 @@ class GetJson():
                     if self.filetype:
                         self.pick_filetype(parsed_json)
                     if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
-                        self.send_email(parsed_json)            
+                        self.send_email(parsed_json)
         else:         
             parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
             print_json(parsed_json)
@@ -387,6 +387,7 @@ class GetJson():
                         command_output = device.learn(self.command).info
                 except:
                     command_output = f"Cannot Parse { self.command }"
+            device.disconnect()
             return(command_output)
 
 @click.command()

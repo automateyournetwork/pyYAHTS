@@ -984,7 +984,10 @@
     <td>{{ data_to_template[interface].bandwidth }}</td>
     <td>{{ data_to_template[interface].mtu }}</td>
     <td>{{ data_to_template[interface].delay }}</td>
-    <td>{{ data_to_template[interface].encapsulation.encapsulation }}</td>{% if data_to_template[interface].medium is defined %}
+    {%- if data_to_template[interface].encapsulation is defined %}
+    <td>{{ data_to_template[interface].encapsulation.encapsulation }}</td>{%- else %}
+    <td>N/A</td>{% endif %}
+    {%- if data_to_template[interface].medium is defined %}
     <td>{{ data_to_template[interface].medium }}</td>{% else %}
     <td>N/A</td>{% endif %}{% if data_to_template[interface].flow_control is defined %}
     <td>{{ data_to_template[interface].flow_control.receive }}</td>
