@@ -565,7 +565,9 @@
 ##### State: {{ data_to_template.slot[slot][subslot].state | replace(","," ")}}
 {%-             if slot == "rp" %}
 ##### Conifg Register: {{ data_to_template.slot[slot][subslot].config_register }}
+{%- if data_to_template.slot[slot][subslot].issu is defined %}
 ##### ISSU In Progress: {{ data_to_template.slot[slot][subslot].issu.in_progress }}
+{%- endif %}
 ##### Redundancy State: {{ data_to_template.slot[slot][subslot].redundancy_state | replace(","," ") }}
 ##### RP Uptime: {{ data_to_template.slot[slot][subslot].rp_uptime | replace(","," ") }}
 ##### System Image: {{ data_to_template.slot[slot][subslot].system_image | replace(","," ") }}
