@@ -1658,7 +1658,9 @@
       <td>{{ data_to_template.slot[slot][subslot].state | replace(","," ")}}</td>
 {%-             if slot == "rp" %}
       <td>{{ data_to_template.slot[slot][subslot].config_register }}</td>
+{%- if data_to_template.slot[slot][subslot].issu is defined %}
       <td>{{ data_to_template.slot[slot][subslot].issu.in_progress }}</td>
+{%- endif %}
       <td>{{ data_to_template.slot[slot][subslot].redundancy_state | replace(","," ") }}</td>
       <td>{{ data_to_template.slot[slot][subslot].rp_uptime | replace(","," ") }}</td>
       <td>{{ data_to_template.slot[slot][subslot].system_image | replace(","," ") }}</td>

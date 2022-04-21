@@ -1272,7 +1272,9 @@ Subslot: {{ subslot }},Serial Number: {{ data_to_template.slot[slot][subslot].sn
 Subslot: {{ subslot }},State: {{ data_to_template.slot[slot][subslot].state | replace(","," ")}},1
 {%-             if slot == "rp" %}
 Subslot: {{ subslot }},Config Register: {{ data_to_template.slot[slot][subslot].config_register }},1
+{%- if data_to_template.slot[slot][subslot].issu is defined %}
 Subslot: {{ subslot }},ISSU In Progress: {{ data_to_template.slot[slot][subslot].issu.in_progress }},1
+{%- endif %}
 Subslot: {{ subslot }},Redundancy State: {{ data_to_template.slot[slot][subslot].redundancy_state | replace(","," ") }},1
 Subslot: {{ subslot }},RP Uptime: {{ data_to_template.slot[slot][subslot].rp_uptime | replace(","," ") }},1
 Subslot: {{ subslot }},System Image: {{ data_to_template.slot[slot][subslot].system_image | replace(","," ") }},1

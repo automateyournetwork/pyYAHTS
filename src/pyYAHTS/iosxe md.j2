@@ -226,7 +226,7 @@
 | ---- | -------- | ---- | ------------- | ----- | --------------- | ---------------- | ---------------- | --------- | ------------ |
 {%-     for slot in data_to_template.slot %}
 {%-         for subslot in data_to_template.slot[slot] %}
-| {{ slot }} | {{ subslot }} | {{ data_to_template.slot[slot][subslot].name }} | {{ data_to_template.slot[slot][subslot].sn }} | {{ data_to_template.slot[slot][subslot].state }} | {% if slot == "rp" %}{{ data_to_template.slot[slot][subslot].config_register }} | {{ data_to_template.slot[slot][subslot].issu.in_progress }} | {{ data_to_template.slot[slot][subslot].redundancy_state }} | {{ data_to_template.slot[slot][subslot].rp_uptime }} | {{ data_to_template.slot[slot][subslot].system_image }}{%- else %}N/A | N/A | N/A | N/A | N/A{%- endif %} |
+| {{ slot }} | {{ subslot }} | {{ data_to_template.slot[slot][subslot].name }} | {{ data_to_template.slot[slot][subslot].sn }} | {{ data_to_template.slot[slot][subslot].state }} | {% if slot == "rp" %}{{ data_to_template.slot[slot][subslot].config_register }} | {%- if data_to_template.slot[slot][subslot].issu is defined %}{{ data_to_template.slot[slot][subslot].issu.in_progress }}{%- else %}N/A{%- endif %} | {{ data_to_template.slot[slot][subslot].redundancy_state }} | {{ data_to_template.slot[slot][subslot].rp_uptime }} | {{ data_to_template.slot[slot][subslot].system_image }}{%- else %}N/A | N/A | N/A | N/A | N/A{%- endif %} |
 {%-         endfor %}
 {%-     endfor %}
 {%- else %}
