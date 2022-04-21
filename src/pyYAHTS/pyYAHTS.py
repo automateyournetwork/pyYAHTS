@@ -37,7 +37,41 @@ class GetJson():
         self.email_password = email_password
         self.to_email = to_email
         self.verbose = verbose
-        self.supported_templates = ['acl',
+        if self.os == "nxos":
+            self.supported_templates = ['acl',
+                            'arp',
+                            'bgp',
+                            'hsrp',
+                            'interface',
+                            'lldp',
+                            'ntp',
+                            'ospf',
+                            'platform',
+                            'routing',
+                            'vlan',
+                            'vrf',
+                            'show access-lists',
+                            'show bgp process vrf all',
+                            'show bgp sessions',
+                            'show cdp neighbors',
+                            'show cdp neighbors detail',
+                            'show environment',
+                            'show interface',
+                            'show interface status',
+                            'show interface transceiver',
+                            'show inventory',
+                            'show ip arp vrf all',
+                            'show ip interface brief',
+                            'show ip ospf',
+                            'show ip ospf interface vrf all',
+                            'show ip ospf neighbors detail vrf all',
+                            'show ip route vrf all',
+                            'show mac address-table',
+                            'show port-channel summary',
+                            'show version',
+                            'show vlan']
+        else:
+            self.supported_templates = ['acl',
                             'arp',
                             'bgp',
                             'dot1x',
@@ -57,46 +91,49 @@ class GetJson():
                             'show cdp neighbors',
                             'show cdp neighbors detail',
                             'show environment',
-                            'show environment all',
                             'show etherchannel summary',
                             'show interfaces',
                             'show interfaces status',
                             'show interfaces trunk',
-                            'show interface',
-                            'show interface status',
-                            'show interface transceiver',
                             'show inventory',
                             'show ip arp',
-                            'show ip arp vrf all',
                             'show ip interface brief',
                             'show ip ospf',
                             'show ip ospf database',
                             'show ip ospf interface',
-                            'show ip ospf interface vrf all',
                             'show ip ospf neighbor',
                             'show ip ospf neighbor detail',
-                            'show ip ospf neighbors detail',
-                            'show ip ospf neighbors detail vrf all',
                             'show ip route',
-                            'show ip route vrf all',
                             'show license summary',
                             'show mac address-table',
                             'show ntp associations',
-                            'show port-channel summary',
                             'show version',
                             'show vlan',
                             'show vrf']
 
     def print_json(self):
-        parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
-        print_json(parsed_json)
-        if "Cannot" in parsed_json:
-            click.secho("No Data To Create File", fg='red')
-        else:
-            if self.filetype:
-                self.pick_filetype(parsed_json)
-            if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
-                self.send_email(parsed_json)            
+        if self.command == "all":
+            for single_command in self.supported_templates:
+                self.command = single_command
+                parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
+                print_json(parsed_json)
+                if "Cannot" in parsed_json:
+                    click.secho("No Data To Create File", fg='red')
+                else:
+                    if self.filetype:
+                        self.pick_filetype(parsed_json)
+                    if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
+                        self.send_email(parsed_json)            
+        else:         
+            parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
+            print_json(parsed_json)
+            if "Cannot" in parsed_json:
+                click.secho("No Data To Create File", fg='red')
+            else:
+                if self.filetype:
+                    self.pick_filetype(parsed_json)
+                if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
+                    self.send_email(parsed_json)            
 
     def pick_filetype(self, parsed_json):
         if self.filetype == "none":
@@ -118,7 +155,9 @@ class GetJson():
         elif self.filetype == 'graph':
             self.graph_file(parsed_json)
         elif self.filetype == 'mindmap':
-            self.mindmap_file(parsed_json)         
+            self.mindmap_file(parsed_json)
+        elif self.filetype == 'all':
+            self.all_files(parsed_json)
     
     def json_file(self, parsed_json):
         with open(f'{self.hostname} {self.command}.json', 'w') as f:
@@ -195,6 +234,7 @@ class GetJson():
         console = Console(record=True)
         console.print(parsed_json)
         console.save_svg(f"{self.hostname} {self.command}.svg", title=f"{self.hostname} {self.command}")
+        click.secho(f"SVG file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
         import webbrowser
         webbrowser.open(f"{self.hostname} {self.command}.svg")
 
@@ -205,19 +245,20 @@ class GetJson():
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
                 graph_csv_template = env.get_template(f'{self.os} graph_csv.j2')              
                 graph_csv_output = graph_csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
-                with open(f'{self.hostname} {self.command}.csv', 'w') as f:
+                with open(f'{self.hostname} {self.command}_graph.csv', 'w') as f:
                     f.write(graph_csv_output)
                 break
 
     def graph_file(self, parsed_json):
         self.graph_csv_file(parsed_json)
-        df = pd.read_csv(f'{self.hostname} {self.command}.csv')
+        df = pd.read_csv(f'{self.hostname} {self.command}_graph.csv')
         G = nx.from_pandas_edgelist(df,source='Source',target="Target",edge_attr=True)
         net = Network(notebook=True, width=1500, height=1000)
         net.show_buttons(True)
         net.from_nx(G)
-        net.show(f'{self.hostname} {self.command}.html')
-        os.remove(f'{self.hostname} {self.command}.csv')
+        net.show(f'{self.hostname} {self.command} graph.html')
+        os.remove(f'{self.hostname} {self.command}_graph.csv')
+        click.secho(f"Network Graph file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
 
     def mindmap_file(self, parsed_json):
         for template in self.supported_templates:
@@ -226,9 +267,21 @@ class GetJson():
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
                 mindmap_template = env.get_template(f'{self.os} mindmap.j2')              
                 mindmap_output = mindmap_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
-                with open(f'{self.hostname} {self.command}.md', 'w') as f:
+                with open(f'{self.hostname} {self.command} mindmap.md', 'w') as f:
                     f.write(mindmap_output)
+                click.secho(f"Mindmap file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
                 break        
+
+    def all_files(self, parsed_json):
+        self.json_file(parsed_json)
+        self.yaml_file(parsed_json)
+        self.html_file(parsed_json)
+        self.pdf_file(parsed_json)
+        self.markdown_file(parsed_json)
+        self.csv_file(parsed_json)
+        self.graph_file(parsed_json)
+        self.mindmap_file(parsed_json)
+        self.svg_file(parsed_json)
 
     def send_email(self, parsed_json):
         subject = f"An Email from pyYAHTS Device {self.hostname} and Command {self.command}"
@@ -342,7 +395,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap','all'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 @click.option('--from_email', help='Email address to send output from', required=False, default='none')
 @click.option('--email_password', hide_input=True, help='Email account password', required=False, default='none')
 @click.option('--to_email', help='Email address to send output to', required=False, default='none')
