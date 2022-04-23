@@ -1,5 +1,23 @@
 {%- if command == "acl" %}
-
+```mermaid
+flowchart LR;
+{%- for list in data_to_template['acls'] %}{% if data_to_template['acls'][list].aces is defined %}{% for ace in data_to_template['acls'][list].aces %}{% if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}{% for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+{{ hostname }} <--> {{ list }} <--> {{ ace }} <--> {{ data_to_template['acls'][list].aces[ace].actions.forwarding }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }}
+{%- endfor %}{% else %}{% for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+{{ hostname }} <--> {{ list }} <--> {{ ace }} <--> {{ data_to_template['acls'][list].aces[ace].actions.forwarding }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }}{%- endfor %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+{{ hostname }} <--> {{ list }} <--> No_ACE
+{% endif %}{% endfor %}{% for list in data_to_template['acls'] %}{% if data_to_template['acls'][list].aces is defined %}{% for ace in data_to_template['acls'][list].aces %}{% if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+{{ hostname }} <--> {{ list }} <--> {{ ace }} <--> {{ data_to_template['acls'][list].aces[ace].actions.forwarding }} <--> Source Protocol <--> UDP {% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}{% endif %}
+{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+{{ hostname }} <--> {{ list }} <--> {{ ace }} <--> {{ data_to_template['acls'][list].aces[ace].actions.forwarding }} <--> Destination Protocol <--> UDP {% if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}{% endif %}
+{%- endif %}{% endif %}{% else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+{{ hostname }} <--> {{ list }} <--> {{ ace }} <--> {{ data_to_template['acls'][list].aces[ace].actions.forwarding }} <--> Source Protocol <--> TCP {% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}{% endif %}
+{%- else %}{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+{{ hostname }} <--> {{ list }} <--> {{ ace }} <--> {{ data_to_template['acls'][list].aces[ace].actions.forwarding }} <--> Destination Protocol <--> TCP{% if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }} <--> {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}{% endif %}
+{%- endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}{% else %}
+{{ hostname }} <--> {{ list }} <--> No_ACE
+{% endif %}{% endfor %}
+```
 {%- else %}
 {%- if command == "arp" %}
 ```mermaid
@@ -14,10 +32,31 @@ flowchart LR;
 ```
 {%- else %}
 {%- if command == "bgp" %}
-
+``` mermaid
+flowchart LR;
+{%-             for instance in data_to_template['instance'] %}
+{%-                 for vrf in data_to_template['instance'][instance].vrf %}
+{%-                     for neighbor in data_to_template['instance'][instance].vrf[vrf].neighbor %}
+{{ hostname }} <--> {{ instance }} <--> {{ data_to_template['instance'][instance].bgp_id }} <--> {{ data_to_template['instance'][instance].protocol_state }} <--> {{ vrf }} <--> {{ data_to_template['instance'][instance].vrf[vrf].router_id }} <--> {{ data_to_template['instance'][instance].vrf[vrf].cluster_id }} <--> {{ data_to_template['instance'][instance].vrf[vrf].confederation_identifier }} <--> {{ neighbor }} <--> {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].local_as_as_no }} <--> {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].remote_as }}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+```
 {%- else %}
 {% if command == 'dot1x' %}
-
+``` mermaid
+flowchart LR;
+{%- for interface in data_to_template.interfaces %}
+{%-     if data_to_template.interfaces[interface].clients is defined %}
+{%-         for client in data_to_template.interfaces[interface].clients %}
+{%-             for session in data_to_template.interfaces[interface].clients[client].session %}
+{{ hostname }} <--> {{ interface }} <--> {{ client }} <--> {{ data_to_template.interfaces[interface].clients[client].eap_method }} <--> {{ data_to_template.interfaces[interface].clients[client].status }} <--> {{ session }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     else %}
+{{ hostname }} <--> {{ interface }} <--> No_Client <--> No_Sessions
+{%-     endif %}
+{%- endfor %}
 {%- else %}
 {%- if command == "hsrp" %}
 ```mermaid
@@ -46,13 +85,55 @@ flowchart LR;
 ```
 {%- else %}
 {%- if command == "lldp" %}
-
+```mermaid
+flowchart LR;
+{%- for interface in data_to_template['interfaces'] %}{% if data_to_template['interfaces'][interface].port_id is defined %}{% for port in data_to_template['interfaces'][interface].port_id %}{% for neighbor in data_to_template['interfaces'][interface].port_id[port].neighbors %}{% for capability in data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].capabilities %}
+{{ hostname }} <--> {{ interface }} <--> {{ port }} <--> {{ neighbor }} <--> {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].management_address }}
+{% endfor %}{% endfor %}{% endfor %}{% else %}
+{{ hostname }} <--> {{ interface }} <--> No_Neighbor
+{% endif %}{% endfor %}
+```
 {%- else %}
 {% if command == "ntp" %}
-
+```mermaid
+flowchart LR;
+{%- for vrf in data_to_template['vrf'] %}
+{%-     for address in data_to_template['vrf'][vrf].associations.address %}
+{%-         for is_conf,value in data_to_template['vrf'][vrf].associations.address[address].local_mode.client.isconfigured.items() %}
+{{ hostname }} <--> {{ vrf }} <--> {{ address }} <--> {{ value.stratum }}
+{%-          endfor %}
+{%-     endfor %}
+{%- endfor %}
+```
 {%- else %}
 {%- if command == "ospf" %}
-
+{% for vrf in data_to_template['vrf'] %}{% if vrf == "default" %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for lsa_type in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}{% for lsa in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router is defined %}{% for link in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}{% for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{% for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }} <--> Area_{{ area }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }} <--> {{ lsa_type }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }} <--> {{ link }} <--> {{ topology }} <--> {{ interface }} <--> {{ neighbor }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}
+```
+{%- endfor %}{%- else %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }} <--> Area_{{ area }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }} <--> {{ lsa_type }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }} <--> {{ link }} <--> {{ topology }} <--> {{ interface }} <--> No_Neighbors
+```
+{% endif %}{% endfor %}{% endfor %}{% endfor %}{% else %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary is defined %}{% for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }} <--> Area_{{ area }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }} <--> {{ lsa_type }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }} <--> {{ topology }} <--> No_Interfaces <--> No_Neighbors
+```
+{% endfor %}{% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}{% else %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{% for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> Area_{{ area }} <--> {{ interface }} <--> {{ neighbor }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }} <--> {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}
+```
+{% endfor %}{% else %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> Area_{{ area }} <--> {{ interface }}
+```
+{%- endif %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}{% endif %}{% endfor %}
+```
 {%- else %}
 {%- if command == "platform" %}
 
@@ -83,7 +164,7 @@ flowchart LR;
 flowchart LR;
 {%-     for neighbor in data_to_template['cdp'].index %}
 {%-         if data_to_template['cdp'].index[neighbor].local_interface == data_to_template['cdp'].index[neighbor].port_id %}
-{{ hostname }} <--> {{ data_to_template['cdp'].index[neighbor].local_interface }} <--> {{ data_to_template['cdp'].index[neighbor].device_id }}
+{{ hostname }} <--> {{ data_to_template['cdp'].index[neighbor].local_interface }} <--> {{ data_to_template['cdp'].index[neighbor].device_id | replace("("," ") | replace(")","") }}
 {%-         else %}
 {{ hostname }} <--> {{ data_to_template['cdp'].index[neighbor].local_interface }} <--> {{ data_to_template['cdp'].index[neighbor].port_id }} <--> {{ data_to_template['cdp'].index[neighbor].device_id }}
 {%-         endif %}

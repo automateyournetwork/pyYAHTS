@@ -1,0 +1,271 @@
+{%- if command == "acl" %}
+
+{%- else %}
+{%- if command == "arp" %}
+{%- for interface in data_to_template['interfaces'] %}
+{%-     if data_to_template['interfaces'][interface].ipv4 is defined %}
+{%-         for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+```mermaid
+erDiagram
+{{ hostname }} |o--|{ {{ interface | replace("/","_")}} : IP_{{ neighbor }}
+{{ interface | replace("/","_")}} {
+MAC_Address x_{{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }}
+Origin {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }}
+}
+```
+{%-        endfor %}
+{%-     endif %}
+{%- endfor %}
+{%- else %}
+{%- if command == "bgp" %}
+
+{%- else %}
+
+{%- if command == "hsrp" %}
+
+{%- else %}
+{%- if command == 'interface' %}
+{%- for interface in data_to_template %}
+```mermaid
+erDiagram
+{{ hostname }} |o--|{ {{ interface }} : {{ data_to_template[interface].description | default("N/A") | replace(".","_") | replace("-","_") | replace(" ","_") }}
+{{ interface }}{
+Enabled {{ data_to_template[interface].enabled | default("N/A") }}
+Operational_Status {{ data_to_template[interface].oper_status | default("N/A") }}
+{%-                  if data_to_template[interface].access_vlan is defined %}
+Access_VLAN VLAN_{{ data_to_template[interface].access_vlan }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].native_vlan is defined %}
+Native_VLAN VLAN_{{ data_to_template[interface].native_vlan }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].switchport_enable is defined %}
+Switchport_Enable {{ data_to_template[interface].switchport_enable }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].switchport_mode is defined %}
+Switchport_Mode {{ data_to_template[interface].switchport_mode }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].type is defined %}
+Type {{ data_to_template[interface].type }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].bandwidth is defined %}
+Bandwidth x_{{ data_to_template[interface].bandwidth }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].auto_negotiate is defined %}
+Auto_Negotiate {{ data_to_template[interface].auto_negotiate }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].port_speed is defined %}
+Port_Speed x_{{ data_to_template[interface].port_speed }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].duplex_mode is defined %}
+Duplex_Mode {{ data_to_template[interface].duplex_mode }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].mtu is defined %}
+MTU x_{{ data_to_template[interface].mtu }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].mac_address is defined %}
+MAC_Address x_{{ data_to_template[interface].mac_address | replace(".","_") }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].phys_address is defined %}
+Physical_Address x_{{ data_to_template[interface].phys_address | replace(".","_") }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].ipv4 is defined %}
+{%-                      for ip_address in data_to_template[interface].ipv4 %}
+IP_Address x_{{ ip_address | replace (".","_") | replace("/","_")}}
+{%-                      endfor %}
+{%-                  endif %}
+{%-                  if data_to_template[interface].medium is defined %}
+Medium {{ data_to_template[interface].medium }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].delay is defined %}
+Delay x_{{ data_to_template[interface].delay }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].encapsulation is defined %}
+Encapsulation {{ data_to_template[interface].encapsulation.encapsulation }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].flow_control is defined %}
+Flow_Control_Receive {{ data_to_template[interface].flow_control.receive }}
+Flow_Control_Send {{ data_to_template[interface].flow_control.send }}
+{%-                  endif %}
+{%-                  if data_to_template[interface].port_channel is defined %}
+{%                       if data_to_template[interface].port_channel.port_channel_int is defined %}
+Port_Channel_Interface {{ data_to_template[interface].port_channel.port_channel_int }}
+{%                       endif %}
+{%                       if data_to_template[interface].port_channel.port_channel_member_intfs is defined %}
+{%-                          for member in data_to_template[interface].port_channel.port_channel_member_intfs %}
+Member {{ member }}
+{%-                          endfor %}
+{%                       else %}
+{%-                          if data_to_template[interface].port_channel.port_channel_member is defined %}
+Port_Channel_Member {{ data_to_template[interface].port_channel.port_channel_member }}
+{%-                          endif %}
+{%-                      endif %}
+{%-                  endif %}
+{%-                  if data_to_template[interface].last_change is defined %}
+Last_Change x_{{ data_to_template[interface].last_change | replace(":","_")}}
+{%-                  endif %}
+}
+{{ interface }} |o--|{ Counters : counters
+Counters {
+{%-                  if data_to_template[interface].counters is defined %}
+{%-                      if data_to_template[interface].counters.in_broadcast_pkts is defined %}
+Input_Broadcast x_{{ data_to_template[interface].counters.in_broadcast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_crc_errors is defined %}
+Input_CRC_Errors x_{{ data_to_template[interface].counters.in_crc_errors }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_errors is defined %}
+Input_Errors x_{{ data_to_template[interface].counters.in_errors }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_mac_pause_frames is defined %}
+Input_MAC_Pause_Frames x_{{ data_to_template[interface].counters.in_mac_pause_frames }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_multicast_pkts is defined %}
+Input_Multicast x_{{ data_to_template[interface].counters.in_multicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_octets is defined %}
+Input_Octects x_{{ data_to_template[interface].counters.in_octets }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_unicast_pkts is defined %}
+Input_Unicast x_{{ data_to_template[interface].counters.in_unicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_unknown_protos is defined %}
+Input_Unknown x_{{ data_to_template[interface].counters.in_unknown_protos }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_pkts is defined %}
+Input_Packets x_{{ data_to_template[interface].counters.in_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_broadcast_pkts is defined %}
+Output_Broadcast x_{{ data_to_template[interface].counters.out_broadcast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_discard is defined %}
+Output_Discards x_{{ data_to_template[interface].counters.out_discard }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_errors is defined %}
+Output_Errors x_{{ data_to_template[interface].counters.out_errors }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_mac_pause_frames is defined %}
+Output_MAC_Pause_Frames x_{{ data_to_template[interface].counters.out_mac_pause_frames }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_multicast_pkts is defined %}
+Output_Multicast x_{{ data_to_template[interface].counters.out_multicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_unicast_pkts is defined %}
+Output_Unicast x_{{ data_to_template[interface].counters.out_unicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_pkts is defined %}
+Output_Packets x_{{ data_to_template[interface].counters.out_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.last_clear is defined %}
+Last_Clear x_{{ data_to_template[interface].counters.last_clear }}
+{%-                      endif %}
+{%-                 if data_to_template[interface].counters.rate is defined %}
+Input_Rate x_{{ data_to_template[interface].counters.rate.in_rate }}
+Load_Interval x_{{ data_to_template[interface].counters.rate.load_interval }}
+Output_Rate x_{{ data_to_template[interface].counters.rate.out_rate }}
+{%-                 endif %}
+{%-             endif %}
+}
+```
+{%- endfor %}
+{%- else %}
+{%- if command == 'lldp' %}
+
+{%- else %}
+{%- if command == "ntp" %}
+
+{%- else %}
+{%- if command == 'ospf' %}
+
+{%- else %}
+{%- if command == "platform" %}
+
+{%- else %}
+{%- if command == "routing" %}
+
+{%- else %}
+{%- if command == "vlan" %}
+
+{%- else %}
+{%- if command == 'vrf' %}
+
+{%- else %}
+{%- if command == "show access-lists" %}
+
+{%- else %}
+{%- if command == "show bgp process vrf all" %}
+
+{%- else %}
+{%- if command == "show bgp sessions" %}
+
+{% else %}
+{% if command == "show cdp neighbors" %}
+{%- for neighbor in data_to_template['cdp'].index %}
+```mermaid
+erDiagram
+    {{ hostname }} |o--|{ {{ data_to_template['cdp'].index[neighbor].device_id | replace("-","_") | replace(".","_") | replace("(","_") | replace(")","") }} : {{ data_to_template['cdp'].index[neighbor].local_interface }}
+    {{ data_to_template['cdp'].index[neighbor].device_id | replace("-","_") | replace(".","_") | replace("(","_") | replace(")","") }} {
+        Platform {{ data_to_template['cdp'].index[neighbor].platform }}
+        PortID {{ data_to_template['cdp'].index[neighbor].port_id }}
+        Capability {{ data_to_template['cdp'].index[neighbor].capability | replace(" ","")}}
+        HoldTime Seconds_{{ data_to_template['cdp'].index[neighbor].hold_time | string()}}
+    }
+```
+{%- endfor %}
+{%- else %}
+{%- if command == "show cdp neighbors detail" %}
+
+{%- else %}
+{%- if command == "show environment" %}
+
+{%- else %}
+{%- if command == "show port-channel summary" %}
+
+{%- else %}
+{%- if command == "show interface" %}
+
+{%- else %}
+{%- if command == "show interface status" %}
+
+{%- else %}
+{%- if command == "show interface transceiver" %}
+
+{%- else %}
+{%- if command == "show inventory" %}
+
+{%- else %}
+{% if command == "show ip arp vrf all" %}
+
+{%- else %}
+{%- if command == "show ip interface brief" %}
+
+{%- else %}
+{%- if command == "show ip ospf" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface vrf all" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbors detail" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbors detail vrf all" %}
+
+{%- else %}
+{%- if command == "show ip route" %}
+
+{%- else %}
+{%- if command == "show ip route vrf all" %}
+
+{%- else %}
+{%- if command == "show mac address-table" %}
+
+{%- else %}
+{%- if command == "show version" %}
+
+{%- else %}
+{%- if command == "show vlan" %}
+
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

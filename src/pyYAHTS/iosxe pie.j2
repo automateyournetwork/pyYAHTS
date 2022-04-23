@@ -1,0 +1,230 @@
+{%- if command == "acl" %}
+
+{%- else %}
+{%- if command == "arp" %}
+```mermaid
+pie
+title {{ hostname }} ARP Statistics
+"Entries" : {{ data_to_template['statistics'].entries_total }}
+"Incomplete" : {{ data_to_template['statistics'].incomplete_total }}
+"Input Drops" : {{ data_to_template['statistics'].in_drops }}
+"Input Reply Packets" : {{ data_to_template['statistics'].in_replies_pkts }}
+"Input Request Packets" : {{ data_to_template['statistics'].in_requests_pkts }}
+"Input Total" : {{ data_to_template['statistics'].in_total | default("0") }}
+"Output Drops" : {{ data_to_template['statistics'].out_drops | default("0") }}
+"Output Gratuitous Packets" : {{ data_to_template['statistics'].out_gratuitous_pkts | default("0") }}
+"Output Reply Packets" : {{ data_to_template['statistics'].out_replies_pkts }}
+"Output Request Packets" : {{ data_to_template['statistics'].out_requests_pkts }}
+"Output Total" : {{ data_to_template['statistics'].out_total| default("0") }}
+```
+{%- else %}
+{%- if command == "bgp" %}
+```mermaid
+pie
+title {{ hostname }} BGP Statistics
+"Total Recieved Messages" : {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }}
+"Total Sent Messages" : {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }}
+```
+{%- else %}
+{% if command == 'dot1x' %}
+{% for interface in data_to_template.interfaces %}{% if data_to_template.interfaces[interface].clients is defined %}{% for client in data_to_template.interfaces[interface].clients %}{% for session in data_to_template.interfaces[interface].clients[client].session %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} dot1x Statistics
+"RX Invalid" : {{ data_to_template.interfaces[interface].statistics.rxinvalid }}
+"RX Error" : {{ data_to_template.interfaces[interface].statistics.rxlenerr }}
+"RX Logoff" : {{ data_to_template.interfaces[interface].statistics.rxlogoff }}
+"RX Response" : {{ data_to_template.interfaces[interface].statistics.rxresp }}
+"RX Start" : {{ data_to_template.interfaces[interface].statistics.rxstart }}
+"RX Total" : {{ data_to_template.interfaces[interface].statistics.rxtotal }}
+"TX Requests" : {{ data_to_template.interfaces[interface].statistics.txreq }}
+"TX Total" : {{ data_to_template.interfaces[interface].statistics.txtotal }}
+{% endfor %}{% endfor %}{% else %}
+"RX Invalid" : {{ data_to_template.interfaces[interface].statistics.rxinvalid }}
+"RX Error" : {{ data_to_template.interfaces[interface].statistics.rxlenerr }}
+"RX Logoff" : {{ data_to_template.interfaces[interface].statistics.rxlogoff }}
+"RX Response" : {{ data_to_template.interfaces[interface].statistics.rxresp }}
+"RX Start" : {{ data_to_template.interfaces[interface].statistics.rxstart }}
+"RX Total" : {{ data_to_template.interfaces[interface].statistics.rxtotal }}
+"TX Requests" : {{ data_to_template.interfaces[interface].statistics.txreq }}
+"TX Total" : {{ data_to_template.interfaces[interface].statistics.txtotal }}
+``` 
+{% endif %}{% endfor %}
+{%- else %}
+{%- if command == "hsrp" %}
+
+{%- else %}
+{%- if command == 'interface' %}
+{%- for interface in data_to_template %}
+{%-                  if data_to_template[interface].counters is defined %}
+```mermaid
+pie
+    title {{ hostname }} Interface {{ interface }} Counters
+{%-                      if data_to_template[interface].counters.in_broadcast_pkts is defined %}
+"Input Broadcast" : {{ data_to_template[interface].counters.in_broadcast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_crc_errors is defined %}
+"Input CRC Errors" : {{ data_to_template[interface].counters.in_crc_errors }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_errors is defined %}
+"Input Errors " : {{ data_to_template[interface].counters.in_errors }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_mac_pause_frames is defined %}
+"Input MAC Pause Frames" : {{ data_to_template[interface].counters.in_mac_pause_frames }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_multicast_pkts is defined %}
+"Input Multicast" : {{ data_to_template[interface].counters.in_multicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_unicast_pkts is defined %}
+"Input Unicast" : {{ data_to_template[interface].counters.in_unicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_unknown_protos is defined %}
+"Input Unknown" : {{ data_to_template[interface].counters.in_unknown_protos }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_pkts is defined %}
+"Input Packets" : {{ data_to_template[interface].counters.in_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_broadcast_pkts is defined %}
+"Output Broadcast" : {{ data_to_template[interface].counters.out_broadcast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_discard is defined %}
+"Output Discards" : {{ data_to_template[interface].counters.out_discard }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_errors is defined %}
+"Output Errors" : {{ data_to_template[interface].counters.out_errors }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_mac_pause_frames is defined %}
+"Output MAC Pause Frames" : {{ data_to_template[interface].counters.out_mac_pause_frames }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_multicast_pkts is defined %}
+"Output Multicast" : {{ data_to_template[interface].counters.out_multicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_unicast_pkts is defined %}
+"Output Unicast" : {{ data_to_template[interface].counters.out_unicast_pkts }}
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_pkts is defined %}
+"Output Packets" : {{ data_to_template[interface].counters.out_pkts }}
+{%-                      endif %}
+```
+{%- endif %}
+{%- if data_to_template[interface].counters is defined %}
+{%-     if data_to_template[interface].counters.rate is defined %}
+```mermaid
+pie
+    title {{ hostname }} Interface {{ interface }} I/O Rate
+"Input" : {{ data_to_template[interface].counters.rate.in_rate }}
+"Output" : {{ data_to_template[interface].counters.rate.out_rate }}
+```
+{%-     endif %}
+{%- endif %}
+{%- endfor %}
+{%- else %}
+{%- if command == "lldp" %}
+```mermaid
+pie
+title {{ hostname }} LLDP Counters
+"Aged Out Entries" : {{ data_to_template.counters.entries_aged_out }}
+"Frame Discards" : {{ data_to_template.counters.frame_discard }}
+"Frame Input Errors" : {{ data_to_template.counters.frame_error_in }}
+"Frame Input" : {{ data_to_template.counters.frame_in }}
+"Frame Output" : {{ data_to_template.counters.frame_out }}
+"TLV Discard" : {{ data_to_template.counters.tlv_discard }}
+"TLV Unknown" : {{ data_to_template.counters.tlv_unknown }}
+```
+{%- else %}
+{% if command == "ntp" %}
+
+{%- else %}
+{%- if command == "ospf" %}
+
+{%- else %}
+{%- if command == "platform" %}
+
+{%- else %}
+{%- if command == "routing" %}
+
+{%- else %}
+{%- if command == 'stp' %}
+
+{%- else %}
+{%- if command == "vlan" %}
+
+{%- else %}
+{%- if command == 'vrf' %}
+
+{%- else %}
+{%- if command == "show access-lists" %}
+
+{%- else %}
+{%- if command == "show bgp process vrf all" %}
+
+{%- else %}
+{%- if command == "show bgp sessions" %}
+
+{% else %}
+{%- if command == "show cdp neighbors" %}
+
+{%- else %}
+{%- if command == "show cdp neighbors detail" %}
+
+{%- else %}
+{%- if command == 'show environment' %}
+
+{%- else %}
+{%- if command == "show etherchannel summary" %}
+
+{%- else %}
+{% if command == "show interfaces" %}
+
+{%- else %}
+{%- if command == "show interfaces status" %}
+
+{%- else %}
+{%- if command == "show interfaces trunk" %}
+
+{%- else %}
+{%- if command == "show inventory" %}
+
+{%- else %}
+{%- if command == 'show ip arp' %}
+
+{%- else %}
+{%- if command == "show ip interface brief" %}
+
+{%- else %}
+{%- if command == "show ip ospf" %}
+
+{%- else %}
+{%- if command == "show ip ospf database" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor detail" %}
+
+{%- else %}
+{%- if command == "show ip route" %}
+
+{%- else %}
+{%- if command == 'show license summary' %}
+
+{%- else %}
+{%- if command == "show mac address-table" %}
+
+{%- else %}
+{%- if command == "show ntp associations" %}
+
+{%- else %}
+{%- if command == "show version" %}
+
+{%- else %}
+{%- if command == "show vlan" %}
+
+{%- else %}
+{%- if command == "show vrf" %}
+
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

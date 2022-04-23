@@ -158,6 +158,14 @@ class GetJson():
             self.mindmap_file(parsed_json)
         elif self.filetype == 'flowchart':
             self.flowchart_file(parsed_json)
+        elif self.filetype == 'class':
+            self.class_file(parsed_json)
+        elif self.filetype == 'state':
+            self.state_file(parsed_json)
+        elif self.filetype == 'relationship':
+            self.relationship_file(parsed_json)
+        elif self.filetype == 'piechart':
+            self.piechart_file(parsed_json)            
         elif self.filetype == 'all':
             self.all_files(parsed_json)
     
@@ -236,9 +244,7 @@ class GetJson():
         console = Console(record=True)
         console.print(parsed_json)
         console.save_svg(f"{self.hostname} {self.command}.svg", title=f"{self.hostname} {self.command}")
-        click.secho(f"SVG file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
-        import webbrowser
-        webbrowser.open(f"{self.hostname} {self.command}.svg")
+        click.secho(f"SVG file created at { sys.path[0] }/{self.hostname} {self.command}.svg", fg='green')
 
     def graph_csv_file(self, parsed_json):
         for template in self.supported_templates:
@@ -285,6 +291,50 @@ class GetJson():
                     f.write(flowchart_output)
                 break
 
+    def class_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                class_template = env.get_template(f'{self.os} class.j2')              
+                class_output = class_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command} class.md', 'w') as f:
+                    f.write(class_output)
+                break
+
+    def state_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                state_template = env.get_template(f'{self.os} state.j2')              
+                state_output = state_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command} state.md', 'w') as f:
+                    f.write(state_output)
+                break
+
+    def relationship_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                relationship_template = env.get_template(f'{self.os} relationship.j2')              
+                relationship_output = relationship_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command} relationship.md', 'w') as f:
+                    f.write(relationship_output)
+                break
+
+    def piechart_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                pie_template = env.get_template(f'{self.os} pie.j2')              
+                pie_output = pie_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                with open(f'{self.hostname} {self.command} piechart.md', 'w') as f:
+                    f.write(pie_output)
+                break
+
     def all_files(self, parsed_json):
         self.json_file(parsed_json)
         self.yaml_file(parsed_json)
@@ -295,6 +345,10 @@ class GetJson():
         self.graph_file(parsed_json)
         self.mindmap_file(parsed_json)
         self.flowchart_file(parsed_json)
+        self.class_file(parsed_json)
+        self.state_file(parsed_json)
+        self.relationship_file(parsed_json)
+        self.piechart_file(parsed_json)        
         self.svg_file(parsed_json)
 
     def send_email(self, parsed_json):
@@ -410,7 +464,7 @@ class GetJson():
 @click.option('--username', prompt='Username', help='Username', required=True)
 @click.option('--password', prompt=True, hide_input=True, help="User Password", required=True)
 @click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap','flowchart','all'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
+@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap','flowchart','class','state','relationship','piechart','all'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
 @click.option('--from_email', help='Email address to send output from', required=False, default='none')
 @click.option('--email_password', hide_input=True, help='Email account password', required=False, default='none')
 @click.option('--to_email', help='Email address to send output to', required=False, default='none')
