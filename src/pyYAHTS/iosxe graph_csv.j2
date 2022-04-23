@@ -852,7 +852,9 @@ Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/
 {{ interface }} Physical,Bandwidth: {{ data_to_template[interface].bandwidth }},2
 {{ interface }} Physical,MTU: {{ data_to_template[interface].mtu }},2
 {{ interface }} Physical,Delay: {{ data_to_template[interface].delay }},2
+{% if data_to_template[interface].encapsulation is defined %}
 {{ interface }} Physical,Encapsulation: {{ data_to_template[interface].encapsulation.encapsulation }},2
+{%- endif %}
 {%-                     if data_to_template[interface].medium is defined %}
 {{ interface }} Physical,Medium: {{ data_to_template[interface].medium }},2
 {%-                     endif %}
