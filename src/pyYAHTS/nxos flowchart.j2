@@ -92,7 +92,55 @@ flowchart LR;
 ```
 {%- else %}
 {%- if command == 'ospf' %}
-
+{%-             for vrf in data_to_template.vrf %}
+{%-                 for address_family in data_to_template.vrf[vrf].address_family %}
+{%-                     for instance in data_to_template.vrf[vrf].address_family[address_family].instance %}
+{%-                         for graceful_restart_type in data_to_template.vrf[vrf].address_family[address_family].instance[instance].graceful_restart %}
+{%-                             if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas is defined %}
+{%-                                 for area in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas %}
+{%-                                     if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database is defined %}
+{%-                                         for lsa_type in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
+{%-                                             for lsa in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
+{%-                                                 if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 1 %}
+{%-                                                     for link in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}
+{%-                                                         for topology in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> Router_ID_{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }} <--> Area_{{ area }} <--> {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].area_type }} <--> LSA_Type_{{ lsa_type }} <--> LSA_{{ lsa | replace(" ","_")}} <--> Advertisitng_Router_{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }} <--> Link_{{ link }} <--> Topology_{{ topology }}
+```
+{%-                                                         endfor %}
+{%-                                                     endfor %}
+{%-                                                 endif %}
+{% if data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 3 %}
+{%-                                                 for topology in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> Router_ID_{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }} <--> Area_{{ area }} <--> {{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].area_type }} <--> LSA_Type_{{ lsa_type }} <--> LSA_{{ lsa | replace(" ","_")}} <--> Topology_{{ topology }}
+```
+{%-                                                 endfor %}
+{%-                                             endif %}
+{%-                                         endfor %}
+{%-                                     endfor %}
+{%-                                 endif %}
+{%-                                 for interface in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{%-                                     for neighbor in data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> Router_ID_{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }} <--> Area_{{ area }} <--> {{ interface }} <--> Neighbor_{{ neighbor }} <--> Neighbor_Address_{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}
+```
+{%-                                     endfor %}
+{%-                                 endfor %}
+{%-                             endfor %}
+{%-                         else %}
+```mermaid
+flowchart LR;
+{{ hostname }} <--> {{ vrf }} <--> {{ address_family }} <--> Instance_{{ instance }} <--> Router_ID_{{ data_to_template.vrf[vrf].address_family[address_family].instance[instance].router_id }}
+```
+{%-                             endif %}
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
 {%- else %}
 {%- if command == "platform" %}
 
