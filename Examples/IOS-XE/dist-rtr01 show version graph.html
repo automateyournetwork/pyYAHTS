@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "Platform: Virtual XE", "label": "Platform: Virtual XE", "shape": "dot", "size": 10}, {"id": "Chassis: CSR1000V", "label": "Chassis: CSR1000V", "shape": "dot", "size": 10}, {"id": "Version: 17.3.2", "label": "Version: 17.3.2", "shape": "dot", "size": 10}, {"id": "Image ID: X86_64_LINUX_IOSD-UNIVERSALK9-M", "label": "Image ID: X86_64_LINUX_IOSD-UNIVERSALK9-M", "shape": "dot", "size": 10}, {"id": "OS: IOS-XE", "label": "OS: IOS-XE", "shape": "dot", "size": 10}, {"id": "Uptime: 2 hours  24 minutes", "label": "Uptime: 2 hours  24 minutes", "shape": "dot", "size": 10}, {"id": "Restarted: ", "label": "Restarted: ", "shape": "dot", "size": 10}, {"id": "Reload Reason: factory-reset", "label": "Reload Reason: factory-reset", "shape": "dot", "size": 10}, {"id": "Total Interfaces: \u0027Gigabit Ethernet\u0027: \u00276\u0027", "label": "Total Interfaces: \u0027Gigabit Ethernet\u0027: \u00276\u0027", "shape": "dot", "size": 10}, {"id": "Main Memory: 1105351", "label": "Main Memory: 1105351", "shape": "dot", "size": 10}, {"id": "Memory Size: \u0027non-volatile configuration\u0027: \u002732768\u0027  \u0027physical\u0027: \u00273012036\u0027", "label": "Memory Size: \u0027non-volatile configuration\u0027: \u002732768\u0027  \u0027physical\u0027: \u00273012036\u0027", "shape": "dot", "size": 10}, {"id": "Serial Number: 9Y23RGWSFML", "label": "Serial Number: 9Y23RGWSFML", "shape": "dot", "size": 10}, {"id": "License Type: N/A(Smart License Enabled)", "label": "License Type: N/A(Smart License Enabled)", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "Platform: Virtual XE", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Chassis: CSR1000V", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Version: 17.3.2", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Image ID: X86_64_LINUX_IOSD-UNIVERSALK9-M", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "OS: IOS-XE", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Uptime: 2 hours  24 minutes", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Restarted: ", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Reload Reason: factory-reset", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Total Interfaces: \u0027Gigabit Ethernet\u0027: \u00276\u0027", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Main Memory: 1105351", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Memory Size: \u0027non-volatile configuration\u0027: \u002732768\u0027  \u0027physical\u0027: \u00273012036\u0027", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Serial Number: 9Y23RGWSFML", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "License Type: N/A(Smart License Enabled)", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

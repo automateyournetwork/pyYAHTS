@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "None", "label": "None", "shape": "dot", "size": 10}, {"id": "Chassis", "label": "Chassis", "shape": "dot", "size": 10}, {"id": "Config Register: 0x2102", "label": "Config Register: 0x2102", "shape": "dot", "size": 10}, {"id": "Directory: bootflash:/", "label": "Directory: bootflash:/", "shape": "dot", "size": 10}, {"id": "Image: bootflash:packages.conf", "label": "Image: bootflash:packages.conf", "shape": "dot", "size": 10}, {"id": "ISSU Rollback Timer", "label": "ISSU Rollback Timer", "shape": "dot", "size": 10}, {"id": "Main Memory: 1105351", "label": "Main Memory: 1105351", "shape": "dot", "size": 10}, {"id": "OS: iosxe", "label": "OS: iosxe", "shape": "dot", "size": 10}, {"id": "Redundancy", "label": "Redundancy", "shape": "dot", "size": 10}, {"id": "RP Uptime: 7980", "label": "RP Uptime: 7980", "shape": "dot", "size": 10}, {"id": "Router Type: CSR1000V", "label": "Router Type: CSR1000V", "shape": "dot", "size": 10}, {"id": "Switchover Reason: none", "label": "Switchover Reason: none", "shape": "dot", "size": 10}, {"id": "Version: 17.3.2", "label": "Version: 17.3.2", "shape": "dot", "size": 10}, {"id": "Slot: oc", "label": "Slot: oc", "shape": "dot", "size": 10}, {"id": "Slot: rp", "label": "Slot: rp", "shape": "dot", "size": 10}, {"id": "CSR1000V", "label": "CSR1000V", "shape": "dot", "size": 10}, {"id": "Serial Number: 9Y23RGWSFML", "label": "Serial Number: 9Y23RGWSFML", "shape": "dot", "size": 10}, {"id": "Subslot: R0", "label": "Subslot: R0", "shape": "dot", "size": 10}, {"id": "Reason: no ISSU operation is in progress", "label": "Reason: no ISSU operation is in progress", "shape": "dot", "size": 10}, {"id": "State: inactive", "label": "State: inactive", "shape": "dot", "size": 10}, {"id": "Communication: False", "label": "Communication: False", "shape": "dot", "size": 10}, {"id": "Mode: Non-redundant", "label": "Mode: Non-redundant", "shape": "dot", "size": 10}, {"id": "Subslot: F0", "label": "Subslot: F0", "shape": "dot", "size": 10}, {"id": "Name: CSR1000V", "label": "Name: CSR1000V", "shape": "dot", "size": 10}, {"id": "Serial Number: ", "label": "Serial Number: ", "shape": "dot", "size": 10}, {"id": "State: ok  active", "label": "State: ok  active", "shape": "dot", "size": 10}, {"id": "Serial Number: JAB1303001C", "label": "Serial Number: JAB1303001C", "shape": "dot", "size": 10}, {"id": "ISSU In Progress: False", "label": "ISSU In Progress: False", "shape": "dot", "size": 10}, {"id": "Redundancy State: ACTIVE", "label": "Redundancy State: ACTIVE", "shape": "dot", "size": 10}, {"id": "RP Uptime: 2 hours  13 minutes", "label": "RP Uptime: 2 hours  13 minutes", "shape": "dot", "size": 10}, {"id": "System Image: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3)", "label": "System Image: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3)", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "None", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Chassis", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Config Register: 0x2102", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Directory: bootflash:/", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Image: bootflash:packages.conf", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "ISSU Rollback Timer", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Main Memory: 1105351", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "OS: iosxe", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Redundancy", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "RP Uptime: 7980", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Router Type: CSR1000V", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Switchover Reason: none", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Version: 17.3.2", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Slot: oc", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Slot: rp", "weight": 1}, {"Weight": 1, "from": "Chassis", "to": "CSR1000V", "weight": 1}, {"Weight": 2, "from": "CSR1000V", "to": "Serial Number: 9Y23RGWSFML", "weight": 1}, {"Weight": 1, "from": "Config Register: 0x2102", "to": "Subslot: R0", "weight": 1}, {"Weight": 1, "from": "ISSU Rollback Timer", "to": "Reason: no ISSU operation is in progress", "weight": 1}, {"Weight": 1, "from": "ISSU Rollback Timer", "to": "State: inactive", "weight": 1}, {"Weight": 1, "from": "Redundancy", "to": "Communication: False", "weight": 1}, {"Weight": 1, "from": "Redundancy", "to": "Mode: Non-redundant", "weight": 1}, {"Weight": 1, "from": "Slot: oc", "to": "Subslot: F0", "weight": 1}, {"Weight": 1, "from": "Subslot: F0", "to": "Name: CSR1000V", "weight": 1}, {"Weight": 1, "from": "Subslot: F0", "to": "Serial Number: ", "weight": 1}, {"Weight": 1, "from": "Subslot: F0", "to": "State: ok  active", "weight": 1}, {"Weight": 1, "from": "Name: CSR1000V", "to": "Subslot: R0", "weight": 1}, {"Weight": 1, "from": "State: ok  active", "to": "Subslot: R0", "weight": 1}, {"Weight": 1, "from": "Slot: rp", "to": "Subslot: R0", "weight": 1}, {"Weight": 1, "from": "Subslot: R0", "to": "Serial Number: JAB1303001C", "weight": 1}, {"Weight": 1, "from": "Subslot: R0", "to": "ISSU In Progress: False", "weight": 1}, {"Weight": 1, "from": "Subslot: R0", "to": "Redundancy State: ACTIVE", "weight": 1}, {"Weight": 1, "from": "Subslot: R0", "to": "RP Uptime: 2 hours  13 minutes", "weight": 1}, {"Weight": 1, "from": "Subslot: R0", "to": "System Image: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3)", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1500;
+            height: 1000;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1", "label": "GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2", "label": "GigabitEthernet2", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3", "label": "GigabitEthernet3", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5", "label": "GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6", "label": "GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Loopback0", "label": "Loopback0", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Description: to port6.sandbox-backend", "label": "GigabitEthernet1 Description: to port6.sandbox-backend", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 IP Address: 10.10.20.175/24", "label": "GigabitEthernet1 IP Address: 10.10.20.175/24", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Physical", "label": "GigabitEthernet1 Physical", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Enabled: True", "label": "GigabitEthernet1 Enabled: True", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Operational: up", "label": "GigabitEthernet1 Operational: up", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Switchport", "label": "GigabitEthernet1 Switchport", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 VLAN", "label": "GigabitEthernet1 VLAN", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 VRF: Mgmt-intf", "label": "GigabitEthernet1 VRF: Mgmt-intf", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Flow Control", "label": "GigabitEthernet1 Flow Control", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Counters", "label": "GigabitEthernet1 Counters", "shape": "dot", "size": 10}, {"id": "Origin: No Origin", "label": "Origin: No Origin", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 IP Address: 172.16.252.21/30", "label": "GigabitEthernet2 IP Address: 172.16.252.21/30", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 IP Address: 172.16.252.25/30", "label": "GigabitEthernet3 IP Address: 172.16.252.25/30", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 IP Address: 172.16.252.2/30", "label": "GigabitEthernet4 IP Address: 172.16.252.2/30", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 IP Address: 172.16.252.10/30", "label": "GigabitEthernet5 IP Address: 172.16.252.10/30", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 IP Address: 172.16.252.17/30", "label": "GigabitEthernet6 IP Address: 172.16.252.17/30", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1 Type: CSR vNIC", "label": "GigabitEthernet1 Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Physical: 5254.001f.b4db", "label": "Physical: 5254.001f.b4db", "shape": "dot", "size": 10}, {"id": "MAC: 5254.001f.b4db", "label": "MAC: 5254.001f.b4db", "shape": "dot", "size": 10}, {"id": "Bandwidth: 1000000", "label": "Bandwidth: 1000000", "shape": "dot", "size": 10}, {"id": "MTU: 1500", "label": "MTU: 1500", "shape": "dot", "size": 10}, {"id": "Delay: 10", "label": "Delay: 10", "shape": "dot", "size": 10}, {"id": "Encapsulation: arpa", "label": "Encapsulation: arpa", "shape": "dot", "size": 10}, {"id": "Switchport Enable: False", "label": "Switchport Enable: False", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Switchport", "label": "GigabitEthernet2 Switchport", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Switchport", "label": "GigabitEthernet3 Switchport", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Switchport", "label": "GigabitEthernet4 Switchport", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Switchport", "label": "GigabitEthernet5 Switchport", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Switchport", "label": "GigabitEthernet6 Switchport", "shape": "dot", "size": 10}, {"id": "Loopback0 Switchport", "label": "Loopback0 Switchport", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Physical", "label": "GigabitEthernet2 Physical", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Physical", "label": "GigabitEthernet3 Physical", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Physical", "label": "GigabitEthernet4 Physical", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Physical", "label": "GigabitEthernet5 Physical", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Physical", "label": "GigabitEthernet6 Physical", "shape": "dot", "size": 10}, {"id": "Receive: False", "label": "Receive: False", "shape": "dot", "size": 10}, {"id": "Send: False", "label": "Send: False", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Flow Control", "label": "GigabitEthernet2 Flow Control", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Flow Control", "label": "GigabitEthernet3 Flow Control", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Flow Control", "label": "GigabitEthernet4 Flow Control", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Flow Control", "label": "GigabitEthernet5 Flow Control", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Flow Control", "label": "GigabitEthernet6 Flow Control", "shape": "dot", "size": 10}, {"id": "Input", "label": "Input", "shape": "dot", "size": 10}, {"id": "Output", "label": "Output", "shape": "dot", "size": 10}, {"id": "Rate", "label": "Rate", "shape": "dot", "size": 10}, {"id": "Broadcast: 0", "label": "Broadcast: 0", "shape": "dot", "size": 10}, {"id": "CRC Errors: 0", "label": "CRC Errors: 0", "shape": "dot", "size": 10}, {"id": "Errors: 0", "label": "Errors: 0", "shape": "dot", "size": 10}, {"id": "Unicast: N/A", "label": "Unicast: N/A", "shape": "dot", "size": 10}, {"id": "Multicast: 0", "label": "Multicast: 0", "shape": "dot", "size": 10}, {"id": "Total: 48460", "label": "Total: 48460", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Counters", "label": "GigabitEthernet2 Counters", "shape": "dot", "size": 10}, {"id": "Total: 0", "label": "Total: 0", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Counters", "label": "GigabitEthernet3 Counters", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Counters", "label": "GigabitEthernet4 Counters", "shape": "dot", "size": 10}, {"id": "Total: 1126", "label": "Total: 1126", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Counters", "label": "GigabitEthernet5 Counters", "shape": "dot", "size": 10}, {"id": "Total: 1069", "label": "Total: 1069", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Counters", "label": "GigabitEthernet6 Counters", "shape": "dot", "size": 10}, {"id": "Total: 914", "label": "Total: 914", "shape": "dot", "size": 10}, {"id": "Loopback0 Counters", "label": "Loopback0 Counters", "shape": "dot", "size": 10}, {"id": "Discard: N/A", "label": "Discard: N/A", "shape": "dot", "size": 10}, {"id": "Total: 47090", "label": "Total: 47090", "shape": "dot", "size": 10}, {"id": "Total: 888", "label": "Total: 888", "shape": "dot", "size": 10}, {"id": "Total: 933", "label": "Total: 933", "shape": "dot", "size": 10}, {"id": "Total: 930", "label": "Total: 930", "shape": "dot", "size": 10}, {"id": "Total: 932", "label": "Total: 932", "shape": "dot", "size": 10}, {"id": "Input: 8000", "label": "Input: 8000", "shape": "dot", "size": 10}, {"id": "Output: 21000", "label": "Output: 21000", "shape": "dot", "size": 10}, {"id": "Input: 0", "label": "Input: 0", "shape": "dot", "size": 10}, {"id": "Output: 0", "label": "Output: 0", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Description: L3 Link to core-rtr01", "label": "GigabitEthernet2 Description: L3 Link to core-rtr01", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Enabled: True", "label": "GigabitEthernet2 Enabled: True", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Operational: up", "label": "GigabitEthernet2 Operational: up", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 VLAN", "label": "GigabitEthernet2 VLAN", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2 Type: CSR vNIC", "label": "GigabitEthernet2 Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Physical: 5254.001e.d479", "label": "Physical: 5254.001e.d479", "shape": "dot", "size": 10}, {"id": "MAC: 5254.001e.d479", "label": "MAC: 5254.001e.d479", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Description: L3 Link to core-rtr02", "label": "GigabitEthernet3 Description: L3 Link to core-rtr02", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Enabled: True", "label": "GigabitEthernet3 Enabled: True", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Operational: up", "label": "GigabitEthernet3 Operational: up", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 VLAN", "label": "GigabitEthernet3 VLAN", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3 Type: CSR vNIC", "label": "GigabitEthernet3 Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Physical: 5254.0006.f7ce", "label": "Physical: 5254.0006.f7ce", "shape": "dot", "size": 10}, {"id": "MAC: 5254.0006.f7ce", "label": "MAC: 5254.0006.f7ce", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Description: L3 Link to dist-sw01", "label": "GigabitEthernet4 Description: L3 Link to dist-sw01", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Enabled: True", "label": "GigabitEthernet4 Enabled: True", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Operational: up", "label": "GigabitEthernet4 Operational: up", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 VLAN", "label": "GigabitEthernet4 VLAN", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4 Type: CSR vNIC", "label": "GigabitEthernet4 Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Physical: 5254.000e.7bb9", "label": "Physical: 5254.000e.7bb9", "shape": "dot", "size": 10}, {"id": "MAC: 5254.000e.7bb9", "label": "MAC: 5254.000e.7bb9", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Description: L3 Link to dist-sw02", "label": "GigabitEthernet5 Description: L3 Link to dist-sw02", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Enabled: True", "label": "GigabitEthernet5 Enabled: True", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Operational: up", "label": "GigabitEthernet5 Operational: up", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 VLAN", "label": "GigabitEthernet5 VLAN", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5 Type: CSR vNIC", "label": "GigabitEthernet5 Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Physical: 5254.0016.7077", "label": "Physical: 5254.0016.7077", "shape": "dot", "size": 10}, {"id": "MAC: 5254.0016.7077", "label": "MAC: 5254.0016.7077", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Description: L3 Link to dist-rtr02", "label": "GigabitEthernet6 Description: L3 Link to dist-rtr02", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Enabled: True", "label": "GigabitEthernet6 Enabled: True", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Operational: up", "label": "GigabitEthernet6 Operational: up", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 VLAN", "label": "GigabitEthernet6 VLAN", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6 Type: CSR vNIC", "label": "GigabitEthernet6 Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Physical: 5254.0015.ac8a", "label": "Physical: 5254.0015.ac8a", "shape": "dot", "size": 10}, {"id": "MAC: 5254.0015.ac8a", "label": "MAC: 5254.0015.ac8a", "shape": "dot", "size": 10}, {"id": "Loopback0 Description: to", "label": "Loopback0 Description: to", "shape": "dot", "size": 10}, {"id": "Loopback0 Physical", "label": "Loopback0 Physical", "shape": "dot", "size": 10}, {"id": "Loopback0 Enabled: False", "label": "Loopback0 Enabled: False", "shape": "dot", "size": 10}, {"id": "Loopback0 Operational: down", "label": "Loopback0 Operational: down", "shape": "dot", "size": 10}, {"id": "Loopback0 VLAN", "label": "Loopback0 VLAN", "shape": "dot", "size": 10}, {"id": "Loopback0 Members: False", "label": "Loopback0 Members: False", "shape": "dot", "size": 10}, {"id": "Loopback0 Type: Loopback", "label": "Loopback0 Type: Loopback", "shape": "dot", "size": 10}, {"id": "Bandwidth: 8000000", "label": "Bandwidth: 8000000", "shape": "dot", "size": 10}, {"id": "MTU: 1514", "label": "MTU: 1514", "shape": "dot", "size": 10}, {"id": "Delay: 5000", "label": "Delay: 5000", "shape": "dot", "size": 10}, {"id": "Encapsulation: loopback", "label": "Encapsulation: loopback", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": "1", "from": "dist-rtr01", "to": "GigabitEthernet1", "weight": 1}, {"Weight": "1", "from": "dist-rtr01", "to": "GigabitEthernet2", "weight": 1}, {"Weight": "1", "from": "dist-rtr01", "to": "GigabitEthernet3", "weight": 1}, {"Weight": "1", "from": "dist-rtr01", "to": "GigabitEthernet4", "weight": 1}, {"Weight": "1", "from": "dist-rtr01", "to": "GigabitEthernet5", "weight": 1}, {"Weight": "1", "from": "dist-rtr01", "to": "GigabitEthernet6", "weight": 1}, {"Weight": "1", "from": "dist-rtr01", "to": "Loopback0", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Description: to port6.sandbox-backend", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 IP Address: 10.10.20.175/24", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Enabled: True", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Operational: up", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Switchport", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 VLAN", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 VRF: Mgmt-intf", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Flow Control", "weight": 1}, {"Weight": "Port Channel Member: False", "from": "GigabitEthernet1", "to": "GigabitEthernet1", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1", "to": "GigabitEthernet1 Counters", "weight": 1}, {"Weight": "3", "from": "GigabitEthernet1 IP Address: 10.10.20.175/24", "to": "Origin: No Origin", "weight": 1}, {"Weight": "3", "from": "Origin: No Origin", "to": "GigabitEthernet2 IP Address: 172.16.252.21/30", "weight": 1}, {"Weight": "3", "from": "Origin: No Origin", "to": "GigabitEthernet3 IP Address: 172.16.252.25/30", "weight": 1}, {"Weight": "3", "from": "Origin: No Origin", "to": "GigabitEthernet4 IP Address: 172.16.252.2/30", "weight": 1}, {"Weight": "3", "from": "Origin: No Origin", "to": "GigabitEthernet5 IP Address: 172.16.252.10/30", "weight": 1}, {"Weight": "3", "from": "Origin: No Origin", "to": "GigabitEthernet6 IP Address: 172.16.252.17/30", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "GigabitEthernet1 Type: CSR vNIC", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "Physical: 5254.001f.b4db", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "MAC: 5254.001f.b4db", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "Bandwidth: 1000000", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "MTU: 1500", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "Delay: 10", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Physical", "to": "Encapsulation: arpa", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Switchport", "to": "Switchport Enable: False", "weight": 1}, {"Weight": "2", "from": "Switchport Enable: False", "to": "GigabitEthernet2 Switchport", "weight": 1}, {"Weight": "2", "from": "Switchport Enable: False", "to": "GigabitEthernet3 Switchport", "weight": 1}, {"Weight": "2", "from": "Switchport Enable: False", "to": "GigabitEthernet4 Switchport", "weight": 1}, {"Weight": "2", "from": "Switchport Enable: False", "to": "GigabitEthernet5 Switchport", "weight": 1}, {"Weight": "2", "from": "Switchport Enable: False", "to": "GigabitEthernet6 Switchport", "weight": 1}, {"Weight": "2", "from": "Switchport Enable: False", "to": "Loopback0 Switchport", "weight": 1}, {"Weight": "2", "from": "Bandwidth: 1000000", "to": "GigabitEthernet2 Physical", "weight": 1}, {"Weight": "2", "from": "Bandwidth: 1000000", "to": "GigabitEthernet3 Physical", "weight": 1}, {"Weight": "2", "from": "Bandwidth: 1000000", "to": "GigabitEthernet4 Physical", "weight": 1}, {"Weight": "2", "from": "Bandwidth: 1000000", "to": "GigabitEthernet5 Physical", "weight": 1}, {"Weight": "2", "from": "Bandwidth: 1000000", "to": "GigabitEthernet6 Physical", "weight": 1}, {"Weight": "2", "from": "MTU: 1500", "to": "GigabitEthernet2 Physical", "weight": 1}, {"Weight": "2", "from": "MTU: 1500", "to": "GigabitEthernet3 Physical", "weight": 1}, {"Weight": "2", "from": "MTU: 1500", "to": "GigabitEthernet4 Physical", "weight": 1}, {"Weight": "2", "from": "MTU: 1500", "to": "GigabitEthernet5 Physical", "weight": 1}, {"Weight": "2", "from": "MTU: 1500", "to": "GigabitEthernet6 Physical", "weight": 1}, {"Weight": "2", "from": "Delay: 10", "to": "GigabitEthernet2 Physical", "weight": 1}, {"Weight": "2", "from": "Delay: 10", "to": "GigabitEthernet3 Physical", "weight": 1}, {"Weight": "2", "from": "Delay: 10", "to": "GigabitEthernet4 Physical", "weight": 1}, {"Weight": "2", "from": "Delay: 10", "to": "GigabitEthernet5 Physical", "weight": 1}, {"Weight": "2", "from": "Delay: 10", "to": "GigabitEthernet6 Physical", "weight": 1}, {"Weight": "2", "from": "Encapsulation: arpa", "to": "GigabitEthernet2 Physical", "weight": 1}, {"Weight": "2", "from": "Encapsulation: arpa", "to": "GigabitEthernet3 Physical", "weight": 1}, {"Weight": "2", "from": "Encapsulation: arpa", "to": "GigabitEthernet4 Physical", "weight": 1}, {"Weight": "2", "from": "Encapsulation: arpa", "to": "GigabitEthernet5 Physical", "weight": 1}, {"Weight": "2", "from": "Encapsulation: arpa", "to": "GigabitEthernet6 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Flow Control", "to": "Receive: False", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet1 Flow Control", "to": "Send: False", "weight": 1}, {"Weight": "2", "from": "Receive: False", "to": "GigabitEthernet2 Flow Control", "weight": 1}, {"Weight": "2", "from": "Receive: False", "to": "GigabitEthernet3 Flow Control", "weight": 1}, {"Weight": "2", "from": "Receive: False", "to": "GigabitEthernet4 Flow Control", "weight": 1}, {"Weight": "2", "from": "Receive: False", "to": "GigabitEthernet5 Flow Control", "weight": 1}, {"Weight": "2", "from": "Receive: False", "to": "GigabitEthernet6 Flow Control", "weight": 1}, {"Weight": "2", "from": "Send: False", "to": "GigabitEthernet2 Flow Control", "weight": 1}, {"Weight": "2", "from": "Send: False", "to": "GigabitEthernet3 Flow Control", "weight": 1}, {"Weight": "2", "from": "Send: False", "to": "GigabitEthernet4 Flow Control", "weight": 1}, {"Weight": "2", "from": "Send: False", "to": "GigabitEthernet5 Flow Control", "weight": 1}, {"Weight": "2", "from": "Send: False", "to": "GigabitEthernet6 Flow Control", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1 Counters", "to": "Input", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1 Counters", "to": "Output", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet1 Counters", "to": "Rate", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Broadcast: 0", "weight": 1}, {"Weight": "2", "from": "Input", "to": "CRC Errors: 0", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Errors: 0", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Unicast: N/A", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Multicast: 0", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Total: 48460", "weight": 1}, {"Weight": "1", "from": "Input", "to": "GigabitEthernet2 Counters", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Total: 0", "weight": 1}, {"Weight": "1", "from": "Input", "to": "GigabitEthernet3 Counters", "weight": 1}, {"Weight": "1", "from": "Input", "to": "GigabitEthernet4 Counters", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Total: 1126", "weight": 1}, {"Weight": "1", "from": "Input", "to": "GigabitEthernet5 Counters", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Total: 1069", "weight": 1}, {"Weight": "1", "from": "Input", "to": "GigabitEthernet6 Counters", "weight": 1}, {"Weight": "2", "from": "Input", "to": "Total: 914", "weight": 1}, {"Weight": "1", "from": "Input", "to": "Loopback0 Counters", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Broadcast: 0", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Discard: N/A", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Errors: 0", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Unicast: N/A", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Multicast: 0", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Total: 47090", "weight": 1}, {"Weight": "1", "from": "Output", "to": "GigabitEthernet2 Counters", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Total: 888", "weight": 1}, {"Weight": "1", "from": "Output", "to": "GigabitEthernet3 Counters", "weight": 1}, {"Weight": "1", "from": "Output", "to": "GigabitEthernet4 Counters", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Total: 933", "weight": 1}, {"Weight": "1", "from": "Output", "to": "GigabitEthernet5 Counters", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Total: 930", "weight": 1}, {"Weight": "1", "from": "Output", "to": "GigabitEthernet6 Counters", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Total: 932", "weight": 1}, {"Weight": "1", "from": "Output", "to": "Loopback0 Counters", "weight": 1}, {"Weight": "2", "from": "Output", "to": "Total: 0", "weight": 1}, {"Weight": "2", "from": "Rate", "to": "Input: 8000", "weight": 1}, {"Weight": "2", "from": "Rate", "to": "Output: 21000", "weight": 1}, {"Weight": "1", "from": "Rate", "to": "GigabitEthernet2 Counters", "weight": 1}, {"Weight": "2", "from": "Rate", "to": "Input: 0", "weight": 1}, {"Weight": "2", "from": "Rate", "to": "Output: 0", "weight": 1}, {"Weight": "1", "from": "Rate", "to": "GigabitEthernet3 Counters", "weight": 1}, {"Weight": "1", "from": "Rate", "to": "GigabitEthernet4 Counters", "weight": 1}, {"Weight": "1", "from": "Rate", "to": "GigabitEthernet5 Counters", "weight": 1}, {"Weight": "1", "from": "Rate", "to": "GigabitEthernet6 Counters", "weight": 1}, {"Weight": "1", "from": "Rate", "to": "Loopback0 Counters", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Description: L3 Link to core-rtr01", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet2", "to": "GigabitEthernet2 IP Address: 172.16.252.21/30", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Enabled: True", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Operational: up", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Switchport", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet2", "to": "GigabitEthernet2 VLAN", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Flow Control", "weight": 1}, {"Weight": "Port Channel Member: False", "from": "GigabitEthernet2", "to": "GigabitEthernet2", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet2", "to": "GigabitEthernet2 Counters", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet2 Physical", "to": "GigabitEthernet2 Type: CSR vNIC", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet2 Physical", "to": "Physical: 5254.001e.d479", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet2 Physical", "to": "MAC: 5254.001e.d479", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Description: L3 Link to core-rtr02", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet3", "to": "GigabitEthernet3 IP Address: 172.16.252.25/30", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Enabled: True", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Operational: up", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Switchport", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet3", "to": "GigabitEthernet3 VLAN", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Flow Control", "weight": 1}, {"Weight": "Port Channel Member: False", "from": "GigabitEthernet3", "to": "GigabitEthernet3", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet3", "to": "GigabitEthernet3 Counters", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet3 Physical", "to": "GigabitEthernet3 Type: CSR vNIC", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet3 Physical", "to": "Physical: 5254.0006.f7ce", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet3 Physical", "to": "MAC: 5254.0006.f7ce", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Description: L3 Link to dist-sw01", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet4", "to": "GigabitEthernet4 IP Address: 172.16.252.2/30", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Enabled: True", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Operational: up", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Switchport", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet4", "to": "GigabitEthernet4 VLAN", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Flow Control", "weight": 1}, {"Weight": "Port Channel Member: False", "from": "GigabitEthernet4", "to": "GigabitEthernet4", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet4", "to": "GigabitEthernet4 Counters", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet4 Physical", "to": "GigabitEthernet4 Type: CSR vNIC", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet4 Physical", "to": "Physical: 5254.000e.7bb9", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet4 Physical", "to": "MAC: 5254.000e.7bb9", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Description: L3 Link to dist-sw02", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet5", "to": "GigabitEthernet5 IP Address: 172.16.252.10/30", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Enabled: True", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Operational: up", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Switchport", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet5", "to": "GigabitEthernet5 VLAN", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Flow Control", "weight": 1}, {"Weight": "Port Channel Member: False", "from": "GigabitEthernet5", "to": "GigabitEthernet5", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet5", "to": "GigabitEthernet5 Counters", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet5 Physical", "to": "GigabitEthernet5 Type: CSR vNIC", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet5 Physical", "to": "Physical: 5254.0016.7077", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet5 Physical", "to": "MAC: 5254.0016.7077", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Description: L3 Link to dist-rtr02", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet6", "to": "GigabitEthernet6 IP Address: 172.16.252.17/30", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Physical", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Enabled: True", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Operational: up", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Switchport", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet6", "to": "GigabitEthernet6 VLAN", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Flow Control", "weight": 1}, {"Weight": "Port Channel Member: False", "from": "GigabitEthernet6", "to": "GigabitEthernet6", "weight": 1}, {"Weight": "1", "from": "GigabitEthernet6", "to": "GigabitEthernet6 Counters", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet6 Physical", "to": "GigabitEthernet6 Type: CSR vNIC", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet6 Physical", "to": "Physical: 5254.0015.ac8a", "weight": 1}, {"Weight": "2", "from": "GigabitEthernet6 Physical", "to": "MAC: 5254.0015.ac8a", "weight": 1}, {"Weight": "2", "from": "Loopback0", "to": "Loopback0 Description: to", "weight": 1}, {"Weight": "1", "from": "Loopback0", "to": "Loopback0 Physical", "weight": 1}, {"Weight": "2", "from": "Loopback0", "to": "Loopback0 Enabled: False", "weight": 1}, {"Weight": "2", "from": "Loopback0", "to": "Loopback0 Operational: down", "weight": 1}, {"Weight": "1", "from": "Loopback0", "to": "Loopback0 Switchport", "weight": 1}, {"Weight": "1", "from": "Loopback0", "to": "Loopback0 VLAN", "weight": 1}, {"Weight": "2", "from": "Loopback0", "to": "Loopback0 Members: False", "weight": 1}, {"Weight": "1", "from": "Loopback0", "to": "Loopback0 Counters", "weight": 1}, {"Weight": "2", "from": "Loopback0 Physical", "to": "Loopback0 Type: Loopback", "weight": 1}, {"Weight": "2", "from": "Loopback0 Physical", "to": "Bandwidth: 8000000", "weight": 1}, {"Weight": "2", "from": "Loopback0 Physical", "to": "MTU: 1514", "weight": 1}, {"Weight": "2", "from": "Loopback0 Physical", "to": "Delay: 5000", "weight": 1}, {"Weight": "2", "from": "Loopback0 Physical", "to": "Encapsulation: loopback", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

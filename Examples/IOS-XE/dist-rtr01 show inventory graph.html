@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "Slot: chassis", "label": "Slot: chassis", "shape": "dot", "size": 10}, {"id": "Slot: F0", "label": "Slot: F0", "shape": "dot", "size": 10}, {"id": "Slot: R0", "label": "Slot: R0", "shape": "dot", "size": 10}, {"id": "Part: CSR1000V", "label": "Part: CSR1000V", "shape": "dot", "size": 10}, {"id": "Description: Cisco CSR1000V Chassis", "label": "Description: Cisco CSR1000V Chassis", "shape": "dot", "size": 10}, {"id": "PID: CSR1000V", "label": "PID: CSR1000V", "shape": "dot", "size": 10}, {"id": "Serial Number: 9Y23RGWSFML", "label": "Serial Number: 9Y23RGWSFML", "shape": "dot", "size": 10}, {"id": "VID: V00", "label": "VID: V00", "shape": "dot", "size": 10}, {"id": "Description: Cisco CSR1000V Embedded Services Processor", "label": "Description: Cisco CSR1000V Embedded Services Processor", "shape": "dot", "size": 10}, {"id": "Serial Number: ", "label": "Serial Number: ", "shape": "dot", "size": 10}, {"id": "VID: ", "label": "VID: ", "shape": "dot", "size": 10}, {"id": "Description: Cisco CSR1000V Route Processor", "label": "Description: Cisco CSR1000V Route Processor", "shape": "dot", "size": 10}, {"id": "Serial Number: JAB1303001C", "label": "Serial Number: JAB1303001C", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "Slot: chassis", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Slot: F0", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Slot: R0", "weight": 1}, {"Weight": 1, "from": "Slot: chassis", "to": "Part: CSR1000V", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Description: Cisco CSR1000V Chassis", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "PID: CSR1000V", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Serial Number: 9Y23RGWSFML", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "VID: V00", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Slot: F0", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Description: Cisco CSR1000V Embedded Services Processor", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Serial Number: ", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "VID: ", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Slot: R0", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Description: Cisco CSR1000V Route Processor", "weight": 1}, {"Weight": 1, "from": "Part: CSR1000V", "to": "Serial Number: JAB1303001C", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Fan: Fan1(sys_fan1)", "label": "Fan: Fan1(sys_fan1)", "shape": "dot", "size": 10}, {"id": "Fan: Fan2(sys_fan2)", "label": "Fan: Fan2(sys_fan2)", "shape": "dot", "size": 10}, {"id": "Fan: Fan3(sys_fan3)", "label": "Fan: Fan3(sys_fan3)", "shape": "dot", "size": 10}, {"id": "Fan: Fan_in_PS1", "label": "Fan: Fan_in_PS1", "shape": "dot", "size": 10}, {"id": "Fan: Fan_in_PS2", "label": "Fan: Fan_in_PS2", "shape": "dot", "size": 10}, {"id": "Power Supply: 1", "label": "Power Supply: 1", "shape": "dot", "size": 10}, {"id": "Power Supply: 2", "label": "Power Supply: 2", "shape": "dot", "size": 10}, {"id": "Direction: front-to-back", "label": "Direction: front-to-back", "shape": "dot", "size": 10}, {"id": "Model: N9K-9000v-FAN", "label": "Model: N9K-9000v-FAN", "shape": "dot", "size": 10}, {"id": "Status: Ok", "label": "Status: Ok", "shape": "dot", "size": 10}, {"id": "Air Filter: NotSupported", "label": "Air Filter: NotSupported", "shape": "dot", "size": 10}, {"id": "Zone Speed: Zone 1: 0x0", "label": "Zone Speed: Zone 1: 0x0", "shape": "dot", "size": 10}, {"id": "Direction: none", "label": "Direction: none", "shape": "dot", "size": 10}, {"id": "Status: None", "label": "Status: None", "shape": "dot", "size": 10}, {"id": "Actual Watts", "label": "Actual Watts", "shape": "dot", "size": 10}, {"id": "Model: ------------", "label": "Model: ------------", "shape": "dot", "size": 10}, {"id": "Status: Absent", "label": "Status: Absent", "shape": "dot", "size": 10}, {"id": "Total Capacity: 0", "label": "Total Capacity: 0", "shape": "dot", "size": 10}, {"id": "Voltage: 12", "label": "Voltage: 12", "shape": "dot", "size": 10}, {"id": "Mode", "label": "Mode", "shape": "dot", "size": 10}, {"id": "Grid Power Watts", "label": "Grid Power Watts", "shape": "dot", "size": 10}, {"id": "Total Power", "label": "Total Power", "shape": "dot", "size": 10}, {"id": "Input: 0", "label": "Input: 0", "shape": "dot", "size": 10}, {"id": "Output: 0", "label": "Output: 0", "shape": "dot", "size": 10}, {"id": "Config: PS-Redundant", "label": "Config: PS-Redundant", "shape": "dot", "size": 10}, {"id": "Oper: PS-Redundant", "label": "Oper: PS-Redundant", "shape": "dot", "size": 10}, {"id": "A: 0.0", "label": "A: 0.0", "shape": "dot", "size": 10}, {"id": "B: 0.0", "label": "B: 0.0", "shape": "dot", "size": 10}, {"id": "Capacity: 180.0", "label": "Capacity: 180.0", "shape": "dot", "size": 10}, {"id": "Cumulative: 0.0", "label": "Cumulative: 0.0", "shape": "dot", "size": 10}, {"id": "Input: 0.0", "label": "Input: 0.0", "shape": "dot", "size": 10}, {"id": "Output: 0.0", "label": "Output: 0.0", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "Fan: Fan1(sys_fan1)", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Fan: Fan2(sys_fan2)", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Fan: Fan3(sys_fan3)", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Fan: Fan_in_PS1", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Fan: Fan_in_PS2", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Power Supply: 1", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Fan: Fan1(sys_fan1)", "to": "Direction: front-to-back", "weight": 1}, {"Weight": 1, "from": "Fan: Fan1(sys_fan1)", "to": "Model: N9K-9000v-FAN", "weight": 1}, {"Weight": 1, "from": "Fan: Fan1(sys_fan1)", "to": "Status: Ok", "weight": 1}, {"Weight": 1, "from": "Fan: Fan1(sys_fan1)", "to": "Air Filter: NotSupported", "weight": 1}, {"Weight": 1, "from": "Fan: Fan1(sys_fan1)", "to": "Zone Speed: Zone 1: 0x0", "weight": 1}, {"Weight": 1, "from": "Direction: front-to-back", "to": "Fan: Fan2(sys_fan2)", "weight": 1}, {"Weight": 1, "from": "Direction: front-to-back", "to": "Fan: Fan3(sys_fan3)", "weight": 1}, {"Weight": 1, "from": "Model: N9K-9000v-FAN", "to": "Fan: Fan2(sys_fan2)", "weight": 1}, {"Weight": 1, "from": "Model: N9K-9000v-FAN", "to": "Fan: Fan3(sys_fan3)", "weight": 1}, {"Weight": 1, "from": "Status: Ok", "to": "Fan: Fan2(sys_fan2)", "weight": 1}, {"Weight": 1, "from": "Status: Ok", "to": "Fan: Fan3(sys_fan3)", "weight": 1}, {"Weight": 1, "from": "Air Filter: NotSupported", "to": "Fan: Fan2(sys_fan2)", "weight": 1}, {"Weight": 1, "from": "Air Filter: NotSupported", "to": "Fan: Fan3(sys_fan3)", "weight": 1}, {"Weight": 1, "from": "Air Filter: NotSupported", "to": "Fan: Fan_in_PS1", "weight": 1}, {"Weight": 1, "from": "Air Filter: NotSupported", "to": "Fan: Fan_in_PS2", "weight": 1}, {"Weight": 1, "from": "Zone Speed: Zone 1: 0x0", "to": "Fan: Fan2(sys_fan2)", "weight": 1}, {"Weight": 1, "from": "Zone Speed: Zone 1: 0x0", "to": "Fan: Fan3(sys_fan3)", "weight": 1}, {"Weight": 1, "from": "Zone Speed: Zone 1: 0x0", "to": "Fan: Fan_in_PS1", "weight": 1}, {"Weight": 1, "from": "Zone Speed: Zone 1: 0x0", "to": "Fan: Fan_in_PS2", "weight": 1}, {"Weight": 1, "from": "Fan: Fan_in_PS1", "to": "Direction: none", "weight": 1}, {"Weight": 1, "from": "Fan: Fan_in_PS1", "to": "Status: None", "weight": 1}, {"Weight": 1, "from": "Direction: none", "to": "Fan: Fan_in_PS2", "weight": 1}, {"Weight": 1, "from": "Status: None", "to": "Fan: Fan_in_PS2", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Actual Watts", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Model: ------------", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Status: Absent", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Total Capacity: 0", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Voltage: 12", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Mode", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Grid Power Watts", "weight": 1}, {"Weight": 1, "from": "Power Supply: 1", "to": "Total Power", "weight": 1}, {"Weight": 1, "from": "Actual Watts", "to": "Input: 0", "weight": 1}, {"Weight": 1, "from": "Actual Watts", "to": "Output: 0", "weight": 1}, {"Weight": 1, "from": "Actual Watts", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Model: ------------", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Status: Absent", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Total Capacity: 0", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Voltage: 12", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Mode", "to": "Config: PS-Redundant", "weight": 1}, {"Weight": 1, "from": "Mode", "to": "Oper: PS-Redundant", "weight": 1}, {"Weight": 1, "from": "Mode", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Grid Power Watts", "to": "A: 0.0", "weight": 1}, {"Weight": 1, "from": "Grid Power Watts", "to": "B: 0.0", "weight": 1}, {"Weight": 1, "from": "Grid Power Watts", "to": "Power Supply: 2", "weight": 1}, {"Weight": 1, "from": "Total Power", "to": "Capacity: 180.0", "weight": 1}, {"Weight": 1, "from": "Total Power", "to": "Cumulative: 0.0", "weight": 1}, {"Weight": 1, "from": "Total Power", "to": "Input: 0.0", "weight": 1}, {"Weight": 1, "from": "Total Power", "to": "Output: 0.0", "weight": 1}, {"Weight": 1, "from": "Total Power", "to": "Power Supply: 2", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

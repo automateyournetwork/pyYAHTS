@@ -1,0 +1,177 @@
+{
+    "Vlan101": {
+        "address_family": {
+            "ipv4": {
+                "version": {
+                    "1": {
+                        "groups": {
+                            "10": {
+                                "active_router": "local",
+                                "authentication": "cisco",
+                                "group_number": 10,
+                                "hsrp_router_state": "active",
+                                "primary_ipv4_address": {
+                                    "address": "172.16.101.1",
+                                    "virtual_ip_learn": false
+                                },
+                                "priority": 100,
+                                "session_name": "hsrp-Vlan101-10",
+                                "standby_ip_address": "172.16.101.3",
+                                "standby_router": "172.16.101.3",
+                                "timers": {
+                                    "hello_msec_flag": false,
+                                    "hello_sec": 3,
+                                    "hold_msec_flag": false,
+                                    "hold_sec": 10
+                                },
+                                "virtual_mac_address": "0000.0c07.ac0a"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "interface": "Vlan101",
+        "use_bia": false
+    },
+    "Vlan102": {
+        "address_family": {
+            "ipv4": {
+                "version": {
+                    "1": {
+                        "groups": {
+                            "10": {
+                                "active_ip_address": "172.16.102.3",
+                                "active_router": "172.16.102.3",
+                                "authentication": "cisco",
+                                "group_number": 10,
+                                "hsrp_router_state": "standby",
+                                "primary_ipv4_address": {
+                                    "address": "172.16.102.1",
+                                    "virtual_ip_learn": false
+                                },
+                                "priority": 100,
+                                "session_name": "hsrp-Vlan102-10",
+                                "standby_router": "local",
+                                "timers": {
+                                    "hello_msec_flag": false,
+                                    "hello_sec": 3,
+                                    "hold_msec_flag": false,
+                                    "hold_sec": 10
+                                },
+                                "virtual_mac_address": "0000.0c07.ac0a"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "interface": "Vlan102",
+        "use_bia": false
+    },
+    "Vlan103": {
+        "address_family": {
+            "ipv4": {
+                "version": {
+                    "1": {
+                        "groups": {
+                            "10": {
+                                "active_ip_address": "172.16.103.3",
+                                "active_router": "172.16.103.3",
+                                "authentication": "cisco",
+                                "group_number": 10,
+                                "hsrp_router_state": "standby",
+                                "primary_ipv4_address": {
+                                    "address": "172.16.103.1",
+                                    "virtual_ip_learn": false
+                                },
+                                "priority": 100,
+                                "session_name": "hsrp-Vlan103-10",
+                                "standby_router": "local",
+                                "timers": {
+                                    "hello_msec_flag": false,
+                                    "hello_sec": 3,
+                                    "hold_msec_flag": false,
+                                    "hold_sec": 10
+                                },
+                                "virtual_mac_address": "0000.0c07.ac0a"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "interface": "Vlan103",
+        "use_bia": false
+    },
+    "Vlan104": {
+        "address_family": {
+            "ipv4": {
+                "version": {
+                    "1": {
+                        "groups": {
+                            "10": {
+                                "active_ip_address": "172.16.104.3",
+                                "active_router": "172.16.104.3",
+                                "authentication": "cisco",
+                                "group_number": 10,
+                                "hsrp_router_state": "standby",
+                                "primary_ipv4_address": {
+                                    "address": "172.16.104.1",
+                                    "virtual_ip_learn": false
+                                },
+                                "priority": 100,
+                                "session_name": "hsrp-Vlan104-10",
+                                "standby_router": "local",
+                                "timers": {
+                                    "hello_msec_flag": false,
+                                    "hello_sec": 3,
+                                    "hold_msec_flag": false,
+                                    "hold_sec": 10
+                                },
+                                "virtual_mac_address": "0000.0c07.ac0a"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "interface": "Vlan104",
+        "use_bia": false
+    },
+    "Vlan105": {
+        "address_family": {
+            "ipv4": {
+                "version": {
+                    "1": {
+                        "groups": {
+                            "10": {
+                                "active_ip_address": "172.16.105.3",
+                                "active_router": "172.16.105.3",
+                                "authentication": "cisco",
+                                "group_number": 10,
+                                "hsrp_router_state": "standby",
+                                "primary_ipv4_address": {
+                                    "address": "172.16.105.1",
+                                    "virtual_ip_learn": false
+                                },
+                                "priority": 100,
+                                "session_name": "hsrp-Vlan105-10",
+                                "standby_router": "local",
+                                "timers": {
+                                    "hello_msec_flag": false,
+                                    "hello_sec": 3,
+                                    "hold_msec_flag": false,
+                                    "hold_sec": 10
+                                },
+                                "virtual_mac_address": "0000.0c07.ac0a"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "interface": "Vlan105",
+        "use_bia": false
+    }
+}

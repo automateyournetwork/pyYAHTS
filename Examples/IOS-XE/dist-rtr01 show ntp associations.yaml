@@ -1,0 +1,19 @@
+clock_state:
+  system_status:
+    clock_state: unsynchronized
+peer:
+  216.197.228.230:
+    local_mode:
+      client:
+        configured: true
+        delay: 0.0
+        jitter: 15937.0
+        local_mode: client
+        mode: unsynchronized
+        offset: 0.0
+        poll: 64
+        reach: 0
+        receive_time: '-'
+        refid: .TIME.
+        remote: 216.197.228.230
+        stratum: 16

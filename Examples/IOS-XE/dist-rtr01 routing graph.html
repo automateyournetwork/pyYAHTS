@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "VRF: Mgmt-intf", "label": "VRF: Mgmt-intf", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "0.0.0.0/0", "label": "0.0.0.0/0", "shape": "dot", "size": 10}, {"id": "10.10.20.0/24", "label": "10.10.20.0/24", "shape": "dot", "size": 10}, {"id": "10.10.20.175/32", "label": "10.10.20.175/32", "shape": "dot", "size": 10}, {"id": "Active: True", "label": "Active: True", "shape": "dot", "size": 10}, {"id": "Metric: 0", "label": "Metric: 0", "shape": "dot", "size": 10}, {"id": "Next Hop: 1", "label": "Next Hop: 1", "shape": "dot", "size": 10}, {"id": "Preference: 1", "label": "Preference: 1", "shape": "dot", "size": 10}, {"id": "Protocol: static", "label": "Protocol: static", "shape": "dot", "size": 10}, {"id": "FF00::/8", "label": "FF00::/8", "shape": "dot", "size": 10}, {"id": "Next Hop: 10.10.20.254", "label": "Next Hop: 10.10.20.254", "shape": "dot", "size": 10}, {"id": "Codes: S*", "label": "Codes: S*", "shape": "dot", "size": 10}, {"id": "Outgoing Interface: GigabitEthernet1", "label": "Outgoing Interface: GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "Protocol: connected", "label": "Protocol: connected", "shape": "dot", "size": 10}, {"id": "Codes: C", "label": "Codes: C", "shape": "dot", "size": 10}, {"id": "Protocol: local", "label": "Protocol: local", "shape": "dot", "size": 10}, {"id": "Codes: L", "label": "Codes: L", "shape": "dot", "size": 10}, {"id": "ipv6", "label": "ipv6", "shape": "dot", "size": 10}, {"id": "Outgoing Interface: Null0", "label": "Outgoing Interface: Null0", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "VRF: Mgmt-intf", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "VRF: default", "weight": 1}, {"Weight": 1, "from": "VRF: Mgmt-intf", "to": "ipv4", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "0.0.0.0/0", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "10.10.20.175/32", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Active: True", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Metric: 0", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Next Hop: 1", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Preference: 1", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Protocol: static", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "10.10.20.175/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "FF00::/8", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 10.10.20.254", "weight": 1}, {"Weight": 1, "from": "Protocol: static", "to": "Codes: S*", "weight": 1}, {"Weight": 1, "from": "10.10.20.0/24", "to": "Outgoing Interface: GigabitEthernet1", "weight": 1}, {"Weight": 1, "from": "10.10.20.0/24", "to": "Protocol: connected", "weight": 1}, {"Weight": 1, "from": "Outgoing Interface: GigabitEthernet1", "to": "10.10.20.175/32", "weight": 1}, {"Weight": 1, "from": "Protocol: connected", "to": "Codes: C", "weight": 1}, {"Weight": 1, "from": "10.10.20.175/32", "to": "Protocol: local", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "Codes: L", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "FF00::/8", "weight": 1}, {"Weight": 1, "from": "VRF: default", "to": "ipv6", "weight": 1}, {"Weight": 1, "from": "ipv6", "to": "FF00::/8", "weight": 1}, {"Weight": 1, "from": "FF00::/8", "to": "Outgoing Interface: Null0", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

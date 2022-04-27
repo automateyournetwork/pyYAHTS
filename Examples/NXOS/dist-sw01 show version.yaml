@@ -1,0 +1,23 @@
+platform:
+  hardware:
+    bootflash: 3509454 kB
+    chassis: Nexus9000 9000v
+    cpu: Intel(R) Xeon(R) Gold 6238 CPU @ 2.10GHz
+    device_name: dist-sw01
+    memory: 8161516 kB
+    model: Nexus9000 9000v
+    processor_board_id: 9SURZFD8MR6
+    rp: None
+    slots: None
+  kernel_uptime:
+    days: 0
+    hours: 2
+    minutes: 53
+    seconds: 15
+  name: Nexus
+  os: NX-OS
+  reason: Unknown
+  software:
+    system_compile_time: 8/20/2019 7:00:00 [08/20/2019 15:52:22]
+    system_image_file: bootflash:///nxos.9.2.4.bin
+    system_version: 9.2(4)

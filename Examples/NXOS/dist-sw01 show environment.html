@@ -1,0 +1,362 @@
+
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.4/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/keytable/2.6.4/js/dataTables.keyTable.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.6.4/css/keyTable.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+</head>
+<body>
+<h1>Show Enviroment All - Fans</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Fan</th>
+    <th>Direction</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Air Filter</th>
+    <th>Fan Zone Speed</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fan1(sys_fan1)</td>
+    <td>front-to-back</td>
+    <td>N9K-9000v-FAN</td>
+    <td>Ok</td>
+    <td>NotSupported</td>
+    <td>Zone 1: 0x0</td>
+  </tr>
+  <tr>
+    <td>Fan2(sys_fan2)</td>
+    <td>front-to-back</td>
+    <td>N9K-9000v-FAN</td>
+    <td>Ok</td>
+    <td>NotSupported</td>
+    <td>Zone 1: 0x0</td>
+  </tr>
+  <tr>
+    <td>Fan3(sys_fan3)</td>
+    <td>front-to-back</td>
+    <td>N9K-9000v-FAN</td>
+    <td>Ok</td>
+    <td>NotSupported</td>
+    <td>Zone 1: 0x0</td>
+  </tr>
+  <tr>
+    <td>Fan_in_PS1</td>
+    <td>none</td>
+    <td>N/A</td>
+    <td>None</td>
+    <td>NotSupported</td>
+    <td>Zone 1: 0x0</td>
+  </tr>
+  <tr>
+    <td>Fan_in_PS2</td>
+    <td>none</td>
+    <td>N/A</td>
+    <td>None</td>
+    <td>NotSupported</td>
+    <td>Zone 1: 0x0</td>
+  </tr>
+</tbody>
+</table>
+<h1>Show Enviroment All - Power Supplies</h1>
+<table id = "datatable02">
+<thead>
+  <tr>
+    <th>Power Supply</th>
+    <th>Actual Input</th>
+    <th>Actual Output</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Capacity</th>
+    <th>Voltage</th>
+    <th>Config Mode</th>
+    <th>Operation Mode</th>
+    <th>Total Grid A</th>
+    <th>Total Grid B</th>
+    <th>Total Power Capacity</th>
+    <th>Total Power Cumulative</th>
+    <th>Total Power Input</th>
+    <th>Total Power Output</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>------------</td>
+    <td>Absent</td>
+    <td>0</td>
+    <td>12</td>
+    <td>PS-Redundant</td>
+    <td>PS-Redundant</td>
+    <td>0.0</td>
+    <td>0.0</td>
+    <td>180.0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td>------------</td>
+    <td>Absent</td>
+    <td>0</td>
+    <td>12</td>
+    <td>PS-Redundant</td>
+    <td>PS-Redundant</td>
+    <td>0.0</td>
+    <td>0.0</td>
+    <td>180.0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+</tbody>
+</table>
+<h1>Show Enviroment All - Temperature</h1>
+<table id = "datatable03">
+<thead>
+  <tr>
+    <th>Temperature Area</th>
+    <th>Current Temp</th>
+    <th>Major Threshold</th>
+    <th>Minor Threshold</th>
+    <th>Status</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table><script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable thead');
+
+    var table = $('#datatable').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable02 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable02 thead');
+
+    var table = $('#datatable02').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable03 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable03 thead');
+
+    var table = $('#datatable03').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+</body></html>

@@ -1,0 +1,217 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1500;
+            height: 1000;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "VLAN: 1", "label": "VLAN: 1", "shape": "dot", "size": 10}, {"id": "VLAN: 101", "label": "VLAN: 101", "shape": "dot", "size": 10}, {"id": "VLAN: 102", "label": "VLAN: 102", "shape": "dot", "size": 10}, {"id": "VLAN: 103", "label": "VLAN: 103", "shape": "dot", "size": 10}, {"id": "VLAN: 104", "label": "VLAN: 104", "shape": "dot", "size": 10}, {"id": "VLAN: 105", "label": "VLAN: 105", "shape": "dot", "size": 10}, {"id": "Port-channel1", "label": "Port-channel1", "shape": "dot", "size": 10}, {"id": "Name: default", "label": "Name: default", "shape": "dot", "size": 10}, {"id": "State: active", "label": "State: active", "shape": "dot", "size": 10}, {"id": "Shutdown: False", "label": "Shutdown: False", "shape": "dot", "size": 10}, {"id": "Type: enet", "label": "Type: enet", "shape": "dot", "size": 10}, {"id": "Mode: ce", "label": "Mode: ce", "shape": "dot", "size": 10}, {"id": "Ethernet1/1", "label": "Ethernet1/1", "shape": "dot", "size": 10}, {"id": "Ethernet1/2", "label": "Ethernet1/2", "shape": "dot", "size": 10}, {"id": "Ethernet1/5", "label": "Ethernet1/5", "shape": "dot", "size": 10}, {"id": "Ethernet1/6", "label": "Ethernet1/6", "shape": "dot", "size": 10}, {"id": "Ethernet1/7", "label": "Ethernet1/7", "shape": "dot", "size": 10}, {"id": "Ethernet1/8", "label": "Ethernet1/8", "shape": "dot", "size": 10}, {"id": "Ethernet1/9", "label": "Ethernet1/9", "shape": "dot", "size": 10}, {"id": "Ethernet1/10", "label": "Ethernet1/10", "shape": "dot", "size": 10}, {"id": "Ethernet1/12", "label": "Ethernet1/12", "shape": "dot", "size": 10}, {"id": "Ethernet1/13", "label": "Ethernet1/13", "shape": "dot", "size": 10}, {"id": "Ethernet1/14", "label": "Ethernet1/14", "shape": "dot", "size": 10}, {"id": "Ethernet1/15", "label": "Ethernet1/15", "shape": "dot", "size": 10}, {"id": "Ethernet1/16", "label": "Ethernet1/16", "shape": "dot", "size": 10}, {"id": "Ethernet1/17", "label": "Ethernet1/17", "shape": "dot", "size": 10}, {"id": "Ethernet1/18", "label": "Ethernet1/18", "shape": "dot", "size": 10}, {"id": "Ethernet1/19", "label": "Ethernet1/19", "shape": "dot", "size": 10}, {"id": "Ethernet1/20", "label": "Ethernet1/20", "shape": "dot", "size": 10}, {"id": "Ethernet1/21", "label": "Ethernet1/21", "shape": "dot", "size": 10}, {"id": "Ethernet1/22", "label": "Ethernet1/22", "shape": "dot", "size": 10}, {"id": "Ethernet1/23", "label": "Ethernet1/23", "shape": "dot", "size": 10}, {"id": "Ethernet1/24", "label": "Ethernet1/24", "shape": "dot", "size": 10}, {"id": "Ethernet1/25", "label": "Ethernet1/25", "shape": "dot", "size": 10}, {"id": "Ethernet1/26", "label": "Ethernet1/26", "shape": "dot", "size": 10}, {"id": "Ethernet1/27", "label": "Ethernet1/27", "shape": "dot", "size": 10}, {"id": "Ethernet1/28", "label": "Ethernet1/28", "shape": "dot", "size": 10}, {"id": "Ethernet1/29", "label": "Ethernet1/29", "shape": "dot", "size": 10}, {"id": "Ethernet1/30", "label": "Ethernet1/30", "shape": "dot", "size": 10}, {"id": "Ethernet1/31", "label": "Ethernet1/31", "shape": "dot", "size": 10}, {"id": "Ethernet1/32", "label": "Ethernet1/32", "shape": "dot", "size": 10}, {"id": "Ethernet1/33", "label": "Ethernet1/33", "shape": "dot", "size": 10}, {"id": "Ethernet1/34", "label": "Ethernet1/34", "shape": "dot", "size": 10}, {"id": "Ethernet1/35", "label": "Ethernet1/35", "shape": "dot", "size": 10}, {"id": "Ethernet1/36", "label": "Ethernet1/36", "shape": "dot", "size": 10}, {"id": "Ethernet1/37", "label": "Ethernet1/37", "shape": "dot", "size": 10}, {"id": "Ethernet1/38", "label": "Ethernet1/38", "shape": "dot", "size": 10}, {"id": "Ethernet1/39", "label": "Ethernet1/39", "shape": "dot", "size": 10}, {"id": "Ethernet1/40", "label": "Ethernet1/40", "shape": "dot", "size": 10}, {"id": "Ethernet1/41", "label": "Ethernet1/41", "shape": "dot", "size": 10}, {"id": "Ethernet1/42", "label": "Ethernet1/42", "shape": "dot", "size": 10}, {"id": "Ethernet1/43", "label": "Ethernet1/43", "shape": "dot", "size": 10}, {"id": "Ethernet1/44", "label": "Ethernet1/44", "shape": "dot", "size": 10}, {"id": "Ethernet1/45", "label": "Ethernet1/45", "shape": "dot", "size": 10}, {"id": "Ethernet1/46", "label": "Ethernet1/46", "shape": "dot", "size": 10}, {"id": "Ethernet1/47", "label": "Ethernet1/47", "shape": "dot", "size": 10}, {"id": "Ethernet1/48", "label": "Ethernet1/48", "shape": "dot", "size": 10}, {"id": "Ethernet1/49", "label": "Ethernet1/49", "shape": "dot", "size": 10}, {"id": "Ethernet1/50", "label": "Ethernet1/50", "shape": "dot", "size": 10}, {"id": "Ethernet1/51", "label": "Ethernet1/51", "shape": "dot", "size": 10}, {"id": "Ethernet1/52", "label": "Ethernet1/52", "shape": "dot", "size": 10}, {"id": "Ethernet1/53", "label": "Ethernet1/53", "shape": "dot", "size": 10}, {"id": "Ethernet1/54", "label": "Ethernet1/54", "shape": "dot", "size": 10}, {"id": "Ethernet1/55", "label": "Ethernet1/55", "shape": "dot", "size": 10}, {"id": "Ethernet1/56", "label": "Ethernet1/56", "shape": "dot", "size": 10}, {"id": "Ethernet1/57", "label": "Ethernet1/57", "shape": "dot", "size": 10}, {"id": "Ethernet1/58", "label": "Ethernet1/58", "shape": "dot", "size": 10}, {"id": "Ethernet1/59", "label": "Ethernet1/59", "shape": "dot", "size": 10}, {"id": "Ethernet1/60", "label": "Ethernet1/60", "shape": "dot", "size": 10}, {"id": "Ethernet1/61", "label": "Ethernet1/61", "shape": "dot", "size": 10}, {"id": "Ethernet1/62", "label": "Ethernet1/62", "shape": "dot", "size": 10}, {"id": "Ethernet1/63", "label": "Ethernet1/63", "shape": "dot", "size": 10}, {"id": "Ethernet1/64", "label": "Ethernet1/64", "shape": "dot", "size": 10}, {"id": "Ethernet1/65", "label": "Ethernet1/65", "shape": "dot", "size": 10}, {"id": "Ethernet1/66", "label": "Ethernet1/66", "shape": "dot", "size": 10}, {"id": "Ethernet1/67", "label": "Ethernet1/67", "shape": "dot", "size": 10}, {"id": "Ethernet1/68", "label": "Ethernet1/68", "shape": "dot", "size": 10}, {"id": "Ethernet1/69", "label": "Ethernet1/69", "shape": "dot", "size": 10}, {"id": "Ethernet1/70", "label": "Ethernet1/70", "shape": "dot", "size": 10}, {"id": "Ethernet1/71", "label": "Ethernet1/71", "shape": "dot", "size": 10}, {"id": "Ethernet1/72", "label": "Ethernet1/72", "shape": "dot", "size": 10}, {"id": "Ethernet1/73", "label": "Ethernet1/73", "shape": "dot", "size": 10}, {"id": "Ethernet1/74", "label": "Ethernet1/74", "shape": "dot", "size": 10}, {"id": "Ethernet1/75", "label": "Ethernet1/75", "shape": "dot", "size": 10}, {"id": "Ethernet1/76", "label": "Ethernet1/76", "shape": "dot", "size": 10}, {"id": "Ethernet1/77", "label": "Ethernet1/77", "shape": "dot", "size": 10}, {"id": "Ethernet1/78", "label": "Ethernet1/78", "shape": "dot", "size": 10}, {"id": "Ethernet1/79", "label": "Ethernet1/79", "shape": "dot", "size": 10}, {"id": "Ethernet1/80", "label": "Ethernet1/80", "shape": "dot", "size": 10}, {"id": "Ethernet1/81", "label": "Ethernet1/81", "shape": "dot", "size": 10}, {"id": "Ethernet1/82", "label": "Ethernet1/82", "shape": "dot", "size": 10}, {"id": "Ethernet1/83", "label": "Ethernet1/83", "shape": "dot", "size": 10}, {"id": "Ethernet1/84", "label": "Ethernet1/84", "shape": "dot", "size": 10}, {"id": "Ethernet1/85", "label": "Ethernet1/85", "shape": "dot", "size": 10}, {"id": "Ethernet1/86", "label": "Ethernet1/86", "shape": "dot", "size": 10}, {"id": "Ethernet1/87", "label": "Ethernet1/87", "shape": "dot", "size": 10}, {"id": "Ethernet1/88", "label": "Ethernet1/88", "shape": "dot", "size": 10}, {"id": "Ethernet1/89", "label": "Ethernet1/89", "shape": "dot", "size": 10}, {"id": "Ethernet1/90", "label": "Ethernet1/90", "shape": "dot", "size": 10}, {"id": "Ethernet1/91", "label": "Ethernet1/91", "shape": "dot", "size": 10}, {"id": "Ethernet1/92", "label": "Ethernet1/92", "shape": "dot", "size": 10}, {"id": "Ethernet1/93", "label": "Ethernet1/93", "shape": "dot", "size": 10}, {"id": "Ethernet1/94", "label": "Ethernet1/94", "shape": "dot", "size": 10}, {"id": "Ethernet1/95", "label": "Ethernet1/95", "shape": "dot", "size": 10}, {"id": "Ethernet1/96", "label": "Ethernet1/96", "shape": "dot", "size": 10}, {"id": "Ethernet1/97", "label": "Ethernet1/97", "shape": "dot", "size": 10}, {"id": "Ethernet1/98", "label": "Ethernet1/98", "shape": "dot", "size": 10}, {"id": "Ethernet1/99", "label": "Ethernet1/99", "shape": "dot", "size": 10}, {"id": "Ethernet1/100", "label": "Ethernet1/100", "shape": "dot", "size": 10}, {"id": "Ethernet1/101", "label": "Ethernet1/101", "shape": "dot", "size": 10}, {"id": "Ethernet1/102", "label": "Ethernet1/102", "shape": "dot", "size": 10}, {"id": "Ethernet1/103", "label": "Ethernet1/103", "shape": "dot", "size": 10}, {"id": "Ethernet1/104", "label": "Ethernet1/104", "shape": "dot", "size": 10}, {"id": "Ethernet1/105", "label": "Ethernet1/105", "shape": "dot", "size": 10}, {"id": "Ethernet1/106", "label": "Ethernet1/106", "shape": "dot", "size": 10}, {"id": "Ethernet1/107", "label": "Ethernet1/107", "shape": "dot", "size": 10}, {"id": "Ethernet1/108", "label": "Ethernet1/108", "shape": "dot", "size": 10}, {"id": "Ethernet1/109", "label": "Ethernet1/109", "shape": "dot", "size": 10}, {"id": "Ethernet1/110", "label": "Ethernet1/110", "shape": "dot", "size": 10}, {"id": "Ethernet1/111", "label": "Ethernet1/111", "shape": "dot", "size": 10}, {"id": "Ethernet1/112", "label": "Ethernet1/112", "shape": "dot", "size": 10}, {"id": "Ethernet1/113", "label": "Ethernet1/113", "shape": "dot", "size": 10}, {"id": "Ethernet1/114", "label": "Ethernet1/114", "shape": "dot", "size": 10}, {"id": "Ethernet1/115", "label": "Ethernet1/115", "shape": "dot", "size": 10}, {"id": "Ethernet1/116", "label": "Ethernet1/116", "shape": "dot", "size": 10}, {"id": "Ethernet1/117", "label": "Ethernet1/117", "shape": "dot", "size": 10}, {"id": "Ethernet1/118", "label": "Ethernet1/118", "shape": "dot", "size": 10}, {"id": "Ethernet1/119", "label": "Ethernet1/119", "shape": "dot", "size": 10}, {"id": "Ethernet1/120", "label": "Ethernet1/120", "shape": "dot", "size": 10}, {"id": "Ethernet1/121", "label": "Ethernet1/121", "shape": "dot", "size": 10}, {"id": "Ethernet1/122", "label": "Ethernet1/122", "shape": "dot", "size": 10}, {"id": "Ethernet1/123", "label": "Ethernet1/123", "shape": "dot", "size": 10}, {"id": "Ethernet1/124", "label": "Ethernet1/124", "shape": "dot", "size": 10}, {"id": "Ethernet1/125", "label": "Ethernet1/125", "shape": "dot", "size": 10}, {"id": "Ethernet1/126", "label": "Ethernet1/126", "shape": "dot", "size": 10}, {"id": "Ethernet1/127", "label": "Ethernet1/127", "shape": "dot", "size": 10}, {"id": "Ethernet1/128", "label": "Ethernet1/128", "shape": "dot", "size": 10}, {"id": "Name: prod", "label": "Name: prod", "shape": "dot", "size": 10}, {"id": "Ethernet1/11", "label": "Ethernet1/11", "shape": "dot", "size": 10}, {"id": "Name: dev", "label": "Name: dev", "shape": "dot", "size": 10}, {"id": "Name: test", "label": "Name: test", "shape": "dot", "size": 10}, {"id": "Name: security", "label": "Name: security", "shape": "dot", "size": 10}, {"id": "Name: iot", "label": "Name: iot", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "VLAN: 1", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Port-channel1", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Name: default", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "State: active", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Shutdown: False", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Type: enet", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Mode: ce", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/1", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/2", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/5", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/6", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/7", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/8", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/9", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/10", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/12", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/13", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/14", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/15", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/16", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/17", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/18", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/19", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/20", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/21", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/22", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/23", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/24", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/25", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/26", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/27", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/28", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/29", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/30", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/31", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/32", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/33", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/34", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/35", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/36", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/37", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/38", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/39", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/40", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/41", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/42", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/43", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/44", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/45", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/46", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/47", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/48", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/49", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/50", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/51", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/52", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/53", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/54", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/55", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/56", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/57", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/58", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/59", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/60", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/61", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/62", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/63", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/64", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/65", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/66", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/67", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/68", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/69", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/70", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/71", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/72", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/73", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/74", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/75", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/76", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/77", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/78", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/79", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/80", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/81", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/82", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/83", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/84", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/85", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/86", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/87", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/88", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/89", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/90", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/91", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/92", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/93", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/94", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/95", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/96", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/97", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/98", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/99", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/100", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/101", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/102", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/103", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/104", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/105", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/106", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/107", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/108", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/109", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/110", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/111", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/112", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/113", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/114", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/115", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/116", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/117", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/118", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/119", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/120", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/121", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/122", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/123", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/124", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/125", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/126", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/127", "weight": 1}, {"Weight": 1, "from": "VLAN: 1", "to": "Ethernet1/128", "weight": 1}, {"Weight": 1, "from": "Port-channel1", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "Port-channel1", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "Port-channel1", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "Port-channel1", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "Port-channel1", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "State: active", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "State: active", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "State: active", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "State: active", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "State: active", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "Shutdown: False", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "Shutdown: False", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "Shutdown: False", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "Shutdown: False", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "Shutdown: False", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "Type: enet", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "Type: enet", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "Type: enet", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "Type: enet", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "Type: enet", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "Mode: ce", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "Mode: ce", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "Mode: ce", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "Mode: ce", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "Mode: ce", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "Ethernet1/1", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "Ethernet1/1", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "Ethernet1/1", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "Ethernet1/1", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "Ethernet1/1", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "Ethernet1/2", "to": "VLAN: 101", "weight": 1}, {"Weight": 1, "from": "Ethernet1/2", "to": "VLAN: 102", "weight": 1}, {"Weight": 1, "from": "Ethernet1/2", "to": "VLAN: 103", "weight": 1}, {"Weight": 1, "from": "Ethernet1/2", "to": "VLAN: 104", "weight": 1}, {"Weight": 1, "from": "Ethernet1/2", "to": "VLAN: 105", "weight": 1}, {"Weight": 1, "from": "VLAN: 101", "to": "Name: prod", "weight": 1}, {"Weight": 1, "from": "VLAN: 101", "to": "Ethernet1/11", "weight": 1}, {"Weight": 1, "from": "VLAN: 102", "to": "Name: dev", "weight": 1}, {"Weight": 1, "from": "VLAN: 103", "to": "Name: test", "weight": 1}, {"Weight": 1, "from": "VLAN: 104", "to": "Name: security", "weight": 1}, {"Weight": 1, "from": "VLAN: 105", "to": "Name: iot", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

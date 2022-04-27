@@ -1,0 +1,4 @@
+acls:
+  meraki-fqdn-dns:
+    name: meraki-fqdn-dns
+    type: ipv4-acl-type

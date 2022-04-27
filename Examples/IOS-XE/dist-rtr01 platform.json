@@ -1,0 +1,44 @@
+{
+    "attributes": null,
+    "chassis": "CSR1000V",
+    "chassis_sn": "9Y23RGWSFML",
+    "commands": null,
+    "config_register": "0x2102",
+    "connections": null,
+    "context_manager": {},
+    "dir": "bootflash:/",
+    "image": "bootflash:packages.conf",
+    "issu_rollback_timer_reason": "no ISSU operation is in progress",
+    "issu_rollback_timer_state": "inactive",
+    "main_mem": "1105351",
+    "os": "iosxe",
+    "redundancy_communication": false,
+    "redundancy_mode": "Non-redundant",
+    "rp_uptime": 7980,
+    "rtr_type": "CSR1000V",
+    "slot": {
+        "oc": {
+            "F0": {
+                "name": "CSR1000V",
+                "sn": "",
+                "state": "ok, active"
+            }
+        },
+        "rp": {
+            "R0": {
+                "config_register": "0x2102",
+                "issu": {
+                    "in_progress": false
+                },
+                "name": "CSR1000V",
+                "redundancy_state": "ACTIVE",
+                "rp_uptime": "2 hours, 13 minutes",
+                "sn": "JAB1303001C",
+                "state": "ok, active",
+                "system_image": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)"
+            }
+        }
+    },
+    "switchover_reason": "none",
+    "version": "17.3.2"
+}

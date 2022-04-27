@@ -1,0 +1,152 @@
+{
+    "index": {
+        "1": {
+            "advertisement_ver": 2,
+            "capabilities": "Router IGMP Filtering",
+            "device_id": "dist-rtr01.virl.info",
+            "duplex_mode": "full",
+            "hold_time": 167,
+            "interface_addresses": {
+                "10.10.20.175": {}
+            },
+            "local_interface": "mgmt0",
+            "management_addresses": {
+                "10.10.20.175": {}
+            },
+            "native_vlan": "",
+            "physical_location": "",
+            "platform": "cisco CSR1000V",
+            "port_id": "GigabitEthernet1",
+            "software_version": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 by mcpre",
+            "system_name": "",
+            "vtp_management_domain": ""
+        },
+        "2": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch Supports-STP-Dispute",
+            "device_id": "dist-sw02(9LQR5W39XQ2)",
+            "duplex_mode": "full",
+            "hold_time": 146,
+            "interface_addresses": {
+                "10.10.20.178": {}
+            },
+            "local_interface": "mgmt0",
+            "management_addresses": {
+                "10.10.20.178": {}
+            },
+            "native_vlan": "",
+            "physical_location": "",
+            "platform": "N9K-9000v",
+            "port_id": "mgmt0",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "system_name": "dist-sw02",
+            "vtp_management_domain": ""
+        },
+        "3": {
+            "advertisement_ver": 2,
+            "capabilities": "Router IGMP Filtering",
+            "device_id": "dist-rtr02.virl.info",
+            "duplex_mode": "full",
+            "hold_time": 137,
+            "interface_addresses": {
+                "10.10.20.176": {}
+            },
+            "local_interface": "mgmt0",
+            "management_addresses": {
+                "10.10.20.176": {}
+            },
+            "native_vlan": "",
+            "physical_location": "",
+            "platform": "cisco CSR1000V",
+            "port_id": "GigabitEthernet1",
+            "software_version": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 by mcpre",
+            "system_name": "",
+            "vtp_management_domain": ""
+        },
+        "4": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch IGMP Filtering Supports-STP-Dispute",
+            "device_id": "dist-sw02(9LQR5W39XQ2)",
+            "duplex_mode": "full",
+            "hold_time": 140,
+            "interface_addresses": {
+                "172.16.101.3": {}
+            },
+            "local_interface": "Ethernet1/1",
+            "management_addresses": {
+                "10.10.20.178": {}
+            },
+            "native_vlan": "1",
+            "physical_location": "",
+            "platform": "N9K-9000v",
+            "port_id": "Ethernet1/1",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "system_name": "dist-sw02",
+            "vtp_management_domain": ""
+        },
+        "5": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch IGMP Filtering Supports-STP-Dispute",
+            "device_id": "dist-sw02(9LQR5W39XQ2)",
+            "duplex_mode": "full",
+            "hold_time": 140,
+            "interface_addresses": {
+                "172.16.101.3": {}
+            },
+            "local_interface": "Ethernet1/2",
+            "management_addresses": {
+                "10.10.20.178": {}
+            },
+            "native_vlan": "1",
+            "physical_location": "",
+            "platform": "N9K-9000v",
+            "port_id": "Ethernet1/2",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "system_name": "dist-sw02",
+            "vtp_management_domain": ""
+        },
+        "6": {
+            "advertisement_ver": 2,
+            "capabilities": "Router IGMP Filtering",
+            "device_id": "dist-rtr01.virl.info",
+            "duplex_mode": "full",
+            "hold_time": 149,
+            "interface_addresses": {
+                "172.16.252.2": {}
+            },
+            "local_interface": "Ethernet1/3",
+            "management_addresses": {
+                "172.16.252.2": {}
+            },
+            "native_vlan": "",
+            "physical_location": "",
+            "platform": "cisco CSR1000V",
+            "port_id": "GigabitEthernet4",
+            "software_version": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 by mcpre",
+            "system_name": "",
+            "vtp_management_domain": ""
+        },
+        "7": {
+            "advertisement_ver": 2,
+            "capabilities": "Router IGMP Filtering",
+            "device_id": "dist-rtr02.virl.info",
+            "duplex_mode": "full",
+            "hold_time": 135,
+            "interface_addresses": {
+                "172.16.252.6": {}
+            },
+            "local_interface": "Ethernet1/4",
+            "management_addresses": {
+                "172.16.252.6": {}
+            },
+            "native_vlan": "",
+            "physical_location": "",
+            "platform": "cisco CSR1000V",
+            "port_id": "GigabitEthernet4",
+            "software_version": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 by mcpre",
+            "system_name": "",
+            "vtp_management_domain": ""
+        }
+    },
+    "total_entries_displayed": 7
+}

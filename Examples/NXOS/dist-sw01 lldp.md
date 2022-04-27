@@ -1,0 +1,140 @@
+
+| Interface | LLDP | Neighbor | Neighbor Port | Neighbor Port Description | Capabilities | Chassis ID | Management Address | System Description |
+| --------- | ---- | -------- | ------------- | ------------------------- | ------------ | ---------- | ------------------ | ------------------ |
+| Ethernet1/1 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/10 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/100 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/101 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/102 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/103 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/104 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/105 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/106 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/107 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/108 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/109 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/11 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/110 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/111 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/112 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/113 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/114 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/115 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/116 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/117 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/118 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/119 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/12 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/120 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/121 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/122 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/123 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/124 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/125 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/126 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/127 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/128 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/13 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/14 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/15 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/16 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/17 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/18 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/19 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/2 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/20 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/21 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/22 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/23 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/24 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/25 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/26 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/27 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/28 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/29 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/3 | True | dist-rtr01.virl.info | GigabitEthernet4 | L3 Link to dist-sw01 | bridge | 001e.bd8d.3000 | 172.16.252.2 | Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems, Inc. Compiled Sat 31-Oct-20 13:16 b |
+| Ethernet1/3 | True | dist-rtr01.virl.info | GigabitEthernet4 | L3 Link to dist-sw01 | router | 001e.bd8d.3000 | 172.16.252.2 | Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems, Inc. Compiled Sat 31-Oct-20 13:16 b |
+| Ethernet1/30 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/31 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/32 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/33 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/34 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/35 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/36 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/37 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/38 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/39 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/4 | True | dist-rtr02.virl.info | GigabitEthernet4 | L3 Link to dist-sw01 | bridge | 001e.f6c6.ee00 | 172.16.252.6 | Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems, Inc. Compiled Sat 31-Oct-20 13:16 b |
+| Ethernet1/4 | True | dist-rtr02.virl.info | GigabitEthernet4 | L3 Link to dist-sw01 | router | 001e.f6c6.ee00 | 172.16.252.6 | Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems, Inc. Compiled Sat 31-Oct-20 13:16 b |
+| Ethernet1/40 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/41 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/42 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/43 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/44 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/45 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/46 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/47 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/48 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/49 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/5 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/50 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/51 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/52 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/53 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/54 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/55 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/56 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/57 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/58 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/59 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/6 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/60 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/61 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/62 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/63 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/64 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/65 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/66 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/67 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/68 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/69 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/7 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/70 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/71 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/72 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/73 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/74 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/75 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/76 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/77 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/78 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/79 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/8 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/80 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/81 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/82 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/83 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/84 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/85 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/86 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/87 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/88 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/89 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/9 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/90 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/91 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/92 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/93 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/94 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/95 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/96 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/97 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/98 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Ethernet1/99 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| mgmt0 | True | No Neighbor | N/A | N/A | N/A | N/A | N/A | N/A |
+| Hello Timer | Hold Timer | Aged Out Entries | Frame Discards | Frame Input Errors | Frame Input | Frame Output | TLV Unknown |
+| ----------- | ---------- | ---------------- | -------------- | ------------------ | ----------- | ------------ | ----------- |
+| 30 | 120 | 0 | 0 | 0 | 218 | 690 | 0 |
+| Suppress TLV Advertisement Management Address | Suppress TLV Advertisement Port Description | Suppress TLV Advertisement System Capabilities | Suppress TLV Advertisement System Description | Suppress TLV Advertisement System Name |
+| --------------------------------------------- | ------------------------------------------- | ---------------------------------------------- | --------------------------------------------- | -------------------------------------- |
+| False | False | False | False | False |

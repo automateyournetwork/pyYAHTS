@@ -1,0 +1,31 @@
+name:
+  Chassis:
+    description: Nexus9000 9000v Chassis
+    pid: N9K-9000v
+    serial_number: 9SURZFD8MR6
+    slot: None
+    vid: V02
+  Fan 1:
+    description: Nexus9000 9000v Chassis Fan Module
+    pid: N9K-9000v-FAN
+    serial_number: N/A
+    slot: None
+    vid: V01
+  Fan 2:
+    description: Nexus9000 9000v Chassis Fan Module
+    pid: N9K-9000v-FAN
+    serial_number: N/A
+    slot: None
+    vid: V01
+  Fan 3:
+    description: Nexus9000 9000v Chassis Fan Module
+    pid: N9K-9000v-FAN
+    serial_number: N/A
+    slot: None
+    vid: V01
+  Slot 1:
+    description: Nexus 9000v Ethernet Module
+    pid: N9K-9000v
+    serial_number: 9SURZFD8MR6
+    slot: '1'
+    vid: V02

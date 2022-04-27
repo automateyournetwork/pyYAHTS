@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "Instance: 1", "label": "Instance: 1", "shape": "dot", "size": 10}, {"id": "Area: 0.0.0.0", "label": "Area: 0.0.0.0", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5", "label": "GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6", "label": "GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.101.2", "label": "Neighbor: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "Address: 172.16.252.1", "label": "Address: 172.16.252.1", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.101.2", "label": "Router ID: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "Index: 1/2/2", "label": "Index: 1/2/2", "shape": "dot", "size": 10}, {"id": "Priority: 1", "label": "Priority: 1", "shape": "dot", "size": 10}, {"id": "State: full", "label": "State: full", "shape": "dot", "size": 10}, {"id": "Dead Timer: 00:00:36", "label": "Dead Timer: 00:00:36", "shape": "dot", "size": 10}, {"id": "Retransmissions: 1", "label": "Retransmissions: 1", "shape": "dot", "size": 10}, {"id": "Uptime: 02:20:14", "label": "Uptime: 02:20:14", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.101.3", "label": "Neighbor: 172.16.101.3", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.33", "label": "Neighbor: 172.16.252.33", "shape": "dot", "size": 10}, {"id": "Address: 172.16.252.9", "label": "Address: 172.16.252.9", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.101.3", "label": "Router ID: 172.16.101.3", "shape": "dot", "size": 10}, {"id": "Index: 1/3/3", "label": "Index: 1/3/3", "shape": "dot", "size": 10}, {"id": "Dead Timer: 00:00:33", "label": "Dead Timer: 00:00:33", "shape": "dot", "size": 10}, {"id": "Retransmissions: 0", "label": "Retransmissions: 0", "shape": "dot", "size": 10}, {"id": "Uptime: 02:20:05", "label": "Uptime: 02:20:05", "shape": "dot", "size": 10}, {"id": "Address: 172.16.252.18", "label": "Address: 172.16.252.18", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.252.33", "label": "Router ID: 172.16.252.33", "shape": "dot", "size": 10}, {"id": "Index: 1/1/1", "label": "Index: 1/1/1", "shape": "dot", "size": 10}, {"id": "Dead Timer: 00:00:34", "label": "Dead Timer: 00:00:34", "shape": "dot", "size": 10}, {"id": "Uptime: 02:22:07", "label": "Uptime: 02:22:07", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "VRF: default", "weight": 1}, {"Weight": 1, "from": "VRF: default", "to": "Instance: 1", "weight": 1}, {"Weight": 1, "from": "Instance: 1", "to": "Area: 0.0.0.0", "weight": 1}, {"Weight": 1, "from": "Area: 0.0.0.0", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Area: 0.0.0.0", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Area: 0.0.0.0", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "Neighbor: 172.16.101.2", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Address: 172.16.252.1", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Router ID: 172.16.101.2", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Index: 1/2/2", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Priority: 1", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "State: full", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Dead Timer: 00:00:36", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Retransmissions: 1", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.2", "to": "Uptime: 02:20:14", "weight": 1}, {"Weight": 1, "from": "Priority: 1", "to": "Neighbor: 172.16.101.3", "weight": 1}, {"Weight": 1, "from": "Priority: 1", "to": "Neighbor: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "State: full", "to": "Neighbor: 172.16.101.3", "weight": 1}, {"Weight": 1, "from": "State: full", "to": "Neighbor: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet5", "to": "Neighbor: 172.16.101.3", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.3", "to": "Address: 172.16.252.9", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.3", "to": "Router ID: 172.16.101.3", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.3", "to": "Index: 1/3/3", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.3", "to": "Dead Timer: 00:00:33", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.3", "to": "Retransmissions: 0", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.3", "to": "Uptime: 02:20:05", "weight": 1}, {"Weight": 1, "from": "Retransmissions: 0", "to": "Neighbor: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet6", "to": "Neighbor: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.33", "to": "Address: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.33", "to": "Router ID: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.33", "to": "Index: 1/1/1", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.33", "to": "Dead Timer: 00:00:34", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.33", "to": "Uptime: 02:22:07", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

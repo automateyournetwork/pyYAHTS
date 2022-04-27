@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "BPDU", "label": "BPDU", "shape": "dot", "size": 10}, {"id": "Etherchannel Misconfigure Guard: True", "label": "Etherchannel Misconfigure Guard: True", "shape": "dot", "size": 10}, {"id": "Loopguard: False", "label": "Loopguard: False", "shape": "dot", "size": 10}, {"id": "MSTP Domain: default", "label": "MSTP Domain: default", "shape": "dot", "size": 10}, {"id": "Filter: False", "label": "Filter: False", "shape": "dot", "size": 10}, {"id": "Guard: False", "label": "Guard: False", "shape": "dot", "size": 10}, {"id": "Timeout Recovery: ", "label": "Timeout Recovery: ", "shape": "dot", "size": 10}, {"id": "Name: ", "label": "Name: ", "shape": "dot", "size": 10}, {"id": "Revision: 0", "label": "Revision: 0", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "BPDU", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Etherchannel Misconfigure Guard: True", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Loopguard: False", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "MSTP Domain: default", "weight": 1}, {"Weight": 1, "from": "BPDU", "to": "Filter: False", "weight": 1}, {"Weight": 1, "from": "BPDU", "to": "Guard: False", "weight": 1}, {"Weight": 2, "from": "Guard: False", "to": "Timeout Recovery: ", "weight": 1}, {"Weight": 1, "from": "MSTP Domain: default", "to": "Name: ", "weight": 1}, {"Weight": 1, "from": "MSTP Domain: default", "to": "Revision: 0", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+{
+    "vrf": {
+        "default": {
+            "address_family": {
+                "ipv4": {
+                    "instance": {
+                        "1": {
+                            "areas": {
+                                "0.0.0.0": {
+                                    "interfaces": {
+                                        "GigabitEthernet2": {
+                                            "attached": "network statement",
+                                            "bfd": {
+                                                "enable": false
+                                            },
+                                            "cost": 1,
+                                            "dead_interval": 40,
+                                            "demand_circuit": false,
+                                            "dr_ip_addr": "172.16.252.21",
+                                            "dr_router_id": "172.16.252.25",
+                                            "enable": true,
+                                            "flood_queue_length": 0,
+                                            "graceful_restart": {
+                                                "cisco": {
+                                                    "helper": true,
+                                                    "type": "cisco"
+                                                },
+                                                "ietf": {
+                                                    "helper": true,
+                                                    "type": "ietf"
+                                                }
+                                            },
+                                            "hello_interval": 10,
+                                            "hello_timer": "00:00:02",
+                                            "index": "1/1/1",
+                                            "interface_id": 8,
+                                            "interface_type": "broadcast",
+                                            "ip_address": "172.16.252.21/30",
+                                            "ipfrr_candidate": true,
+                                            "ipfrr_protected": true,
+                                            "last_flood_scan_length": 0,
+                                            "last_flood_scan_time_msec": 0,
+                                            "line_protocol": true,
+                                            "lls": true,
+                                            "max_flood_scan_length": 0,
+                                            "max_flood_scan_time_msec": 0,
+                                            "name": "GigabitEthernet2",
+                                            "next": "0x0(0)/0x0(0)/0x0(0)",
+                                            "oob_resync_timeout": 40,
+                                            "passive": false,
+                                            "priority": 1,
+                                            "retransmit_interval": 5,
+                                            "router_id": "172.16.252.25",
+                                            "state": "dr",
+                                            "statistics": {
+                                                "adj_nbr_count": 0,
+                                                "nbr_count": 0,
+                                                "num_nbrs_suppress_hello": 0
+                                            },
+                                            "ti_lfa_protected": false,
+                                            "topology": {
+                                                "0": {
+                                                    "cost": 1,
+                                                    "disabled": false,
+                                                    "name": "Base",
+                                                    "shutdown": false
+                                                }
+                                            },
+                                            "transmit_delay": 1,
+                                            "wait_interval": 40
+                                        },
+                                        "GigabitEthernet3": {
+                                            "attached": "network statement",
+                                            "bfd": {
+                                                "enable": false
+                                            },
+                                            "cost": 1,
+                                            "dead_interval": 40,
+                                            "demand_circuit": false,
+                                            "dr_ip_addr": "172.16.252.25",
+                                            "dr_router_id": "172.16.252.25",
+                                            "enable": true,
+                                            "flood_queue_length": 0,
+                                            "graceful_restart": {
+                                                "cisco": {
+                                                    "helper": true,
+                                                    "type": "cisco"
+                                                },
+                                                "ietf": {
+                                                    "helper": true,
+                                                    "type": "ietf"
+                                                }
+                                            },
+                                            "hello_interval": 10,
+                                            "hello_timer": "00:00:03",
+                                            "index": "1/2/2",
+                                            "interface_id": 9,
+                                            "interface_type": "broadcast",
+                                            "ip_address": "172.16.252.25/30",
+                                            "ipfrr_candidate": true,
+                                            "ipfrr_protected": true,
+                                            "last_flood_scan_length": 0,
+                                            "last_flood_scan_time_msec": 0,
+                                            "line_protocol": true,
+                                            "lls": true,
+                                            "max_flood_scan_length": 0,
+                                            "max_flood_scan_time_msec": 0,
+                                            "name": "GigabitEthernet3",
+                                            "next": "0x0(0)/0x0(0)/0x0(0)",
+                                            "oob_resync_timeout": 40,
+                                            "passive": false,
+                                            "priority": 1,
+                                            "retransmit_interval": 5,
+                                            "router_id": "172.16.252.25",
+                                            "state": "dr",
+                                            "statistics": {
+                                                "adj_nbr_count": 0,
+                                                "nbr_count": 0,
+                                                "num_nbrs_suppress_hello": 0
+                                            },
+                                            "ti_lfa_protected": false,
+                                            "topology": {
+                                                "0": {
+                                                    "cost": 1,
+                                                    "disabled": false,
+                                                    "name": "Base",
+                                                    "shutdown": false
+                                                }
+                                            },
+                                            "transmit_delay": 1,
+                                            "wait_interval": 40
+                                        },
+                                        "GigabitEthernet4": {
+                                            "attached": "network statement",
+                                            "bdr_ip_addr": "172.16.252.1",
+                                            "bdr_router_id": "172.16.101.2",
+                                            "bfd": {
+                                                "enable": false
+                                            },
+                                            "cost": 1,
+                                            "dead_interval": 40,
+                                            "demand_circuit": false,
+                                            "dr_ip_addr": "172.16.252.2",
+                                            "dr_router_id": "172.16.252.25",
+                                            "enable": true,
+                                            "flood_queue_length": 0,
+                                            "graceful_restart": {
+                                                "cisco": {
+                                                    "helper": true,
+                                                    "type": "cisco"
+                                                },
+                                                "ietf": {
+                                                    "helper": true,
+                                                    "type": "ietf"
+                                                }
+                                            },
+                                            "hello_interval": 10,
+                                            "hello_timer": "00:00:03",
+                                            "index": "1/3/3",
+                                            "interface_id": 10,
+                                            "interface_type": "broadcast",
+                                            "ip_address": "172.16.252.2/30",
+                                            "ipfrr_candidate": true,
+                                            "ipfrr_protected": true,
+                                            "last_flood_scan_length": 4,
+                                            "last_flood_scan_time_msec": 0,
+                                            "line_protocol": true,
+                                            "lls": true,
+                                            "max_flood_scan_length": 4,
+                                            "max_flood_scan_time_msec": 0,
+                                            "name": "GigabitEthernet4",
+                                            "neighbors": {
+                                                "172.16.101.2": {
+                                                    "bdr_router_id": "172.16.101.2"
+                                                }
+                                            },
+                                            "next": "0x0(0)/0x0(0)/0x0(0)",
+                                            "oob_resync_timeout": 40,
+                                            "passive": false,
+                                            "priority": 1,
+                                            "retransmit_interval": 5,
+                                            "router_id": "172.16.252.25",
+                                            "state": "dr",
+                                            "statistics": {
+                                                "adj_nbr_count": 1,
+                                                "nbr_count": 1,
+                                                "num_nbrs_suppress_hello": 0
+                                            },
+                                            "ti_lfa_protected": false,
+                                            "topology": {
+                                                "0": {
+                                                    "cost": 1,
+                                                    "disabled": false,
+                                                    "name": "Base",
+                                                    "shutdown": false
+                                                }
+                                            },
+                                            "transmit_delay": 1,
+                                            "wait_interval": 40
+                                        },
+                                        "GigabitEthernet5": {
+                                            "attached": "network statement",
+                                            "bdr_ip_addr": "172.16.252.9",
+                                            "bdr_router_id": "172.16.101.3",
+                                            "bfd": {
+                                                "enable": false
+                                            },
+                                            "cost": 1,
+                                            "dead_interval": 40,
+                                            "demand_circuit": false,
+                                            "dr_ip_addr": "172.16.252.10",
+                                            "dr_router_id": "172.16.252.25",
+                                            "enable": true,
+                                            "flood_queue_length": 0,
+                                            "graceful_restart": {
+                                                "cisco": {
+                                                    "helper": true,
+                                                    "type": "cisco"
+                                                },
+                                                "ietf": {
+                                                    "helper": true,
+                                                    "type": "ietf"
+                                                }
+                                            },
+                                            "hello_interval": 10,
+                                            "hello_timer": "00:00:01",
+                                            "index": "1/4/4",
+                                            "interface_id": 11,
+                                            "interface_type": "broadcast",
+                                            "ip_address": "172.16.252.10/30",
+                                            "ipfrr_candidate": true,
+                                            "ipfrr_protected": true,
+                                            "last_flood_scan_length": 4,
+                                            "last_flood_scan_time_msec": 0,
+                                            "line_protocol": true,
+                                            "lls": true,
+                                            "max_flood_scan_length": 4,
+                                            "max_flood_scan_time_msec": 0,
+                                            "name": "GigabitEthernet5",
+                                            "neighbors": {
+                                                "172.16.101.3": {
+                                                    "bdr_router_id": "172.16.101.3"
+                                                }
+                                            },
+                                            "next": "0x0(0)/0x0(0)/0x0(0)",
+                                            "oob_resync_timeout": 40,
+                                            "passive": false,
+                                            "priority": 1,
+                                            "retransmit_interval": 5,
+                                            "router_id": "172.16.252.25",
+                                            "state": "dr",
+                                            "statistics": {
+                                                "adj_nbr_count": 1,
+                                                "nbr_count": 1,
+                                                "num_nbrs_suppress_hello": 0
+                                            },
+                                            "ti_lfa_protected": false,
+                                            "topology": {
+                                                "0": {
+                                                    "cost": 1,
+                                                    "disabled": false,
+                                                    "name": "Base",
+                                                    "shutdown": false
+                                                }
+                                            },
+                                            "transmit_delay": 1,
+                                            "wait_interval": 40
+                                        },
+                                        "GigabitEthernet6": {
+                                            "attached": "network statement",
+                                            "bdr_ip_addr": "172.16.252.17",
+                                            "bdr_router_id": "172.16.252.25",
+                                            "bfd": {
+                                                "enable": false
+                                            },
+                                            "cost": 1,
+                                            "dead_interval": 40,
+                                            "demand_circuit": false,
+                                            "dr_ip_addr": "172.16.252.18",
+                                            "dr_router_id": "172.16.252.33",
+                                            "enable": true,
+                                            "flood_queue_length": 0,
+                                            "graceful_restart": {
+                                                "cisco": {
+                                                    "helper": true,
+                                                    "type": "cisco"
+                                                },
+                                                "ietf": {
+                                                    "helper": true,
+                                                    "type": "ietf"
+                                                }
+                                            },
+                                            "hello_interval": 10,
+                                            "hello_timer": "00:00:01",
+                                            "index": "1/5/5",
+                                            "interface_id": 12,
+                                            "interface_type": "broadcast",
+                                            "ip_address": "172.16.252.17/30",
+                                            "ipfrr_candidate": true,
+                                            "ipfrr_protected": true,
+                                            "last_flood_scan_length": 3,
+                                            "last_flood_scan_time_msec": 0,
+                                            "line_protocol": true,
+                                            "lls": true,
+                                            "max_flood_scan_length": 3,
+                                            "max_flood_scan_time_msec": 0,
+                                            "name": "GigabitEthernet6",
+                                            "neighbors": {
+                                                "172.16.252.33": {
+                                                    "dr_router_id": "172.16.252.33"
+                                                }
+                                            },
+                                            "next": "0x0(0)/0x0(0)/0x0(0)",
+                                            "oob_resync_timeout": 40,
+                                            "passive": false,
+                                            "priority": 1,
+                                            "retransmit_interval": 5,
+                                            "router_id": "172.16.252.25",
+                                            "state": "bdr",
+                                            "statistics": {
+                                                "adj_nbr_count": 1,
+                                                "nbr_count": 1,
+                                                "num_nbrs_suppress_hello": 0
+                                            },
+                                            "ti_lfa_protected": false,
+                                            "topology": {
+                                                "0": {
+                                                    "cost": 1,
+                                                    "disabled": false,
+                                                    "name": "Base",
+                                                    "shutdown": false
+                                                }
+                                            },
+                                            "transmit_delay": 1,
+                                            "wait_interval": 40
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

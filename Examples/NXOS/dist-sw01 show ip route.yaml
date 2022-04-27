@@ -1,0 +1,611 @@
+vrf:
+  default:
+    address_family:
+      ipv4:
+        routes:
+          172.16.101.0/24:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.101.2
+                  outgoing_interface: Vlan101
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:47:57
+            route: 172.16.101.0/24
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.101.1/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.101.1
+                  outgoing_interface: Vlan101
+                  route_preference: 0
+                  source_protocol: hsrp
+                  updated: 02:47:36
+            route: 172.16.101.1/32
+            route_preference: 0
+            source_protocol: hsrp
+            ubest: 1
+          172.16.101.2/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.101.2
+                  outgoing_interface: Vlan101
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:47:57
+            route: 172.16.101.2/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.102.0/24:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.102.2
+                  outgoing_interface: Vlan102
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:17:04
+            route: 172.16.102.0/24
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.102.1/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.102.1
+                  outgoing_interface: Vlan102
+                  route_preference: 0
+                  source_protocol: hsrp
+                  updated: 02:16:43
+            route: 172.16.102.1/32
+            route_preference: 0
+            source_protocol: hsrp
+            ubest: 1
+          172.16.102.2/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.102.2
+                  outgoing_interface: Vlan102
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:17:04
+            route: 172.16.102.2/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.103.0/24:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.103.2
+                  outgoing_interface: Vlan103
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:17:03
+            route: 172.16.103.0/24
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.103.1/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.103.1
+                  outgoing_interface: Vlan103
+                  route_preference: 0
+                  source_protocol: hsrp
+                  updated: 02:16:21
+            route: 172.16.103.1/32
+            route_preference: 0
+            source_protocol: hsrp
+            ubest: 1
+          172.16.103.2/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.103.2
+                  outgoing_interface: Vlan103
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:17:03
+            route: 172.16.103.2/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.104.0/24:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.104.2
+                  outgoing_interface: Vlan104
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:17:03
+            route: 172.16.104.0/24
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.104.1/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.104.1
+                  outgoing_interface: Vlan104
+                  route_preference: 0
+                  source_protocol: hsrp
+                  updated: 02:16:21
+            route: 172.16.104.1/32
+            route_preference: 0
+            source_protocol: hsrp
+            ubest: 1
+          172.16.104.2/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.104.2
+                  outgoing_interface: Vlan104
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:17:03
+            route: 172.16.104.2/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.105.0/24:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.105.2
+                  outgoing_interface: Vlan105
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:17:03
+            route: 172.16.105.0/24
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.105.1/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.105.1
+                  outgoing_interface: Vlan105
+                  route_preference: 0
+                  source_protocol: hsrp
+                  updated: 02:16:21
+            route: 172.16.105.1/32
+            route_preference: 0
+            source_protocol: hsrp
+            ubest: 1
+          172.16.105.2/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.105.2
+                  outgoing_interface: Vlan105
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:17:03
+            route: 172.16.105.2/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.252.0/30:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.252.1
+                  outgoing_interface: Ethernet1/3
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:47:59
+            route: 172.16.252.0/30
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.252.1/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.252.1
+                  outgoing_interface: Ethernet1/3
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:47:59
+            route: 172.16.252.1/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.252.12/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.6
+                  outgoing_interface: Ethernet1/4
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:47
+            process_id: '1'
+            route: 172.16.252.12/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 1
+          172.16.252.16/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.2
+                  outgoing_interface: Ethernet1/3
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:47
+                '2':
+                  best_ucast_nexthop: true
+                  index: 2
+                  metric: 41
+                  next_hop: 172.16.252.6
+                  outgoing_interface: Ethernet1/4
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:47
+            process_id: '1'
+            route: 172.16.252.16/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 2
+          172.16.252.20/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.2
+                  outgoing_interface: Ethernet1/3
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:50
+            process_id: '1'
+            route: 172.16.252.20/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 1
+          172.16.252.24/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.2
+                  outgoing_interface: Ethernet1/3
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:50
+            process_id: '1'
+            route: 172.16.252.24/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 1
+          172.16.252.28/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.6
+                  outgoing_interface: Ethernet1/4
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:47
+            process_id: '1'
+            route: 172.16.252.28/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 1
+          172.16.252.32/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.6
+                  outgoing_interface: Ethernet1/4
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:47
+            process_id: '1'
+            route: 172.16.252.32/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 1
+          172.16.252.4/30:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.252.5
+                  outgoing_interface: Ethernet1/4
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:47:59
+            route: 172.16.252.4/30
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          172.16.252.5/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 172.16.252.5
+                  outgoing_interface: Ethernet1/4
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:47:59
+            route: 172.16.252.5/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1
+          172.16.252.8/30:
+            active: true
+            mbest: 0
+            metric: 41
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 41
+                  next_hop: 172.16.252.2
+                  outgoing_interface: Ethernet1/3
+                  route_preference: 110
+                  source_protocol: ospf
+                  source_protocol_status: intra
+                  updated: 02:47:50
+            process_id: '1'
+            route: 172.16.252.8/30
+            route_preference: 110
+            source_protocol: ospf
+            source_protocol_status: intra
+            ubest: 1
+  management:
+    address_family:
+      ipv4:
+        routes:
+          0.0.0.0/0:
+            active: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 10.10.20.254
+                  route_preference: 1
+                  source_protocol: static
+                  updated: 02:41:57
+            route: 0.0.0.0/0
+            route_preference: 1
+            source_protocol: static
+            ubest: 1
+          10.10.20.0/24:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 10.10.20.177
+                  outgoing_interface: mgmt0
+                  route_preference: 0
+                  source_protocol: direct
+                  updated: 02:47:55
+            route: 10.10.20.0/24
+            route_preference: 0
+            source_protocol: direct
+            ubest: 1
+          10.10.20.177/32:
+            active: true
+            attached: true
+            mbest: 0
+            metric: 0
+            next_hop:
+              next_hop_list:
+                '1':
+                  best_ucast_nexthop: true
+                  index: 1
+                  metric: 0
+                  next_hop: 10.10.20.177
+                  outgoing_interface: mgmt0
+                  route_preference: 0
+                  source_protocol: local
+                  updated: 02:47:55
+            route: 10.10.20.177/32
+            route_preference: 0
+            source_protocol: local
+            ubest: 1

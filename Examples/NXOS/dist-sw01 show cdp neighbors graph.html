@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "mgmt0", "label": "mgmt0", "shape": "dot", "size": 10}, {"id": "Ethernet1/1", "label": "Ethernet1/1", "shape": "dot", "size": 10}, {"id": "Ethernet1/2", "label": "Ethernet1/2", "shape": "dot", "size": 10}, {"id": "Ethernet1/3", "label": "Ethernet1/3", "shape": "dot", "size": 10}, {"id": "Ethernet1/4", "label": "Ethernet1/4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1", "label": "GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "dist-sw02(9LQR5W39XQ2)", "label": "dist-sw02(9LQR5W39XQ2)", "shape": "dot", "size": 10}, {"id": "dist-rtr01.virl.info", "label": "dist-rtr01.virl.info", "shape": "dot", "size": 10}, {"id": "dist-rtr02.virl.info", "label": "dist-rtr02.virl.info", "shape": "dot", "size": 10}, {"id": "Platform: CSR1000V", "label": "Platform: CSR1000V", "shape": "dot", "size": 10}, {"id": "Capability: R I", "label": "Capability: R I", "shape": "dot", "size": 10}, {"id": "Hold Time: 147", "label": "Hold Time: 147", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "Hold Time: 178", "label": "Hold Time: 178", "shape": "dot", "size": 10}, {"id": "Platform: N9K-9000v", "label": "Platform: N9K-9000v", "shape": "dot", "size": 10}, {"id": "Capability: R S s", "label": "Capability: R S s", "shape": "dot", "size": 10}, {"id": "Hold Time: 175", "label": "Hold Time: 175", "shape": "dot", "size": 10}, {"id": "Capability: R S I s", "label": "Capability: R S I s", "shape": "dot", "size": 10}, {"id": "Hold Time: 169", "label": "Hold Time: 169", "shape": "dot", "size": 10}, {"id": "Hold Time: 170", "label": "Hold Time: 170", "shape": "dot", "size": 10}, {"id": "Hold Time: 166", "label": "Hold Time: 166", "shape": "dot", "size": 10}, {"id": "Hold Time: 164", "label": "Hold Time: 164", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "mgmt0", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/1", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/2", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/3", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/4", "weight": 1}, {"Weight": 1, "from": "mgmt0", "to": "GigabitEthernet1", "weight": 1}, {"Weight": 1, "from": "mgmt0", "to": "mgmt0", "weight": 1}, {"Weight": 2, "from": "mgmt0", "to": "dist-sw02(9LQR5W39XQ2)", "weight": 1}, {"Weight": 2, "from": "GigabitEthernet1", "to": "dist-rtr01.virl.info", "weight": 1}, {"Weight": 2, "from": "GigabitEthernet1", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 3, "from": "dist-rtr01.virl.info", "to": "Platform: CSR1000V", "weight": 1}, {"Weight": 3, "from": "dist-rtr01.virl.info", "to": "Capability: R I", "weight": 1}, {"Weight": 3, "from": "dist-rtr01.virl.info", "to": "Hold Time: 147", "weight": 1}, {"Weight": 2, "from": "dist-rtr01.virl.info", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 3, "from": "dist-rtr01.virl.info", "to": "Hold Time: 178", "weight": 1}, {"Weight": 3, "from": "Platform: CSR1000V", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 3, "from": "Capability: R I", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 3, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Platform: N9K-9000v", "weight": 1}, {"Weight": 3, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Capability: R S s", "weight": 1}, {"Weight": 3, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Hold Time: 175", "weight": 1}, {"Weight": 2, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Ethernet1/1", "weight": 1}, {"Weight": 3, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Capability: R S I s", "weight": 1}, {"Weight": 3, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Hold Time: 169", "weight": 1}, {"Weight": 2, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Ethernet1/2", "weight": 1}, {"Weight": 3, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Hold Time: 170", "weight": 1}, {"Weight": 3, "from": "dist-rtr02.virl.info", "to": "Hold Time: 166", "weight": 1}, {"Weight": 2, "from": "dist-rtr02.virl.info", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 3, "from": "dist-rtr02.virl.info", "to": "Hold Time: 164", "weight": 1}, {"Weight": 1, "from": "Ethernet1/1", "to": "Ethernet1/1", "weight": 1}, {"Weight": 1, "from": "Ethernet1/2", "to": "Ethernet1/2", "weight": 1}, {"Weight": 1, "from": "Ethernet1/3", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "Ethernet1/4", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

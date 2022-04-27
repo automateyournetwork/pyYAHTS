@@ -1,0 +1,827 @@
+interfaces:
+  Ethernet1/1:
+    duplex_code: full
+    name: VPC Peer Link
+    port_speed: '1000'
+    status: connected
+    type: 10g
+    vlan: trunk
+  Ethernet1/10:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    type: 10g
+    vlan: '1'
+  Ethernet1/100:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/101:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/102:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/103:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/104:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/105:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/106:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/107:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/108:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/109:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/11:
+    duplex_code: full
+    name: Link to inside-hos
+    port_speed: '1000'
+    status: connected
+    type: 10g
+    vlan: '101'
+  Ethernet1/110:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/111:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/112:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/113:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/114:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/115:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/116:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/117:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/118:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/119:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/12:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/120:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/121:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/122:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/123:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/124:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/125:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/126:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/127:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/128:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/13:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/14:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/15:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/16:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/17:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/18:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/19:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/2:
+    duplex_code: full
+    name: VPC Peer Link
+    port_speed: '1000'
+    status: connected
+    type: 10g
+    vlan: trunk
+  Ethernet1/20:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/21:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/22:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/23:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/24:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/25:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/26:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/27:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/28:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/29:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/3:
+    duplex_code: full
+    name: L3 link to dist-rt
+    port_speed: '1000'
+    status: connected
+    type: 10g
+    vlan: routed
+  Ethernet1/30:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/31:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/32:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/33:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/34:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/35:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/36:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/37:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/38:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/39:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/4:
+    duplex_code: full
+    name: L3 link to dist-rt
+    port_speed: '1000'
+    status: connected
+    type: 10g
+    vlan: routed
+  Ethernet1/40:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/41:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/42:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/43:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/44:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/45:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/46:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/47:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/48:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/49:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/5:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    type: 10g
+    vlan: '1'
+  Ethernet1/50:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/51:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/52:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/53:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/54:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/55:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/56:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/57:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/58:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/59:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/6:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    type: 10g
+    vlan: '1'
+  Ethernet1/60:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/61:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/62:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/63:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/64:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/65:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/66:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/67:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/68:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/69:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/7:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    type: 10g
+    vlan: '1'
+  Ethernet1/70:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/71:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/72:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/73:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/74:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/75:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/76:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/77:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/78:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/79:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/8:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    type: 10g
+    vlan: '1'
+  Ethernet1/80:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/81:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/82:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/83:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/84:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/85:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/86:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/87:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/88:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/89:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/9:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    type: 10g
+    vlan: '1'
+  Ethernet1/90:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/91:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/92:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/93:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/94:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/95:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/96:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/97:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/98:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Ethernet1/99:
+    duplex_code: auto
+    port_speed: auto
+    status: notconnec
+    type: 10g
+    vlan: '1'
+  Loopback0:
+    duplex_code: auto
+    name: to
+    port_speed: auto
+    status: disabled
+    vlan: routed
+  Port-channel1:
+    duplex_code: full
+    port_speed: '1000'
+    status: connected
+    vlan: trunk
+  Vlan1:
+    duplex_code: auto
+    port_speed: auto
+    status: down
+    vlan: routed
+  Vlan101:
+    duplex_code: auto
+    name: prod svi           connected
+    status: routed
+    vlan: auto
+  Vlan102:
+    duplex_code: auto
+    name: dev svi            connected
+    status: routed
+    vlan: auto
+  Vlan103:
+    duplex_code: auto
+    name: test svi           connected
+    status: routed
+    vlan: auto
+  Vlan104:
+    duplex_code: auto
+    name: security svi       connected
+    status: routed
+    vlan: auto
+  Vlan105:
+    duplex_code: auto
+    name: iot svi            connected
+    status: routed
+    vlan: auto
+  mgmt0:
+    duplex_code: full
+    name: to port8.sandbox-b
+    port_speed: '1000'
+    status: connected
+    vlan: routed

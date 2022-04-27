@@ -1,0 +1,1924 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.4/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/keytable/2.6.4/js/dataTables.keyTable.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.6.4/css/keyTable.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+</head>
+<body>
+<h1>Learn OSPF</h1>
+<table id = "datatable">
+  <thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Instance</th>
+    <th>Auto Cost Enabled</th>
+    <th>Reference Bandwidth</th>
+    <th>Instance Enable</th>
+    <th>Graceful Restart Type</th>
+    <th>Graceful Restart Enable</th>
+    <th>Restart Timer</th>
+    <th>NSR Enable</th>
+    <th>Preference</th>
+    <th>Router ID</th>
+    <th>SPF Paths</th>
+    <th>LSA Hold</th>
+    <th>LSA Max</th>
+    <th>LSA Start</th>
+    <th>SPF Hold</th>
+    <th>SPF Max</th>
+    <th>SPF Start</th>
+    <th>Area</th>
+    <th>Area Type</th>
+    <th>LSA Type</th>
+    <th>LSA</th>
+    <th>Advertising Router</th>
+    <th>Age</th>
+    <th>Checksum</th>
+    <th>Length</th>
+    <th>Option</th>
+    <th>Sequence Number</th>
+    <th>Subnet Mask</th>
+    <th>Number of Links</th>
+    <th>Link</th>
+    <th>Link Data</th>
+    <th>Link Type</th>
+    <th>Topology</th>
+    <th>Metric</th>
+    <th>Interface</th>
+    <th>Enabled</th>
+    <th>BFD</th>
+    <th>Cost</th>
+    <th>Dead Interval</th>
+    <th>Hello Interval</th>
+    <th>Hello Timer</th>
+    <th>Interface Type</th>
+    <th>Neighbor</th>
+    <th>Neighbor Address</th>
+    <th>Dead Timer</th>
+    <th>Last State Change</th>
+    <th>State</th>
+    <th>NBR Events</th>
+    <th>Passive</th>
+    <th>Retransmit Interval</th>
+    <th>Link LSA Checksum</th>
+    <th>Link LSA Count</th>
+    <th>Transmit Delay</th>
+    <th>MPLS LDP Auto Config</th>
+    <th>MPLS LDP Sync</th>
+    <th>Area LSA Checksum</th>
+    <th>Area LSA Count</th>
+    <th>SPF Count</th>
+  </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.101.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.102.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.103.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.104.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.105.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.252.2</td>
+    <td>172.16.252.1</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.2 172.16.101.2</td>
+    <td>172.16.101.2</td>
+    <td>267</td>
+    <td>0xb927</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000a</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.252.6</td>
+    <td>172.16.252.5</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.101.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.102.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.103.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.104.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.105.0</td>
+    <td>255.255.255.0</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.252.10</td>
+    <td>172.16.252.9</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.101.3 172.16.101.3</td>
+    <td>172.16.101.3</td>
+    <td>272</td>
+    <td>0xe9d3</td>
+    <td>108</td>
+    <td>0x2</td>
+    <td>0x8000000b</td>
+    <td>N/A</td>
+    <td>7</td>
+    <td>172.16.252.14</td>
+    <td>172.16.252.13</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>40</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.25 172.16.252.25</td>
+    <td>172.16.252.25</td>
+    <td>1543</td>
+    <td>0xe526</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x80000011</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.10</td>
+    <td>172.16.252.10</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.25 172.16.252.25</td>
+    <td>172.16.252.25</td>
+    <td>1543</td>
+    <td>0xe526</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x80000011</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.18</td>
+    <td>172.16.252.17</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.25 172.16.252.25</td>
+    <td>172.16.252.25</td>
+    <td>1543</td>
+    <td>0xe526</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x80000011</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.2</td>
+    <td>172.16.252.2</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.25 172.16.252.25</td>
+    <td>172.16.252.25</td>
+    <td>1543</td>
+    <td>0xe526</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x80000011</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.20</td>
+    <td>255.255.255.252</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.25 172.16.252.25</td>
+    <td>172.16.252.25</td>
+    <td>1543</td>
+    <td>0xe526</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x80000011</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.24</td>
+    <td>255.255.255.252</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.33 172.16.252.33</td>
+    <td>172.16.252.33</td>
+    <td>1505</td>
+    <td>0xa03e</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x8000000d</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.14</td>
+    <td>172.16.252.14</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.33 172.16.252.33</td>
+    <td>172.16.252.33</td>
+    <td>1505</td>
+    <td>0xa03e</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x8000000d</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.18</td>
+    <td>172.16.252.18</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.33 172.16.252.33</td>
+    <td>172.16.252.33</td>
+    <td>1505</td>
+    <td>0xa03e</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x8000000d</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.28</td>
+    <td>255.255.255.252</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.33 172.16.252.33</td>
+    <td>172.16.252.33</td>
+    <td>1505</td>
+    <td>0xa03e</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x8000000d</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.32</td>
+    <td>255.255.255.252</td>
+    <td>stub network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>normal</td>
+    <td>1</td>
+    <td>172.16.252.33 172.16.252.33</td>
+    <td>172.16.252.33</td>
+    <td>1505</td>
+    <td>0xa03e</td>
+    <td>84</td>
+    <td>0x22</td>
+    <td>0x8000000d</td>
+    <td>N/A</td>
+    <td>5</td>
+    <td>172.16.252.6</td>
+    <td>172.16.252.6</td>
+    <td>transit network</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>False</td>
+    <td>False</td>
+    <td>9</td>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+
+
+
+
+
+
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>Ethernet1/3</td>
+    <td>True</td>
+    <td>False</td>
+    <td>40</td>
+    <td>40</td>
+    <td>10</td>
+    <td>00:00:05</td>
+    <td>broadcast</td>
+    <td>172.16.252.25</td>
+    <td>172.16.252.2</td>
+    <td>00:00:41</td>
+    <td>02:36:39</td>
+    <td>full</td>
+    <td>6</td>
+    <td>False</td>
+    <td>5</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>1</td>
+    <td>False</td>
+    <td>40000</td>
+    <td>True</td>
+    <td>ietf</td>
+    <td>True</td>
+    <td>60</td>
+    <td>True</td>
+    <td>110</td>
+    <td>172.16.101.2</td>
+    <td>8</td>
+    <td>5000</td>
+    <td>5000</td>
+    <td>0</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>200</td>
+    <td>0.0.0.0</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>Ethernet1/4</td>
+    <td>True</td>
+    <td>False</td>
+    <td>40</td>
+    <td>40</td>
+    <td>10</td>
+    <td>00:00:08</td>
+    <td>broadcast</td>
+    <td>172.16.252.33</td>
+    <td>172.16.252.6</td>
+    <td>00:00:41</td>
+    <td>02:36:39</td>
+    <td>full</td>
+    <td>6</td>
+    <td>False</td>
+    <td>5</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+  </tbody>  
+</table><script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable thead');
+
+    var table = $('#datatable').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable02 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable02 thead');
+
+    var table = $('#datatable02').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable03 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable03 thead');
+
+    var table = $('#datatable03').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+</body></html>

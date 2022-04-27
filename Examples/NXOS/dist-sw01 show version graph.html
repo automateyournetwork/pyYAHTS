@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Hardware", "label": "Hardware", "shape": "dot", "size": 10}, {"id": "Uptime: 0 2 53 15", "label": "Uptime: 0 2 53 15", "shape": "dot", "size": 10}, {"id": "Name: Nexus", "label": "Name: Nexus", "shape": "dot", "size": 10}, {"id": "OS: NX-OS", "label": "OS: NX-OS", "shape": "dot", "size": 10}, {"id": "Reload Reason: Unknown", "label": "Reload Reason: Unknown", "shape": "dot", "size": 10}, {"id": "Software", "label": "Software", "shape": "dot", "size": 10}, {"id": "Bootflash: 3509454 kB", "label": "Bootflash: 3509454 kB", "shape": "dot", "size": 10}, {"id": "Chassis: Nexus9000 9000v", "label": "Chassis: Nexus9000 9000v", "shape": "dot", "size": 10}, {"id": "CPU: Intel(R) Xeon(R) Gold 6238 CPU @ 2.10GHz", "label": "CPU: Intel(R) Xeon(R) Gold 6238 CPU @ 2.10GHz", "shape": "dot", "size": 10}, {"id": "Device Name: dist-sw01", "label": "Device Name: dist-sw01", "shape": "dot", "size": 10}, {"id": "Memory: 8161516 kB", "label": "Memory: 8161516 kB", "shape": "dot", "size": 10}, {"id": "Model: Nexus9000 9000v", "label": "Model: Nexus9000 9000v", "shape": "dot", "size": 10}, {"id": "Processor Board: 9SURZFD8MR6", "label": "Processor Board: 9SURZFD8MR6", "shape": "dot", "size": 10}, {"id": "RP: None", "label": "RP: None", "shape": "dot", "size": 10}, {"id": "Slots: None", "label": "Slots: None", "shape": "dot", "size": 10}, {"id": "BIOS", "label": "BIOS", "shape": "dot", "size": 10}, {"id": "Kickstart", "label": "Kickstart", "shape": "dot", "size": 10}, {"id": "System", "label": "System", "shape": "dot", "size": 10}, {"id": "Compile Time: ", "label": "Compile Time: ", "shape": "dot", "size": 10}, {"id": "Version: ", "label": "Version: ", "shape": "dot", "size": 10}, {"id": "Image: ", "label": "Image: ", "shape": "dot", "size": 10}, {"id": "Compile Time: 8/20/2019 7:00:00 [08/20/2019 15:52:22]", "label": "Compile Time: 8/20/2019 7:00:00 [08/20/2019 15:52:22]", "shape": "dot", "size": 10}, {"id": "Image File: bootflash:///nxos.9.2.4.bin", "label": "Image File: bootflash:///nxos.9.2.4.bin", "shape": "dot", "size": 10}, {"id": "Version: 9.2(4)", "label": "Version: 9.2(4)", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "Hardware", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Uptime: 0 2 53 15", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Name: Nexus", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "OS: NX-OS", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Reload Reason: Unknown", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Software", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Bootflash: 3509454 kB", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Chassis: Nexus9000 9000v", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "CPU: Intel(R) Xeon(R) Gold 6238 CPU @ 2.10GHz", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Device Name: dist-sw01", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Memory: 8161516 kB", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Model: Nexus9000 9000v", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Processor Board: 9SURZFD8MR6", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "RP: None", "weight": 1}, {"Weight": 1, "from": "Hardware", "to": "Slots: None", "weight": 1}, {"Weight": 1, "from": "Software", "to": "BIOS", "weight": 1}, {"Weight": 1, "from": "Software", "to": "Kickstart", "weight": 1}, {"Weight": 1, "from": "Software", "to": "System", "weight": 1}, {"Weight": 1, "from": "BIOS", "to": "Compile Time: ", "weight": 1}, {"Weight": 1, "from": "BIOS", "to": "Version: ", "weight": 1}, {"Weight": 1, "from": "Compile Time: ", "to": "Kickstart", "weight": 1}, {"Weight": 1, "from": "Version: ", "to": "Kickstart", "weight": 1}, {"Weight": 1, "from": "Kickstart", "to": "Image: ", "weight": 1}, {"Weight": 1, "from": "System", "to": "Compile Time: 8/20/2019 7:00:00 [08/20/2019 15:52:22]", "weight": 1}, {"Weight": 1, "from": "System", "to": "Image File: bootflash:///nxos.9.2.4.bin", "weight": 1}, {"Weight": 1, "from": "System", "to": "Version: 9.2(4)", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

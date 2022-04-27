@@ -1,0 +1,496 @@
+GigabitEthernet1:
+  accounting:
+    arp:
+      chars_in: 28542
+      chars_out: 240
+      pkts_in: 476
+      pkts_out: 4
+    cdp:
+      chars_in: 22176
+      chars_out: 11629
+      pkts_in: 76
+      pkts_out: 29
+    ip:
+      chars_in: 3230826
+      chars_out: 6878660
+      pkts_in: 47913
+      pkts_out: 47321
+    ipv6:
+      chars_in: 3294
+      chars_out: 0
+      pkts_in: 45
+      pkts_out: 0
+    lldp:
+      chars_in: 0
+      chars_out: 18360
+      pkts_in: 0
+      pkts_out: 51
+    other:
+      chars_in: 149982
+      chars_out: 30229
+      pkts_in: 976
+      pkts_out: 84
+  auto_negotiate: true
+  bandwidth: 1000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_mac_pause_frames: 0
+    in_multicast_pkts: 0
+    in_octets: 3317068
+    in_pkts: 48460
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_mac_pause_frames: 0
+    out_multicast_pkts: 0
+    out_octets: 6824892
+    out_pkts: 47090
+    rate:
+      in_rate: 8000
+      in_rate_pkts: 14
+      load_interval: 300
+      out_rate: 21000
+      out_rate_pkts: 16
+  delay: 10
+  description: to port6.sandbox-backend
+  duplex_mode: full
+  enabled: true
+  encapsulation:
+    encapsulation: arpa
+  flow_control:
+    receive: false
+    send: false
+  ipv4:
+    10.10.20.175/24:
+      ip: 10.10.20.175
+      prefix_length: '24'
+      secondary: false
+  mac_address: 5254.001f.b4db
+  mtu: 1500
+  oper_status: up
+  phys_address: 5254.001f.b4db
+  port_channel:
+    port_channel_member: false
+  port_speed: 1000mbps
+  switchport_enable: false
+  type: CSR vNIC
+  vrf: Mgmt-intf
+GigabitEthernet2:
+  accounting:
+    arp:
+      chars_in: 0
+      chars_out: 60
+      pkts_in: 0
+      pkts_out: 1
+    cdp:
+      chars_in: 0
+      chars_out: 11629
+      pkts_in: 0
+      pkts_out: 29
+    ip:
+      chars_in: 0
+      chars_out: 90544
+      pkts_in: 0
+      pkts_out: 809
+    lldp:
+      chars_in: 0
+      chars_out: 18207
+      pkts_in: 0
+      pkts_out: 51
+    other:
+      chars_in: 0
+      chars_out: 29896
+      pkts_in: 0
+      pkts_out: 81
+  auto_negotiate: true
+  bandwidth: 1000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_mac_pause_frames: 0
+    in_multicast_pkts: 0
+    in_octets: 0
+    in_pkts: 0
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_mac_pause_frames: 0
+    out_multicast_pkts: 0
+    out_octets: 119929
+    out_pkts: 888
+    rate:
+      in_rate: 0
+      in_rate_pkts: 0
+      load_interval: 300
+      out_rate: 0
+      out_rate_pkts: 0
+  delay: 10
+  description: L3 Link to core-rtr01
+  duplex_mode: full
+  enabled: true
+  encapsulation:
+    encapsulation: arpa
+  flow_control:
+    receive: false
+    send: false
+  ipv4:
+    172.16.252.21/30:
+      ip: 172.16.252.21
+      prefix_length: '30'
+      secondary: false
+  mac_address: 5254.001e.d479
+  mtu: 1500
+  oper_status: up
+  phys_address: 5254.001e.d479
+  port_channel:
+    port_channel_member: false
+  port_speed: 1000mbps
+  switchport_enable: false
+  type: CSR vNIC
+GigabitEthernet3:
+  accounting:
+    arp:
+      chars_in: 0
+      chars_out: 60
+      pkts_in: 0
+      pkts_out: 1
+    cdp:
+      chars_in: 0
+      chars_out: 11629
+      pkts_in: 0
+      pkts_out: 29
+    ip:
+      chars_in: 0
+      chars_out: 90434
+      pkts_in: 0
+      pkts_out: 808
+    lldp:
+      chars_in: 0
+      chars_out: 18207
+      pkts_in: 0
+      pkts_out: 51
+    other:
+      chars_in: 0
+      chars_out: 29896
+      pkts_in: 0
+      pkts_out: 81
+  auto_negotiate: true
+  bandwidth: 1000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_mac_pause_frames: 0
+    in_multicast_pkts: 0
+    in_octets: 0
+    in_pkts: 0
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_mac_pause_frames: 0
+    out_multicast_pkts: 0
+    out_octets: 120220
+    out_pkts: 888
+    rate:
+      in_rate: 0
+      in_rate_pkts: 0
+      load_interval: 300
+      out_rate: 0
+      out_rate_pkts: 0
+  delay: 10
+  description: L3 Link to core-rtr02
+  duplex_mode: full
+  enabled: true
+  encapsulation:
+    encapsulation: arpa
+  flow_control:
+    receive: false
+    send: false
+  ipv4:
+    172.16.252.25/30:
+      ip: 172.16.252.25
+      prefix_length: '30'
+      secondary: false
+  mac_address: 5254.0006.f7ce
+  mtu: 1500
+  oper_status: up
+  phys_address: 5254.0006.f7ce
+  port_channel:
+    port_channel_member: false
+  port_speed: 1000mbps
+  switchport_enable: false
+  type: CSR vNIC
+GigabitEthernet4:
+  accounting:
+    arp:
+      chars_in: 480
+      chars_out: 480
+      pkts_in: 8
+      pkts_out: 8
+    cdp:
+      chars_in: 6266
+      chars_out: 11228
+      pkts_in: 26
+      pkts_out: 28
+    ip:
+      chars_in: 75814
+      chars_out: 99274
+      pkts_in: 903
+      pkts_out: 846
+    ipv6:
+      chars_in: 70
+      chars_out: 0
+      pkts_in: 1
+      pkts_out: 0
+    lldp:
+      chars_in: 15012
+      chars_out: 18156
+      pkts_in: 54
+      pkts_out: 51
+    other:
+      chars_in: 72948
+      chars_out: 29864
+      pkts_in: 322
+      pkts_out: 87
+    spanning tree:
+      chars_in: 2968
+      chars_out: 0
+      pkts_in: 56
+      pkts_out: 0
+  auto_negotiate: true
+  bandwidth: 1000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_mac_pause_frames: 0
+    in_multicast_pkts: 0
+    in_octets: 123900
+    in_pkts: 1126
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_mac_pause_frames: 0
+    out_multicast_pkts: 0
+    out_octets: 129138
+    out_pkts: 933
+    rate:
+      in_rate: 0
+      in_rate_pkts: 0
+      load_interval: 300
+      out_rate: 0
+      out_rate_pkts: 0
+  delay: 10
+  description: L3 Link to dist-sw01
+  duplex_mode: full
+  enabled: true
+  encapsulation:
+    encapsulation: arpa
+  flow_control:
+    receive: false
+    send: false
+  ipv4:
+    172.16.252.2/30:
+      ip: 172.16.252.2
+      prefix_length: '30'
+      secondary: false
+  mac_address: 5254.000e.7bb9
+  mtu: 1500
+  oper_status: up
+  phys_address: 5254.000e.7bb9
+  port_channel:
+    port_channel_member: false
+  port_speed: 1000mbps
+  switchport_enable: false
+  type: CSR vNIC
+GigabitEthernet5:
+  accounting:
+    arp:
+      chars_in: 480
+      chars_out: 480
+      pkts_in: 8
+      pkts_out: 8
+    cdp:
+      chars_in: 6025
+      chars_out: 11629
+      pkts_in: 25
+      pkts_out: 29
+    ip:
+      chars_in: 77264
+      chars_out: 98898
+      pkts_in: 906
+      pkts_out: 842
+    ipv6:
+      chars_in: 70
+      chars_out: 0
+      pkts_in: 1
+      pkts_out: 0
+    lldp:
+      chars_in: 0
+      chars_out: 18156
+      pkts_in: 0
+      pkts_out: 51
+    other:
+      chars_in: 57455
+      chars_out: 30265
+      pkts_in: 263
+      pkts_out: 88
+    spanning tree:
+      chars_in: 2544
+      chars_out: 0
+      pkts_in: 48
+      pkts_out: 0
+  auto_negotiate: true
+  bandwidth: 1000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_mac_pause_frames: 0
+    in_multicast_pkts: 0
+    in_octets: 109414
+    in_pkts: 1069
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_mac_pause_frames: 0
+    out_multicast_pkts: 0
+    out_octets: 129163
+    out_pkts: 930
+    rate:
+      in_rate: 0
+      in_rate_pkts: 0
+      load_interval: 300
+      out_rate: 0
+      out_rate_pkts: 0
+  delay: 10
+  description: L3 Link to dist-sw02
+  duplex_mode: full
+  enabled: true
+  encapsulation:
+    encapsulation: arpa
+  flow_control:
+    receive: false
+    send: false
+  ipv4:
+    172.16.252.10/30:
+      ip: 172.16.252.10
+      prefix_length: '30'
+      secondary: false
+  mac_address: 5254.0016.7077
+  mtu: 1500
+  oper_status: up
+  phys_address: 5254.0016.7077
+  port_channel:
+    port_channel_member: false
+  port_speed: 1000mbps
+  switchport_enable: false
+  type: CSR vNIC
+GigabitEthernet6:
+  accounting:
+    arp:
+      chars_in: 60
+      chars_out: 120
+      pkts_in: 1
+      pkts_out: 2
+    cdp:
+      chars_in: 10025
+      chars_out: 11228
+      pkts_in: 25
+      pkts_out: 28
+    ip:
+      chars_in: 96598
+      chars_out: 99052
+      pkts_in: 841
+      pkts_out: 851
+    lldp:
+      chars_in: 16422
+      chars_out: 18207
+      pkts_in: 46
+      pkts_out: 51
+    other:
+      chars_in: 26507
+      chars_out: 29555
+      pkts_in: 72
+      pkts_out: 81
+  auto_negotiate: true
+  bandwidth: 1000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_mac_pause_frames: 0
+    in_multicast_pkts: 0
+    in_octets: 123161
+    in_pkts: 914
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_mac_pause_frames: 0
+    out_multicast_pkts: 0
+    out_octets: 128607
+    out_pkts: 932
+    rate:
+      in_rate: 0
+      in_rate_pkts: 0
+      load_interval: 300
+      out_rate: 0
+      out_rate_pkts: 0
+  delay: 10
+  description: L3 Link to dist-rtr02
+  duplex_mode: full
+  enabled: true
+  encapsulation:
+    encapsulation: arpa
+  flow_control:
+    receive: false
+    send: false
+  ipv4:
+    172.16.252.17/30:
+      ip: 172.16.252.17
+      prefix_length: '30'
+      secondary: false
+  mac_address: 5254.0015.ac8a
+  mtu: 1500
+  oper_status: up
+  phys_address: 5254.0015.ac8a
+  port_channel:
+    port_channel_member: false
+  port_speed: 1000mbps
+  switchport_enable: false
+  type: CSR vNIC
+Loopback0:
+  bandwidth: 8000000
+  counters:
+    in_broadcast_pkts: 0
+    in_crc_errors: 0
+    in_errors: 0
+    in_multicast_pkts: 0
+    in_octets: 0
+    in_pkts: 0
+    last_clear: never
+    out_broadcast_pkts: 0
+    out_errors: 0
+    out_multicast_pkts: 0
+    out_octets: 0
+    out_pkts: 0
+    rate:
+      in_rate: 0
+      in_rate_pkts: 0
+      load_interval: 300
+      out_rate: 0
+      out_rate_pkts: 0
+  delay: 5000
+  description: to
+  enabled: false
+  encapsulation:
+    encapsulation: loopback
+  mtu: 1514
+  oper_status: down
+  port_channel:
+    port_channel_member: false
+  switchport_enable: false
+  type: Loopback

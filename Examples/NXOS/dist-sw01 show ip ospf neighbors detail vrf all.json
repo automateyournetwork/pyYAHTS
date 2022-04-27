@@ -1,0 +1,60 @@
+{
+    "vrf": {
+        "default": {
+            "address_family": {
+                "ipv4": {
+                    "instance": {
+                        "1": {
+                            "areas": {
+                                "0.0.0.0": {
+                                    "interfaces": {
+                                        "Ethernet1/3": {
+                                            "neighbors": {
+                                                "172.16.252.25": {
+                                                    "address": "172.16.252.2",
+                                                    "bdr_ip_addr": "172.16.252.1",
+                                                    "dbd_options": "0x52",
+                                                    "dead_timer": "00:00:38",
+                                                    "dr_ip_addr": "172.16.252.2",
+                                                    "hello_options": "0x12",
+                                                    "last_non_hello_packet_received": "00:02:51",
+                                                    "last_state_change": "02:47:28",
+                                                    "neighbor_router_id": "172.16.252.25",
+                                                    "priority": 1,
+                                                    "state": "full",
+                                                    "statistics": {
+                                                        "nbr_event_count": 6
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "Ethernet1/4": {
+                                            "neighbors": {
+                                                "172.16.252.33": {
+                                                    "address": "172.16.252.6",
+                                                    "bdr_ip_addr": "172.16.252.5",
+                                                    "dbd_options": "0x52",
+                                                    "dead_timer": "00:00:35",
+                                                    "dr_ip_addr": "172.16.252.6",
+                                                    "hello_options": "0x12",
+                                                    "last_non_hello_packet_received": "00:02:51",
+                                                    "last_state_change": "02:47:28",
+                                                    "neighbor_router_id": "172.16.252.33",
+                                                    "priority": 1,
+                                                    "state": "full",
+                                                    "statistics": {
+                                                        "nbr_event_count": 6
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

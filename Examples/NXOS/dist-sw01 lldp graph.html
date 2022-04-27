@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Ethernet1/3", "label": "Ethernet1/3", "shape": "dot", "size": 10}, {"id": "Ethernet1/4", "label": "Ethernet1/4", "shape": "dot", "size": 10}, {"id": "Counters", "label": "Counters", "shape": "dot", "size": 10}, {"id": "Timers", "label": "Timers", "shape": "dot", "size": 10}, {"id": "LLDP Enabled: ", "label": "LLDP Enabled: ", "shape": "dot", "size": 10}, {"id": "Enabled: True", "label": "Enabled: True", "shape": "dot", "size": 10}, {"id": "dist-rtr01.virl.info", "label": "dist-rtr01.virl.info", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "Chassis ID: 001e.bd8d.3000", "label": "Chassis ID: 001e.bd8d.3000", "shape": "dot", "size": 10}, {"id": "Management Address: 172.16.252.2", "label": "Management Address: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "System Description: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 b", "label": "System Description: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 b", "shape": "dot", "size": 10}, {"id": "Description: L3 Link to dist-sw01", "label": "Description: L3 Link to dist-sw01", "shape": "dot", "size": 10}, {"id": "Capability: bridge", "label": "Capability: bridge", "shape": "dot", "size": 10}, {"id": "Capability: router", "label": "Capability: router", "shape": "dot", "size": 10}, {"id": "dist-rtr02.virl.info", "label": "dist-rtr02.virl.info", "shape": "dot", "size": 10}, {"id": "Chassis ID: 001e.f6c6.ee00", "label": "Chassis ID: 001e.f6c6.ee00", "shape": "dot", "size": 10}, {"id": "Management Address: 172.16.252.6", "label": "Management Address: 172.16.252.6", "shape": "dot", "size": 10}, {"id": "Entries Aged Out: 0", "label": "Entries Aged Out: 0", "shape": "dot", "size": 10}, {"id": "Frames", "label": "Frames", "shape": "dot", "size": 10}, {"id": "TLV", "label": "TLV", "shape": "dot", "size": 10}, {"id": "Hello: 30", "label": "Hello: 30", "shape": "dot", "size": 10}, {"id": "Hold: 120", "label": "Hold: 120", "shape": "dot", "size": 10}, {"id": "Discard: 0", "label": "Discard: 0", "shape": "dot", "size": 10}, {"id": "Error: 0", "label": "Error: 0", "shape": "dot", "size": 10}, {"id": "In: 218", "label": "In: 218", "shape": "dot", "size": 10}, {"id": "Out: 690", "label": "Out: 690", "shape": "dot", "size": 10}, {"id": "Discard: ", "label": "Discard: ", "shape": "dot", "size": 10}, {"id": "Unknown: 0", "label": "Unknown: 0", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/3", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/4", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Counters", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Timers", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "LLDP Enabled: ", "weight": 1}, {"Weight": 1, "from": "Ethernet1/3", "to": "Enabled: True", "weight": 1}, {"Weight": 1, "from": "Ethernet1/3", "to": "dist-rtr01.virl.info", "weight": 1}, {"Weight": 1, "from": "Enabled: True", "to": "Ethernet1/4", "weight": 1}, {"Weight": 1, "from": "dist-rtr01.virl.info", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 2, "from": "dist-rtr01.virl.info", "to": "Chassis ID: 001e.bd8d.3000", "weight": 1}, {"Weight": 2, "from": "dist-rtr01.virl.info", "to": "Management Address: 172.16.252.2", "weight": 1}, {"Weight": 2, "from": "dist-rtr01.virl.info", "to": "System Description: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 b", "weight": 1}, {"Weight": 2, "from": "GigabitEthernet4", "to": "Description: L3 Link to dist-sw01", "weight": 1}, {"Weight": 2, "from": "GigabitEthernet4", "to": "Capability: bridge", "weight": 1}, {"Weight": 2, "from": "GigabitEthernet4", "to": "Capability: router", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 2, "from": "System Description: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 b", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 1, "from": "Ethernet1/4", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 2, "from": "dist-rtr02.virl.info", "to": "Chassis ID: 001e.f6c6.ee00", "weight": 1}, {"Weight": 2, "from": "dist-rtr02.virl.info", "to": "Management Address: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "Entries Aged Out: 0", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "Frames", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "TLV", "weight": 1}, {"Weight": 1, "from": "Timers", "to": "Hello: 30", "weight": 1}, {"Weight": 1, "from": "Timers", "to": "Hold: 120", "weight": 1}, {"Weight": 1, "from": "Frames", "to": "Discard: 0", "weight": 1}, {"Weight": 1, "from": "Frames", "to": "Error: 0", "weight": 1}, {"Weight": 1, "from": "Frames", "to": "In: 218", "weight": 1}, {"Weight": 1, "from": "Frames", "to": "Out: 690", "weight": 1}, {"Weight": 1, "from": "TLV", "to": "Discard: ", "weight": 1}, {"Weight": 1, "from": "TLV", "to": "Unknown: 0", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

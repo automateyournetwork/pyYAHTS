@@ -1,0 +1,15 @@
+vrfs:
+  default:
+    address_family:
+      ipv4:
+        table_id: '0x00000001'
+      ipv6:
+        table_id: '0x80000001'
+    route_distinguisher: 0:0
+  management:
+    address_family:
+      ipv4:
+        table_id: '0x00000002'
+      ipv6:
+        table_id: '0x80000002'
+    route_distinguisher: 0:0

@@ -1,0 +1,90 @@
+vrf:
+  default:
+    address_family:
+      ipv4:
+        instance:
+          '1':
+            adjacency_stagger:
+              initial_number: 300
+              maximum_number: 300
+            area_transit: true
+            areas:
+              0.0.0.0:
+                area_id: 0.0.0.0
+                area_type: normal
+                ranges: {}
+                statistics:
+                  area_scope_lsa_cksum_sum: '0x058F70'
+                  area_scope_lsa_count: 9
+                  area_scope_opaque_lsa_cksum_sum: '0x000000'
+                  area_scope_opaque_lsa_count: 0
+                  dcbitless_lsa_count: 2
+                  donotage_lsa_count: 0
+                  flood_list_length: 0
+                  indication_lsa_count: 0
+                  interfaces_count: 5
+                  spf_last_executed: '01:46:50.451'
+                  spf_runs_count: 18
+            auto_cost:
+              bandwidth_unit: mbps
+              enable: false
+              reference_bandwidth: 100
+            bfd:
+              enable: false
+            db_exchange_summary_list_optimization: true
+            elapsed_time: '02:19:49.080'
+            enable: true
+            event_log:
+              enable: true
+              max_events: 1000
+              mode: cyclic
+            external_flood_list_length: 0
+            graceful_restart:
+              cisco:
+                enable: false
+                helper_enable: true
+                type: cisco
+              ietf:
+                enable: false
+                helper_enable: true
+                type: ietf
+            interface_flood_pacing_timer: 33
+            lls: true
+            lsa_group_pacing_timer: 240
+            nsr:
+              enable: false
+            nssa: true
+            numbers:
+              dc_bitless: 0
+              do_not_age: 0
+              external_lsa: 0
+              external_lsa_checksum: '0x000000'
+              opaque_as_lsa: 0
+              opaque_as_lsa_checksum: '0x000000'
+            opqaue_lsa: true
+            retransmission_pacing_timer: 66
+            router_id: 172.16.252.25
+            spf_control:
+              incremental_spf: false
+              throttle:
+                lsa:
+                  arrival: 100
+                  hold: 200
+                  maximum: 5000
+                  start: 50
+                spf:
+                  hold: 200
+                  maximum: 5000
+                  start: 50
+            start_time: '00:02:59.485'
+            stub_router:
+              always:
+                always: false
+                external_lsa: false
+                include_stub: false
+                summary_lsa: false
+            total_areas: 1
+            total_areas_transit_capable: 0
+            total_normal_areas: 1
+            total_nssa_areas: 0
+            total_stub_areas: 0

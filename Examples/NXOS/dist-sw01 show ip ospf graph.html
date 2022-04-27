@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "Instance: 1", "label": "Instance: 1", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.101.2", "label": "Router ID: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "Area: 0.0.0.0", "label": "Area: 0.0.0.0", "shape": "dot", "size": 10}, {"id": "Enable: True", "label": "Enable: True", "shape": "dot", "size": 10}, {"id": "Auto Cost", "label": "Auto Cost", "shape": "dot", "size": 10}, {"id": "Discard Route", "label": "Discard Route", "shape": "dot", "size": 10}, {"id": "Graceful Restart: ietf", "label": "Graceful Restart: ietf", "shape": "dot", "size": 10}, {"id": "NSR: True", "label": "NSR: True", "shape": "dot", "size": 10}, {"id": "Active Areas", "label": "Active Areas", "shape": "dot", "size": 10}, {"id": "SPF Paths: 8", "label": "SPF Paths: 8", "shape": "dot", "size": 10}, {"id": "Type: normal", "label": "Type: normal", "shape": "dot", "size": 10}, {"id": "Authentication: none", "label": "Authentication: none", "shape": "dot", "size": 10}, {"id": "Existed: 02:46:20", "label": "Existed: 02:46:20", "shape": "dot", "size": 10}, {"id": "Interface Numbers", "label": "Interface Numbers", "shape": "dot", "size": 10}, {"id": "SPF", "label": "SPF", "shape": "dot", "size": 10}, {"id": "Active Interfaces: 7", "label": "Active Interfaces: 7", "shape": "dot", "size": 10}, {"id": "Passive: 5", "label": "Passive: 5", "shape": "dot", "size": 10}, {"id": "Loopback: 0", "label": "Loopback: 0", "shape": "dot", "size": 10}, {"id": "Total: 7", "label": "Total: 7", "shape": "dot", "size": 10}, {"id": "Total: 9", "label": "Total: 9", "shape": "dot", "size": 10}, {"id": "Last Run: 0.000773", "label": "Last Run: 0.000773", "shape": "dot", "size": 10}, {"id": "Bandwidth Unit: mbps", "label": "Bandwidth Unit: mbps", "shape": "dot", "size": 10}, {"id": "Enable: False", "label": "Enable: False", "shape": "dot", "size": 10}, {"id": "Reference: 40000", "label": "Reference: 40000", "shape": "dot", "size": 10}, {"id": "External: True", "label": "External: True", "shape": "dot", "size": 10}, {"id": "Internal: True", "label": "Internal: True", "shape": "dot", "size": 10}, {"id": "Interval: 60", "label": "Interval: 60", "shape": "dot", "size": 10}, {"id": "State: Inactive", "label": "State: Inactive", "shape": "dot", "size": 10}, {"id": "Normal: 1", "label": "Normal: 1", "shape": "dot", "size": 10}, {"id": "NSSA: 0", "label": "NSSA: 0", "shape": "dot", "size": 10}, {"id": "Stub: 0", "label": "Stub: 0", "shape": "dot", "size": 10}, {"id": "Total: 1", "label": "Total: 1", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight                  ": 1.0, "from": "dist-sw01", "to": "VRF: default", "weight": 1}, {"Weight                  ": 1.0, "from": "VRF: default", "to": "ipv4", "weight": 1}, {"Weight                  ": 1.0, "from": "ipv4", "to": "Instance: 1", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Router ID: 172.16.101.2", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Area: 0.0.0.0", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Enable: True", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Auto Cost", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Discard Route", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Graceful Restart: ietf", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "NSR: True", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "Active Areas", "weight": 1}, {"Weight                  ": 1.0, "from": "Instance: 1", "to": "SPF Paths: 8", "weight": 1}, {"Weight                  ": 1.0, "from": "Area: 0.0.0.0", "to": "Type: normal", "weight": 1}, {"Weight                  ": 1.0, "from": "Area: 0.0.0.0", "to": "Authentication: none", "weight": 1}, {"Weight                  ": 1.0, "from": "Area: 0.0.0.0", "to": "Existed: 02:46:20", "weight": 1}, {"Weight                  ": 1.0, "from": "Area: 0.0.0.0", "to": "Interface Numbers", "weight": 1}, {"Weight                  ": 1.0, "from": "Area: 0.0.0.0", "to": "SPF", "weight": 1}, {"Weight                  ": 1.0, "from": "Enable: True", "to": "Graceful Restart: ietf", "weight": 1}, {"Weight                  ": 1.0, "from": "Interface Numbers", "to": "Active Interfaces: 7", "weight": 1}, {"Weight                  ": 1.0, "from": "Interface Numbers", "to": "Passive: 5", "weight": 1}, {"Weight                  ": 1.0, "from": "Interface Numbers", "to": "Loopback: 0", "weight": 1}, {"Weight                  ": 1.0, "from": "Interface Numbers", "to": "Total: 7", "weight": 1}, {"Weight                  ": 1.0, "from": "SPF", "to": "Total: 9", "weight": 1}, {"Weight                  ": 1.0, "from": "SPF", "to": "Last Run: 0.000773", "weight": 1}, {"Weight                  ": 1.0, "from": "Auto Cost", "to": "Bandwidth Unit: mbps", "weight": 1}, {"Weight                  ": 1.0, "from": "Auto Cost", "to": "Enable: False", "weight": 1}, {"Weight                  ": 1.0, "from": "Auto Cost", "to": "Reference: 40000", "weight": 1}, {"Weight                  ": 1.0, "from": "Discard Route", "to": "External: True", "weight": 1}, {"Weight                  ": 1.0, "from": "Discard Route", "to": "Internal: True", "weight": 1}, {"Weight                  ": 1.0, "from": "Graceful Restart: ietf", "to": "Interval: 60", "weight": 1}, {"Weight                  ": 1.0, "from": "Graceful Restart: ietf", "to": "State: Inactive", "weight": 1}, {"Weight                  ": 1.0, "from": "Active Areas", "to": "Normal: 1", "weight": 1}, {"Weight                  ": 1.0, "from": "Active Areas", "to": "NSSA: 0", "weight": 1}, {"Weight                  ": NaN, "from": "Active Areas", "to": "Stub: 0", "weight": 1}, {"Weight                  ": 1.0, "from": "Active Areas", "to": "Total: 1", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

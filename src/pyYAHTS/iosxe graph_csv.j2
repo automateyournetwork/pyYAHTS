@@ -866,8 +866,10 @@ Rate,Output: {{ data_to_template[interface].counters.rate.out_rate | default("N/
 {%-                     if data_to_template[interface].last_change is defined %}
 {{ interface }},{{ interface }} Last Change: {{ data_to_template[interface].last_change }},1
 {%-                     endif %}
+{%-                     if data_to_template[interface].port_channel is defined %}
 {{ interface }},{{ interface }} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},1
 {{ interface }} Port Channel: {{ data_to_template[interface].port_channel.port_channel_int }},Port Channel Member: {{ data_to_template[interface].port_channel.port_channel_member }},2
+{%-                     endif %}
 {%-                     if data_to_template[interface].counters is defined %}
 {{ interface }},{{ interface }} Counters,1
 {{ interface }} Counters,Input,1

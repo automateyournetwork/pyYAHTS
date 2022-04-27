@@ -1,0 +1,43 @@
+interface:
+  GigabitEthernet1:
+    interface_is_ok: 'YES'
+    ip_address: 10.10.20.175
+    method: TFTP
+    protocol: up
+    status: up
+  GigabitEthernet2:
+    interface_is_ok: 'YES'
+    ip_address: 172.16.252.21
+    method: TFTP
+    protocol: up
+    status: up
+  GigabitEthernet3:
+    interface_is_ok: 'YES'
+    ip_address: 172.16.252.25
+    method: TFTP
+    protocol: up
+    status: up
+  GigabitEthernet4:
+    interface_is_ok: 'YES'
+    ip_address: 172.16.252.2
+    method: TFTP
+    protocol: up
+    status: up
+  GigabitEthernet5:
+    interface_is_ok: 'YES'
+    ip_address: 172.16.252.10
+    method: TFTP
+    protocol: up
+    status: up
+  GigabitEthernet6:
+    interface_is_ok: 'YES'
+    ip_address: 172.16.252.17
+    method: TFTP
+    protocol: up
+    status: up
+  Loopback0:
+    interface_is_ok: 'YES'
+    ip_address: unassigned
+    method: unset
+    protocol: down
+    status: administratively down

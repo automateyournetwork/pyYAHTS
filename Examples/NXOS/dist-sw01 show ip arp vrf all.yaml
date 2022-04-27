@@ -1,0 +1,45 @@
+interfaces:
+  Ethernet1/3:
+    ipv4:
+      neighbors:
+        172.16.252.2:
+          age: 00:15:33
+          ip: 172.16.252.2
+          link_layer_address: 5254.000e.7bb9
+          origin: dynamic
+          physical_interface: Ethernet1/3
+  Ethernet1/4:
+    ipv4:
+      neighbors:
+        172.16.252.6:
+          age: 00:15:33
+          ip: 172.16.252.6
+          link_layer_address: 5254.0015.16c7
+          origin: dynamic
+          physical_interface: Ethernet1/4
+  Vlan101:
+    ipv4:
+      neighbors:
+        172.16.101.1:
+          age: '-'
+          ip: 172.16.101.1
+          link_layer_address: 0000.0c07.ac0a
+          origin: static
+          physical_interface: Vlan101
+  mgmt0:
+    ipv4:
+      neighbors:
+        10.10.20.178:
+          age: 00:05:32
+          ip: 10.10.20.178
+          link_layer_address: 5254.0004.417e
+          origin: dynamic
+          physical_interface: mgmt0
+        10.10.20.254:
+          age: 00:09:35
+          ip: 10.10.20.254
+          link_layer_address: 0050.56bf.1c3f
+          origin: dynamic
+          physical_interface: mgmt0
+statistics:
+  entries_total: 5

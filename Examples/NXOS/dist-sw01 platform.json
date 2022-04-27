@@ -1,0 +1,557 @@
+{
+    "attributes": null,
+    "chassis": "Nexus9000 9000v Chassis",
+    "chassis_sn": "9SURZFD8MR6",
+    "commands": null,
+    "connections": null,
+    "context_manager": {},
+    "dir": "bootflash:",
+    "disk_free_space": "1951031296",
+    "disk_total_space": "3470110720",
+    "disk_used_space": "1519079424",
+    "image": "bootflash:///nxos.9.2.4.bin",
+    "installed_packages": "bfd-2.0.0.0-9.2.4.lib32_n9000",
+    "main_mem": "8161516 kB",
+    "os": "NX-OS",
+    "rp_uptime": 9553,
+    "rtr_type": "Nexus9000 9000v",
+    "slot": {
+        "oc": {
+            "1": {
+                "name": "Nexus 9000v Ethernet Module",
+                "sn": "9SURZFD8MR6"
+            }
+        },
+        "rp": {
+            "1": {
+                "name": "N9K-9000v",
+                "redundancy_state": "active",
+                "rp_boot_image": "bootflash:/nxos.9.2.4.bin",
+                "rp_uptime": 9553,
+                "sn": "9SURZFD8MR6",
+                "state": "active"
+            }
+        }
+    },
+    "version": "9.2(4)",
+    "virtual_device": {
+        "1": {
+            "membership": {
+                "Eth1/1": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/10": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/100": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/101": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/102": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/103": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/104": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/105": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/106": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/107": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/108": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/109": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/11": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/110": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/111": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/112": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/113": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/114": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/115": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/116": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/117": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/118": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/119": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/12": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/120": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/121": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/122": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/123": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/124": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/125": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/126": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/127": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/128": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/13": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/14": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/15": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/16": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/17": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/18": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/19": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/2": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/20": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/21": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/22": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/23": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/24": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/25": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/26": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/27": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/28": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/29": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/3": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/30": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/31": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/32": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/33": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/34": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/35": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/36": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/37": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/38": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/39": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/4": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/40": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/41": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/42": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/43": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/44": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/45": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/46": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/47": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/48": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/49": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/5": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/50": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/51": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/52": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/53": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/54": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/55": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/56": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/57": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/58": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/59": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/6": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/60": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/61": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/62": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/63": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/64": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/65": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/66": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/67": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/68": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/69": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/7": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/70": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/71": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/72": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/73": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/74": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/75": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/76": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/77": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/78": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/79": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/8": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/80": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/81": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/82": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/83": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/84": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/85": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/86": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/87": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/88": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/89": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/9": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/90": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/91": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/92": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/93": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/94": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/95": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/96": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/97": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/98": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                },
+                "Eth1/99": {
+                    "status": "OK",
+                    "type": "Ethernet"
+                }
+            },
+            "vd_name": "dist-sw01",
+            "vd_status": "active"
+        }
+    }
+}

@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "Instance: 1", "label": "Instance: 1", "shape": "dot", "size": 10}, {"id": "Area: 0.0.0.0", "label": "Area: 0.0.0.0", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2", "label": "GigabitEthernet2", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3", "label": "GigabitEthernet3", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5", "label": "GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6", "label": "GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Name: GigabitEthernet2", "label": "Name: GigabitEthernet2", "shape": "dot", "size": 10}, {"id": "Type: broadcast", "label": "Type: broadcast", "shape": "dot", "size": 10}, {"id": "Passive: False", "label": "Passive: False", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.21/30", "label": "IP Address: 172.16.252.21/30", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.252.25", "label": "Router ID: 172.16.252.25", "shape": "dot", "size": 10}, {"id": "BFD: False", "label": "BFD: False", "shape": "dot", "size": 10}, {"id": "Cost: 1", "label": "Cost: 1", "shape": "dot", "size": 10}, {"id": "Dead Interval: 40", "label": "Dead Interval: 40", "shape": "dot", "size": 10}, {"id": "Enable: True", "label": "Enable: True", "shape": "dot", "size": 10}, {"id": "Graceful Restart: cisco", "label": "Graceful Restart: cisco", "shape": "dot", "size": 10}, {"id": "Hello Interval: 10", "label": "Hello Interval: 10", "shape": "dot", "size": 10}, {"id": "Hello Timer: 00:00:02", "label": "Hello Timer: 00:00:02", "shape": "dot", "size": 10}, {"id": "Index: 1/1/1", "label": "Index: 1/1/1", "shape": "dot", "size": 10}, {"id": "Retransmit Interval: 5", "label": "Retransmit Interval: 5", "shape": "dot", "size": 10}, {"id": "State: dr", "label": "State: dr", "shape": "dot", "size": 10}, {"id": "Neighbors: 0", "label": "Neighbors: 0", "shape": "dot", "size": 10}, {"id": "Transmit Delay: 1", "label": "Transmit Delay: 1", "shape": "dot", "size": 10}, {"id": "Wait Interval: 40", "label": "Wait Interval: 40", "shape": "dot", "size": 10}, {"id": "Graceful Restart: ietf", "label": "Graceful Restart: ietf", "shape": "dot", "size": 10}, {"id": "Helper: True", "label": "Helper: True", "shape": "dot", "size": 10}, {"id": "Name: GigabitEthernet3", "label": "Name: GigabitEthernet3", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.25/30", "label": "IP Address: 172.16.252.25/30", "shape": "dot", "size": 10}, {"id": "Hello Timer: 00:00:03", "label": "Hello Timer: 00:00:03", "shape": "dot", "size": 10}, {"id": "Index: 1/2/2", "label": "Index: 1/2/2", "shape": "dot", "size": 10}, {"id": "Name: GigabitEthernet4", "label": "Name: GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.2/30", "label": "IP Address: 172.16.252.2/30", "shape": "dot", "size": 10}, {"id": "Index: 1/3/3", "label": "Index: 1/3/3", "shape": "dot", "size": 10}, {"id": "Neighbors: 1", "label": "Neighbors: 1", "shape": "dot", "size": 10}, {"id": "Name: GigabitEthernet5", "label": "Name: GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.10/30", "label": "IP Address: 172.16.252.10/30", "shape": "dot", "size": 10}, {"id": "Hello Timer: 00:00:01", "label": "Hello Timer: 00:00:01", "shape": "dot", "size": 10}, {"id": "Index: 1/4/4", "label": "Index: 1/4/4", "shape": "dot", "size": 10}, {"id": "Name: GigabitEthernet6", "label": "Name: GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.17/30", "label": "IP Address: 172.16.252.17/30", "shape": "dot", "size": 10}, {"id": "Index: 1/5/5", "label": "Index: 1/5/5", "shape": "dot", "size": 10}, {"id": "State: bdr", "label": "State: bdr", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1.0, "from": "dist-rtr01", "to": "VRF: default", "weight": 1}, {"Weight": 1.0, "from": "VRF: default", "to": "ipv4", "weight": 1}, {"Weight": 1.0, "from": "ipv4", "to": "Instance: 1", "weight": 1}, {"Weight": 1.0, "from": "Instance: 1", "to": "Area: 0.0.0.0", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Name: GigabitEthernet2", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Type: broadcast", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Passive: False", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "IP Address: 172.16.252.21/30", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Router ID: 172.16.252.25", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "BFD: False", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Cost: 1", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Dead Interval: 40", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Enable: True", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Graceful Restart: cisco", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Hello Interval: 10", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Hello Timer: 00:00:02", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Index: 1/1/1", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Retransmit Interval: 5", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "State: dr", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Neighbors: 0", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Transmit Delay: 1", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Wait Interval: 40", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet2", "to": "Graceful Restart: ietf", "weight": 1}, {"Weight": 1.0, "from": "Type: broadcast", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Type: broadcast", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Type: broadcast", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Type: broadcast", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Passive: False", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Passive: False", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Passive: False", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Passive: False", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Router ID: 172.16.252.25", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Router ID: 172.16.252.25", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Router ID: 172.16.252.25", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Router ID: 172.16.252.25", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "BFD: False", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "BFD: False", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "BFD: False", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "BFD: False", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Cost: 1", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Cost: 1", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Cost: 1", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Cost: 1", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Dead Interval: 40", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Dead Interval: 40", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Dead Interval: 40", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Dead Interval: 40", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Enable: True", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Enable: True", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Enable: True", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Enable: True", "to": "GigabitEthernet6", "weight": 1}, {"Weight": NaN, "from": "Graceful Restart: cisco", "to": "Helper: True", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: cisco", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: cisco", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: cisco", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: cisco", "to": "GigabitEthernet6", "weight": 1}, {"Weight": NaN, "from": "Helper: True", "to": "Graceful Restart: ietf", "weight": 1}, {"Weight": 1.0, "from": "Hello Interval: 10", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Hello Interval: 10", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Hello Interval: 10", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Hello Interval: 10", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Retransmit Interval: 5", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Retransmit Interval: 5", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Retransmit Interval: 5", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Retransmit Interval: 5", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "State: dr", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "State: dr", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "State: dr", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Neighbors: 0", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Transmit Delay: 1", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Transmit Delay: 1", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Transmit Delay: 1", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Transmit Delay: 1", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Wait Interval: 40", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Wait Interval: 40", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Wait Interval: 40", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Wait Interval: 40", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: ietf", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: ietf", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: ietf", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Graceful Restart: ietf", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet3", "to": "Name: GigabitEthernet3", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet3", "to": "IP Address: 172.16.252.25/30", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet3", "to": "Hello Timer: 00:00:03", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet3", "to": "Index: 1/2/2", "weight": 1}, {"Weight": 1.0, "from": "Hello Timer: 00:00:03", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet4", "to": "Name: GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet4", "to": "IP Address: 172.16.252.2/30", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet4", "to": "Index: 1/3/3", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet4", "to": "Neighbors: 1", "weight": 1}, {"Weight": 1.0, "from": "Neighbors: 1", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "Neighbors: 1", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet5", "to": "Name: GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet5", "to": "IP Address: 172.16.252.10/30", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet5", "to": "Hello Timer: 00:00:01", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet5", "to": "Index: 1/4/4", "weight": 1}, {"Weight": 1.0, "from": "Hello Timer: 00:00:01", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet6", "to": "Name: GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet6", "to": "IP Address: 172.16.252.17/30", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet6", "to": "Index: 1/5/5", "weight": 1}, {"Weight": 1.0, "from": "GigabitEthernet6", "to": "State: bdr", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
