@@ -1,0 +1,1530 @@
+
+
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.4/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/keytable/2.6.4/js/dataTables.keyTable.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.6.4/css/keyTable.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+</head>
+<body>
+<h1>Show VLAN</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VLAN</th>
+    <th>Interface</th>
+    <th>Name</th>
+    <th>State</th>
+    <th>Shutdown</th>
+    <th>Type</th>
+    <th>Mode</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1</td>
+    <td>Port-channel1</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/1</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/2</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/5</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/6</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/7</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/8</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/9</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/10</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/12</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/13</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/14</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/15</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/16</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/17</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/18</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/19</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/20</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/21</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/22</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/23</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/24</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/25</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/26</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/27</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/28</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/29</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/30</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/31</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/32</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/33</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/34</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/35</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/36</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/37</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/38</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/39</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/40</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/41</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/42</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/43</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/44</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/45</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/46</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/47</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/48</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/49</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/50</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/51</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/52</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/53</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/54</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/55</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/56</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/57</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/58</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/59</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/60</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/61</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/62</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/63</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/64</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/65</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/66</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/67</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/68</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/69</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/70</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/71</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/72</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/73</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/74</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/75</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/76</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/77</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/78</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/79</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/80</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/81</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/82</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/83</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/84</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/85</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/86</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/87</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/88</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/89</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/90</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/91</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/92</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/93</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/94</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/95</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/96</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/97</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/98</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/99</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/100</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/101</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/102</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/103</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/104</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/105</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/106</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/107</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/108</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/109</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/110</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/111</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/112</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/113</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/114</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/115</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/116</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/117</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/118</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/119</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/120</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/121</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/122</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/123</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/124</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/125</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/126</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/127</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ethernet1/128</td>
+    <td>default</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Port-channel1</td>
+    <td>prod</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Ethernet1/1</td>
+    <td>prod</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Ethernet1/2</td>
+    <td>prod</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Ethernet1/11</td>
+    <td>prod</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>102</td>
+    <td>Port-channel1</td>
+    <td>dev</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>102</td>
+    <td>Ethernet1/1</td>
+    <td>dev</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>102</td>
+    <td>Ethernet1/2</td>
+    <td>dev</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>Port-channel1</td>
+    <td>test</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>Ethernet1/1</td>
+    <td>test</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>Ethernet1/2</td>
+    <td>test</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>104</td>
+    <td>Port-channel1</td>
+    <td>security</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>104</td>
+    <td>Ethernet1/1</td>
+    <td>security</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>104</td>
+    <td>Ethernet1/2</td>
+    <td>security</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>105</td>
+    <td>Port-channel1</td>
+    <td>iot</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>105</td>
+    <td>Ethernet1/1</td>
+    <td>iot</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+  <tr>
+    <td>105</td>
+    <td>Ethernet1/2</td>
+    <td>iot</td>
+    <td>active</td>
+    <td>False</td>
+    <td>enet</td>
+    <td>ce</td>
+  </tr>
+</tbody>
+</table><script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable thead');
+
+    var table = $('#datatable').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable02 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable02 thead');
+
+    var table = $('#datatable02').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable03 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable03 thead');
+
+    var table = $('#datatable03').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+</body></html>

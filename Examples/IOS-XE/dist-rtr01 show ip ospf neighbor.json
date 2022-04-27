@@ -1,0 +1,34 @@
+{
+    "interfaces": {
+        "GigabitEthernet4": {
+            "neighbors": {
+                "172.16.101.2": {
+                    "address": "172.16.252.1",
+                    "dead_time": "00:00:33",
+                    "priority": 1,
+                    "state": "FULL/BDR"
+                }
+            }
+        },
+        "GigabitEthernet5": {
+            "neighbors": {
+                "172.16.101.3": {
+                    "address": "172.16.252.9",
+                    "dead_time": "00:00:32",
+                    "priority": 1,
+                    "state": "FULL/BDR"
+                }
+            }
+        },
+        "GigabitEthernet6": {
+            "neighbors": {
+                "172.16.252.33": {
+                    "address": "172.16.252.18",
+                    "dead_time": "00:00:37",
+                    "priority": 1,
+                    "state": "FULL/DR"
+                }
+            }
+        }
+    }
+}

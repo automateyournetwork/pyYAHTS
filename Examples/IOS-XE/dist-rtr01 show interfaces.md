@@ -1,0 +1,13 @@
+
+
+
+
+| Interface | Description | Type | Connected | Enabled | Bandwidth | Port Speed | Port Duplex | IPv4 Address | Line Protocol | Operational Status | MAC Address | Media Type | Delay | Encapsulation | Keepalive | MTU | Port Channel Member | Port Channel Member Interface | Input CRC Errors | Input Errors | Output Errors | Input Packets | Output Packets | QoS Strategy | Input Queue Drops | Total Output Drops |
+| --------- | ----------- | ---- | --------- | ------- | --------- | ---------- | ----------- | ------------ | ------------- | ------------------ | ----------- | ---------- | ----- | ------------- | --------- | --- | ------------------- | ----------------------------- | ---------------- | ------------ | ------------- | ------------- | -------------- | ------------ | ----------------- | ------------------ |
+| GigabitEthernet1 | to port6.sandbox-backend | CSR vNIC | Not Connected | True | 1000000 | 1000mbps | full | No IP Address | up | up | 5254.001f.b4db | Virtual | 10 | arpa | 10 | 1500 | False | Stand Alone Port | 0 | 0 | 0 | 66322 | 64872 | fifo | 0 | 0 |
+| GigabitEthernet2 | L3 Link to core-rtr01 | CSR vNIC | Not Connected | True | 1000000 | 1000mbps | full | No IP Address | up | up | 5254.001e.d479 | Virtual | 10 | arpa | 10 | 1500 | False | Stand Alone Port | 0 | 0 | 0 | 0 | 989 | fifo | 0 | 0 |
+| GigabitEthernet3 | L3 Link to core-rtr02 | CSR vNIC | Not Connected | True | 1000000 | 1000mbps | full | No IP Address | up | up | 5254.0006.f7ce | Virtual | 10 | arpa | 10 | 1500 | False | Stand Alone Port | 0 | 0 | 0 | 0 | 990 | fifo | 0 | 0 |
+| GigabitEthernet4 | L3 Link to dist-sw01 | CSR vNIC | Not Connected | True | 1000000 | 1000mbps | full | No IP Address | up | up | 5254.000e.7bb9 | Virtual | 10 | arpa | 10 | 1500 | False | Stand Alone Port | 0 | 0 | 0 | 1235 | 1037 | fifo | 0 | 0 |
+| GigabitEthernet5 | L3 Link to dist-sw02 | CSR vNIC | Not Connected | True | 1000000 | 1000mbps | full | No IP Address | up | up | 5254.0016.7077 | Virtual | 10 | arpa | 10 | 1500 | False | Stand Alone Port | 0 | 0 | 0 | 1155 | 1034 | fifo | 0 | 0 |
+| GigabitEthernet6 | L3 Link to dist-rtr02 | CSR vNIC | Not Connected | True | 1000000 | 1000mbps | full | No IP Address | up | up | 5254.0015.ac8a | Virtual | 10 | arpa | 10 | 1500 | False | Stand Alone Port | 0 | 0 | 0 | 1017 | 1035 | fifo | 0 | 0 |
+| Loopback0 | to | Loopback | Not Connected | False | 8000000 | N/A | N/A | No IP Address | down | down |  | N/A | 5000 | loopback | 10 | 1514 | False | Stand Alone Port | 0 | 0 | 0 | 0 | 0 | fifo | 0 | 0 |

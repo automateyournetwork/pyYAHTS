@@ -1,0 +1,14 @@
+{
+    "vrfs": {
+        "Mgmt-intf": {
+            "address_family": {
+                "ipv4 unicast": {
+                    "table_id": "0x1"
+                },
+                "ipv6 unicast": {
+                    "table_id": "0x1E000001"
+                }
+            }
+        }
+    }
+}

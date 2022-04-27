@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1", "label": "GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2", "label": "GigabitEthernet2", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3", "label": "GigabitEthernet3", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5", "label": "GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6", "label": "GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Loopback0", "label": "Loopback0", "shape": "dot", "size": 10}, {"id": "Description: to port6.sandbox-backend", "label": "Description: to port6.sandbox-backend", "shape": "dot", "size": 10}, {"id": "Type: CSR vNIC", "label": "Type: CSR vNIC", "shape": "dot", "size": 10}, {"id": "Connected: Not Connected", "label": "Connected: Not Connected", "shape": "dot", "size": 10}, {"id": "Enabled: True", "label": "Enabled: True", "shape": "dot", "size": 10}, {"id": "Bandwidth: 1000000", "label": "Bandwidth: 1000000", "shape": "dot", "size": 10}, {"id": "Port Speed: 1000mbps", "label": "Port Speed: 1000mbps", "shape": "dot", "size": 10}, {"id": "Duplex: full", "label": "Duplex: full", "shape": "dot", "size": 10}, {"id": "Line Protcol: up", "label": "Line Protcol: up", "shape": "dot", "size": 10}, {"id": "Oper Status: up", "label": "Oper Status: up", "shape": "dot", "size": 10}, {"id": "MAC Address: 5254.001f.b4db", "label": "MAC Address: 5254.001f.b4db", "shape": "dot", "size": 10}, {"id": "Media Type: Virtual", "label": "Media Type: Virtual", "shape": "dot", "size": 10}, {"id": "Delay: 10", "label": "Delay: 10", "shape": "dot", "size": 10}, {"id": "Encapsulation: arpa", "label": "Encapsulation: arpa", "shape": "dot", "size": 10}, {"id": "Keepalive: 10", "label": "Keepalive: 10", "shape": "dot", "size": 10}, {"id": "MTU: 1500", "label": "MTU: 1500", "shape": "dot", "size": 10}, {"id": "Port Channel Member: False", "label": "Port Channel Member: False", "shape": "dot", "size": 10}, {"id": "Member Interface: ", "label": "Member Interface: ", "shape": "dot", "size": 10}, {"id": "Counters", "label": "Counters", "shape": "dot", "size": 10}, {"id": "Queue", "label": "Queue", "shape": "dot", "size": 10}, {"id": "Errors", "label": "Errors", "shape": "dot", "size": 10}, {"id": "Packets", "label": "Packets", "shape": "dot", "size": 10}, {"id": "Input CRC: 0", "label": "Input CRC: 0", "shape": "dot", "size": 10}, {"id": "Input: 0", "label": "Input: 0", "shape": "dot", "size": 10}, {"id": "Output: 0", "label": "Output: 0", "shape": "dot", "size": 10}, {"id": "Input: 66322", "label": "Input: 66322", "shape": "dot", "size": 10}, {"id": "Output: 64872", "label": "Output: 64872", "shape": "dot", "size": 10}, {"id": "Output: 989", "label": "Output: 989", "shape": "dot", "size": 10}, {"id": "Output: 990", "label": "Output: 990", "shape": "dot", "size": 10}, {"id": "Input: 1235", "label": "Input: 1235", "shape": "dot", "size": 10}, {"id": "Output: 1037", "label": "Output: 1037", "shape": "dot", "size": 10}, {"id": "Input: 1155", "label": "Input: 1155", "shape": "dot", "size": 10}, {"id": "Output: 1034", "label": "Output: 1034", "shape": "dot", "size": 10}, {"id": "Input: 1017", "label": "Input: 1017", "shape": "dot", "size": 10}, {"id": "Output: 1035", "label": "Output: 1035", "shape": "dot", "size": 10}, {"id": "Strategy: fifo", "label": "Strategy: fifo", "shape": "dot", "size": 10}, {"id": "Input Drops: 0", "label": "Input Drops: 0", "shape": "dot", "size": 10}, {"id": "Output Drops: 0", "label": "Output Drops: 0", "shape": "dot", "size": 10}, {"id": "Description: L3 Link to core-rtr01", "label": "Description: L3 Link to core-rtr01", "shape": "dot", "size": 10}, {"id": "MAC Address: 5254.001e.d479", "label": "MAC Address: 5254.001e.d479", "shape": "dot", "size": 10}, {"id": "Description: L3 Link to core-rtr02", "label": "Description: L3 Link to core-rtr02", "shape": "dot", "size": 10}, {"id": "MAC Address: 5254.0006.f7ce", "label": "MAC Address: 5254.0006.f7ce", "shape": "dot", "size": 10}, {"id": "Description: L3 Link to dist-sw01", "label": "Description: L3 Link to dist-sw01", "shape": "dot", "size": 10}, {"id": "MAC Address: 5254.000e.7bb9", "label": "MAC Address: 5254.000e.7bb9", "shape": "dot", "size": 10}, {"id": "Description: L3 Link to dist-sw02", "label": "Description: L3 Link to dist-sw02", "shape": "dot", "size": 10}, {"id": "MAC Address: 5254.0016.7077", "label": "MAC Address: 5254.0016.7077", "shape": "dot", "size": 10}, {"id": "Description: L3 Link to dist-rtr02", "label": "Description: L3 Link to dist-rtr02", "shape": "dot", "size": 10}, {"id": "MAC Address: 5254.0015.ac8a", "label": "MAC Address: 5254.0015.ac8a", "shape": "dot", "size": 10}, {"id": "Description: to", "label": "Description: to", "shape": "dot", "size": 10}, {"id": "Type: Loopback", "label": "Type: Loopback", "shape": "dot", "size": 10}, {"id": "Enabled: False", "label": "Enabled: False", "shape": "dot", "size": 10}, {"id": "Bandwidth: 8000000", "label": "Bandwidth: 8000000", "shape": "dot", "size": 10}, {"id": "Port Speed: N/A", "label": "Port Speed: N/A", "shape": "dot", "size": 10}, {"id": "Duplex: N/A", "label": "Duplex: N/A", "shape": "dot", "size": 10}, {"id": "Line Protcol: down", "label": "Line Protcol: down", "shape": "dot", "size": 10}, {"id": "Oper Status: down", "label": "Oper Status: down", "shape": "dot", "size": 10}, {"id": "MAC Address: ", "label": "MAC Address: ", "shape": "dot", "size": 10}, {"id": "Media Type: N/A", "label": "Media Type: N/A", "shape": "dot", "size": 10}, {"id": "Delay: 5000", "label": "Delay: 5000", "shape": "dot", "size": 10}, {"id": "Encapsulation: loopback", "label": "Encapsulation: loopback", "shape": "dot", "size": 10}, {"id": "MTU: 1514", "label": "MTU: 1514", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet1", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Description: to port6.sandbox-backend", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Type: CSR vNIC", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Connected: Not Connected", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Enabled: True", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Bandwidth: 1000000", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Port Speed: 1000mbps", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Duplex: full", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Line Protcol: up", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Oper Status: up", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "MAC Address: 5254.001f.b4db", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Media Type: Virtual", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Delay: 10", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Encapsulation: arpa", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Keepalive: 10", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "MTU: 1500", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Port Channel Member: False", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Member Interface: ", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Counters", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet1", "to": "Queue", "weight": 1}, {"Weight": 1, "from": "Type: CSR vNIC", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Type: CSR vNIC", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Type: CSR vNIC", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Type: CSR vNIC", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Type: CSR vNIC", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Connected: Not Connected", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Connected: Not Connected", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Connected: Not Connected", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Connected: Not Connected", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Connected: Not Connected", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Connected: Not Connected", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "Enabled: True", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Enabled: True", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Enabled: True", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Enabled: True", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Enabled: True", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Bandwidth: 1000000", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Bandwidth: 1000000", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Bandwidth: 1000000", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Bandwidth: 1000000", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Bandwidth: 1000000", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Port Speed: 1000mbps", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Port Speed: 1000mbps", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Port Speed: 1000mbps", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Port Speed: 1000mbps", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Port Speed: 1000mbps", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Duplex: full", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Duplex: full", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Duplex: full", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Duplex: full", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Duplex: full", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Line Protcol: up", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Line Protcol: up", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Line Protcol: up", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Line Protcol: up", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Line Protcol: up", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Oper Status: up", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Oper Status: up", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Oper Status: up", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Oper Status: up", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Oper Status: up", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Media Type: Virtual", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Media Type: Virtual", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Media Type: Virtual", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Media Type: Virtual", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Media Type: Virtual", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Delay: 10", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Delay: 10", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Delay: 10", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Delay: 10", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Delay: 10", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Encapsulation: arpa", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Encapsulation: arpa", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Encapsulation: arpa", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Encapsulation: arpa", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Encapsulation: arpa", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Keepalive: 10", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Keepalive: 10", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Keepalive: 10", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Keepalive: 10", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Keepalive: 10", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Keepalive: 10", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "MTU: 1500", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "MTU: 1500", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "MTU: 1500", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "MTU: 1500", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "MTU: 1500", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Port Channel Member: False", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Port Channel Member: False", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Port Channel Member: False", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Port Channel Member: False", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Port Channel Member: False", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Port Channel Member: False", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "Member Interface: ", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Member Interface: ", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Member Interface: ", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Member Interface: ", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Member Interface: ", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Member Interface: ", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "Errors", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "Packets", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Counters", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "Errors", "to": "Input CRC: 0", "weight": 1}, {"Weight": 1, "from": "Errors", "to": "Input: 0", "weight": 1}, {"Weight": 1, "from": "Errors", "to": "Output: 0", "weight": 1}, {"Weight": 1, "from": "Input: 0", "to": "Packets", "weight": 1}, {"Weight": 1, "from": "Output: 0", "to": "Packets", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Input: 66322", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Output: 64872", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Output: 989", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Output: 990", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Input: 1235", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Output: 1037", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Input: 1155", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Output: 1034", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Input: 1017", "weight": 1}, {"Weight": 1, "from": "Packets", "to": "Output: 1035", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "Strategy: fifo", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "Input Drops: 0", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "Output Drops: 0", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "Queue", "to": "Loopback0", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet2", "to": "Description: L3 Link to core-rtr01", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet2", "to": "MAC Address: 5254.001e.d479", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet3", "to": "Description: L3 Link to core-rtr02", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet3", "to": "MAC Address: 5254.0006.f7ce", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "Description: L3 Link to dist-sw01", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "MAC Address: 5254.000e.7bb9", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet5", "to": "Description: L3 Link to dist-sw02", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet5", "to": "MAC Address: 5254.0016.7077", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet6", "to": "Description: L3 Link to dist-rtr02", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet6", "to": "MAC Address: 5254.0015.ac8a", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Description: to", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Type: Loopback", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Enabled: False", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Bandwidth: 8000000", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Port Speed: N/A", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Duplex: N/A", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Line Protcol: down", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Oper Status: down", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "MAC Address: ", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Media Type: N/A", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Delay: 5000", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "Encapsulation: loopback", "weight": 1}, {"Weight": 1, "from": "Loopback0", "to": "MTU: 1514", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

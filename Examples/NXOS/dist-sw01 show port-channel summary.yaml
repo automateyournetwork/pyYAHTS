@@ -1,0 +1,12 @@
+interfaces:
+  Port-channel1:
+    bundle_id: 1
+    layer: switched
+    members:
+      Ethernet1/1:
+        flags: P
+      Ethernet1/2:
+        flags: P
+    oper_status: up
+    protocol: lacp
+    type: eth

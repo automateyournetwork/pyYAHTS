@@ -1,0 +1,15 @@
+{
+    "global": {
+        "bpdu_filter": false,
+        "bpdu_guard": false,
+        "etherchannel_misconfig_guard": true,
+        "loop_guard": false
+    },
+    "mstp": {
+        "default": {
+            "domain": "default",
+            "name": "",
+            "revision": 0
+        }
+    }
+}

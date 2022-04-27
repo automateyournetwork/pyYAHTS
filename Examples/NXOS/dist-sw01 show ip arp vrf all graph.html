@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Ethernet1/3", "label": "Ethernet1/3", "shape": "dot", "size": 10}, {"id": "Ethernet1/4", "label": "Ethernet1/4", "shape": "dot", "size": 10}, {"id": "Vlan101", "label": "Vlan101", "shape": "dot", "size": 10}, {"id": "mgmt0", "label": "mgmt0", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.2", "label": "Neighbor: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.000e.7bb9", "label": "Link Layer Address: 5254.000e.7bb9", "shape": "dot", "size": 10}, {"id": "Origin: dynamic", "label": "Origin: dynamic", "shape": "dot", "size": 10}, {"id": "Age: 00:15:33", "label": "Age: 00:15:33", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.6", "label": "Neighbor: 172.16.252.6", "shape": "dot", "size": 10}, {"id": "Neighbor: 10.10.20.178", "label": "Neighbor: 10.10.20.178", "shape": "dot", "size": 10}, {"id": "Neighbor: 10.10.20.254", "label": "Neighbor: 10.10.20.254", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.0015.16c7", "label": "Link Layer Address: 5254.0015.16c7", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.101.1", "label": "Neighbor: 172.16.101.1", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 0000.0c07.ac0a", "label": "Link Layer Address: 0000.0c07.ac0a", "shape": "dot", "size": 10}, {"id": "Origin: static", "label": "Origin: static", "shape": "dot", "size": 10}, {"id": "Age: -", "label": "Age: -", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.0004.417e", "label": "Link Layer Address: 5254.0004.417e", "shape": "dot", "size": 10}, {"id": "Age: 00:05:32", "label": "Age: 00:05:32", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 0050.56bf.1c3f", "label": "Link Layer Address: 0050.56bf.1c3f", "shape": "dot", "size": 10}, {"id": "Age: 00:09:35", "label": "Age: 00:09:35", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/3", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/4", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Vlan101", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "mgmt0", "weight": 1}, {"Weight": 1, "from": "Ethernet1/3", "to": "Neighbor: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.2", "to": "Link Layer Address: 5254.000e.7bb9", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.2", "to": "Origin: dynamic", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.2", "to": "Age: 00:15:33", "weight": 1}, {"Weight": 1, "from": "Origin: dynamic", "to": "Neighbor: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Origin: dynamic", "to": "Neighbor: 10.10.20.178", "weight": 1}, {"Weight": 1, "from": "Origin: dynamic", "to": "Neighbor: 10.10.20.254", "weight": 1}, {"Weight": 1, "from": "Age: 00:15:33", "to": "Neighbor: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Ethernet1/4", "to": "Neighbor: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.6", "to": "Link Layer Address: 5254.0015.16c7", "weight": 1}, {"Weight": 1, "from": "Vlan101", "to": "Neighbor: 172.16.101.1", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.1", "to": "Link Layer Address: 0000.0c07.ac0a", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.1", "to": "Origin: static", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.101.1", "to": "Age: -", "weight": 1}, {"Weight": 1, "from": "mgmt0", "to": "Neighbor: 10.10.20.178", "weight": 1}, {"Weight": 1, "from": "mgmt0", "to": "Neighbor: 10.10.20.254", "weight": 1}, {"Weight": 1, "from": "Neighbor: 10.10.20.178", "to": "Link Layer Address: 5254.0004.417e", "weight": 1}, {"Weight": 1, "from": "Neighbor: 10.10.20.178", "to": "Age: 00:05:32", "weight": 1}, {"Weight": 1, "from": "Neighbor: 10.10.20.254", "to": "Link Layer Address: 0050.56bf.1c3f", "weight": 1}, {"Weight": 1, "from": "Neighbor: 10.10.20.254", "to": "Age: 00:09:35", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

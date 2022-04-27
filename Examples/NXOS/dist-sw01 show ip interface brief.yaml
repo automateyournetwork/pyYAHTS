@@ -1,0 +1,32 @@
+interface:
+  Eth1/3:
+    interface_status: protocol-up/link-up/admin-up
+    ip_address: 172.16.252.1
+  Eth1/4:
+    interface_status: protocol-up/link-up/admin-up
+    ip_address: 172.16.252.5
+  Vlan101:
+    vlan_id:
+      '101':
+        interface_status: protocol-up/link-up/admin-up
+        ip_address: 172.16.101.2
+  Vlan102:
+    vlan_id:
+      '102':
+        interface_status: protocol-up/link-up/admin-up
+        ip_address: 172.16.102.2
+  Vlan103:
+    vlan_id:
+      '103':
+        interface_status: protocol-up/link-up/admin-up
+        ip_address: 172.16.103.2
+  Vlan104:
+    vlan_id:
+      '104':
+        interface_status: protocol-up/link-up/admin-up
+        ip_address: 172.16.104.2
+  Vlan105:
+    vlan_id:
+      '105':
+        interface_status: protocol-up/link-up/admin-up
+        ip_address: 172.16.105.2

@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "Instance: 1", "label": "Instance: 1", "shape": "dot", "size": 10}, {"id": "Area: 0.0.0.0", "label": "Area: 0.0.0.0", "shape": "dot", "size": 10}, {"id": "LSA Type: 1", "label": "LSA Type: 1", "shape": "dot", "size": 10}, {"id": "LSA Type: 2", "label": "LSA Type: 2", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.101.2", "label": "LSA: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.101.3", "label": "LSA: 172.16.101.3", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.25", "label": "LSA: 172.16.252.25", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.33", "label": "LSA: 172.16.252.33", "shape": "dot", "size": 10}, {"id": "Age: 979", "label": "Age: 979", "shape": "dot", "size": 10}, {"id": "Link Count: 7", "label": "Link Count: 7", "shape": "dot", "size": 10}, {"id": "Checksum: 0x00BB26", "label": "Checksum: 0x00BB26", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x80000009", "label": "Sequence Number: 0x80000009", "shape": "dot", "size": 10}, {"id": "Age: 982", "label": "Age: 982", "shape": "dot", "size": 10}, {"id": "Checksum: 0x00EBD2", "label": "Checksum: 0x00EBD2", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x8000000A", "label": "Sequence Number: 0x8000000A", "shape": "dot", "size": 10}, {"id": "Age: 433", "label": "Age: 433", "shape": "dot", "size": 10}, {"id": "Link Count: 5", "label": "Link Count: 5", "shape": "dot", "size": 10}, {"id": "Checksum: 0x00E526", "label": "Checksum: 0x00E526", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x80000011", "label": "Sequence Number: 0x80000011", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.10", "label": "LSA: 172.16.252.10", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.2", "label": "LSA: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Age: 396", "label": "Age: 396", "shape": "dot", "size": 10}, {"id": "Checksum: 0x00A03E", "label": "Checksum: 0x00A03E", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x8000000D", "label": "Sequence Number: 0x8000000D", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.14", "label": "LSA: 172.16.252.14", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.18", "label": "LSA: 172.16.252.18", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.6", "label": "LSA: 172.16.252.6", "shape": "dot", "size": 10}, {"id": "Link Count: ", "label": "Link Count: ", "shape": "dot", "size": 10}, {"id": "Checksum: 0x003E6C", "label": "Checksum: 0x003E6C", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x80000005", "label": "Sequence Number: 0x80000005", "shape": "dot", "size": 10}, {"id": "Checksum: 0x003660", "label": "Checksum: 0x003660", "shape": "dot", "size": 10}, {"id": "Checksum: 0x00F5EE", "label": "Checksum: 0x00F5EE", "shape": "dot", "size": 10}, {"id": "Checksum: 0x008033", "label": "Checksum: 0x008033", "shape": "dot", "size": 10}, {"id": "Checksum: 0x007827", "label": "Checksum: 0x007827", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "VRF: default", "weight": 1}, {"Weight": 1, "from": "VRF: default", "to": "ipv4", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "Instance: 1", "weight": 1}, {"Weight": 1, "from": "Instance: 1", "to": "Area: 0.0.0.0", "weight": 1}, {"Weight": 1, "from": "Area: 0.0.0.0", "to": "LSA Type: 1", "weight": 1}, {"Weight": 1, "from": "Area: 0.0.0.0", "to": "LSA Type: 2", "weight": 1}, {"Weight": 1, "from": "LSA Type: 1", "to": "LSA: 172.16.101.2", "weight": 1}, {"Weight": 1, "from": "LSA Type: 1", "to": "LSA: 172.16.101.3", "weight": 1}, {"Weight": 1, "from": "LSA Type: 1", "to": "LSA: 172.16.252.25", "weight": 1}, {"Weight": 1, "from": "LSA Type: 1", "to": "LSA: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.2", "to": "Age: 979", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.2", "to": "Link Count: 7", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.2", "to": "Checksum: 0x00BB26", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.2", "to": "Sequence Number: 0x80000009", "weight": 1}, {"Weight": 1, "from": "Link Count: 7", "to": "LSA: 172.16.101.3", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.3", "to": "Age: 982", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.3", "to": "Checksum: 0x00EBD2", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.101.3", "to": "Sequence Number: 0x8000000A", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.25", "to": "Age: 433", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.25", "to": "Link Count: 5", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.25", "to": "Checksum: 0x00E526", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.25", "to": "Sequence Number: 0x80000011", "weight": 1}, {"Weight": 1, "from": "Age: 433", "to": "LSA: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "Age: 433", "to": "LSA: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Link Count: 5", "to": "LSA: 172.16.252.33", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.33", "to": "Age: 396", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.33", "to": "Checksum: 0x00A03E", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.33", "to": "Sequence Number: 0x8000000D", "weight": 1}, {"Weight": 1, "from": "Age: 396", "to": "LSA: 172.16.252.14", "weight": 1}, {"Weight": 1, "from": "Age: 396", "to": "LSA: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Age: 396", "to": "LSA: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "LSA Type: 2", "to": "LSA: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "LSA Type: 2", "to": "LSA: 172.16.252.14", "weight": 1}, {"Weight": 1, "from": "LSA Type: 2", "to": "LSA: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "LSA Type: 2", "to": "LSA: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "LSA Type: 2", "to": "LSA: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.10", "to": "Link Count: ", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.10", "to": "Checksum: 0x003E6C", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.10", "to": "Sequence Number: 0x80000005", "weight": 1}, {"Weight": 1, "from": "Link Count: ", "to": "LSA: 172.16.252.14", "weight": 1}, {"Weight": 1, "from": "Link Count: ", "to": "LSA: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Link Count: ", "to": "LSA: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Link Count: ", "to": "LSA: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Sequence Number: 0x80000005", "to": "LSA: 172.16.252.14", "weight": 1}, {"Weight": 1, "from": "Sequence Number: 0x80000005", "to": "LSA: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Sequence Number: 0x80000005", "to": "LSA: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Sequence Number: 0x80000005", "to": "LSA: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.14", "to": "Checksum: 0x003660", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.18", "to": "Checksum: 0x00F5EE", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.2", "to": "Checksum: 0x008033", "weight": 1}, {"Weight": 1, "from": "LSA: 172.16.252.6", "to": "Checksum: 0x007827", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

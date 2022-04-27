@@ -1,0 +1,119 @@
+{
+    "index": {
+        "1": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch CVTA phone port",
+            "device_id": "dist-sw02(9LQR5W39XQ2)",
+            "duplex_mode": "full",
+            "entry_addresses": {
+                "10.10.20.178": {}
+            },
+            "hold_time": 153,
+            "local_interface": "GigabitEthernet1",
+            "management_addresses": {
+                "10.10.20.178": {}
+            },
+            "native_vlan": "",
+            "platform": "N9K-9000v",
+            "port_id": "mgmt0",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "vtp_management_domain": ""
+        },
+        "2": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch CVTA phone port",
+            "device_id": "dist-sw02(9LQR5W39XQ2)",
+            "duplex_mode": "full",
+            "entry_addresses": {
+                "172.16.252.9": {}
+            },
+            "hold_time": 148,
+            "local_interface": "GigabitEthernet5",
+            "management_addresses": {
+                "10.10.20.178": {}
+            },
+            "native_vlan": "",
+            "platform": "N9K-9000v",
+            "port_id": "Ethernet1/3",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "vtp_management_domain": ""
+        },
+        "3": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch CVTA phone port",
+            "device_id": "dist-sw01(9SURZFD8MR6)",
+            "duplex_mode": "full",
+            "entry_addresses": {
+                "10.10.20.177": {}
+            },
+            "hold_time": 146,
+            "local_interface": "GigabitEthernet1",
+            "management_addresses": {
+                "10.10.20.177": {}
+            },
+            "native_vlan": "",
+            "platform": "N9K-9000v",
+            "port_id": "mgmt0",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "vtp_management_domain": ""
+        },
+        "4": {
+            "advertisement_ver": 2,
+            "capabilities": "Router Switch CVTA phone port",
+            "device_id": "dist-sw01(9SURZFD8MR6)",
+            "duplex_mode": "full",
+            "entry_addresses": {
+                "172.16.252.1": {}
+            },
+            "hold_time": 142,
+            "local_interface": "GigabitEthernet4",
+            "management_addresses": {
+                "10.10.20.177": {}
+            },
+            "native_vlan": "",
+            "platform": "N9K-9000v",
+            "port_id": "Ethernet1/3",
+            "software_version": "Cisco Nexus Operating System (NX-OS) Software, Version 9.2(4)",
+            "vtp_management_domain": ""
+        },
+        "5": {
+            "advertisement_ver": 2,
+            "capabilities": "Router IGMP",
+            "device_id": "dist-rtr02.virl.info",
+            "duplex_mode": "full",
+            "entry_addresses": {
+                "172.16.252.18": {}
+            },
+            "hold_time": 171,
+            "local_interface": "GigabitEthernet6",
+            "management_addresses": {
+                "172.16.252.18": {}
+            },
+            "native_vlan": "",
+            "platform": "cisco CSR1000V",
+            "port_id": "GigabitEthernet6",
+            "software_version": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 by mcpre",
+            "vtp_management_domain": ""
+        },
+        "6": {
+            "advertisement_ver": 2,
+            "capabilities": "Router IGMP",
+            "device_id": "dist-rtr02.virl.info",
+            "duplex_mode": "full",
+            "entry_addresses": {
+                "10.10.20.176": {}
+            },
+            "hold_time": 125,
+            "local_interface": "GigabitEthernet1",
+            "management_addresses": {
+                "10.10.20.176": {}
+            },
+            "native_vlan": "",
+            "platform": "cisco CSR1000V",
+            "port_id": "GigabitEthernet1",
+            "software_version": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 by mcpre",
+            "vtp_management_domain": ""
+        }
+    },
+    "total_entries_displayed": 6
+}

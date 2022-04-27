@@ -1,0 +1,62 @@
+{
+    "cdp": {
+        "index": {
+            "1": {
+                "capability": "R I",
+                "device_id": "dist-rtr01.virl.info",
+                "hold_time": 147,
+                "local_interface": "mgmt0",
+                "platform": "CSR1000V",
+                "port_id": "GigabitEthernet1"
+            },
+            "2": {
+                "capability": "R S s",
+                "device_id": "dist-sw02(9LQR5W39XQ2)",
+                "hold_time": 175,
+                "local_interface": "mgmt0",
+                "platform": "N9K-9000v",
+                "port_id": "mgmt0"
+            },
+            "3": {
+                "capability": "R I",
+                "device_id": "dist-rtr02.virl.info",
+                "hold_time": 166,
+                "local_interface": "mgmt0",
+                "platform": "CSR1000V",
+                "port_id": "GigabitEthernet1"
+            },
+            "4": {
+                "capability": "R S I s",
+                "device_id": "dist-sw02(9LQR5W39XQ2)",
+                "hold_time": 169,
+                "local_interface": "Ethernet1/1",
+                "platform": "N9K-9000v",
+                "port_id": "Ethernet1/1"
+            },
+            "5": {
+                "capability": "R S I s",
+                "device_id": "dist-sw02(9LQR5W39XQ2)",
+                "hold_time": 170,
+                "local_interface": "Ethernet1/2",
+                "platform": "N9K-9000v",
+                "port_id": "Ethernet1/2"
+            },
+            "6": {
+                "capability": "R I",
+                "device_id": "dist-rtr01.virl.info",
+                "hold_time": 178,
+                "local_interface": "Ethernet1/3",
+                "platform": "CSR1000V",
+                "port_id": "GigabitEthernet4"
+            },
+            "7": {
+                "capability": "R I",
+                "device_id": "dist-rtr02.virl.info",
+                "hold_time": 164,
+                "local_interface": "Ethernet1/4",
+                "platform": "CSR1000V",
+                "port_id": "GigabitEthernet4"
+            }
+        }
+    }
+}

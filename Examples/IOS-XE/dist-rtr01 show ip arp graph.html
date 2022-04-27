@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2", "label": "GigabitEthernet2", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3", "label": "GigabitEthernet3", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5", "label": "GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6", "label": "GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.21", "label": "Neighbor: 172.16.252.21", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.001e.d479", "label": "Link Layer Address: 5254.001e.d479", "shape": "dot", "size": 10}, {"id": "Type: ARPA", "label": "Type: ARPA", "shape": "dot", "size": 10}, {"id": "Origin: static", "label": "Origin: static", "shape": "dot", "size": 10}, {"id": "Age: -", "label": "Age: -", "shape": "dot", "size": 10}, {"id": "Protocol: Internet", "label": "Protocol: Internet", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.25", "label": "Neighbor: 172.16.252.25", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.1", "label": "Neighbor: 172.16.252.1", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.2", "label": "Neighbor: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.10", "label": "Neighbor: 172.16.252.10", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.9", "label": "Neighbor: 172.16.252.9", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.17", "label": "Neighbor: 172.16.252.17", "shape": "dot", "size": 10}, {"id": "Neighbor: 172.16.252.18", "label": "Neighbor: 172.16.252.18", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.0006.f7ce", "label": "Link Layer Address: 5254.0006.f7ce", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.000d.e743", "label": "Link Layer Address: 5254.000d.e743", "shape": "dot", "size": 10}, {"id": "Origin: dynamic", "label": "Origin: dynamic", "shape": "dot", "size": 10}, {"id": "Age: 5", "label": "Age: 5", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.000e.7bb9", "label": "Link Layer Address: 5254.000e.7bb9", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.0016.7077", "label": "Link Layer Address: 5254.0016.7077", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.0004.4185", "label": "Link Layer Address: 5254.0004.4185", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.0015.ac8a", "label": "Link Layer Address: 5254.0015.ac8a", "shape": "dot", "size": 10}, {"id": "Link Layer Address: 5254.000c.8b4c", "label": "Link Layer Address: 5254.000c.8b4c", "shape": "dot", "size": 10}, {"id": "Age: 138", "label": "Age: 138", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet2", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet3", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet4", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet5", "weight": 1}, {"Weight": 1, "from": "dist-rtr01", "to": "GigabitEthernet6", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet2", "to": "Neighbor: 172.16.252.21", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.21", "to": "Link Layer Address: 5254.001e.d479", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.21", "to": "Type: ARPA", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.21", "to": "Origin: static", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.21", "to": "Age: -", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.21", "to": "Protocol: Internet", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.25", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.1", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.9", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.17", "weight": 1}, {"Weight": 1, "from": "Type: ARPA", "to": "Neighbor: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Origin: static", "to": "Neighbor: 172.16.252.25", "weight": 1}, {"Weight": 1, "from": "Origin: static", "to": "Neighbor: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Origin: static", "to": "Neighbor: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "Origin: static", "to": "Neighbor: 172.16.252.17", "weight": 1}, {"Weight": 1, "from": "Age: -", "to": "Neighbor: 172.16.252.25", "weight": 1}, {"Weight": 1, "from": "Age: -", "to": "Neighbor: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Age: -", "to": "Neighbor: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "Age: -", "to": "Neighbor: 172.16.252.17", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.25", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.1", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.9", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.17", "weight": 1}, {"Weight": 1, "from": "Protocol: Internet", "to": "Neighbor: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet3", "to": "Neighbor: 172.16.252.25", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.25", "to": "Link Layer Address: 5254.0006.f7ce", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "Neighbor: 172.16.252.1", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet4", "to": "Neighbor: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.1", "to": "Link Layer Address: 5254.000d.e743", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.1", "to": "Origin: dynamic", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.1", "to": "Age: 5", "weight": 1}, {"Weight": 1, "from": "Origin: dynamic", "to": "Neighbor: 172.16.252.9", "weight": 1}, {"Weight": 1, "from": "Origin: dynamic", "to": "Neighbor: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Age: 5", "to": "Neighbor: 172.16.252.9", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.2", "to": "Link Layer Address: 5254.000e.7bb9", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet5", "to": "Neighbor: 172.16.252.10", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet5", "to": "Neighbor: 172.16.252.9", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.10", "to": "Link Layer Address: 5254.0016.7077", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.9", "to": "Link Layer Address: 5254.0004.4185", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet6", "to": "Neighbor: 172.16.252.17", "weight": 1}, {"Weight": 1, "from": "GigabitEthernet6", "to": "Neighbor: 172.16.252.18", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.17", "to": "Link Layer Address: 5254.0015.ac8a", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.18", "to": "Link Layer Address: 5254.000c.8b4c", "weight": 1}, {"Weight": 1, "from": "Neighbor: 172.16.252.18", "to": "Age: 138", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

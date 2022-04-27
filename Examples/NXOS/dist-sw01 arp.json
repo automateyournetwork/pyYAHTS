@@ -1,0 +1,92 @@
+{
+    "interfaces": {
+        "Ethernet1/3": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            },
+            "ipv4": {
+                "neighbors": {
+                    "172.16.252.2": {
+                        "ip": "172.16.252.2",
+                        "link_layer_address": "5254.000e.7bb9",
+                        "origin": "dynamic"
+                    }
+                }
+            }
+        },
+        "Ethernet1/4": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            },
+            "ipv4": {
+                "neighbors": {
+                    "172.16.252.6": {
+                        "ip": "172.16.252.6",
+                        "link_layer_address": "5254.0015.16c7",
+                        "origin": "dynamic"
+                    }
+                }
+            }
+        },
+        "Vlan101": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            },
+            "ipv4": {
+                "neighbors": {
+                    "172.16.101.1": {
+                        "ip": "172.16.101.1",
+                        "link_layer_address": "0000.0c07.ac0a",
+                        "origin": "static"
+                    }
+                }
+            }
+        },
+        "Vlan102": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            }
+        },
+        "Vlan103": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            }
+        },
+        "Vlan104": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            }
+        },
+        "Vlan105": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            }
+        },
+        "mgmt0": {
+            "arp_dynamic_learning": {
+                "local_proxy_enable": false,
+                "proxy_enable": false
+            }
+        }
+    },
+    "statistics": {
+        "entries_total": 2,
+        "in_drops": 23,
+        "in_replies_pkts": 16,
+        "in_requests_pkts": 9,
+        "in_total": 0,
+        "incomplete_total": 0,
+        "out_drops": 0,
+        "out_gratuitous_pkts": 15,
+        "out_replies_pkts": 2,
+        "out_requests_pkts": 31,
+        "out_total": 48
+    }
+}

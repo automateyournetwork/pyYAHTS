@@ -1,0 +1,72 @@
+interfaces:
+  GigabitEthernet2:
+    ipv4:
+      neighbors:
+        172.16.252.21:
+          age: '-'
+          ip: 172.16.252.21
+          link_layer_address: 5254.001e.d479
+          origin: static
+          protocol: Internet
+          type: ARPA
+  GigabitEthernet3:
+    ipv4:
+      neighbors:
+        172.16.252.25:
+          age: '-'
+          ip: 172.16.252.25
+          link_layer_address: 5254.0006.f7ce
+          origin: static
+          protocol: Internet
+          type: ARPA
+  GigabitEthernet4:
+    ipv4:
+      neighbors:
+        172.16.252.1:
+          age: '5'
+          ip: 172.16.252.1
+          link_layer_address: 5254.000d.e743
+          origin: dynamic
+          protocol: Internet
+          type: ARPA
+        172.16.252.2:
+          age: '-'
+          ip: 172.16.252.2
+          link_layer_address: 5254.000e.7bb9
+          origin: static
+          protocol: Internet
+          type: ARPA
+  GigabitEthernet5:
+    ipv4:
+      neighbors:
+        172.16.252.10:
+          age: '-'
+          ip: 172.16.252.10
+          link_layer_address: 5254.0016.7077
+          origin: static
+          protocol: Internet
+          type: ARPA
+        172.16.252.9:
+          age: '5'
+          ip: 172.16.252.9
+          link_layer_address: 5254.0004.4185
+          origin: dynamic
+          protocol: Internet
+          type: ARPA
+  GigabitEthernet6:
+    ipv4:
+      neighbors:
+        172.16.252.17:
+          age: '-'
+          ip: 172.16.252.17
+          link_layer_address: 5254.0015.ac8a
+          origin: static
+          protocol: Internet
+          type: ARPA
+        172.16.252.18:
+          age: '138'
+          ip: 172.16.252.18
+          link_layer_address: 5254.000c.8b4c
+          origin: dynamic
+          protocol: Internet
+          type: ARPA

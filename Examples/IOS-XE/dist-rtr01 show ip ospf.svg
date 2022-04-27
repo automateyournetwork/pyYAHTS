@@ -1,0 +1,237 @@
+<svg width="2546.0" height="2914" viewBox="0 0 2546.0 2914"
+     xmlns="http://www.w3.org/2000/svg">
+    <style>
+        @font-face {
+            font-family: "Fira Code";
+            src: local("FiraCode-Regular"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+            font-style: normal;
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: "Fira Code";
+            src: local("FiraCode-Bold"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+            font-style: bold;
+            font-weight: 700;
+        }
+        span {
+            display: inline-block;
+            white-space: pre;
+            vertical-align: top;
+            font-size: 18px;
+            font-family:'Fira Code','Cascadia Code',Monaco,Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .blink {
+           animation: blinker 1s infinite;
+        }
+        @keyframes blinker {
+            from { opacity: 1.0; }
+            50% { opacity: 0.3; }
+            to { opacity: 1.0; }
+        }
+        #wrapper {
+            padding: 140px;
+            padding-top: 100px;
+        }
+        #terminal {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #0c0c0c;
+            border-radius: 14px;
+            outline: 1px solid #484848;
+        }
+        #terminal:after {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            content: '';
+            border-radius: 14px;
+            background: rgb(71,77,102);
+            background: linear-gradient(90deg, #804D69 0%, #4E4B89 100%);
+            transform: rotate(-4.5deg);
+            z-index: -1;
+        }
+        #terminal-header {
+            position: relative;
+            width: 100%;
+            background-color: #2e2e2e;
+            margin-bottom: 12px;
+            font-weight: bold;
+            border-radius: 14px 14px 0 0;
+            color: #f2f2f2;
+            font-size: 18px;
+            box-shadow: inset 0px -1px 0px 0px #4e4e4e,
+                        inset 0px -4px 8px 0px #1a1a1a;
+        }
+        #terminal-title-tab {
+            display: inline-block;
+            margin-top: 14px;
+            margin-left: 124px;
+            font-family: sans-serif;
+            padding: 14px 28px;
+            border-radius: 6px 6px 0 0;
+            background-color: #0c0c0c;
+            box-shadow: inset 0px 1px 0px 0px #4e4e4e,
+                        0px -4px 4px 0px #1e1e1e,
+                        inset 1px 0px 0px 0px #4e4e4e,
+                        inset -1px 0px 0px 0px #4e4e4e;
+        }
+        #terminal-traffic-lights {
+            position: absolute;
+            top: 24px;
+            left: 20px;
+        }
+        #terminal-body {
+            line-height: 22px;
+            padding: 14px;
+        }
+        .r1 {color: #f2f2f2; text-decoration-color: #f2f2f2;background-color: #0c0c0c;}
+.r2 {font-weight: bold;color: #f2f2f2; text-decoration-color: #f2f2f2;;background-color: #0c0c0c;}
+.r3 {color: #0dbc79; text-decoration-color: #0dbc79;background-color: #0c0c0c;}
+.r4 {color: #11a8cd; text-decoration-color: #11a8cd; font-weight: bold;background-color: #0c0c0c;}
+    </style>
+    <foreignObject x="0" y="0" width="100%" height="100%">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+            <div id="wrapper">
+                <div id="terminal">
+                    <div id='terminal-header'>
+                        <svg id="terminal-traffic-lights" width="90" height="21" viewBox="0 0 90 21" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14" cy="8" r="8" fill="#ff6159"/>
+                            <circle cx="38" cy="8" r="8" fill="#ffbd2e"/>
+                            <circle cx="62" cy="8" r="8" fill="#28c941"/>
+                        </svg>
+                        <div id="terminal-title-tab">dist-rtr01 show ip ospf</div>
+                    </div>
+                    <div id='terminal-body'>
+                        <div><span class="r2">{</span><span class="r1">                                                                                                                                                                                             </span></div>
+<div><span class="r1">    </span><span class="r3">&quot;vrf&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                                                  </span></div>
+<div><span class="r1">        </span><span class="r3">&quot;default&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                                          </span></div>
+<div><span class="r1">            </span><span class="r3">&quot;address_family&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                               </span></div>
+<div><span class="r1">                </span><span class="r3">&quot;ipv4&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                                     </span></div>
+<div><span class="r1">                    </span><span class="r3">&quot;instance&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                             </span></div>
+<div><span class="r1">                        </span><span class="r3">&quot;1&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;adjacency_stagger&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                            </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;initial_number&quot;</span><span class="r1">: </span><span class="r4">300</span><span class="r1">,</span><span class="r1">                                                                                                                                        </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;maximum_number&quot;</span><span class="r1">: </span><span class="r4">300</span><span class="r1">                                                                                                                                         </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;area_transit&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                             </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;areas&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                        </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;0.0.0.0&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                  </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;area_id&quot;</span><span class="r1">: </span><span class="r3">&quot;0.0.0.0&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                                     </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;area_type&quot;</span><span class="r1">: </span><span class="r3">&quot;normal&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;ranges&quot;</span><span class="r1">: </span><span class="r2">{}</span><span class="r1">,</span><span class="r1">                                                                                                                                             </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;statistics&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                           </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;area_scope_lsa_cksum_sum&quot;</span><span class="r1">: </span><span class="r3">&quot;0x058F70&quot;</span><span class="r1">,</span><span class="r1">                                                                                                               </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;area_scope_lsa_count&quot;</span><span class="r1">: </span><span class="r4">9</span><span class="r1">,</span><span class="r1">                                                                                                                            </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;area_scope_opaque_lsa_cksum_sum&quot;</span><span class="r1">: </span><span class="r3">&quot;0x000000&quot;</span><span class="r1">,</span><span class="r1">                                                                                                        </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;area_scope_opaque_lsa_count&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                     </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;dcbitless_lsa_count&quot;</span><span class="r1">: </span><span class="r4">2</span><span class="r1">,</span><span class="r1">                                                                                                                             </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;donotage_lsa_count&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                              </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;flood_list_length&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                               </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;indication_lsa_count&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                            </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;interfaces_count&quot;</span><span class="r1">: </span><span class="r4">5</span><span class="r1">,</span><span class="r1">                                                                                                                                </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;spf_last_executed&quot;</span><span class="r1">: </span><span class="r3">&quot;01:46:50.451&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                  </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;spf_runs_count&quot;</span><span class="r1">: </span><span class="r4">18</span><span class="r1">                                                                                                                                  </span></div>
+<div><span class="r1">                                    </span><span class="r2">}</span><span class="r1">                                                                                                                                                         </span></div>
+<div><span class="r1">                                </span><span class="r2">}</span><span class="r1">                                                                                                                                                             </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;auto_cost&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                    </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;bandwidth_unit&quot;</span><span class="r1">: </span><span class="r3">&quot;mbps&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                                     </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;enable&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                              </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;reference_bandwidth&quot;</span><span class="r1">: </span><span class="r4">100</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;bfd&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                          </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;enable&quot;</span><span class="r1">: false</span><span class="r1">                                                                                                                                               </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;db_exchange_summary_list_optimization&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                    </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;elapsed_time&quot;</span><span class="r1">: </span><span class="r3">&quot;02:19:49.080&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                                   </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;enable&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                                   </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;event_log&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                    </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;enable&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                               </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;max_events&quot;</span><span class="r1">: </span><span class="r4">1000</span><span class="r1">,</span><span class="r1">                                                                                                                                           </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;mode&quot;</span><span class="r1">: </span><span class="r3">&quot;cyclic&quot;</span><span class="r1">                                                                                                                                              </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;external_flood_list_length&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                  </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;graceful_restart&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                             </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;cisco&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                    </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;enable&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                          </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;helper_enable&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;type&quot;</span><span class="r1">: </span><span class="r3">&quot;cisco&quot;</span><span class="r1">                                                                                                                                           </span></div>
+<div><span class="r1">                                </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                            </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;ietf&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                     </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;enable&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                          </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;helper_enable&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;type&quot;</span><span class="r1">: </span><span class="r3">&quot;ietf&quot;</span><span class="r1">                                                                                                                                            </span></div>
+<div><span class="r1">                                </span><span class="r2">}</span><span class="r1">                                                                                                                                                             </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;interface_flood_pacing_timer&quot;</span><span class="r1">: </span><span class="r4">33</span><span class="r1">,</span><span class="r1">                                                                                                                               </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;lls&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                                      </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;lsa_group_pacing_timer&quot;</span><span class="r1">: </span><span class="r4">240</span><span class="r1">,</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;nsr&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                          </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;enable&quot;</span><span class="r1">: false</span><span class="r1">                                                                                                                                               </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;nssa&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                                     </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;numbers&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                      </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;dc_bitless&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                              </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;do_not_age&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                              </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;external_lsa&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                            </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;external_lsa_checksum&quot;</span><span class="r1">: </span><span class="r3">&quot;0x000000&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                          </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;opaque_as_lsa&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                           </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;opaque_as_lsa_checksum&quot;</span><span class="r1">: </span><span class="r3">&quot;0x000000&quot;</span><span class="r1">                                                                                                                          </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;opqaue_lsa&quot;</span><span class="r1">: true,</span><span class="r1">                                                                                                                                               </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;retransmission_pacing_timer&quot;</span><span class="r1">: </span><span class="r4">66</span><span class="r1">,</span><span class="r1">                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;router_id&quot;</span><span class="r1">: </span><span class="r3">&quot;172.16.252.25&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                                     </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;spf_control&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                  </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;incremental_spf&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                     </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;throttle&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                 </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;lsa&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                  </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;arrival&quot;</span><span class="r1">: </span><span class="r4">100</span><span class="r1">,</span><span class="r1">                                                                                                                                       </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;hold&quot;</span><span class="r1">: </span><span class="r4">200</span><span class="r1">,</span><span class="r1">                                                                                                                                          </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;maximum&quot;</span><span class="r1">: </span><span class="r4">5000</span><span class="r1">,</span><span class="r1">                                                                                                                                      </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;start&quot;</span><span class="r1">: </span><span class="r4">50</span><span class="r1">                                                                                                                                           </span></div>
+<div><span class="r1">                                    </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                        </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;spf&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                  </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;hold&quot;</span><span class="r1">: </span><span class="r4">200</span><span class="r1">,</span><span class="r1">                                                                                                                                          </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;maximum&quot;</span><span class="r1">: </span><span class="r4">5000</span><span class="r1">,</span><span class="r1">                                                                                                                                      </span></div>
+<div><span class="r1">                                        </span><span class="r3">&quot;start&quot;</span><span class="r1">: </span><span class="r4">50</span><span class="r1">                                                                                                                                           </span></div>
+<div><span class="r1">                                    </span><span class="r2">}</span><span class="r1">                                                                                                                                                         </span></div>
+<div><span class="r1">                                </span><span class="r2">}</span><span class="r1">                                                                                                                                                             </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;start_time&quot;</span><span class="r1">: </span><span class="r3">&quot;00:02:59.485&quot;</span><span class="r1">,</span><span class="r1">                                                                                                                                     </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;stub_router&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                  </span></div>
+<div><span class="r1">                                </span><span class="r3">&quot;always&quot;</span><span class="r1">: </span><span class="r2">{</span><span class="r1">                                                                                                                                                   </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;always&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                          </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;external_lsa&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;include_stub&quot;</span><span class="r1">: false,</span><span class="r1">                                                                                                                                    </span></div>
+<div><span class="r1">                                    </span><span class="r3">&quot;summary_lsa&quot;</span><span class="r1">: false</span><span class="r1">                                                                                                                                      </span></div>
+<div><span class="r1">                                </span><span class="r2">}</span><span class="r1">                                                                                                                                                             </span></div>
+<div><span class="r1">                            </span><span class="r2">}</span><span class="r1">,</span><span class="r1">                                                                                                                                                                </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;total_areas&quot;</span><span class="r1">: </span><span class="r4">1</span><span class="r1">,</span><span class="r1">                                                                                                                                                 </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;total_areas_transit_capable&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                 </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;total_normal_areas&quot;</span><span class="r1">: </span><span class="r4">1</span><span class="r1">,</span><span class="r1">                                                                                                                                          </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;total_nssa_areas&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">,</span><span class="r1">                                                                                                                                            </span></div>
+<div><span class="r1">                            </span><span class="r3">&quot;total_stub_areas&quot;</span><span class="r1">: </span><span class="r4">0</span><span class="r1">                                                                                                                                             </span></div>
+<div><span class="r1">                        </span><span class="r2">}</span><span class="r1">                                                                                                                                                                     </span></div>
+<div><span class="r1">                    </span><span class="r2">}</span><span class="r1">                                                                                                                                                                         </span></div>
+<div><span class="r1">                </span><span class="r2">}</span><span class="r1">                                                                                                                                                                             </span></div>
+<div><span class="r1">            </span><span class="r2">}</span><span class="r1">                                                                                                                                                                                 </span></div>
+<div><span class="r1">        </span><span class="r2">}</span><span class="r1">                                                                                                                                                                                     </span></div>
+<div><span class="r1">    </span><span class="r2">}</span><span class="r1">                                                                                                                                                                                         </span></div>
+<div><span class="r2">}</span><span class="r1">                                                                                                                                                                                             </span></div>
+<div><span class="r1"></span><span class="r1">                                                                                                                                                                                              </span></div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </foreignObject>
+</svg>

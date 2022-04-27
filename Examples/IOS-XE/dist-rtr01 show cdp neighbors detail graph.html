@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "Local Interface: GigabitEthernet1", "label": "Local Interface: GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "Local Interface: GigabitEthernet5", "label": "Local Interface: GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "Local Interface: GigabitEthernet4", "label": "Local Interface: GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "Local Interface: GigabitEthernet6", "label": "Local Interface: GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Remote Interface: mgmt0", "label": "Remote Interface: mgmt0", "shape": "dot", "size": 10}, {"id": "Remote Interface: GigabitEthernet1", "label": "Remote Interface: GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "dist-sw02(9LQR5W39XQ2)", "label": "dist-sw02(9LQR5W39XQ2)", "shape": "dot", "size": 10}, {"id": "dist-sw01(9SURZFD8MR6)", "label": "dist-sw01(9SURZFD8MR6)", "shape": "dot", "size": 10}, {"id": "10.10.20.178", "label": "10.10.20.178", "shape": "dot", "size": 10}, {"id": "Platform: N9K-9000v", "label": "Platform: N9K-9000v", "shape": "dot", "size": 10}, {"id": "Native VLAN: ", "label": "Native VLAN: ", "shape": "dot", "size": 10}, {"id": "Hold Time: 153", "label": "Hold Time: 153", "shape": "dot", "size": 10}, {"id": "Duplex Mode: full", "label": "Duplex Mode: full", "shape": "dot", "size": 10}, {"id": "Capabilities: Router Switch CVTA phone port", "label": "Capabilities: Router Switch CVTA phone port", "shape": "dot", "size": 10}, {"id": "Software Version: Cisco Nexus Operating System (NX-OS) Software  Version 9.2(4)", "label": "Software Version: Cisco Nexus Operating System (NX-OS) Software  Version 9.2(4)", "shape": "dot", "size": 10}, {"id": "Remote Interface: Ethernet1/3", "label": "Remote Interface: Ethernet1/3", "shape": "dot", "size": 10}, {"id": "172.16.252.9", "label": "172.16.252.9", "shape": "dot", "size": 10}, {"id": "Hold Time: 148", "label": "Hold Time: 148", "shape": "dot", "size": 10}, {"id": "dist-rtr02.virl.info", "label": "dist-rtr02.virl.info", "shape": "dot", "size": 10}, {"id": "10.10.20.177", "label": "10.10.20.177", "shape": "dot", "size": 10}, {"id": "Hold Time: 146", "label": "Hold Time: 146", "shape": "dot", "size": 10}, {"id": "172.16.252.1", "label": "172.16.252.1", "shape": "dot", "size": 10}, {"id": "Hold Time: 142", "label": "Hold Time: 142", "shape": "dot", "size": 10}, {"id": "Remote Interface: GigabitEthernet6", "label": "Remote Interface: GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "172.16.252.18", "label": "172.16.252.18", "shape": "dot", "size": 10}, {"id": "Platform: cisco CSR1000V", "label": "Platform: cisco CSR1000V", "shape": "dot", "size": 10}, {"id": "Hold Time: 171", "label": "Hold Time: 171", "shape": "dot", "size": 10}, {"id": "Capabilities: Router IGMP", "label": "Capabilities: Router IGMP", "shape": "dot", "size": 10}, {"id": "Software Version: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 by mcpre", "label": "Software Version: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 by mcpre", "shape": "dot", "size": 10}, {"id": "10.10.20.176", "label": "10.10.20.176", "shape": "dot", "size": 10}, {"id": "Hold Time: 125", "label": "Hold Time: 125", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1.0, "from": "dist-rtr01", "to": "Local Interface: GigabitEthernet1", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr01", "to": "Local Interface: GigabitEthernet5", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr01", "to": "Local Interface: GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr01", "to": "Local Interface: GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Local Interface: GigabitEthernet1", "to": "Remote Interface: mgmt0", "weight": 1}, {"Weight": 1.0, "from": "Local Interface: GigabitEthernet1", "to": "Remote Interface: GigabitEthernet1", "weight": 1}, {"Weight": 1.0, "from": "Remote Interface: mgmt0", "to": "dist-sw02(9LQR5W39XQ2)", "weight": 1}, {"Weight": 1.0, "from": "Remote Interface: mgmt0", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "10.10.20.178", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Platform: N9K-9000v", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Native VLAN: ", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Hold Time: 153", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Duplex Mode: full", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Capabilities: Router Switch CVTA phone port", "weight": 1}, {"Weight": NaN, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Software Version: Cisco Nexus Operating System (NX-OS) Software  Version 9.2(4)", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Remote Interface: Ethernet1/3", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "172.16.252.9", "weight": 1}, {"Weight": 1.0, "from": "dist-sw02(9LQR5W39XQ2)", "to": "Hold Time: 148", "weight": 1}, {"Weight": 1.0, "from": "Platform: N9K-9000v", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": 1.0, "from": "Native VLAN: ", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": 1.0, "from": "Native VLAN: ", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 1.0, "from": "Duplex Mode: full", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": 1.0, "from": "Duplex Mode: full", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 1.0, "from": "Capabilities: Router Switch CVTA phone port", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": NaN, "from": "Software Version: Cisco Nexus Operating System (NX-OS) Software  Version 9.2(4)", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": 1.0, "from": "Local Interface: GigabitEthernet5", "to": "Remote Interface: Ethernet1/3", "weight": 1}, {"Weight": 1.0, "from": "Remote Interface: Ethernet1/3", "to": "Local Interface: GigabitEthernet4", "weight": 1}, {"Weight": 1.0, "from": "Remote Interface: Ethernet1/3", "to": "dist-sw01(9SURZFD8MR6)", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01(9SURZFD8MR6)", "to": "10.10.20.177", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01(9SURZFD8MR6)", "to": "Hold Time: 146", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01(9SURZFD8MR6)", "to": "172.16.252.1", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01(9SURZFD8MR6)", "to": "Hold Time: 142", "weight": 1}, {"Weight": 1.0, "from": "Local Interface: GigabitEthernet6", "to": "Remote Interface: GigabitEthernet6", "weight": 1}, {"Weight": 1.0, "from": "Remote Interface: GigabitEthernet6", "to": "dist-rtr02.virl.info", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "172.16.252.18", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "Platform: cisco CSR1000V", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "Hold Time: 171", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "Capabilities: Router IGMP", "weight": 1}, {"Weight": NaN, "from": "dist-rtr02.virl.info", "to": "Software Version: Cisco IOS Software [Amsterdam]  Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)  Version 17.3.2  RELEASE SOFTWARE (fc3) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2020 by Cisco Systems  Inc. Compiled Sat 31-Oct-20 13:16 by mcpre", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "Remote Interface: GigabitEthernet1", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "10.10.20.176", "weight": 1}, {"Weight": 1.0, "from": "dist-rtr02.virl.info", "to": "Hold Time: 125", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

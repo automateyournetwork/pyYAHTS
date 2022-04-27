@@ -1,0 +1,217 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1500;
+            height: 1000;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "default", "label": "default", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "Instance: 1", "label": "Instance: 1", "shape": "dot", "size": 10}, {"id": "Auto Cost Enable: False", "label": "Auto Cost Enable: False", "shape": "dot", "size": 10}, {"id": "Reference Bandwidth: 40000", "label": "Reference Bandwidth: 40000", "shape": "dot", "size": 10}, {"id": "Enable: True", "label": "Enable: True", "shape": "dot", "size": 10}, {"id": "Graceful Restart Type: ietf", "label": "Graceful Restart Type: ietf", "shape": "dot", "size": 10}, {"id": "NSR Enable: True", "label": "NSR Enable: True", "shape": "dot", "size": 10}, {"id": "Preference: 110", "label": "Preference: 110", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.101.2", "label": "Router ID: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "SPF", "label": "SPF", "shape": "dot", "size": 10}, {"id": "Area: 0.0.0.0", "label": "Area: 0.0.0.0", "shape": "dot", "size": 10}, {"id": "Ethernet1/3", "label": "Ethernet1/3", "shape": "dot", "size": 10}, {"id": "Ethernet1/4", "label": "Ethernet1/4", "shape": "dot", "size": 10}, {"id": "Interval: 60", "label": "Interval: 60", "shape": "dot", "size": 10}, {"id": "Paths: 8", "label": "Paths: 8", "shape": "dot", "size": 10}, {"id": "LSA", "label": "LSA", "shape": "dot", "size": 10}, {"id": "SPF Control", "label": "SPF Control", "shape": "dot", "size": 10}, {"id": "Hold: 5000", "label": "Hold: 5000", "shape": "dot", "size": 10}, {"id": "Maximum: 5000", "label": "Maximum: 5000", "shape": "dot", "size": 10}, {"id": "Start: 0", "label": "Start: 0", "shape": "dot", "size": 10}, {"id": "Hold: 1000", "label": "Hold: 1000", "shape": "dot", "size": 10}, {"id": "Maxmimum: 5000", "label": "Maxmimum: 5000", "shape": "dot", "size": 10}, {"id": "Start: 200", "label": "Start: 200", "shape": "dot", "size": 10}, {"id": "Type: normal", "label": "Type: normal", "shape": "dot", "size": 10}, {"id": "LSA Type: 1", "label": "LSA Type: 1", "shape": "dot", "size": 10}, {"id": "Checksum: 9", "label": "Checksum: 9", "shape": "dot", "size": 10}, {"id": "LSA Count: 9", "label": "LSA Count: 9", "shape": "dot", "size": 10}, {"id": "LSA Runs: 9", "label": "LSA Runs: 9", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.101.2 172.16.101.2", "label": "LSA: 172.16.101.2 172.16.101.2", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.101.3 172.16.101.3", "label": "LSA: 172.16.101.3 172.16.101.3", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.25 172.16.252.25", "label": "LSA: 172.16.252.25 172.16.252.25", "shape": "dot", "size": 10}, {"id": "LSA: 172.16.252.33 172.16.252.33", "label": "LSA: 172.16.252.33 172.16.252.33", "shape": "dot", "size": 10}, {"id": "Advertising Router: 172.16.101.2", "label": "Advertising Router: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "Age: 267", "label": "Age: 267", "shape": "dot", "size": 10}, {"id": "Checksum: 0xb927", "label": "Checksum: 0xb927", "shape": "dot", "size": 10}, {"id": "Length: 108", "label": "Length: 108", "shape": "dot", "size": 10}, {"id": "Option: 0x2", "label": "Option: 0x2", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x8000000a", "label": "Sequence Number: 0x8000000a", "shape": "dot", "size": 10}, {"id": "Number of Links: 7", "label": "Number of Links: 7", "shape": "dot", "size": 10}, {"id": "Link: 172.16.101.0", "label": "Link: 172.16.101.0", "shape": "dot", "size": 10}, {"id": "Link: 172.16.102.0", "label": "Link: 172.16.102.0", "shape": "dot", "size": 10}, {"id": "Link: 172.16.103.0", "label": "Link: 172.16.103.0", "shape": "dot", "size": 10}, {"id": "Link: 172.16.104.0", "label": "Link: 172.16.104.0", "shape": "dot", "size": 10}, {"id": "Link: 172.16.105.0", "label": "Link: 172.16.105.0", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.2", "label": "Link: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.6", "label": "Link: 172.16.252.6", "shape": "dot", "size": 10}, {"id": "Data: 255.255.255.0", "label": "Data: 255.255.255.0", "shape": "dot", "size": 10}, {"id": "Type: stub network", "label": "Type: stub network", "shape": "dot", "size": 10}, {"id": "Topology: 0", "label": "Topology: 0", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.20", "label": "Link: 172.16.252.20", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.24", "label": "Link: 172.16.252.24", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.28", "label": "Link: 172.16.252.28", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.32", "label": "Link: 172.16.252.32", "shape": "dot", "size": 10}, {"id": "Mertric: 40", "label": "Mertric: 40", "shape": "dot", "size": 10}, {"id": "MPLS LDP", "label": "MPLS LDP", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.10", "label": "Link: 172.16.252.10", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.14", "label": "Link: 172.16.252.14", "shape": "dot", "size": 10}, {"id": "Mertric: 1", "label": "Mertric: 1", "shape": "dot", "size": 10}, {"id": "Link: 172.16.252.18", "label": "Link: 172.16.252.18", "shape": "dot", "size": 10}, {"id": "Auto Config: False", "label": "Auto Config: False", "shape": "dot", "size": 10}, {"id": "Sync: False", "label": "Sync: False", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.1", "label": "Data: 172.16.252.1", "shape": "dot", "size": 10}, {"id": "Type: transit network", "label": "Type: transit network", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.2", "label": "Data: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.5", "label": "Data: 172.16.252.5", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.6", "label": "Data: 172.16.252.6", "shape": "dot", "size": 10}, {"id": "Advertising Router: 172.16.101.3", "label": "Advertising Router: 172.16.101.3", "shape": "dot", "size": 10}, {"id": "Age: 272", "label": "Age: 272", "shape": "dot", "size": 10}, {"id": "Checksum: 0xe9d3", "label": "Checksum: 0xe9d3", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x8000000b", "label": "Sequence Number: 0x8000000b", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.9", "label": "Data: 172.16.252.9", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.10", "label": "Data: 172.16.252.10", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.13", "label": "Data: 172.16.252.13", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.14", "label": "Data: 172.16.252.14", "shape": "dot", "size": 10}, {"id": "Advertising Router: 172.16.252.25", "label": "Advertising Router: 172.16.252.25", "shape": "dot", "size": 10}, {"id": "Age: 1543", "label": "Age: 1543", "shape": "dot", "size": 10}, {"id": "Checksum: 0xe526", "label": "Checksum: 0xe526", "shape": "dot", "size": 10}, {"id": "Length: 84", "label": "Length: 84", "shape": "dot", "size": 10}, {"id": "Option: 0x22", "label": "Option: 0x22", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x80000011", "label": "Sequence Number: 0x80000011", "shape": "dot", "size": 10}, {"id": "Number of Links: 5", "label": "Number of Links: 5", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.17", "label": "Data: 172.16.252.17", "shape": "dot", "size": 10}, {"id": "Data: 172.16.252.18", "label": "Data: 172.16.252.18", "shape": "dot", "size": 10}, {"id": "Data: 255.255.255.252", "label": "Data: 255.255.255.252", "shape": "dot", "size": 10}, {"id": "Advertising Router: 172.16.252.33", "label": "Advertising Router: 172.16.252.33", "shape": "dot", "size": 10}, {"id": "Age: 1505", "label": "Age: 1505", "shape": "dot", "size": 10}, {"id": "Checksum: 0xa03e", "label": "Checksum: 0xa03e", "shape": "dot", "size": 10}, {"id": "Sequence Number: 0x8000000d", "label": "Sequence Number: 0x8000000d", "shape": "dot", "size": 10}, {"id": "BFD Enable: False", "label": "BFD Enable: False", "shape": "dot", "size": 10}, {"id": "Cost: 40", "label": "Cost: 40", "shape": "dot", "size": 10}, {"id": "Dead Interval: 40", "label": "Dead Interval: 40", "shape": "dot", "size": 10}, {"id": "Hello Interval: 10", "label": "Hello Interval: 10", "shape": "dot", "size": 10}, {"id": "Hello Timer: 00:00:05", "label": "Hello Timer: 00:00:05", "shape": "dot", "size": 10}, {"id": "Type: broadcast", "label": "Type: broadcast", "shape": "dot", "size": 10}, {"id": "172.16.252.25", "label": "172.16.252.25", "shape": "dot", "size": 10}, {"id": "Passive: False", "label": "Passive: False", "shape": "dot", "size": 10}, {"id": "Retransmit Interval: 5", "label": "Retransmit Interval: 5", "shape": "dot", "size": 10}, {"id": "LSA Checksum: 0", "label": "LSA Checksum: 0", "shape": "dot", "size": 10}, {"id": "LSA Count: 0", "label": "LSA Count: 0", "shape": "dot", "size": 10}, {"id": "Transmit Delay: 1", "label": "Transmit Delay: 1", "shape": "dot", "size": 10}, {"id": "Address: 172.16.252.2", "label": "Address: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Dead Timer: 00:00:41", "label": "Dead Timer: 00:00:41", "shape": "dot", "size": 10}, {"id": "Last State Change: 02:36:39", "label": "Last State Change: 02:36:39", "shape": "dot", "size": 10}, {"id": "State: full", "label": "State: full", "shape": "dot", "size": 10}, {"id": "Event Count: 6", "label": "Event Count: 6", "shape": "dot", "size": 10}, {"id": "172.16.252.33", "label": "172.16.252.33", "shape": "dot", "size": 10}, {"id": "Hello Timer: 00:00:08", "label": "Hello Timer: 00:00:08", "shape": "dot", "size": 10}, {"id": "Address: 172.16.252.6", "label": "Address: 172.16.252.6", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1.0, "from": "dist-sw01", "to": "default", "weight": 1}, {"Weight": 1.0, "from": "default", "to": "ipv4", "weight": 1}, {"Weight": 1.0, "from": "ipv4", "to": "Instance: 1", "weight": 1}, {"Weight": 2.0, "from": "Instance: 1", "to": "Auto Cost Enable: False", "weight": 1}, {"Weight": 2.0, "from": "Instance: 1", "to": "Reference Bandwidth: 40000", "weight": 1}, {"Weight": 2.0, "from": "Instance: 1", "to": "Enable: True", "weight": 1}, {"Weight": 1.0, "from": "Instance: 1", "to": "Graceful Restart Type: ietf", "weight": 1}, {"Weight": 2.0, "from": "Instance: 1", "to": "NSR Enable: True", "weight": 1}, {"Weight": 2.0, "from": "Instance: 1", "to": "Preference: 110", "weight": 1}, {"Weight": 2.0, "from": "Instance: 1", "to": "Router ID: 172.16.101.2", "weight": 1}, {"Weight": 1.0, "from": "Instance: 1", "to": "SPF", "weight": 1}, {"Weight": 1.0, "from": "Instance: 1", "to": "Area: 0.0.0.0", "weight": 1}, {"Weight": 2.0, "from": "Enable: True", "to": "Graceful Restart Type: ietf", "weight": 1}, {"Weight": 2.0, "from": "Enable: True", "to": "Ethernet1/3", "weight": 1}, {"Weight": 2.0, "from": "Enable: True", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Graceful Restart Type: ietf", "to": "Interval: 60", "weight": 1}, {"Weight": 2.0, "from": "SPF", "to": "Paths: 8", "weight": 1}, {"Weight": 1.0, "from": "SPF", "to": "LSA", "weight": 1}, {"Weight": 1.0, "from": "SPF", "to": "SPF Control", "weight": 1}, {"Weight": 2.0, "from": "LSA", "to": "Hold: 5000", "weight": 1}, {"Weight": 2.0, "from": "LSA", "to": "Maximum: 5000", "weight": 1}, {"Weight": 2.0, "from": "LSA", "to": "Start: 0", "weight": 1}, {"Weight": 2.0, "from": "SPF Control", "to": "Hold: 1000", "weight": 1}, {"Weight": 2.0, "from": "SPF Control", "to": "Maxmimum: 5000", "weight": 1}, {"Weight": 2.0, "from": "SPF Control", "to": "Start: 200", "weight": 1}, {"Weight": 2.0, "from": "Area: 0.0.0.0", "to": "Type: normal", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "LSA Type: 1", "weight": 1}, {"Weight": 2.0, "from": "Area: 0.0.0.0", "to": "Checksum: 9", "weight": 1}, {"Weight": 2.0, "from": "Area: 0.0.0.0", "to": "LSA Count: 9", "weight": 1}, {"Weight": 2.0, "from": "Area: 0.0.0.0", "to": "LSA Runs: 9", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "Ethernet1/3", "weight": 1}, {"Weight": 1.0, "from": "Area: 0.0.0.0", "to": "Ethernet1/4", "weight": 1}, {"Weight": 1.0, "from": "LSA Type: 1", "to": "LSA: 172.16.101.2 172.16.101.2", "weight": 1}, {"Weight": 1.0, "from": "LSA Type: 1", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 1.0, "from": "LSA Type: 1", "to": "LSA: 172.16.252.25 172.16.252.25", "weight": 1}, {"Weight": 1.0, "from": "LSA Type: 1", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Advertising Router: 172.16.101.2", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Age: 267", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Checksum: 0xb927", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Length: 108", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Option: 0x2", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Sequence Number: 0x8000000a", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Number of Links: 7", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.101.0", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.102.0", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.103.0", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.104.0", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.105.0", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.252.2", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.2 172.16.101.2", "to": "Link: 172.16.252.6", "weight": 1}, {"Weight": 2.0, "from": "Length: 108", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 2.0, "from": "Option: 0x2", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 2.0, "from": "Number of Links: 7", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.101.0", "to": "Data: 255.255.255.0", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.101.0", "to": "Type: stub network", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.101.0", "to": "Topology: 0", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.101.0", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.0", "to": "Link: 172.16.102.0", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.0", "to": "Link: 172.16.103.0", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.0", "to": "Link: 172.16.104.0", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.0", "to": "Link: 172.16.105.0", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.102.0", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.103.0", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.104.0", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.105.0", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.252.20", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.252.24", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.252.28", "weight": 1}, {"Weight": 2.0, "from": "Type: stub network", "to": "Link: 172.16.252.32", "weight": 1}, {"Weight": 2.0, "from": "Topology: 0", "to": "Mertric: 40", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "MPLS LDP", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.102.0", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.103.0", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.104.0", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.105.0", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.2", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.6", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.10", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.14", "weight": 1}, {"Weight": 2.0, "from": "Topology: 0", "to": "Mertric: 1", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.18", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.20", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.24", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.28", "weight": 1}, {"Weight": 1.0, "from": "Topology: 0", "to": "Link: 172.16.252.32", "weight": 1}, {"Weight": 2.0, "from": "MPLS LDP", "to": "Auto Config: False", "weight": 1}, {"Weight": NaN, "from": "MPLS LDP", "to": "Sync: False", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.102.0", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.103.0", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.104.0", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.105.0", "to": "LSA: 172.16.101.3 172.16.101.3", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.2", "to": "Data: 172.16.252.1", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.2", "to": "Type: transit network", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.252.2", "to": "LSA: 172.16.252.25 172.16.252.25", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.2", "to": "Data: 172.16.252.2", "weight": 1}, {"Weight": 2.0, "from": "Type: transit network", "to": "Link: 172.16.252.6", "weight": 1}, {"Weight": 2.0, "from": "Type: transit network", "to": "Link: 172.16.252.10", "weight": 1}, {"Weight": 2.0, "from": "Type: transit network", "to": "Link: 172.16.252.14", "weight": 1}, {"Weight": 2.0, "from": "Type: transit network", "to": "Link: 172.16.252.18", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.6", "to": "Data: 172.16.252.5", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.252.6", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.6", "to": "Data: 172.16.252.6", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.3 172.16.101.3", "to": "Advertising Router: 172.16.101.3", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.3 172.16.101.3", "to": "Age: 272", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.3 172.16.101.3", "to": "Checksum: 0xe9d3", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.101.3 172.16.101.3", "to": "Sequence Number: 0x8000000b", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.3 172.16.101.3", "to": "Link: 172.16.252.10", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.101.3 172.16.101.3", "to": "Link: 172.16.252.14", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.10", "to": "Data: 172.16.252.9", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.252.10", "to": "LSA: 172.16.252.25 172.16.252.25", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.10", "to": "Data: 172.16.252.10", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.14", "to": "Data: 172.16.252.13", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.252.14", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.14", "to": "Data: 172.16.252.14", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Advertising Router: 172.16.252.25", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Age: 1543", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Checksum: 0xe526", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Length: 84", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Option: 0x22", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Sequence Number: 0x80000011", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Number of Links: 5", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Link: 172.16.252.18", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Link: 172.16.252.20", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.252.25 172.16.252.25", "to": "Link: 172.16.252.24", "weight": 1}, {"Weight": 2.0, "from": "Length: 84", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Option: 0x22", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Number of Links: 5", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.18", "to": "Data: 172.16.252.17", "weight": 1}, {"Weight": 1.0, "from": "Link: 172.16.252.18", "to": "LSA: 172.16.252.33 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.18", "to": "Data: 172.16.252.18", "weight": 1}, {"Weight": 2.0, "from": "Link: 172.16.252.20", "to": "Data: 255.255.255.252", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.252", "to": "Link: 172.16.252.24", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.252", "to": "Link: 172.16.252.28", "weight": 1}, {"Weight": 2.0, "from": "Data: 255.255.255.252", "to": "Link: 172.16.252.32", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.33 172.16.252.33", "to": "Advertising Router: 172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.33 172.16.252.33", "to": "Age: 1505", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.33 172.16.252.33", "to": "Checksum: 0xa03e", "weight": 1}, {"Weight": 2.0, "from": "LSA: 172.16.252.33 172.16.252.33", "to": "Sequence Number: 0x8000000d", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.252.33 172.16.252.33", "to": "Link: 172.16.252.28", "weight": 1}, {"Weight": 1.0, "from": "LSA: 172.16.252.33 172.16.252.33", "to": "Link: 172.16.252.32", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "BFD Enable: False", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Cost: 40", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Dead Interval: 40", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Hello Interval: 10", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Hello Timer: 00:00:05", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Type: broadcast", "weight": 1}, {"Weight": 1.0, "from": "Ethernet1/3", "to": "172.16.252.25", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Passive: False", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "Retransmit Interval: 5", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "LSA Checksum: 0", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/3", "to": "LSA Count: 0", "weight": 1}, {"Weight": NaN, "from": "Ethernet1/3", "to": "Transmit Delay: 1", "weight": 1}, {"Weight": 2.0, "from": "BFD Enable: False", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Cost: 40", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Dead Interval: 40", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Hello Interval: 10", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Type: broadcast", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "172.16.252.25", "to": "Address: 172.16.252.2", "weight": 1}, {"Weight": 2.0, "from": "172.16.252.25", "to": "Dead Timer: 00:00:41", "weight": 1}, {"Weight": 2.0, "from": "172.16.252.25", "to": "Last State Change: 02:36:39", "weight": 1}, {"Weight": 2.0, "from": "172.16.252.25", "to": "State: full", "weight": 1}, {"Weight": 2.0, "from": "172.16.252.25", "to": "Event Count: 6", "weight": 1}, {"Weight": 2.0, "from": "Dead Timer: 00:00:41", "to": "172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Last State Change: 02:36:39", "to": "172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "State: full", "to": "172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Event Count: 6", "to": "172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "Passive: False", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Retransmit Interval: 5", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "LSA Checksum: 0", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "LSA Count: 0", "to": "Ethernet1/4", "weight": 1}, {"Weight": NaN, "from": "Transmit Delay: 1", "to": "Ethernet1/4", "weight": 1}, {"Weight": 2.0, "from": "Ethernet1/4", "to": "Hello Timer: 00:00:08", "weight": 1}, {"Weight": 1.0, "from": "Ethernet1/4", "to": "172.16.252.33", "weight": 1}, {"Weight": 2.0, "from": "172.16.252.33", "to": "Address: 172.16.252.6", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

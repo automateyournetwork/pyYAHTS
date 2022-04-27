@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "VRF: management", "label": "VRF: management", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "172.16.101.0/24", "label": "172.16.101.0/24", "shape": "dot", "size": 10}, {"id": "172.16.101.1/32", "label": "172.16.101.1/32", "shape": "dot", "size": 10}, {"id": "172.16.101.2/32", "label": "172.16.101.2/32", "shape": "dot", "size": 10}, {"id": "172.16.102.0/24", "label": "172.16.102.0/24", "shape": "dot", "size": 10}, {"id": "172.16.102.1/32", "label": "172.16.102.1/32", "shape": "dot", "size": 10}, {"id": "172.16.102.2/32", "label": "172.16.102.2/32", "shape": "dot", "size": 10}, {"id": "172.16.103.0/24", "label": "172.16.103.0/24", "shape": "dot", "size": 10}, {"id": "172.16.103.1/32", "label": "172.16.103.1/32", "shape": "dot", "size": 10}, {"id": "172.16.103.2/32", "label": "172.16.103.2/32", "shape": "dot", "size": 10}, {"id": "172.16.104.0/24", "label": "172.16.104.0/24", "shape": "dot", "size": 10}, {"id": "172.16.104.1/32", "label": "172.16.104.1/32", "shape": "dot", "size": 10}, {"id": "172.16.104.2/32", "label": "172.16.104.2/32", "shape": "dot", "size": 10}, {"id": "172.16.105.0/24", "label": "172.16.105.0/24", "shape": "dot", "size": 10}, {"id": "172.16.105.1/32", "label": "172.16.105.1/32", "shape": "dot", "size": 10}, {"id": "172.16.105.2/32", "label": "172.16.105.2/32", "shape": "dot", "size": 10}, {"id": "172.16.252.0/30", "label": "172.16.252.0/30", "shape": "dot", "size": 10}, {"id": "172.16.252.1/32", "label": "172.16.252.1/32", "shape": "dot", "size": 10}, {"id": "172.16.252.12/30", "label": "172.16.252.12/30", "shape": "dot", "size": 10}, {"id": "172.16.252.16/30", "label": "172.16.252.16/30", "shape": "dot", "size": 10}, {"id": "172.16.252.20/30", "label": "172.16.252.20/30", "shape": "dot", "size": 10}, {"id": "172.16.252.24/30", "label": "172.16.252.24/30", "shape": "dot", "size": 10}, {"id": "172.16.252.28/30", "label": "172.16.252.28/30", "shape": "dot", "size": 10}, {"id": "172.16.252.32/30", "label": "172.16.252.32/30", "shape": "dot", "size": 10}, {"id": "172.16.252.4/30", "label": "172.16.252.4/30", "shape": "dot", "size": 10}, {"id": "172.16.252.5/32", "label": "172.16.252.5/32", "shape": "dot", "size": 10}, {"id": "172.16.252.8/30", "label": "172.16.252.8/30", "shape": "dot", "size": 10}, {"id": "0.0.0.0/0", "label": "0.0.0.0/0", "shape": "dot", "size": 10}, {"id": "10.10.20.0/24", "label": "10.10.20.0/24", "shape": "dot", "size": 10}, {"id": "10.10.20.177/32", "label": "10.10.20.177/32", "shape": "dot", "size": 10}, {"id": "Active: True", "label": "Active: True", "shape": "dot", "size": 10}, {"id": "Metric: 0", "label": "Metric: 0", "shape": "dot", "size": 10}, {"id": "Next Hop: 1", "label": "Next Hop: 1", "shape": "dot", "size": 10}, {"id": "Preference: 0", "label": "Preference: 0", "shape": "dot", "size": 10}, {"id": "Protocol: direct", "label": "Protocol: direct", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.101.2", "label": "Next Hop: 172.16.101.2", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.101.1", "label": "Next Hop: 172.16.101.1", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.102.2", "label": "Next Hop: 172.16.102.2", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.102.1", "label": "Next Hop: 172.16.102.1", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.103.2", "label": "Next Hop: 172.16.103.2", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.103.1", "label": "Next Hop: 172.16.103.1", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.104.2", "label": "Next Hop: 172.16.104.2", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.104.1", "label": "Next Hop: 172.16.104.1", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.105.2", "label": "Next Hop: 172.16.105.2", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.105.1", "label": "Next Hop: 172.16.105.1", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.252.1", "label": "Next Hop: 172.16.252.1", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.252.6", "label": "Next Hop: 172.16.252.6", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.252.2", "label": "Next Hop: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "Next Hop: 172.16.252.5", "label": "Next Hop: 172.16.252.5", "shape": "dot", "size": 10}, {"id": "Next Hop: 10.10.20.254", "label": "Next Hop: 10.10.20.254", "shape": "dot", "size": 10}, {"id": "Next Hop: 10.10.20.177", "label": "Next Hop: 10.10.20.177", "shape": "dot", "size": 10}, {"id": "Codes: ", "label": "Codes: ", "shape": "dot", "size": 10}, {"id": "Protocol: hsrp", "label": "Protocol: hsrp", "shape": "dot", "size": 10}, {"id": "Protocol: local", "label": "Protocol: local", "shape": "dot", "size": 10}, {"id": "Protocol: ospf", "label": "Protocol: ospf", "shape": "dot", "size": 10}, {"id": "Protocol: static", "label": "Protocol: static", "shape": "dot", "size": 10}, {"id": "Metric: 41", "label": "Metric: 41", "shape": "dot", "size": 10}, {"id": "Preference: 110", "label": "Preference: 110", "shape": "dot", "size": 10}, {"id": "Next Hop: 2", "label": "Next Hop: 2", "shape": "dot", "size": 10}, {"id": "Preference: 1", "label": "Preference: 1", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "VRF: default", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "VRF: management", "weight": 1}, {"Weight": 1, "from": "VRF: default", "to": "ipv4", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.101.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.101.1/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.101.2/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.102.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.102.1/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.102.2/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.103.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.103.1/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.103.2/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.104.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.104.1/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.104.2/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.105.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.105.1/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.105.2/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.0/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.1/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.12/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.16/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.20/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.24/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.28/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.32/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.4/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.5/32", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "172.16.252.8/30", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "VRF: management", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "0.0.0.0/0", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "10.10.20.177/32", "weight": 1}, {"Weight": 1, "from": "172.16.101.0/24", "to": "Active: True", "weight": 1}, {"Weight": 1, "from": "172.16.101.0/24", "to": "Metric: 0", "weight": 1}, {"Weight": 1, "from": "172.16.101.0/24", "to": "Next Hop: 1", "weight": 1}, {"Weight": 1, "from": "172.16.101.0/24", "to": "Preference: 0", "weight": 1}, {"Weight": 1, "from": "172.16.101.0/24", "to": "Protocol: direct", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.101.1/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.101.2/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.102.0/24", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.102.1/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.102.2/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.103.0/24", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.103.1/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.103.2/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.104.0/24", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.104.1/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.104.2/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.105.0/24", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.105.1/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.105.2/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.0/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.1/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.12/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.16/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.20/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.24/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.28/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.32/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.4/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.5/32", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "172.16.252.8/30", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "0.0.0.0/0", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "Active: True", "to": "10.10.20.177/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.101.1/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.101.2/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.102.0/24", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.102.1/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.102.2/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.103.0/24", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.103.1/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.103.2/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.104.0/24", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.104.1/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.104.2/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.105.0/24", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.105.1/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.105.2/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.252.0/30", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.252.1/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.252.4/30", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "172.16.252.5/32", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "0.0.0.0/0", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "Metric: 0", "to": "10.10.20.177/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.101.2", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.101.1/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.101.1", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.101.2/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.102.0/24", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.102.2", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.102.1/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.102.1", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.102.2/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.103.0/24", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.103.2", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.103.1/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.103.1", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.103.2/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.104.0/24", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.104.2", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.104.1/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.104.1", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.104.2/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.105.0/24", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.105.2", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.105.1/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.105.1", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.105.2/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.0/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.252.1", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.1/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.12/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.16/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.252.2", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.20/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.24/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.28/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.32/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.4/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 172.16.252.5", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.5/32", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "172.16.252.8/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "0.0.0.0/0", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 10.10.20.254", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "Next Hop: 10.10.20.177", "weight": 1}, {"Weight": 1, "from": "Next Hop: 1", "to": "10.10.20.177/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.101.1/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.101.2/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.102.0/24", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.102.1/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.102.2/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.103.0/24", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.103.1/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.103.2/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.104.0/24", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.104.1/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.104.2/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.105.0/24", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.105.1/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.105.2/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.252.0/30", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.252.1/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.252.4/30", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "172.16.252.5/32", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "Preference: 0", "to": "10.10.20.177/32", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "Codes: ", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "172.16.102.0/24", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "172.16.103.0/24", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "172.16.104.0/24", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "172.16.105.0/24", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "172.16.252.0/30", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "172.16.252.4/30", "weight": 1}, {"Weight": 1, "from": "Protocol: direct", "to": "10.10.20.0/24", "weight": 1}, {"Weight": 1, "from": "Codes: ", "to": "Protocol: hsrp", "weight": 1}, {"Weight": 1, "from": "Codes: ", "to": "Protocol: local", "weight": 1}, {"Weight": 1, "from": "Codes: ", "to": "Protocol: ospf", "weight": 1}, {"Weight": 1, "from": "Codes: ", "to": "Protocol: static", "weight": 1}, {"Weight": 1, "from": "172.16.101.1/32", "to": "Protocol: hsrp", "weight": 1}, {"Weight": 1, "from": "Protocol: hsrp", "to": "172.16.102.1/32", "weight": 1}, {"Weight": 1, "from": "Protocol: hsrp", "to": "172.16.103.1/32", "weight": 1}, {"Weight": 1, "from": "Protocol: hsrp", "to": "172.16.104.1/32", "weight": 1}, {"Weight": 1, "from": "Protocol: hsrp", "to": "172.16.105.1/32", "weight": 1}, {"Weight": 1, "from": "172.16.101.2/32", "to": "Protocol: local", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "172.16.102.2/32", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "172.16.103.2/32", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "172.16.104.2/32", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "172.16.105.2/32", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "172.16.252.1/32", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "172.16.252.5/32", "weight": 1}, {"Weight": 1, "from": "Protocol: local", "to": "10.10.20.177/32", "weight": 1}, {"Weight": 1, "from": "172.16.252.12/30", "to": "Metric: 41", "weight": 1}, {"Weight": 1, "from": "172.16.252.12/30", "to": "Preference: 110", "weight": 1}, {"Weight": 1, "from": "172.16.252.12/30", "to": "Protocol: ospf", "weight": 1}, {"Weight": 1, "from": "Metric: 41", "to": "172.16.252.16/30", "weight": 1}, {"Weight": 1, "from": "Metric: 41", "to": "172.16.252.20/30", "weight": 1}, {"Weight": 1, "from": "Metric: 41", "to": "172.16.252.24/30", "weight": 1}, {"Weight": 1, "from": "Metric: 41", "to": "172.16.252.28/30", "weight": 1}, {"Weight": 1, "from": "Metric: 41", "to": "172.16.252.32/30", "weight": 1}, {"Weight": 1, "from": "Metric: 41", "to": "172.16.252.8/30", "weight": 1}, {"Weight": 1, "from": "Next Hop: 172.16.252.6", "to": "Next Hop: 2", "weight": 1}, {"Weight": 1, "from": "Preference: 110", "to": "172.16.252.16/30", "weight": 1}, {"Weight": 1, "from": "Preference: 110", "to": "172.16.252.20/30", "weight": 1}, {"Weight": 1, "from": "Preference: 110", "to": "172.16.252.24/30", "weight": 1}, {"Weight": 1, "from": "Preference: 110", "to": "172.16.252.28/30", "weight": 1}, {"Weight": 1, "from": "Preference: 110", "to": "172.16.252.32/30", "weight": 1}, {"Weight": 1, "from": "Preference: 110", "to": "172.16.252.8/30", "weight": 1}, {"Weight": 1, "from": "Protocol: ospf", "to": "172.16.252.16/30", "weight": 1}, {"Weight": 1, "from": "Protocol: ospf", "to": "172.16.252.20/30", "weight": 1}, {"Weight": 1, "from": "Protocol: ospf", "to": "172.16.252.24/30", "weight": 1}, {"Weight": 1, "from": "Protocol: ospf", "to": "172.16.252.28/30", "weight": 1}, {"Weight": 1, "from": "Protocol: ospf", "to": "172.16.252.32/30", "weight": 1}, {"Weight": 1, "from": "Protocol: ospf", "to": "172.16.252.8/30", "weight": 1}, {"Weight": 1, "from": "172.16.252.16/30", "to": "Next Hop: 2", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Preference: 1", "weight": 1}, {"Weight": 1, "from": "0.0.0.0/0", "to": "Protocol: static", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

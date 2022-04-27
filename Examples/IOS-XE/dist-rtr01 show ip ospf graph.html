@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "VRF: default", "label": "VRF: default", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "Instance: 1", "label": "Instance: 1", "shape": "dot", "size": 10}, {"id": "Router ID: 172.16.252.25", "label": "Router ID: 172.16.252.25", "shape": "dot", "size": 10}, {"id": "Area Transit: True", "label": "Area Transit: True", "shape": "dot", "size": 10}, {"id": "NSSA: True", "label": "NSSA: True", "shape": "dot", "size": 10}, {"id": "Enable: True", "label": "Enable: True", "shape": "dot", "size": 10}, {"id": "Auto Cost: False", "label": "Auto Cost: False", "shape": "dot", "size": 10}, {"id": "Reference Bandwidth: 100", "label": "Reference Bandwidth: 100", "shape": "dot", "size": 10}, {"id": "BFD Enable: False", "label": "BFD Enable: False", "shape": "dot", "size": 10}, {"id": "Elapsed Time: 02:19:49.080", "label": "Elapsed Time: 02:19:49.080", "shape": "dot", "size": 10}, {"id": "Event Log Enabled", "label": "Event Log Enabled", "shape": "dot", "size": 10}, {"id": "Graceful Restart: cisco", "label": "Graceful Restart: cisco", "shape": "dot", "size": 10}, {"id": "LLS: True", "label": "LLS: True", "shape": "dot", "size": 10}, {"id": "NSR Enable: False", "label": "NSR Enable: False", "shape": "dot", "size": 10}, {"id": "External LSA: 0", "label": "External LSA: 0", "shape": "dot", "size": 10}, {"id": "Totals", "label": "Totals", "shape": "dot", "size": 10}, {"id": "Graceful Restart: ietf", "label": "Graceful Restart: ietf", "shape": "dot", "size": 10}, {"id": "Area: 0.0.0.0", "label": "Area: 0.0.0.0", "shape": "dot", "size": 10}, {"id": "Type: normal", "label": "Type: normal", "shape": "dot", "size": 10}, {"id": "Summary: ", "label": "Summary: ", "shape": "dot", "size": 10}, {"id": "Interfaces: 5", "label": "Interfaces: 5", "shape": "dot", "size": 10}, {"id": "Last SPF: 01:46:50.451", "label": "Last SPF: 01:46:50.451", "shape": "dot", "size": 10}, {"id": "Total SPF: 18", "label": "Total SPF: 18", "shape": "dot", "size": 10}, {"id": "LSA Count: 9", "label": "LSA Count: 9", "shape": "dot", "size": 10}, {"id": "Enable: False", "label": "Enable: False", "shape": "dot", "size": 10}, {"id": "Areas: 1", "label": "Areas: 1", "shape": "dot", "size": 10}, {"id": "Normal: 1", "label": "Normal: 1", "shape": "dot", "size": 10}, {"id": "NSSA: 0", "label": "NSSA: 0", "shape": "dot", "size": 10}, {"id": "Stub: 0", "label": "Stub: 0", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": "1", "from": "dist-rtr01", "to": "VRF: default", "weight": 1}, {"Weight": "1", "from": "VRF: default", "to": "ipv4", "weight": 1}, {"Weight": "1", "from": "ipv4", "to": "Instance: 1", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Router ID: 172.16.252.25", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Area Transit: True", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "NSSA: True", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Enable: True", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Auto Cost: False", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Reference Bandwidth: 100", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "BFD Enable: False", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Elapsed Time: 02:19:49.080", "weight": 1}, {"Weight": "1\u003c/td\u003e", "from": "Instance: 1", "to": "Event Log Enabled", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Graceful Restart: cisco", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "LLS: True", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "NSR Enable: False", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "External LSA: 0", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Totals", "weight": 1}, {"Weight": "1", "from": "Instance: 1", "to": "Graceful Restart: ietf", "weight": 1}, {"Weight": "1", "from": "Router ID: 172.16.252.25", "to": "Area: 0.0.0.0", "weight": 1}, {"Weight": "1", "from": "Area: 0.0.0.0", "to": "Type: normal", "weight": 1}, {"Weight": "1", "from": "Area: 0.0.0.0", "to": "Summary: ", "weight": 1}, {"Weight": "1", "from": "Area: 0.0.0.0", "to": "Interfaces: 5", "weight": 1}, {"Weight": "1", "from": "Area: 0.0.0.0", "to": "Last SPF: 01:46:50.451", "weight": 1}, {"Weight": "1", "from": "Area: 0.0.0.0", "to": "Total SPF: 18", "weight": 1}, {"Weight": "1", "from": "Area: 0.0.0.0", "to": "LSA Count: 9", "weight": 1}, {"Weight": "1", "from": "Graceful Restart: cisco", "to": "Enable: False", "weight": 1}, {"Weight": "1", "from": "Enable: False", "to": "Graceful Restart: ietf", "weight": 1}, {"Weight": "1", "from": "Totals", "to": "Areas: 1", "weight": 1}, {"Weight": "1", "from": "Totals", "to": "Normal: 1", "weight": 1}, {"Weight": "1", "from": "Totals", "to": "NSSA: 0", "weight": 1}, {"Weight": "1", "from": "Totals", "to": "Stub: 0", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

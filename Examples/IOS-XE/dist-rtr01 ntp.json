@@ -1,0 +1,52 @@
+{
+    "clock_state": {
+        "system_status": {
+            "clock_precision": "2**10",
+            "clock_state": "unsynchronized",
+            "reference_time": "00000000.00000000 (00:00:00.000 UTC Mon Jan 1 1900)",
+            "root_dispersion": 23.23
+        }
+    },
+    "vrf": {
+        "default": {
+            "associations": {
+                "address": {
+                    "216.197.228.230": {
+                        "local_mode": {
+                            "client": {
+                                "isconfigured": {
+                                    "true": {
+                                        "address": "216.197.228.230",
+                                        "delay": 0.0,
+                                        "isconfigured": true,
+                                        "local_mode": "client",
+                                        "offset": 0.0,
+                                        "poll": 64,
+                                        "reach": 0,
+                                        "receive_time": "-",
+                                        "refid": ".TIME.",
+                                        "stratum": 16,
+                                        "vrf": "default"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "unicast_configuration": {
+                "address": {
+                    "216.197.228.230": {
+                        "type": {
+                            "server": {
+                                "address": "216.197.228.230",
+                                "type": "server",
+                                "vrf": "default"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

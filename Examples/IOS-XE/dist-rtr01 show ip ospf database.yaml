@@ -1,0 +1,110 @@
+vrf:
+  default:
+    address_family:
+      ipv4:
+        instance:
+          '1':
+            areas:
+              0.0.0.0:
+                database:
+                  lsa_types:
+                    '1':
+                      lsa_type: 1
+                      lsas:
+                        172.16.101.2:
+                          adv_router: 172.16.101.2
+                          lsa_id: 172.16.101.2
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.101.2
+                              age: 979
+                              checksum: '0x00BB26'
+                              link_count: 7
+                              lsa_id: 172.16.101.2
+                              seq_num: '0x80000009'
+                        172.16.101.3:
+                          adv_router: 172.16.101.3
+                          lsa_id: 172.16.101.3
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.101.3
+                              age: 982
+                              checksum: '0x00EBD2'
+                              link_count: 7
+                              lsa_id: 172.16.101.3
+                              seq_num: '0x8000000A'
+                        172.16.252.25:
+                          adv_router: 172.16.252.25
+                          lsa_id: 172.16.252.25
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.25
+                              age: 433
+                              checksum: '0x00E526'
+                              link_count: 5
+                              lsa_id: 172.16.252.25
+                              seq_num: '0x80000011'
+                        172.16.252.33:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.33
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 396
+                              checksum: '0x00A03E'
+                              link_count: 5
+                              lsa_id: 172.16.252.33
+                              seq_num: '0x8000000D'
+                    '2':
+                      lsa_type: 2
+                      lsas:
+                        172.16.252.10:
+                          adv_router: 172.16.252.25
+                          lsa_id: 172.16.252.10
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.25
+                              age: 433
+                              checksum: '0x003E6C'
+                              lsa_id: 172.16.252.10
+                              seq_num: '0x80000005'
+                        172.16.252.14:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.14
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 396
+                              checksum: '0x003660'
+                              lsa_id: 172.16.252.14
+                              seq_num: '0x80000005'
+                        172.16.252.18:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.18
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 396
+                              checksum: '0x00F5EE'
+                              lsa_id: 172.16.252.18
+                              seq_num: '0x80000005'
+                        172.16.252.2:
+                          adv_router: 172.16.252.25
+                          lsa_id: 172.16.252.2
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.25
+                              age: 433
+                              checksum: '0x008033'
+                              lsa_id: 172.16.252.2
+                              seq_num: '0x80000005'
+                        172.16.252.6:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.6
+                          ospfv2:
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 396
+                              checksum: '0x007827'
+                              lsa_id: 172.16.252.6
+                              seq_num: '0x80000005'

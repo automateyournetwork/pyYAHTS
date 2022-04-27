@@ -1,0 +1,44 @@
+cdp:
+  index:
+    '1':
+      capability: R S C
+      device_id: dist-sw02(9LQR5W39XQ2)
+      hold_time: 178
+      local_interface: GigabitEthernet1
+      platform: N9K-9000v
+      port_id: mgmt0
+    '2':
+      capability: R S C
+      device_id: dist-sw02(9LQR5W39XQ2)
+      hold_time: 173
+      local_interface: GigabitEthernet5
+      platform: N9K-9000v
+      port_id: Ethernet1/3
+    '3':
+      capability: R S C
+      device_id: dist-sw01(9SURZFD8MR6)
+      hold_time: 171
+      local_interface: GigabitEthernet1
+      platform: N9K-9000v
+      port_id: mgmt0
+    '4':
+      capability: R S C
+      device_id: dist-sw01(9SURZFD8MR6)
+      hold_time: 166
+      local_interface: GigabitEthernet4
+      platform: N9K-9000v
+      port_id: Ethernet1/3
+    '5':
+      capability: R I
+      device_id: dist-rtr02.virl.info
+      hold_time: 137
+      local_interface: GigabitEthernet6
+      platform: CSR1000V
+      port_id: GigabitEthernet6
+    '6':
+      capability: R I
+      device_id: dist-rtr02.virl.info
+      hold_time: 149
+      local_interface: GigabitEthernet1
+      platform: CSR1000V
+      port_id: GigabitEthernet1

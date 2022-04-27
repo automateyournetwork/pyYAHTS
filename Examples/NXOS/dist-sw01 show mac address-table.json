@@ -1,0 +1,244 @@
+{
+    "mac_table": {
+        "vlans": {
+            "-": {
+                "mac_addresses": {
+                    "5254.000d.e743": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.000d.e743",
+                        "ntfy": "F",
+                        "secure": "F"
+                    }
+                },
+                "vlan": "-"
+            },
+            "101": {
+                "mac_addresses": {
+                    "0000.0c07.ac0a": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "0000.0c07.ac0a",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.0004.4185": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.0004.4185",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.000d.e743": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.000d.e743",
+                        "ntfy": "F",
+                        "secure": "F"
+                    }
+                },
+                "vlan": "101"
+            },
+            "102": {
+                "mac_addresses": {
+                    "0000.0c07.ac0a": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "0000.0c07.ac0a",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.0004.4185": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.0004.4185",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.000d.e743": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.000d.e743",
+                        "ntfy": "F",
+                        "secure": "F"
+                    }
+                },
+                "vlan": "102"
+            },
+            "103": {
+                "mac_addresses": {
+                    "0000.0c07.ac0a": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "0000.0c07.ac0a",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.0004.4185": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.0004.4185",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.000d.e743": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.000d.e743",
+                        "ntfy": "F",
+                        "secure": "F"
+                    }
+                },
+                "vlan": "103"
+            },
+            "104": {
+                "mac_addresses": {
+                    "0000.0c07.ac0a": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "0000.0c07.ac0a",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.0004.4185": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.0004.4185",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.000d.e743": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.000d.e743",
+                        "ntfy": "F",
+                        "secure": "F"
+                    }
+                },
+                "vlan": "104"
+            },
+            "105": {
+                "mac_addresses": {
+                    "0000.0c07.ac0a": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "0000.0c07.ac0a",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.0004.4185": {
+                        "entry": "G",
+                        "interfaces": {
+                            "vPC Peer-Link(R)": {
+                                "age": "-",
+                                "interface": "vPC Peer-Link(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.0004.4185",
+                        "ntfy": "F",
+                        "secure": "F"
+                    },
+                    "5254.000d.e743": {
+                        "entry": "G",
+                        "interfaces": {
+                            "Sup-eth1(R)": {
+                                "age": "-",
+                                "interface": "Sup-eth1(R)",
+                                "mac_type": "static"
+                            }
+                        },
+                        "mac_address": "5254.000d.e743",
+                        "ntfy": "F",
+                        "secure": "F"
+                    }
+                },
+                "vlan": "105"
+            }
+        }
+    }
+}

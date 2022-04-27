@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-rtr01", "label": "dist-rtr01", "shape": "dot", "size": 10}, {"id": "GigabitEthernet1", "label": "GigabitEthernet1", "shape": "dot", "size": 10}, {"id": "GigabitEthernet2", "label": "GigabitEthernet2", "shape": "dot", "size": 10}, {"id": "GigabitEthernet3", "label": "GigabitEthernet3", "shape": "dot", "size": 10}, {"id": "GigabitEthernet4", "label": "GigabitEthernet4", "shape": "dot", "size": 10}, {"id": "GigabitEthernet5", "label": "GigabitEthernet5", "shape": "dot", "size": 10}, {"id": "GigabitEthernet6", "label": "GigabitEthernet6", "shape": "dot", "size": 10}, {"id": "Loopback0", "label": "Loopback0", "shape": "dot", "size": 10}, {"id": "IP Address: 10.10.20.175", "label": "IP Address: 10.10.20.175", "shape": "dot", "size": 10}, {"id": "Status: up", "label": "Status: up", "shape": "dot", "size": 10}, {"id": "Protocol: up", "label": "Protocol: up", "shape": "dot", "size": 10}, {"id": "Method: TFTP", "label": "Method: TFTP", "shape": "dot", "size": 10}, {"id": "OK: YES", "label": "OK: YES", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.21", "label": "IP Address: 172.16.252.21", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.25", "label": "IP Address: 172.16.252.25", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.2", "label": "IP Address: 172.16.252.2", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.10", "label": "IP Address: 172.16.252.10", "shape": "dot", "size": 10}, {"id": "IP Address: 172.16.252.17", "label": "IP Address: 172.16.252.17", "shape": "dot", "size": 10}, {"id": "IP Address: unassigned", "label": "IP Address: unassigned", "shape": "dot", "size": 10}, {"id": "Status: administratively down", "label": "Status: administratively down", "shape": "dot", "size": 10}, {"id": "Protocol: down", "label": "Protocol: down", "shape": "dot", "size": 10}, {"id": "Method: unset", "label": "Method: unset", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight  ": 1, "from": "dist-rtr01", "to": "GigabitEthernet1", "weight": 1}, {"Weight  ": 1, "from": "dist-rtr01", "to": "GigabitEthernet2", "weight": 1}, {"Weight  ": 1, "from": "dist-rtr01", "to": "GigabitEthernet3", "weight": 1}, {"Weight  ": 1, "from": "dist-rtr01", "to": "GigabitEthernet4", "weight": 1}, {"Weight  ": 1, "from": "dist-rtr01", "to": "GigabitEthernet5", "weight": 1}, {"Weight  ": 1, "from": "dist-rtr01", "to": "GigabitEthernet6", "weight": 1}, {"Weight  ": 1, "from": "dist-rtr01", "to": "Loopback0", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet1", "to": "IP Address: 10.10.20.175", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet1", "to": "Status: up", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet1", "to": "Protocol: up", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet1", "to": "Method: TFTP", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet1", "to": "OK: YES", "weight": 1}, {"Weight  ": 1, "from": "Status: up", "to": "GigabitEthernet2", "weight": 1}, {"Weight  ": 1, "from": "Status: up", "to": "GigabitEthernet3", "weight": 1}, {"Weight  ": 1, "from": "Status: up", "to": "GigabitEthernet4", "weight": 1}, {"Weight  ": 1, "from": "Status: up", "to": "GigabitEthernet5", "weight": 1}, {"Weight  ": 1, "from": "Status: up", "to": "GigabitEthernet6", "weight": 1}, {"Weight  ": 1, "from": "Protocol: up", "to": "GigabitEthernet2", "weight": 1}, {"Weight  ": 1, "from": "Protocol: up", "to": "GigabitEthernet3", "weight": 1}, {"Weight  ": 1, "from": "Protocol: up", "to": "GigabitEthernet4", "weight": 1}, {"Weight  ": 1, "from": "Protocol: up", "to": "GigabitEthernet5", "weight": 1}, {"Weight  ": 1, "from": "Protocol: up", "to": "GigabitEthernet6", "weight": 1}, {"Weight  ": 1, "from": "Method: TFTP", "to": "GigabitEthernet2", "weight": 1}, {"Weight  ": 1, "from": "Method: TFTP", "to": "GigabitEthernet3", "weight": 1}, {"Weight  ": 1, "from": "Method: TFTP", "to": "GigabitEthernet4", "weight": 1}, {"Weight  ": 1, "from": "Method: TFTP", "to": "GigabitEthernet5", "weight": 1}, {"Weight  ": 1, "from": "Method: TFTP", "to": "GigabitEthernet6", "weight": 1}, {"Weight  ": 1, "from": "OK: YES", "to": "GigabitEthernet2", "weight": 1}, {"Weight  ": 1, "from": "OK: YES", "to": "GigabitEthernet3", "weight": 1}, {"Weight  ": 1, "from": "OK: YES", "to": "GigabitEthernet4", "weight": 1}, {"Weight  ": 1, "from": "OK: YES", "to": "GigabitEthernet5", "weight": 1}, {"Weight  ": 1, "from": "OK: YES", "to": "GigabitEthernet6", "weight": 1}, {"Weight  ": 1, "from": "OK: YES", "to": "Loopback0", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet2", "to": "IP Address: 172.16.252.21", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet3", "to": "IP Address: 172.16.252.25", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet4", "to": "IP Address: 172.16.252.2", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet5", "to": "IP Address: 172.16.252.10", "weight": 1}, {"Weight  ": 1, "from": "GigabitEthernet6", "to": "IP Address: 172.16.252.17", "weight": 1}, {"Weight  ": 1, "from": "Loopback0", "to": "IP Address: unassigned", "weight": 1}, {"Weight  ": 1, "from": "Loopback0", "to": "Status: administratively down", "weight": 1}, {"Weight  ": 1, "from": "Loopback0", "to": "Protocol: down", "weight": 1}, {"Weight  ": 1, "from": "Loopback0", "to": "Method: unset", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

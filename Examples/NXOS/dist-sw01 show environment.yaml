@@ -1,0 +1,52 @@
+fans:
+  Fan1(sys_fan1):
+    direction: front-to-back
+    hw: --
+    model: N9K-9000v-FAN
+    status: Ok
+  Fan2(sys_fan2):
+    direction: front-to-back
+    hw: --
+    model: N9K-9000v-FAN
+    status: Ok
+  Fan3(sys_fan3):
+    direction: front-to-back
+    hw: --
+    model: N9K-9000v-FAN
+    status: Ok
+  Fan_in_PS1:
+    direction: none
+    hw: --
+    status: None
+  Fan_in_PS2:
+    direction: none
+    hw: --
+    status: None
+  fan_air_filter: NotSupported
+  fan_zone_speed: 'Zone 1: 0x0'
+power:
+  power_supply:
+    '1':
+      actual_input_watts: 0
+      actual_output_watts: 0
+      model: '------------'
+      status: Absent
+      total_capacity_watts: 0
+    '2':
+      actual_input_watts: 0
+      actual_output_watts: 0
+      model: '------------'
+      status: Absent
+      total_capacity_watts: 0
+  power_supply_mode:
+    config_mode: PS-Redundant
+    oper_mode: PS-Redundant
+  power_usage_summary:
+    total_grid_a_power_watts: 0.0
+    total_grid_b_power_watts: 0.0
+    total_power_capacity_watts: 180.0
+    total_power_cumulative_watts: 0.0
+    total_power_input_watts: 0.0
+    total_power_output_watts: 0.0
+  voltage: 12
+temperature: {}

@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Ethernet1/3", "label": "Ethernet1/3", "shape": "dot", "size": 10}, {"id": "Statistics", "label": "Statistics", "shape": "dot", "size": 10}, {"id": "Ethernet1/4", "label": "Ethernet1/4", "shape": "dot", "size": 10}, {"id": "Vlan101", "label": "Vlan101", "shape": "dot", "size": 10}, {"id": "172.16.252.2", "label": "172.16.252.2", "shape": "dot", "size": 10}, {"id": "5254.000e.7bb9", "label": "5254.000e.7bb9", "shape": "dot", "size": 10}, {"id": "Origin: dynamic", "label": "Origin: dynamic", "shape": "dot", "size": 10}, {"id": "172.16.252.6", "label": "172.16.252.6", "shape": "dot", "size": 10}, {"id": "Totals", "label": "Totals", "shape": "dot", "size": 10}, {"id": "Input", "label": "Input", "shape": "dot", "size": 10}, {"id": "Output", "label": "Output", "shape": "dot", "size": 10}, {"id": "Entries: 2", "label": "Entries: 2", "shape": "dot", "size": 10}, {"id": "Incomplete: 0", "label": "Incomplete: 0", "shape": "dot", "size": 10}, {"id": "Input: 0", "label": "Input: 0", "shape": "dot", "size": 10}, {"id": "Output: 48", "label": "Output: 48", "shape": "dot", "size": 10}, {"id": "Drops: 23", "label": "Drops: 23", "shape": "dot", "size": 10}, {"id": "Reply Packets: 16", "label": "Reply Packets: 16", "shape": "dot", "size": 10}, {"id": "Request Packets: 9", "label": "Request Packets: 9", "shape": "dot", "size": 10}, {"id": "Drops: 0", "label": "Drops: 0", "shape": "dot", "size": 10}, {"id": "Gratuitious: 15", "label": "Gratuitious: 15", "shape": "dot", "size": 10}, {"id": "Replies: 2", "label": "Replies: 2", "shape": "dot", "size": 10}, {"id": "Requests: 31", "label": "Requests: 31", "shape": "dot", "size": 10}, {"id": "5254.0015.16c7", "label": "5254.0015.16c7", "shape": "dot", "size": 10}, {"id": "172.16.101.1", "label": "172.16.101.1", "shape": "dot", "size": 10}, {"id": "0000.0c07.ac0a", "label": "0000.0c07.ac0a", "shape": "dot", "size": 10}, {"id": "Origin: static", "label": "Origin: static", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/3", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Statistics", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Ethernet1/4", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Vlan101", "weight": 1}, {"Weight": 2, "from": "Ethernet1/3", "to": "172.16.252.2", "weight": 1}, {"Weight": 3, "from": "172.16.252.2", "to": "5254.000e.7bb9", "weight": 1}, {"Weight": 3, "from": "172.16.252.2", "to": "Origin: dynamic", "weight": 1}, {"Weight": 3, "from": "Origin: dynamic", "to": "172.16.252.6", "weight": 1}, {"Weight": 1, "from": "Statistics", "to": "Totals", "weight": 1}, {"Weight": 2, "from": "Statistics", "to": "Input", "weight": 1}, {"Weight": 2, "from": "Statistics", "to": "Output", "weight": 1}, {"Weight": 3, "from": "Totals", "to": "Entries: 2", "weight": 1}, {"Weight": 3, "from": "Totals", "to": "Incomplete: 0", "weight": 1}, {"Weight": 3, "from": "Totals", "to": "Input: 0", "weight": 1}, {"Weight": 3, "from": "Totals", "to": "Output: 48", "weight": 1}, {"Weight": 3, "from": "Input", "to": "Drops: 23", "weight": 1}, {"Weight": 3, "from": "Input", "to": "Reply Packets: 16", "weight": 1}, {"Weight": 3, "from": "Input", "to": "Request Packets: 9", "weight": 1}, {"Weight": 3, "from": "Output", "to": "Drops: 0", "weight": 1}, {"Weight": 3, "from": "Output", "to": "Gratuitious: 15", "weight": 1}, {"Weight": 3, "from": "Output", "to": "Replies: 2", "weight": 1}, {"Weight": 3, "from": "Output", "to": "Requests: 31", "weight": 1}, {"Weight": 2, "from": "Ethernet1/4", "to": "172.16.252.6", "weight": 1}, {"Weight": 3, "from": "172.16.252.6", "to": "5254.0015.16c7", "weight": 1}, {"Weight": 2, "from": "Vlan101", "to": "172.16.101.1", "weight": 1}, {"Weight": 3, "from": "172.16.101.1", "to": "0000.0c07.ac0a", "weight": 1}, {"Weight": 3, "from": "172.16.101.1", "to": "Origin: static", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

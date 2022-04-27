@@ -1,0 +1,520 @@
+feature_ospf: true
+vrf:
+  default:
+    address_family:
+      ipv4:
+        instance:
+          '1':
+            areas:
+              0.0.0.0:
+                area_id: 0.0.0.0
+                area_type: normal
+                database:
+                  lsa_types:
+                    '1':
+                      lsa_type: 1
+                      lsas:
+                        172.16.101.2 172.16.101.2:
+                          adv_router: 172.16.101.2
+                          lsa_id: 172.16.101.2
+                          ospfv2:
+                            body:
+                              router:
+                                links:
+                                  172.16.101.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.101.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.102.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.102.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.103.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.103.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.104.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.104.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.105.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.105.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.252.2:
+                                    link_data: 172.16.252.1
+                                    link_id: 172.16.252.2
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.6:
+                                    link_data: 172.16.252.5
+                                    link_id: 172.16.252.6
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: transit network
+                                num_of_links: 7
+                            header:
+                              adv_router: 172.16.101.2
+                              age: 267
+                              checksum: '0xb927'
+                              length: 108
+                              lsa_id: 172.16.101.2
+                              option: '0x2'
+                              seq_num: '0x8000000a'
+                              type: 1
+                        172.16.101.3 172.16.101.3:
+                          adv_router: 172.16.101.3
+                          lsa_id: 172.16.101.3
+                          ospfv2:
+                            body:
+                              router:
+                                links:
+                                  172.16.101.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.101.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.102.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.102.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.103.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.103.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.104.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.104.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.105.0:
+                                    link_data: 255.255.255.0
+                                    link_id: 172.16.105.0
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.252.10:
+                                    link_data: 172.16.252.9
+                                    link_id: 172.16.252.10
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.14:
+                                    link_data: 172.16.252.13
+                                    link_id: 172.16.252.14
+                                    topologies:
+                                      '0':
+                                        metric: 40
+                                        mt_id: 0
+                                    type: transit network
+                                num_of_links: 7
+                            header:
+                              adv_router: 172.16.101.3
+                              age: 272
+                              checksum: '0xe9d3'
+                              length: 108
+                              lsa_id: 172.16.101.3
+                              option: '0x2'
+                              seq_num: '0x8000000b'
+                              type: 1
+                        172.16.252.25 172.16.252.25:
+                          adv_router: 172.16.252.25
+                          lsa_id: 172.16.252.25
+                          ospfv2:
+                            body:
+                              router:
+                                links:
+                                  172.16.252.10:
+                                    link_data: 172.16.252.10
+                                    link_id: 172.16.252.10
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.18:
+                                    link_data: 172.16.252.17
+                                    link_id: 172.16.252.18
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.2:
+                                    link_data: 172.16.252.2
+                                    link_id: 172.16.252.2
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.20:
+                                    link_data: 255.255.255.252
+                                    link_id: 172.16.252.20
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.252.24:
+                                    link_data: 255.255.255.252
+                                    link_id: 172.16.252.24
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: stub network
+                                num_of_links: 5
+                            header:
+                              adv_router: 172.16.252.25
+                              age: 1543
+                              checksum: '0xe526'
+                              length: 84
+                              lsa_id: 172.16.252.25
+                              option: '0x22'
+                              seq_num: '0x80000011'
+                              type: 1
+                        172.16.252.33 172.16.252.33:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.33
+                          ospfv2:
+                            body:
+                              router:
+                                links:
+                                  172.16.252.14:
+                                    link_data: 172.16.252.14
+                                    link_id: 172.16.252.14
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.18:
+                                    link_data: 172.16.252.18
+                                    link_id: 172.16.252.18
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: transit network
+                                  172.16.252.28:
+                                    link_data: 255.255.255.252
+                                    link_id: 172.16.252.28
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.252.32:
+                                    link_data: 255.255.255.252
+                                    link_id: 172.16.252.32
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: stub network
+                                  172.16.252.6:
+                                    link_data: 172.16.252.6
+                                    link_id: 172.16.252.6
+                                    topologies:
+                                      '0':
+                                        metric: 1
+                                        mt_id: 0
+                                    type: transit network
+                                num_of_links: 5
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 1505
+                              checksum: '0xa03e'
+                              length: 84
+                              lsa_id: 172.16.252.33
+                              option: '0x22'
+                              seq_num: '0x8000000d'
+                              type: 1
+                    '2':
+                      lsa_type: 2
+                      lsas:
+                        172.16.252.10 172.16.252.25:
+                          adv_router: 172.16.252.25
+                          lsa_id: 172.16.252.10
+                          ospfv2:
+                            body:
+                              network:
+                                attached_routers:
+                                  172.16.101.3: {}
+                                  172.16.252.25: {}
+                                network_mask: 255.255.255.252
+                            header:
+                              adv_router: 172.16.252.25
+                              age: 1543
+                              checksum: '0x3e6c'
+                              length: 32
+                              lsa_id: 172.16.252.10
+                              option: '0x22'
+                              seq_num: '0x80000005'
+                              type: 2
+                        172.16.252.14 172.16.252.33:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.14
+                          ospfv2:
+                            body:
+                              network:
+                                attached_routers:
+                                  172.16.101.3: {}
+                                  172.16.252.33: {}
+                                network_mask: 255.255.255.252
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 1505
+                              checksum: '0x3660'
+                              length: 32
+                              lsa_id: 172.16.252.14
+                              option: '0x22'
+                              seq_num: '0x80000005'
+                              type: 2
+                        172.16.252.18 172.16.252.33:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.18
+                          ospfv2:
+                            body:
+                              network:
+                                attached_routers:
+                                  172.16.252.25: {}
+                                  172.16.252.33: {}
+                                network_mask: 255.255.255.252
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 1505
+                              checksum: '0xf5ee'
+                              length: 32
+                              lsa_id: 172.16.252.18
+                              option: '0x22'
+                              seq_num: '0x80000005'
+                              type: 2
+                        172.16.252.2 172.16.252.25:
+                          adv_router: 172.16.252.25
+                          lsa_id: 172.16.252.2
+                          ospfv2:
+                            body:
+                              network:
+                                attached_routers:
+                                  172.16.101.2: {}
+                                  172.16.252.25: {}
+                                network_mask: 255.255.255.252
+                            header:
+                              adv_router: 172.16.252.25
+                              age: 1543
+                              checksum: '0x8033'
+                              length: 32
+                              lsa_id: 172.16.252.2
+                              option: '0x22'
+                              seq_num: '0x80000005'
+                              type: 2
+                        172.16.252.6 172.16.252.33:
+                          adv_router: 172.16.252.33
+                          lsa_id: 172.16.252.6
+                          ospfv2:
+                            body:
+                              network:
+                                attached_routers:
+                                  172.16.101.2: {}
+                                  172.16.252.33: {}
+                                network_mask: 255.255.255.252
+                            header:
+                              adv_router: 172.16.252.33
+                              age: 1505
+                              checksum: '0x7827'
+                              length: 32
+                              lsa_id: 172.16.252.6
+                              option: '0x22'
+                              seq_num: '0x80000005'
+                              type: 2
+                interfaces:
+                  Ethernet1/3:
+                    bdr_ip_addr: 172.16.252.1
+                    bdr_router_id: 172.16.101.2
+                    bfd:
+                      enable: false
+                    cost: 40
+                    dead_interval: 40
+                    dr_ip_addr: 172.16.252.2
+                    dr_router_id: 172.16.252.25
+                    enable: true
+                    hello_interval: 10
+                    hello_timer: 00:00:05
+                    interface_type: broadcast
+                    name: Ethernet1/3
+                    neighbors:
+                      172.16.252.25:
+                        address: 172.16.252.2
+                        bdr_ip_addr: 172.16.252.1
+                        dead_timer: 00:00:41
+                        dr_ip_addr: 172.16.252.2
+                        last_state_change: 02:36:39
+                        neighbor_router_id: 172.16.252.25
+                        state: full
+                        statistics:
+                          nbr_event_count: 6
+                    passive: false
+                    priority: 1
+                    retransmit_interval: 5
+                    state: bdr
+                    statistics:
+                      link_scope_lsa_cksum_sum: 0
+                      link_scope_lsa_count: 0
+                    transmit_delay: 1
+                  Ethernet1/4:
+                    bdr_ip_addr: 172.16.252.5
+                    bdr_router_id: 172.16.101.2
+                    bfd:
+                      enable: false
+                    cost: 40
+                    dead_interval: 40
+                    dr_ip_addr: 172.16.252.6
+                    dr_router_id: 172.16.252.33
+                    enable: true
+                    hello_interval: 10
+                    hello_timer: 00:00:08
+                    interface_type: broadcast
+                    name: Ethernet1/4
+                    neighbors:
+                      172.16.252.33:
+                        address: 172.16.252.6
+                        bdr_ip_addr: 172.16.252.5
+                        dead_timer: 00:00:41
+                        dr_ip_addr: 172.16.252.6
+                        last_state_change: 02:36:39
+                        neighbor_router_id: 172.16.252.33
+                        state: full
+                        statistics:
+                          nbr_event_count: 6
+                    passive: false
+                    priority: 1
+                    retransmit_interval: 5
+                    state: bdr
+                    statistics:
+                      link_scope_lsa_cksum_sum: 0
+                      link_scope_lsa_count: 0
+                    transmit_delay: 1
+                  Vlan101:
+                    bfd:
+                      enable: false
+                    cost: 40
+                    enable: true
+                    interface_type: broadcast
+                    name: Vlan101
+                    passive: true
+                    state: dr
+                  Vlan102:
+                    bfd:
+                      enable: false
+                    cost: 40
+                    enable: true
+                    interface_type: broadcast
+                    name: Vlan102
+                    passive: true
+                    state: dr
+                  Vlan103:
+                    bfd:
+                      enable: false
+                    cost: 40
+                    enable: true
+                    interface_type: broadcast
+                    name: Vlan103
+                    passive: true
+                    state: dr
+                  Vlan104:
+                    bfd:
+                      enable: false
+                    cost: 40
+                    enable: true
+                    interface_type: broadcast
+                    name: Vlan104
+                    passive: true
+                    state: dr
+                  Vlan105:
+                    bfd:
+                      enable: false
+                    cost: 40
+                    enable: true
+                    interface_type: broadcast
+                    name: Vlan105
+                    passive: true
+                    state: dr
+                mpls:
+                  ldp:
+                    auto_config: false
+                    sync: false
+                statistics:
+                  area_scope_lsa_cksum_sum: '9'
+                  area_scope_lsa_count: 9
+                  spf_runs_count: 9
+            auto_cost:
+              enable: false
+              reference_bandwidth: 40000
+            enable: true
+            graceful_restart:
+              ietf:
+                enable: true
+                restart_interval: 60
+                type: ietf
+            nsr:
+              enable: true
+            preference:
+              single_value:
+                all: 110
+            router_id: 172.16.101.2
+            spf_control:
+              paths: 8
+              throttle:
+                lsa:
+                  hold: 5000
+                  maximum: 5000
+                  start: 0
+                spf:
+                  hold: 1000
+                  maximum: 5000
+                  start: 200

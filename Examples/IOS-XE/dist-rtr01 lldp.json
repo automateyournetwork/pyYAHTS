@@ -1,0 +1,85 @@
+{
+    "counters": {
+        "entries_aged_out": 0,
+        "frame_discard": 0,
+        "frame_error_in": 0,
+        "frame_in": 104,
+        "frame_out": 318,
+        "tlv_discard": 0,
+        "tlv_unknown": 0
+    },
+    "enabled": true,
+    "hello_timer": 30,
+    "hold_timer": 120,
+    "interfaces": {
+        "GigabitEthernet1": {
+            "enabled": true
+        },
+        "GigabitEthernet2": {
+            "enabled": true
+        },
+        "GigabitEthernet3": {
+            "enabled": true
+        },
+        "GigabitEthernet4": {
+            "enabled": true,
+            "if_name": "GigabitEthernet4",
+            "port_id": {
+                "Ethernet1/3": {
+                    "neighbors": {
+                        "dist-sw01": {
+                            "capabilities": {
+                                "mac_bridge": {
+                                    "enabled": true,
+                                    "name": "mac_bridge"
+                                },
+                                "router": {
+                                    "enabled": true,
+                                    "name": "router"
+                                }
+                            },
+                            "chassis_id": "5254.000d.e746",
+                            "management_address": "10.10.20.177",
+                            "neighbor_id": "dist-sw01",
+                            "port_description": "L3 link to dist-rtr01",
+                            "port_id": "Ethernet1/3",
+                            "system_description": "Copyright (c) 2002-2019, Cisco Systems, Inc. All rights reserved.\n",
+                            "system_name": "dist-sw01"
+                        }
+                    }
+                }
+            }
+        },
+        "GigabitEthernet5": {
+            "enabled": true
+        },
+        "GigabitEthernet6": {
+            "enabled": true,
+            "if_name": "GigabitEthernet6",
+            "port_id": {
+                "GigabitEthernet6": {
+                    "neighbors": {
+                        "dist-rtr02.virl.info": {
+                            "capabilities": {
+                                "mac_bridge": {
+                                    "name": "mac_bridge"
+                                },
+                                "router": {
+                                    "enabled": true,
+                                    "name": "router"
+                                }
+                            },
+                            "chassis_id": "001e.f6c6.ee00",
+                            "management_address": "172.16.252.18",
+                            "neighbor_id": "dist-rtr02.virl.info",
+                            "port_description": "L3 Link to dist-rtr01",
+                            "port_id": "GigabitEthernet6",
+                            "system_description": "Cisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.2, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Sat 31-Oct-20 13:16 b",
+                            "system_name": "dist-rtr02.virl.info"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

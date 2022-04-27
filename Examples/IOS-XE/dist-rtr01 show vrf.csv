@@ -1,0 +1,6 @@
+
+
+
+VRF,Protocols,Interfaces
+Mgmt-intf,ipv4,GigabitEthernet1
+Mgmt-intf,ipv6,GigabitEthernet1

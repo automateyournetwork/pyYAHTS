@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Vlan101", "label": "Vlan101", "shape": "dot", "size": 10}, {"id": "Vlan102", "label": "Vlan102", "shape": "dot", "size": 10}, {"id": "Vlan103", "label": "Vlan103", "shape": "dot", "size": 10}, {"id": "Vlan104", "label": "Vlan104", "shape": "dot", "size": 10}, {"id": "Vlan105", "label": "Vlan105", "shape": "dot", "size": 10}, {"id": "ipv4", "label": "ipv4", "shape": "dot", "size": 10}, {"id": "Version: 1", "label": "Version: 1", "shape": "dot", "size": 10}, {"id": "Group: 10", "label": "Group: 10", "shape": "dot", "size": 10}, {"id": "Routers", "label": "Routers", "shape": "dot", "size": 10}, {"id": "Details", "label": "Details", "shape": "dot", "size": 10}, {"id": "IP Addresses", "label": "IP Addresses", "shape": "dot", "size": 10}, {"id": "Sessions", "label": "Sessions", "shape": "dot", "size": 10}, {"id": "Timers", "label": "Timers", "shape": "dot", "size": 10}, {"id": "Active Router: local", "label": "Active Router: local", "shape": "dot", "size": 10}, {"id": "Standby Router: 172.16.101.3", "label": "Standby Router: 172.16.101.3", "shape": "dot", "size": 10}, {"id": "Active Router: 172.16.102.3", "label": "Active Router: 172.16.102.3", "shape": "dot", "size": 10}, {"id": "Standby Router: local", "label": "Standby Router: local", "shape": "dot", "size": 10}, {"id": "Active Router: 172.16.103.3", "label": "Active Router: 172.16.103.3", "shape": "dot", "size": 10}, {"id": "Active Router: 172.16.104.3", "label": "Active Router: 172.16.104.3", "shape": "dot", "size": 10}, {"id": "Active Router: 172.16.105.3", "label": "Active Router: 172.16.105.3", "shape": "dot", "size": 10}, {"id": "HSRP Router State: active", "label": "HSRP Router State: active", "shape": "dot", "size": 10}, {"id": "Preempt: ", "label": "Preempt: ", "shape": "dot", "size": 10}, {"id": "Priority: 100", "label": "Priority: 100", "shape": "dot", "size": 10}, {"id": "Virtual MAC Address: 0000.0c07.ac0a", "label": "Virtual MAC Address: 0000.0c07.ac0a", "shape": "dot", "size": 10}, {"id": "User BIA: False", "label": "User BIA: False", "shape": "dot", "size": 10}, {"id": "HSRP Router State: standby", "label": "HSRP Router State: standby", "shape": "dot", "size": 10}, {"id": "Primary IPv4 Address: 172.16.101.1", "label": "Primary IPv4 Address: 172.16.101.1", "shape": "dot", "size": 10}, {"id": "Standby IP Address: 172.16.101.3", "label": "Standby IP Address: 172.16.101.3", "shape": "dot", "size": 10}, {"id": "Primary IPv4 Address: 172.16.102.1", "label": "Primary IPv4 Address: 172.16.102.1", "shape": "dot", "size": 10}, {"id": "Standby IP Address: ", "label": "Standby IP Address: ", "shape": "dot", "size": 10}, {"id": "Primary IPv4 Address: 172.16.103.1", "label": "Primary IPv4 Address: 172.16.103.1", "shape": "dot", "size": 10}, {"id": "Primary IPv4 Address: 172.16.104.1", "label": "Primary IPv4 Address: 172.16.104.1", "shape": "dot", "size": 10}, {"id": "Primary IPv4 Address: 172.16.105.1", "label": "Primary IPv4 Address: 172.16.105.1", "shape": "dot", "size": 10}, {"id": "Virtual IP Learn: False", "label": "Virtual IP Learn: False", "shape": "dot", "size": 10}, {"id": "Session Name: hsrp-Vlan101-10", "label": "Session Name: hsrp-Vlan101-10", "shape": "dot", "size": 10}, {"id": "Session Name: hsrp-Vlan102-10", "label": "Session Name: hsrp-Vlan102-10", "shape": "dot", "size": 10}, {"id": "Session Name: hsrp-Vlan103-10", "label": "Session Name: hsrp-Vlan103-10", "shape": "dot", "size": 10}, {"id": "Session Name: hsrp-Vlan104-10", "label": "Session Name: hsrp-Vlan104-10", "shape": "dot", "size": 10}, {"id": "Session Name: hsrp-Vlan105-10", "label": "Session Name: hsrp-Vlan105-10", "shape": "dot", "size": 10}, {"id": "Hello: 3", "label": "Hello: 3", "shape": "dot", "size": 10}, {"id": "Hold: 10", "label": "Hold: 10", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1, "from": "dist-sw01", "to": "Vlan101", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Vlan102", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Vlan103", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Vlan104", "weight": 1}, {"Weight": 1, "from": "dist-sw01", "to": "Vlan105", "weight": 1}, {"Weight": 1, "from": "Vlan101", "to": "ipv4", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "Version: 1", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "Vlan102", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "Vlan103", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "Vlan104", "weight": 1}, {"Weight": 1, "from": "ipv4", "to": "Vlan105", "weight": 1}, {"Weight": 1, "from": "Version: 1", "to": "Group: 10", "weight": 1}, {"Weight": 1, "from": "Group: 10", "to": "Routers", "weight": 1}, {"Weight": 1, "from": "Group: 10", "to": "Details", "weight": 1}, {"Weight": 2, "from": "Group: 10", "to": "IP Addresses", "weight": 1}, {"Weight": 2, "from": "Group: 10", "to": "Sessions", "weight": 1}, {"Weight": 1, "from": "Group: 10", "to": "Timers", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Active Router: local", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Standby Router: 172.16.101.3", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Active Router: 172.16.102.3", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Standby Router: local", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Active Router: 172.16.103.3", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Active Router: 172.16.104.3", "weight": 1}, {"Weight": 2, "from": "Routers", "to": "Active Router: 172.16.105.3", "weight": 1}, {"Weight": 2, "from": "Details", "to": "HSRP Router State: active", "weight": 1}, {"Weight": 2, "from": "Details", "to": "Preempt: ", "weight": 1}, {"Weight": 2, "from": "Details", "to": "Priority: 100", "weight": 1}, {"Weight": 2, "from": "Details", "to": "Virtual MAC Address: 0000.0c07.ac0a", "weight": 1}, {"Weight": 2, "from": "Details", "to": "User BIA: False", "weight": 1}, {"Weight": 2, "from": "Details", "to": "HSRP Router State: standby", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Primary IPv4 Address: 172.16.101.1", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Standby IP Address: 172.16.101.3", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Primary IPv4 Address: 172.16.102.1", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Standby IP Address: ", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Primary IPv4 Address: 172.16.103.1", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Primary IPv4 Address: 172.16.104.1", "weight": 1}, {"Weight": 2, "from": "IP Addresses", "to": "Primary IPv4 Address: 172.16.105.1", "weight": 1}, {"Weight": 2, "from": "Primary IPv4 Address: 172.16.101.1", "to": "Virtual IP Learn: False", "weight": 1}, {"Weight": 2, "from": "Virtual IP Learn: False", "to": "Primary IPv4 Address: 172.16.102.1", "weight": 1}, {"Weight": 2, "from": "Virtual IP Learn: False", "to": "Primary IPv4 Address: 172.16.103.1", "weight": 1}, {"Weight": 2, "from": "Virtual IP Learn: False", "to": "Primary IPv4 Address: 172.16.104.1", "weight": 1}, {"Weight": 2, "from": "Virtual IP Learn: False", "to": "Primary IPv4 Address: 172.16.105.1", "weight": 1}, {"Weight": 2, "from": "Sessions", "to": "Session Name: hsrp-Vlan101-10", "weight": 1}, {"Weight": 2, "from": "Sessions", "to": "Session Name: hsrp-Vlan102-10", "weight": 1}, {"Weight": 2, "from": "Sessions", "to": "Session Name: hsrp-Vlan103-10", "weight": 1}, {"Weight": 2, "from": "Sessions", "to": "Session Name: hsrp-Vlan104-10", "weight": 1}, {"Weight": 2, "from": "Sessions", "to": "Session Name: hsrp-Vlan105-10", "weight": 1}, {"Weight": 2, "from": "Timers", "to": "Hello: 3", "weight": 1}, {"Weight": 2, "from": "Timers", "to": "Hold: 10", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

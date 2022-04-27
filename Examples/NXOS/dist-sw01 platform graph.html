@@ -1,0 +1,217 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1500;
+            height: 1000;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "dist-sw01", "label": "dist-sw01", "shape": "dot", "size": 10}, {"id": "Router Type: Nexus9000 9000v", "label": "Router Type: Nexus9000 9000v", "shape": "dot", "size": 10}, {"id": "Chassis", "label": "Chassis", "shape": "dot", "size": 10}, {"id": "RP Uptime: 9553", "label": "RP Uptime: 9553", "shape": "dot", "size": 10}, {"id": "Directory: bootflash:", "label": "Directory: bootflash:", "shape": "dot", "size": 10}, {"id": "Disk Space", "label": "Disk Space", "shape": "dot", "size": 10}, {"id": "Image: bootflash:///nxos.9.2.4.bin", "label": "Image: bootflash:///nxos.9.2.4.bin", "shape": "dot", "size": 10}, {"id": "Main Memory: 8161516 kB", "label": "Main Memory: 8161516 kB", "shape": "dot", "size": 10}, {"id": "OS: NX-OS", "label": "OS: NX-OS", "shape": "dot", "size": 10}, {"id": "Version: 9.2(4)", "label": "Version: 9.2(4)", "shape": "dot", "size": 10}, {"id": "Slot", "label": "Slot", "shape": "dot", "size": 10}, {"id": "Virtual Device", "label": "Virtual Device", "shape": "dot", "size": 10}, {"id": "Nexus9000 9000v Chassis", "label": "Nexus9000 9000v Chassis", "shape": "dot", "size": 10}, {"id": "Serial Number: 9SURZFD8MR6", "label": "Serial Number: 9SURZFD8MR6", "shape": "dot", "size": 10}, {"id": "Subslot", "label": "Subslot", "shape": "dot", "size": 10}, {"id": "Total: 3470110720", "label": "Total: 3470110720", "shape": "dot", "size": 10}, {"id": "Used: 1519079424", "label": "Used: 1519079424", "shape": "dot", "size": 10}, {"id": "Free: 1951031296", "label": "Free: 1951031296", "shape": "dot", "size": 10}, {"id": "Name: Nexus 9000v Ethernet Module", "label": "Name: Nexus 9000v Ethernet Module", "shape": "dot", "size": 10}, {"id": "State: N/A", "label": "State: N/A", "shape": "dot", "size": 10}, {"id": "Name: N9K-9000v", "label": "Name: N9K-9000v", "shape": "dot", "size": 10}, {"id": "State: active", "label": "State: active", "shape": "dot", "size": 10}, {"id": "Redundancy State: active", "label": "Redundancy State: active", "shape": "dot", "size": 10}, {"id": "Boot Image: bootflash:/nxos.9.2.4.bin", "label": "Boot Image: bootflash:/nxos.9.2.4.bin", "shape": "dot", "size": 10}, {"id": "Uptime: 9553", "label": "Uptime: 9553", "shape": "dot", "size": 10}, {"id": "Name: dist-sw01", "label": "Name: dist-sw01", "shape": "dot", "size": 10}, {"id": "Status: active", "label": "Status: active", "shape": "dot", "size": 10}, {"id": "Eth1/1", "label": "Eth1/1", "shape": "dot", "size": 10}, {"id": "Type: Ethernet", "label": "Type: Ethernet", "shape": "dot", "size": 10}, {"id": "Status: OK", "label": "Status: OK", "shape": "dot", "size": 10}, {"id": "Eth1/10", "label": "Eth1/10", "shape": "dot", "size": 10}, {"id": "Eth1/100", "label": "Eth1/100", "shape": "dot", "size": 10}, {"id": "Eth1/101", "label": "Eth1/101", "shape": "dot", "size": 10}, {"id": "Eth1/102", "label": "Eth1/102", "shape": "dot", "size": 10}, {"id": "Eth1/103", "label": "Eth1/103", "shape": "dot", "size": 10}, {"id": "Eth1/104", "label": "Eth1/104", "shape": "dot", "size": 10}, {"id": "Eth1/105", "label": "Eth1/105", "shape": "dot", "size": 10}, {"id": "Eth1/106", "label": "Eth1/106", "shape": "dot", "size": 10}, {"id": "Eth1/107", "label": "Eth1/107", "shape": "dot", "size": 10}, {"id": "Eth1/108", "label": "Eth1/108", "shape": "dot", "size": 10}, {"id": "Eth1/109", "label": "Eth1/109", "shape": "dot", "size": 10}, {"id": "Eth1/11", "label": "Eth1/11", "shape": "dot", "size": 10}, {"id": "Eth1/110", "label": "Eth1/110", "shape": "dot", "size": 10}, {"id": "Eth1/111", "label": "Eth1/111", "shape": "dot", "size": 10}, {"id": "Eth1/112", "label": "Eth1/112", "shape": "dot", "size": 10}, {"id": "Eth1/113", "label": "Eth1/113", "shape": "dot", "size": 10}, {"id": "Eth1/114", "label": "Eth1/114", "shape": "dot", "size": 10}, {"id": "Eth1/115", "label": "Eth1/115", "shape": "dot", "size": 10}, {"id": "Eth1/116", "label": "Eth1/116", "shape": "dot", "size": 10}, {"id": "Eth1/117", "label": "Eth1/117", "shape": "dot", "size": 10}, {"id": "Eth1/118", "label": "Eth1/118", "shape": "dot", "size": 10}, {"id": "Eth1/119", "label": "Eth1/119", "shape": "dot", "size": 10}, {"id": "Eth1/12", "label": "Eth1/12", "shape": "dot", "size": 10}, {"id": "Eth1/120", "label": "Eth1/120", "shape": "dot", "size": 10}, {"id": "Eth1/121", "label": "Eth1/121", "shape": "dot", "size": 10}, {"id": "Eth1/122", "label": "Eth1/122", "shape": "dot", "size": 10}, {"id": "Eth1/123", "label": "Eth1/123", "shape": "dot", "size": 10}, {"id": "Eth1/124", "label": "Eth1/124", "shape": "dot", "size": 10}, {"id": "Eth1/125", "label": "Eth1/125", "shape": "dot", "size": 10}, {"id": "Eth1/126", "label": "Eth1/126", "shape": "dot", "size": 10}, {"id": "Eth1/127", "label": "Eth1/127", "shape": "dot", "size": 10}, {"id": "Eth1/128", "label": "Eth1/128", "shape": "dot", "size": 10}, {"id": "Eth1/13", "label": "Eth1/13", "shape": "dot", "size": 10}, {"id": "Eth1/14", "label": "Eth1/14", "shape": "dot", "size": 10}, {"id": "Eth1/15", "label": "Eth1/15", "shape": "dot", "size": 10}, {"id": "Eth1/16", "label": "Eth1/16", "shape": "dot", "size": 10}, {"id": "Eth1/17", "label": "Eth1/17", "shape": "dot", "size": 10}, {"id": "Eth1/18", "label": "Eth1/18", "shape": "dot", "size": 10}, {"id": "Eth1/19", "label": "Eth1/19", "shape": "dot", "size": 10}, {"id": "Eth1/2", "label": "Eth1/2", "shape": "dot", "size": 10}, {"id": "Eth1/20", "label": "Eth1/20", "shape": "dot", "size": 10}, {"id": "Eth1/21", "label": "Eth1/21", "shape": "dot", "size": 10}, {"id": "Eth1/22", "label": "Eth1/22", "shape": "dot", "size": 10}, {"id": "Eth1/23", "label": "Eth1/23", "shape": "dot", "size": 10}, {"id": "Eth1/24", "label": "Eth1/24", "shape": "dot", "size": 10}, {"id": "Eth1/25", "label": "Eth1/25", "shape": "dot", "size": 10}, {"id": "Eth1/26", "label": "Eth1/26", "shape": "dot", "size": 10}, {"id": "Eth1/27", "label": "Eth1/27", "shape": "dot", "size": 10}, {"id": "Eth1/28", "label": "Eth1/28", "shape": "dot", "size": 10}, {"id": "Eth1/29", "label": "Eth1/29", "shape": "dot", "size": 10}, {"id": "Eth1/3", "label": "Eth1/3", "shape": "dot", "size": 10}, {"id": "Eth1/30", "label": "Eth1/30", "shape": "dot", "size": 10}, {"id": "Eth1/31", "label": "Eth1/31", "shape": "dot", "size": 10}, {"id": "Eth1/32", "label": "Eth1/32", "shape": "dot", "size": 10}, {"id": "Eth1/33", "label": "Eth1/33", "shape": "dot", "size": 10}, {"id": "Eth1/34", "label": "Eth1/34", "shape": "dot", "size": 10}, {"id": "Eth1/35", "label": "Eth1/35", "shape": "dot", "size": 10}, {"id": "Eth1/36", "label": "Eth1/36", "shape": "dot", "size": 10}, {"id": "Eth1/37", "label": "Eth1/37", "shape": "dot", "size": 10}, {"id": "Eth1/38", "label": "Eth1/38", "shape": "dot", "size": 10}, {"id": "Eth1/39", "label": "Eth1/39", "shape": "dot", "size": 10}, {"id": "Eth1/4", "label": "Eth1/4", "shape": "dot", "size": 10}, {"id": "Eth1/40", "label": "Eth1/40", "shape": "dot", "size": 10}, {"id": "Eth1/41", "label": "Eth1/41", "shape": "dot", "size": 10}, {"id": "Eth1/42", "label": "Eth1/42", "shape": "dot", "size": 10}, {"id": "Eth1/43", "label": "Eth1/43", "shape": "dot", "size": 10}, {"id": "Eth1/44", "label": "Eth1/44", "shape": "dot", "size": 10}, {"id": "Eth1/45", "label": "Eth1/45", "shape": "dot", "size": 10}, {"id": "Eth1/46", "label": "Eth1/46", "shape": "dot", "size": 10}, {"id": "Eth1/47", "label": "Eth1/47", "shape": "dot", "size": 10}, {"id": "Eth1/48", "label": "Eth1/48", "shape": "dot", "size": 10}, {"id": "Eth1/49", "label": "Eth1/49", "shape": "dot", "size": 10}, {"id": "Eth1/5", "label": "Eth1/5", "shape": "dot", "size": 10}, {"id": "Eth1/50", "label": "Eth1/50", "shape": "dot", "size": 10}, {"id": "Eth1/51", "label": "Eth1/51", "shape": "dot", "size": 10}, {"id": "Eth1/52", "label": "Eth1/52", "shape": "dot", "size": 10}, {"id": "Eth1/53", "label": "Eth1/53", "shape": "dot", "size": 10}, {"id": "Eth1/54", "label": "Eth1/54", "shape": "dot", "size": 10}, {"id": "Eth1/55", "label": "Eth1/55", "shape": "dot", "size": 10}, {"id": "Eth1/56", "label": "Eth1/56", "shape": "dot", "size": 10}, {"id": "Eth1/57", "label": "Eth1/57", "shape": "dot", "size": 10}, {"id": "Eth1/58", "label": "Eth1/58", "shape": "dot", "size": 10}, {"id": "Eth1/59", "label": "Eth1/59", "shape": "dot", "size": 10}, {"id": "Eth1/6", "label": "Eth1/6", "shape": "dot", "size": 10}, {"id": "Eth1/60", "label": "Eth1/60", "shape": "dot", "size": 10}, {"id": "Eth1/61", "label": "Eth1/61", "shape": "dot", "size": 10}, {"id": "Eth1/62", "label": "Eth1/62", "shape": "dot", "size": 10}, {"id": "Eth1/63", "label": "Eth1/63", "shape": "dot", "size": 10}, {"id": "Eth1/64", "label": "Eth1/64", "shape": "dot", "size": 10}, {"id": "Eth1/65", "label": "Eth1/65", "shape": "dot", "size": 10}, {"id": "Eth1/66", "label": "Eth1/66", "shape": "dot", "size": 10}, {"id": "Eth1/67", "label": "Eth1/67", "shape": "dot", "size": 10}, {"id": "Eth1/68", "label": "Eth1/68", "shape": "dot", "size": 10}, {"id": "Eth1/69", "label": "Eth1/69", "shape": "dot", "size": 10}, {"id": "Eth1/7", "label": "Eth1/7", "shape": "dot", "size": 10}, {"id": "Eth1/70", "label": "Eth1/70", "shape": "dot", "size": 10}, {"id": "Eth1/71", "label": "Eth1/71", "shape": "dot", "size": 10}, {"id": "Eth1/72", "label": "Eth1/72", "shape": "dot", "size": 10}, {"id": "Eth1/73", "label": "Eth1/73", "shape": "dot", "size": 10}, {"id": "Eth1/74", "label": "Eth1/74", "shape": "dot", "size": 10}, {"id": "Eth1/75", "label": "Eth1/75", "shape": "dot", "size": 10}, {"id": "Eth1/76", "label": "Eth1/76", "shape": "dot", "size": 10}, {"id": "Eth1/77", "label": "Eth1/77", "shape": "dot", "size": 10}, {"id": "Eth1/78", "label": "Eth1/78", "shape": "dot", "size": 10}, {"id": "Eth1/79", "label": "Eth1/79", "shape": "dot", "size": 10}, {"id": "Eth1/8", "label": "Eth1/8", "shape": "dot", "size": 10}, {"id": "Eth1/80", "label": "Eth1/80", "shape": "dot", "size": 10}, {"id": "Eth1/81", "label": "Eth1/81", "shape": "dot", "size": 10}, {"id": "Eth1/82", "label": "Eth1/82", "shape": "dot", "size": 10}, {"id": "Eth1/83", "label": "Eth1/83", "shape": "dot", "size": 10}, {"id": "Eth1/84", "label": "Eth1/84", "shape": "dot", "size": 10}, {"id": "Eth1/85", "label": "Eth1/85", "shape": "dot", "size": 10}, {"id": "Eth1/86", "label": "Eth1/86", "shape": "dot", "size": 10}, {"id": "Eth1/87", "label": "Eth1/87", "shape": "dot", "size": 10}, {"id": "Eth1/88", "label": "Eth1/88", "shape": "dot", "size": 10}, {"id": "Eth1/89", "label": "Eth1/89", "shape": "dot", "size": 10}, {"id": "Eth1/9", "label": "Eth1/9", "shape": "dot", "size": 10}, {"id": "Eth1/90", "label": "Eth1/90", "shape": "dot", "size": 10}, {"id": "Eth1/91", "label": "Eth1/91", "shape": "dot", "size": 10}, {"id": "Eth1/92", "label": "Eth1/92", "shape": "dot", "size": 10}, {"id": "Eth1/93", "label": "Eth1/93", "shape": "dot", "size": 10}, {"id": "Eth1/94", "label": "Eth1/94", "shape": "dot", "size": 10}, {"id": "Eth1/95", "label": "Eth1/95", "shape": "dot", "size": 10}, {"id": "Eth1/96", "label": "Eth1/96", "shape": "dot", "size": 10}, {"id": "Eth1/97", "label": "Eth1/97", "shape": "dot", "size": 10}, {"id": "Eth1/98", "label": "Eth1/98", "shape": "dot", "size": 10}, {"id": "Eth1/99", "label": "Eth1/99", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 1.0, "from": "dist-sw01", "to": "Router Type: Nexus9000 9000v", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Chassis", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "RP Uptime: 9553", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Directory: bootflash:", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Disk Space", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Image: bootflash:///nxos.9.2.4.bin", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Main Memory: 8161516 kB", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "OS: NX-OS", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Version: 9.2(4)", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Slot", "weight": 1}, {"Weight": 1.0, "from": "dist-sw01", "to": "Virtual Device", "weight": 1}, {"Weight": 1.0, "from": "Chassis", "to": "Nexus9000 9000v Chassis", "weight": 1}, {"Weight": 2.0, "from": "Nexus9000 9000v Chassis", "to": "Serial Number: 9SURZFD8MR6", "weight": 1}, {"Weight": 1.0, "from": "Serial Number: 9SURZFD8MR6", "to": "Subslot", "weight": 1}, {"Weight": 2.0, "from": "Disk Space", "to": "Total: 3470110720", "weight": 1}, {"Weight": 2.0, "from": "Disk Space", "to": "Used: 1519079424", "weight": 1}, {"Weight": 2.0, "from": "Disk Space", "to": "Free: 1951031296", "weight": 1}, {"Weight": 1.0, "from": "Slot", "to": "Subslot", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "Name: Nexus 9000v Ethernet Module", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "State: N/A", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "Name: N9K-9000v", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "State: active", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "Redundancy State: active", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "Boot Image: bootflash:/nxos.9.2.4.bin", "weight": 1}, {"Weight": 1.0, "from": "Subslot", "to": "Uptime: 9553", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Name: dist-sw01", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Status: active", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/1", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Type: Ethernet", "weight": 1}, {"Weight": NaN, "from": "Virtual Device", "to": "Status: OK", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/10", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/100", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/101", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/102", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/103", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/104", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/105", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/106", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/107", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/108", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/109", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/11", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/110", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/111", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/112", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/113", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/114", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/115", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/116", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/117", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/118", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/119", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/12", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/120", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/121", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/122", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/123", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/124", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/125", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/126", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/127", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/128", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/13", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/14", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/15", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/16", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/17", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/18", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/19", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/2", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/20", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/21", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/22", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/23", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/24", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/25", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/26", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/27", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/28", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/29", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/3", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/30", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/31", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/32", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/33", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/34", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/35", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/36", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/37", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/38", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/39", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/4", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/40", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/41", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/42", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/43", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/44", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/45", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/46", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/47", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/48", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/49", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/5", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/50", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/51", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/52", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/53", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/54", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/55", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/56", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/57", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/58", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/59", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/6", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/60", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/61", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/62", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/63", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/64", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/65", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/66", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/67", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/68", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/69", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/7", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/70", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/71", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/72", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/73", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/74", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/75", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/76", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/77", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/78", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/79", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/8", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/80", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/81", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/82", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/83", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/84", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/85", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/86", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/87", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/88", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/89", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/9", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/90", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/91", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/92", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/93", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/94", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/95", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/96", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/97", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/98", "weight": 1}, {"Weight": 1.0, "from": "Virtual Device", "to": "Eth1/99", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

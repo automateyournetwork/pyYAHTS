@@ -1,0 +1,583 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.4/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/keytable/2.6.4/js/dataTables.keyTable.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.6.4/css/keyTable.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+</head>
+<body>
+<h1>Learn Routing</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>VRF</th>
+    <th>Address Family</th>
+    <th>Route</th>
+    <th>Active</th>
+    <th>Metric</th>
+    <th>Next Hop Index</th>
+    <th>Next Hop</th>
+    <th>Outgoing Interface</th>
+    <th>Route Preference</th>
+    <th>Source Protocol</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.101.0/24</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.101.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.101.1/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.101.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>hsrp</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.101.2/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.101.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.102.0/24</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.102.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.102.1/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.102.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>hsrp</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.102.2/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.102.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.103.0/24</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.103.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.103.1/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.103.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>hsrp</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.103.2/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.103.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.104.0/24</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.104.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.104.1/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.104.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>hsrp</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.104.2/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.104.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.105.0/24</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.105.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.105.1/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.105.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>hsrp</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.105.2/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.105.2</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.0/30</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.252.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.1/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.252.1</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.12/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.6</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.16/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.2</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.16/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>2</td>
+    <td>172.16.252.6</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.20/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.2</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.24/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.2</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.28/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.6</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.32/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.6</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.4/30</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.252.5</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.5/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>172.16.252.5</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+<tr>
+    <td>default</td>
+    <td>ipv4</td>
+    <td>172.16.252.8/30</td>
+    <td>True</td>
+    <td>41</td>
+    <td>1</td>
+    <td>172.16.252.2</td>
+    <td>N/A</td>
+    <td>110</td>
+    <td>ospf</td>
+<tr>
+    <td>management</td>
+    <td>ipv4</td>
+    <td>0.0.0.0/0</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>10.10.20.254</td>
+    <td>N/A</td>
+    <td>1</td>
+    <td>static</td>
+<tr>
+    <td>management</td>
+    <td>ipv4</td>
+    <td>10.10.20.0/24</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>10.10.20.177</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>direct</td>
+<tr>
+    <td>management</td>
+    <td>ipv4</td>
+    <td>10.10.20.177/32</td>
+    <td>True</td>
+    <td>0</td>
+    <td>1</td>
+    <td>10.10.20.177</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>local</td>
+</tbody>
+</table><script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable thead');
+
+    var table = $('#datatable').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable02 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable02 thead');
+
+    var table = $('#datatable02').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#datatable03 thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatable03 thead');
+
+    var table = $('#datatable03').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+</body></html>

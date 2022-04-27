@@ -19,12 +19,14 @@ title {{ hostname }} ARP Statistics
 ```
 {%- else %}
 {%- if command == "bgp" %}
+{%-     if data_to_template['instance'] is defined %}
 ```mermaid
 pie
 title {{ hostname }} BGP Statistics
 "Total Recieved Messages" : {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }}
 "Total Sent Messages" : {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }}
 ```
+{%-     endif %}
 {%- else %}
 
 {%- if command == "hsrp" %}

@@ -1058,4 +1058,3 @@ dist-rtr01 <--> default <--> ipv4 <--> Instance_1 <--> Router_ID172.16.252.25 <-
 flowchart LR;
 dist-rtr01 <--> default <--> ipv4 <--> Instance_1 <--> Router_ID172.16.252.25 <--> Area_0.0.0.0 <--> normal <--> LSA_Type_1 <--> Advertising_Router_172.16.252.33 <--> LSA_ID_172.16.252.33 <--> Link_172.16.252.6 <--> Topology_0 <--> GigabitEthernet6 <--> Neighbor_172.16.252.33 <--> Address_172.16.252.18 <--> Router_ID_172.16.252.33
 ```
-```
