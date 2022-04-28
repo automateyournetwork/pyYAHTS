@@ -1,5 +1,5 @@
 {%- if command == "acl" %}
-
+ACL Does Not Create a PieChart
 {%- else %}
 {%- if command == "arp" %}
 ```mermaid
@@ -19,15 +19,17 @@ title {{ hostname }} ARP Statistics
 ```
 {%- else %}
 {%- if command == "bgp" %}
+{%-     if data_to_template['instance'] is defined %}
 ```mermaid
 pie
 title {{ hostname }} BGP Statistics
 "Total Recieved Messages" : {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }}
 "Total Sent Messages" : {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }}
 ```
+{%-     endif %}
 {%- else %}
 {% if command == 'dot1x' %}
-{% for interface in data_to_template.interfaces %}{% if data_to_template.interfaces[interface].clients is defined %}{% for client in data_to_template.interfaces[interface].clients %}{% for session in data_to_template.interfaces[interface].clients[client].session %}
+{% for interface in data_to_template.interfaces %}{%- if data_to_template.interfaces[interface].clients is defined %}{%- for client in data_to_template.interfaces[interface].clients %}{%- for session in data_to_template.interfaces[interface].clients[client].session %}
 ```mermaid
 pie
 title {{ hostname }} {{ interface }} dot1x Statistics
@@ -39,7 +41,7 @@ title {{ hostname }} {{ interface }} dot1x Statistics
 "RX Total" : {{ data_to_template.interfaces[interface].statistics.rxtotal }}
 "TX Requests" : {{ data_to_template.interfaces[interface].statistics.txreq }}
 "TX Total" : {{ data_to_template.interfaces[interface].statistics.txtotal }}
-{% endfor %}{% endfor %}{% else %}
+{%- endfor %}{%- endfor %}{%- else %}
 "RX Invalid" : {{ data_to_template.interfaces[interface].statistics.rxinvalid }}
 "RX Error" : {{ data_to_template.interfaces[interface].statistics.rxlenerr }}
 "RX Logoff" : {{ data_to_template.interfaces[interface].statistics.rxlogoff }}
@@ -49,10 +51,10 @@ title {{ hostname }} {{ interface }} dot1x Statistics
 "TX Requests" : {{ data_to_template.interfaces[interface].statistics.txreq }}
 "TX Total" : {{ data_to_template.interfaces[interface].statistics.txtotal }}
 ``` 
-{% endif %}{% endfor %}
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "hsrp" %}
-
+HSRP Does Not Create a PieChart
 {%- else %}
 {%- if command == 'interface' %}
 {%- for interface in data_to_template %}
@@ -132,99 +134,415 @@ title {{ hostname }} LLDP Counters
 "TLV Unknown" : {{ data_to_template.counters.tlv_unknown }}
 ```
 {%- else %}
-{% if command == "ntp" %}
-
+{%- if command == "ntp" %}
+NTP Does Not Creat a PieChart
 {%- else %}
 {%- if command == "ospf" %}
-
+{%- for vrf in data_to_template['vrf'] %}{%- if vrf == "default" %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for lsa_type in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}{%- for lsa in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router is defined %}{%- for link in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}{%- for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{%- for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+pie
+title {{ hostname }} OSPF SPF
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+"SPF Start" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+"SPF Hold" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+"SPF Maximum" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+"SPF Run Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF LSA
+"Metric" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+"Age" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+"Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+"Event Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}
+"Retransmit Queue Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_retrans_qlen }}
+```
+{%- endfor %}{%- else %}
+```mermaid
+pie
+title {{ hostname }} OSPF SPF
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+"SPF Start" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+"SPF Hold" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+"SPF Maximum" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+"SPF Run Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF LSA
+"Metric" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+"Age" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+"Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+```
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary is defined %}{% for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}\
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+```mermaid
+pie
+title {{ hostname }} OSPF SPF
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+"SPF Start" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+"SPF Hold" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+"SPF Maximum" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+"SPF Run Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF LSA
+"Metric" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+"Age" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+"Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+```
+{%- endfor %}{%- endif %}{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}{%- for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{%- for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Neighbor Statistics
+"Event Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}
+"Retransmit Queue Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_retrans_qlen }}
+{%- endfor %}{%- else %}
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+```
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "platform" %}
-
+Platform Does Not Create a PieChart
 {%- else %}
 {%- if command == "routing" %}
-
+Routing Does Not Create a PieChart
 {%- else %}
 {%- if command == 'stp' %}
-
+{%- for id in data_to_template['rapid_pvst'] %}{%- for vlan in data_to_template['rapid_pvst'][id].vlans %}{%- for interface in data_to_template['rapid_pvst'][id].vlans[vlan].interfaces %}
+```mermaid
+pie
+title {{ hostname }} RPVST+ Timers
+"Forwarding Delay" : {{ data_to_template['rapid_pvst'][id].forwarding_delay }}
+"Hello" : {{ data_to_template['rapid_pvst'][id].hello_time }}
+"Hold" : {{ data_to_template['rapid_pvst'][id].hold_count }}
+"Max Age" : {{ data_to_template['rapid_pvst'][id].max_age }}
+```
+```mermaid
+pie
+title {{ hostname }} RPVST+ VLAN Priority
+"Bridge Priority" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].bridge_priority }}
+"Configured Bridge Priority" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].configured_bridge_priority }}
+"Designated Root Priority" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].designated_root_priority }}
+```
+```mermaid
+pie
+title {{ hostname }} RPVST+ VLAN Details
+"Forwarding Delay" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].forwarding_delay }}
+"Hello Time" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].hello_time }}
+"Hold Count" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].hold_count }}
+"Hold Time" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].hold_time }}
+"Max Age" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].max_age }}
+"Topology Changes" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].topology_changes }}
+"Cost" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].cost }}
+```
+{%- if data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters is defined %}
+```mermaid
+pie
+title {{ hostname }} RPVST+ BPDU Counters
+"Received" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters.bpdu_received }}
+"Sent" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters.bpdu_sent }}
+```
+{%- endif %}
+```mermaid
+pie
+title {{ hostname }} RPVST+ Interface Details
+"Designated Bridge Priority" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_bridge_priority }}
+"Designated Cost" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_cost }}
+"Designated Priority" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_port_priority }}
+"Designated Root Priority" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_root_priority }}
+"Forwarding Transitions" : {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].forward_transitions }}
+{%- endfor %}{%- endfor %}{%- endfor %}  
 {%- else %}
 {%- if command == "vlan" %}
-
+VLAN Does Not Create a PieChart
 {%- else %}
 {%- if command == 'vrf' %}
-
+VRF Does Not Create a PieChart
 {%- else %}
 {%- if command == "show access-lists" %}
-
+ACL Does Not Create a PieChart
 {%- else %}
 {%- if command == "show bgp process vrf all" %}
-
+{%-     for vrf in data_to_template.vrf %}
+{%-         for address_family in data_to_template.vrf[vrf].address_family %}
+{%-             for peer in data_to_template.vrf[vrf].address_family[address_family].peers %}
+```mermaid
+pie
+title {{ hostname }} BGP Process VRF All Path Entries
+"AS Path Entries" : {{ data_to_template.bgp_as_path_entries }}
+"Paths Per HWM Atribute" : {{ data_to_template.bgp_paths_per_hwm_attr }}
+"Entries Pending Delete" : {{ data_to_template.entries_pending_delete }}
+```
+```mermaid
+pie
+title {{ hostname }} BGP Process VRF All Peers
+"Configured Peers" : {{ data_to_template.vrf[vrf].num_conf_peers }}
+"Established Peers" : {{ data_to_template.vrf[vrf].num_established_peers }}
+"Pending Configured Peers" : {{ data_to_template.vrf[vrf].num_pending_conf_peers }}
+```
+```mermaid
+pie
+title {{ hostname }} BGP Process VRF All Peer Details
+"Active Peers" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].active_peers }}
+"Aggregates" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].aggregates }}
+"Networks" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].networks }}
+"Paths" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].paths }}
+"Routes" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].routes }}
+```
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show bgp sessions" %}
-
-{% else %}
+{%-     for vrf in data_to_template.vrf %}
+```mermaid
+pie
+title {{ hostname }} BGP Sessions Total Peers
+"Established" : {{ data_to_template.total_established_peers }}
+"Total" : {{ data_to_template.total_peers }}
+```
+```mermaid
+pie
+title {{ hostname }} BGP Sessions VRF Peers
+"VRF Established" : {{ data_to_template.vrf[vrf].vrf_established_peers }}
+"VRF Total" : {{ data_to_template.vrf[vrf].vrf_peers }}
+```
+{%-     endfor %}
+{%- else %}
 {%- if command == "show cdp neighbors" %}
-
+Show CDP Neighbors Does Not Create a PieChart
 {%- else %}
 {%- if command == "show cdp neighbors detail" %}
-
+Show CDP Neighbors Details Does Not Create a PieChart
 {%- else %}
 {%- if command == 'show environment' %}
-
+{%-         for switch in data_to_template['switch'] %}
+{%-             for fan in data_to_template['switch'][switch].fan %}
+```mermaid
+pie
+title {{ hostname }} Show Environment Inlet Temperature
+"Current Value" : {{ data_to_template['switch'][switch].inlet_temperature.value }}
+"Yellow: : {{ data_to_template['switch'][switch].inlet_temperature.yellow_threshold }}
+"Red" : {{ data_to_template['switch'][switch].inlet_temperature.red_threshold }}
+```
+```mermaid
+pie
+title {{ hostname }} Show Environment Hotspot Temperature
+"Current Value" : {{ data_to_template['switch'][switch].hotspot_temperature.value }}
+"Yellow" : {{ data_to_template['switch'][switch].hotspot_temperature.yellow_threshold }}
+"Red" : {{ data_to_template['switch'][switch].hotspot_temperature.red_threshold }}
+{%-             endfor %}
+{%-         endfor %}
+{%-         for power_supply in data_to_template['switch'][switch].power_supply %}
+```mermaid
+pie
+title {{ hostname }} Show Environment Power Supply
+"PoE Power" : {{ data_to_template['switch'][switch].power_supply[power_supply].poe_power }}
+"System Power" : {{ data_to_template['switch'][switch].power_supply[power_supply].system_power }}
+"Watts" : {{ data_to_template['switch'][switch].power_supply[power_supply].watts }}
+```
+{%-         endfor %}
 {%- else %}
 {%- if command == "show etherchannel summary" %}
-
+```mermaid
+pie
+title {{ hostname }} Etherchannel Summary
+"Number of Aggregators" : {{ data_to_template.number_of_aggregators }}
+"Number of LAG In Use" : {{ data_to_template.number_of_lag_in_use }}
+```
 {%- else %}
 {% if command == "show interfaces" %}
-
+{%- for interface in data_to_template %}{% if ( (data_to_template[interface].port_channel.port_channel_member_intfs is defined) and (data_to_template[interface].ipv4 is defined)) %}{% for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}{% for ip_address in data_to_template[interface].ipv4 %}
+{%- if data_to_template[interface].counters is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Counters
+"Input CRC Errors" : {{ data_to_template[interface].counters.in_crc_errors }}
+"Input Errors" : {{ data_to_template[interface].counters.in_errors }}
+"Output Errors" : {{ data_to_template[interface].counters.out_errors }}
+"Input Packets" : {{ data_to_template[interface].counters.in_pkts }}
+"Output Packets" : {{ data_to_template[interface].counters.out_pkts }}
+```
+{%- endif %}
+{%- if data_to_template[interface].queues is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Drops
+"Input Queue Drops" : {{ data_to_template[interface].queues.input_queue_drops }}
+"Total Output Drops" : {{ data_to_template[interface].queues.total_output_drop }}
+```
+{%- endif %}
+{%- endfor %}{%- endfor %}{%- elif data_to_template[interface].port_channel.port_channel_member_intfs is defined %}{%- for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}
+{% if data_to_template[interface].counters is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Counters
+"Input CRC Errors" : {{ data_to_template[interface].counters.in_crc_errors }}
+"Input Errors" : {{ data_to_template[interface].counters.in_errors }}
+"Output Errors" : {{ data_to_template[interface].counters.out_errors }}
+"Input Packets" : {{ data_to_template[interface].counters.in_pkts }}
+"Output Packets" : {{ data_to_template[interface].counters.out_pkts }}
+```
+{%- endif %}
+{% if data_to_template[interface].queues is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Drops
+"Input Queue Drops" : {{ data_to_template[interface].queues.input_queue_drops }}
+"Total Output Drops" : {{ data_to_template[interface].queues.total_output_drop }}
+```
+{%- endif %}
+{%- endfor %}{%- elif data_to_template[interface].port_channel.port_channel_member_intfs is defined %}{%- for ip_address in data_to_template[interface].ipv4 %}
+{% if data_to_template[interface].counters is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Counters
+"Input CRC Errors" : {{ data_to_template[interface].counters.in_crc_errors }}
+"Input Errors" : {{ data_to_template[interface].counters.in_errors }}
+"Output Errors" : {{ data_to_template[interface].counters.out_errors }}
+"Input Packets" : {{ data_to_template[interface].counters.in_pkts }}
+"Output Packets" : {{ data_to_template[interface].counters.out_pkts }}
+```
+{%- endif %}
+{%- if data_to_template[interface].queues is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Drops
+"Input Queue Drops" : {{ data_to_template[interface].queues.input_queue_drops }}
+"Total Output Drops" : {{ data_to_template[interface].queues.total_output_drop }}
+```
+{%- endif %}
+{%- endfor %}{%- else %}
+{%- if data_to_template[interface].counters is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Counters
+"Input CRC Errors" : {{ data_to_template[interface].counters.in_crc_errors }}
+"Input Errors" : {{ data_to_template[interface].counters.in_errors }}
+"Output Errors" : {{ data_to_template[interface].counters.out_errors }}
+"Input Packets" : {{ data_to_template[interface].counters.in_pkts }}
+"Output Packets" : {{ data_to_template[interface].counters.out_pkts }}
+```
+{%- endif %}
+{%- if data_to_template[interface].queues is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Drops
+"Input Queue Drops" : {{ data_to_template[interface].queues.input_queue_drops }}
+"Total Output Drops" : {{ data_to_template[interface].queues.total_output_drop }}
+```
+{%- endif %}
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "show interfaces status" %}
-
+Show Interfaces Status Does Not Create a PieChart
 {%- else %}
 {%- if command == "show interfaces trunk" %}
-
+Show Interfaces Trunk Does Not Create a PieChart
 {%- else %}
 {%- if command == "show inventory" %}
-
+Show Inventory Status Does Not Create a PieChart
 {%- else %}
 {%- if command == 'show ip arp' %}
-
+Show IP ARP Status Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip interface brief" %}
-
+Show IP Interface Brief Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip ospf" %}
-
+{%-             for vrf in data_to_template['vrf'] %}
+{%-                 for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-                     for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                         for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                             for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}
+```mermaid
+pie
+title {{ hostname }} OSPF Statistics
+"Interfaces" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.interfaces_count }}
+"SPF Runs" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+"LSAs" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Totals
+"Total Areas" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_areas }}
+"Normal Areas" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_normal_areas }}
+"NSSA Areas" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_nssa_areas }}
+"Stub Areas" :{{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_stub_areas }}
+{%-                             endfor %}
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
 {%- else %}
 {%- if command == "show ip ospf database" %}
-
+Show IP OSPF Database Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip ospf interface" %}
-
+Show IP OSPF Interface Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip ospf neighbor" %}
-
+Show IP OSPF Neighbor Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip ospf neighbor detail" %}
-
+Show IP OSPF Neighbor Detail Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip route" %}
-
+Show IP Route Does Not Create a PieChart
 {%- else %}
 {%- if command == 'show license summary' %}
-
+Show License Summary Does Not Create a PieChart
 {%- else %}
 {%- if command == "show mac address-table" %}
-
+Show MAC Address-Table Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ntp associations" %}
-
+Show NTP Associations Does Not Create a PieChart
 {%- else %}
 {%- if command == "show version" %}
-
+```mermaid
+pie
+title {{ hostname }} Show Version - Memory
+"Main Memory" : {{ data_to_template['version'].main_mem }}
+"Non-volatile" : {{ data_to_template['version'].mem_size["non-volatile configuration"] }}
+"Physical" : {{ data_to_template['version'].mem_size.physical }}
+```
 {%- else %}
 {%- if command == "show vlan" %}
-
+Show VLAN Does Not Create a PieChart
 {%- else %}
 {%- if command == "show vrf" %}
-
+Show VRF Does Not Create a PieChart
 {%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}
