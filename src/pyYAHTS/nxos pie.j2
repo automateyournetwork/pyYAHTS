@@ -1,5 +1,5 @@
 {%- if command == "acl" %}
-
+ACL Does Not Create a PieChart
 {%- else %}
 {%- if command == "arp" %}
 ```mermaid
@@ -30,7 +30,7 @@ title {{ hostname }} BGP Statistics
 {%- else %}
 
 {%- if command == "hsrp" %}
-
+HSRP Does Not Create a PieChart
 {%- else %}
 {%- if command == 'interface' %}
 {%- for interface in data_to_template %}
@@ -111,89 +111,456 @@ title {{ hostname }} LLDP Counters
 ```
 {%- else %}
 {%- if command == "ntp" %}
-
+NTP Does Not Creat a PieChart
 {%- else %}
 {%- if command == 'ospf' %}
-
+{%- for vrf in data_to_template['vrf'] %}{%- if vrf == "default" %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for lsa_type in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}{%- for lsa in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router is defined %}{%- for link in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}{%- for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{%- for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+pie
+title {{ hostname }} OSPF SPF
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+"SPF Start" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+"SPF Hold" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+"SPF Maximum" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+"SPF Run Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF LSA
+"Metric" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+"Age" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+"Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+"Event Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}
+"Retransmit Queue Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_retrans_qlen }}
+```
+{%- endfor %}{%- else %}
+```mermaid
+pie
+title {{ hostname }} OSPF SPF
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+"SPF Start" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+"SPF Hold" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+"SPF Maximum" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+"SPF Run Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF LSA
+"Metric" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+"Age" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+"Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+```
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary is defined %}{% for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}\
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+```mermaid
+pie
+title {{ hostname }} OSPF SPF
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+"SPF Control Paths" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%- endif %}
+"SPF Start" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+"SPF Hold" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+"SPF Maximum" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+"SPF Run Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF LSA
+"Metric" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+"Age" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+"Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+```
+{%- endfor %}{%- endif %}{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}{%- for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{%- for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Neighbor Statistics
+"Event Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}
+"Retransmit Queue Length" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_retrans_qlen }}
+{%- endfor %}{%- else %}
+```mermaid
+pie
+title {{ hostname }} OSPF Interface
+"Cost" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+"Priority" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority }}
+```
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "platform" %}
-
+Platform Does Not Create a PieChart
 {%- else %}
 {%- if command == "routing" %}
-
+Routing Does Not Create a PieChart
 {%- else %}
 {%- if command == "vlan" %}
-
+VLAN Does Not Create a PieChart
 {%- else %}
 {%- if command == 'vrf' %}
-
+VRF Does Not Create a PieChart
 {%- else %}
 {%- if command == "show access-lists" %}
-
+ACL Does Not Create a PieChart
 {%- else %}
 {%- if command == "show bgp process vrf all" %}
-
+{%-     for vrf in data_to_template.vrf %}
+{%-         for address_family in data_to_template.vrf[vrf].address_family %}
+{%-             for peer in data_to_template.vrf[vrf].address_family[address_family].peers %}
+```mermaid
+pie
+title {{ hostname }} BGP Process VRF All Path Entries
+"AS Path Entries" : {{ data_to_template.bgp_as_path_entries }}
+"Paths Per HWM Atribute" : {{ data_to_template.bgp_paths_per_hwm_attr }}
+"Entries Pending Delete" : {{ data_to_template.entries_pending_delete }}
+```
+```mermaid
+pie
+title {{ hostname }} BGP Process VRF All Peers
+"Configured Peers" : {{ data_to_template.vrf[vrf].num_conf_peers }}
+"Established Peers" : {{ data_to_template.vrf[vrf].num_established_peers }}
+"Pending Configured Peers" : {{ data_to_template.vrf[vrf].num_pending_conf_peers }}
+```
+```mermaid
+pie
+title {{ hostname }} BGP Process VRF All Peer Details
+"Active Peers" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].active_peers }}
+"Aggregates" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].aggregates }}
+"Networks" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].networks }}
+"Paths" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].paths }}
+"Routes" : {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].routes }}
+```
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show bgp sessions" %}
-
+{%-     for vrf in data_to_template.vrf %}
+```mermaid
+pie
+title {{ hostname }} BGP Sessions Total Peers
+"Established" : {{ data_to_template.total_established_peers }}
+"Total" : {{ data_to_template.total_peers }}
+```
+```mermaid
+pie
+title {{ hostname }} BGP Sessions VRF Peers
+"VRF Established" : {{ data_to_template.vrf[vrf].vrf_established_peers }}
+"VRF Total" : {{ data_to_template.vrf[vrf].vrf_peers }}
+```
+{%-     endfor %}
 {% else %}
 {% if command == "show cdp neighbors" %}
-
+Show CDP Neighbors Does Not Create a PieChart
 {%- else %}
 {%- if command == "show cdp neighbors detail" %}
-
+Show CDP Neighbors Details Does Not Create a PieChart
 {%- else %}
 {%- if command == "show environment" %}
-
+{%- for power_supply in data_to_template.power.power_supply %}
+```mermaid
+pie
+title {{ hostname }} Show Environment Power Supply
+"Actual Input Watts" : {{ data_to_template.power.power_supply[power_supply].actual_input_watts }}
+"Actual Output Watts" : {{ data_to_template.power.power_supply[power_supply].actual_output_watts }}
+"Total Capacity Watts" : {{ data_to_template.power.power_supply[power_supply].total_capacity_watts }}
+"Voltage" : {{ data_to_template.power.voltage }}
+```
+```mermaid
+pie
+title {{ hostname }} Show Environment Power Grids
+"Grid A Power Watts" : {{ data_to_template.power.power_usage_summary.total_grid_a_power_watts }}
+"Grid B Power Watts" : {{ data_to_template.power.power_usage_summary.total_grid_b_power_watts }}
+```
+```mermaid
+pie
+title {{ hostname }} Show Environment Total Power
+"Capacity Watts" : {{ data_to_template.power.power_usage_summary.total_power_capacity_watts }}
+"Cumulative Watts" : {{ data_to_template.power.power_usage_summary.total_power_cumulative_watts }}
+```
+```mermaid
+pie
+title {{ hostname }} Show Environment Power Totals
+"Input Watts" : {{ data_to_template.power.power_usage_summary.total_power_input_watts }}
+"Output Watts" : {{ data_to_template.power.power_usage_summary.total_power_output_watts }}
+```
+{%- endfor %}
+{%- for temp_number in data_to_template.temperature %}
+{%-     for area in data_to_template.temperature[temp_number] %}
+{{ data_to_template.temperature[temp_number][area].current_temp_celsius }}
+{{ data_to_template.temperature[temp_number][area].major_threshold_celsius }}
+{{ data_to_template.temperature[temp_number][area].minor_threshold_celsius }}
+{%-     endfor %}
+{%- endfor %}
 {%- else %}
 {%- if command == "show port-channel summary" %}
-
+Show Port-Channel Summary Does Not Create a PieChart
 {%- else %}
 {%- if command == "show interface" %}
-
+{%- for interface in data_to_template %}   
+{%- if data_to_template[interface].counters is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Input Counters
+{%-     if data_to_template[interface].counters.in_bad_etype_drop is defined %}
+"Bad EType Drop": {{ data_to_template[interface].counters.in_bad_etype_drop }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_broadcast_pkts is defined %}
+"Broadcast" : {{ data_to_template[interface].counters.in_broadcast_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_crc_errors is defined %}
+"CRC" : {{ data_to_template[interface].counters.in_crc_errors }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_discard is defined %}
+"Discard" : {{ data_to_template[interface].counters.in_discard }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_errors is defined %}
+"Errors" : {{ data_to_template[interface].counters.in_errors }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_if_down_drop is defined %}
+"Down Drop" : {{ data_to_template[interface].counters.in_if_down_drop }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_ignored is defined %}
+"Ignored" : {{ data_to_template[interface].counters.in_ignored }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_mac_pause_frames is defined %}
+"MAC Pause Frames" : {{ data_to_template[interface].counters.in_mac_pause_frames }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_multicast_pkts is defined %}
+"Multicast" : {{ data_to_template[interface].counters.in_multicast_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_no_buffer is defined %}
+"No Buffer" : {{ data_to_template[interface].counters.in_no_buffer }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_overrun is defined %}
+"Overrun" : {{ data_to_template[interface].counters.in_overrun }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_oversize_frame is defined %}
+"Oversize Frame" : {{ data_to_template[interface].counters.in_oversize_frame }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_pkts is defined %}
+"Packets" : {{ data_to_template[interface].counters.in_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_runts is defined %}
+"Runts" : {{ data_to_template[interface].counters.in_runts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_short_frame is defined %}
+"Short Frame" : {{ data_to_template[interface].counters.in_short_frame }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_underrun is defined %}
+"Underrun" : {{ data_to_template[interface].counters.in_underrun }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_unicast_pkts is defined %}
+"Unicast" : {{ data_to_template[interface].counters.in_unicast_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_unknown_protos is defined %}
+"Uknown" : {{ data_to_template[interface].counters.in_unknown_protos }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_watchdog is defined %}
+"Watchdog" : {{ data_to_template[interface].counters.in_watchdog }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.in_with_dribble is defined %}
+"With Dribble" : {{ data_to_template[interface].counters.in_with_dribble }}
+{%-     endif %}
+```
+```mermaid
+pie
+title {{ hostname }} {{ interface }} Output Counters
+{%-     if data_to_template[interface].counters.out_babble is defined %}
+"Babble" : {{ data_to_template[interface].counters.out_babble }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_broadcast_pkts is defined %}
+"Broadcast" : {{ data_to_template[interface].counters.out_broadcast_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_collision is defined %}
+"Collision" : {{ data_to_template[interface].counters.out_collision }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_deferred is defined %}
+"Deferred" : {{ data_to_template[interface].counters.out_deferred }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_discard is defined %}
+"Discard" : {{ data_to_template[interface].counters.out_discard }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_errors is defined %}
+"Errors" : {{ data_to_template[interface].counters.out_errors }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_jumbo_packets is defined %}
+"Jumbo" : {{ data_to_template[interface].counters.out_jumbo_packets }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_late_collision is defined %}
+"Late Collision" : {{ data_to_template[interface].counters.out_late_collision }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_lost_carrier is defined %}
+"Lost Carrier" : {{ data_to_template[interface].counters.out_lost_carrier }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_mac_pause_frames is defined %}
+"MAC Pause Frames" : {{ data_to_template[interface].counters.out_mac_pause_frames }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_multicast_pkts is defined %}
+"Multicast Packets" : {{ data_to_template[interface].counters.out_multicast_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_no_carrier is defined %}
+"No Carrier" : {{ data_to_template[interface].counters.out_no_carrier }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_pkts is defined %}
+"Packets" : {{ data_to_template[interface].counters.out_pkts }}
+{%-     endif %}
+{%-     if data_to_template[interface].counters.out_unicast_pkts is defined %}
+"Unicast" : {{ data_to_template[interface].counters.out_unicast_pkts }}
+{%-     endif %}
+```
+{%-     if data_to_template[interface].counters.rate is defined %}
+```mermaid
+pie
+title {{ hostname }} {{ interface }} I/O Rate
+{%-         if data_to_template[interface].counters.rate.in_rate is defined %}
+"Input" : {{ data_to_template[interface].counters.rate.in_rate }}
+{%-         endif %}
+{%-         if data_to_template[interface].counters.rate.out_rate is defined %}
+"Output" : {{ data_to_template[interface].counters.rate.out_rate }}
+{%-         endif %}
+```
+{%-     endif %}
+{%- endif %}
+{%- endfor %}
 {%- else %}
 {%- if command == "show interface status" %}
-
+Show Interface Status Does Not Create a PieChart
 {%- else %}
 {%- if command == "show interface transceiver" %}
-
+Show Interface Transceiver Does Not Create a PieChart
 {%- else %}
 {%- if command == "show inventory" %}
-
+Show Inventory Does Not Create a PieChart
 {%- else %}
 {% if command == "show ip arp vrf all" %}
-
+Show IP ARP VRF All Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip interface brief" %}
-
+Show IP Interface Brief Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip ospf" %}
-
+{% for vrf in data_to_template['vrf'] %}{% for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas is defined %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}                  
+```mermaid
+pie
+title {{ hostname }} OSPF Interfaces
+"Active" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.active_interfaces }}
+"Passive" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.passive_interfaces }}
+"Loopback" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.loopback_interfaces }}
+"Total" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].numbers.interfaces }}
+```
+```mermaid
+pie
+title {{ hostname }} OSPF Areas
+"Normal" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.normal }}
+"NSSA" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.nssa }}
+"Stub" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.stub }}
+"Total" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.total }}
+```
+{%- endfor %}{%- else %}
+```mermaid
+pie
+title {{ hostname }} OSPF Areas
+"Normal" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.normal }}
+"NSSA" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.nssa }}
+"Stub" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.stub }}
+"Total" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.active_areas.total }}
+```
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}
 {%- else %}
 {%- if command == "show ip ospf interface" %}
-
+{%- for vrf in data_to_template['vrf'] %}{%- for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+```mermaid
+pie
+title {{ hostname }} OSPF {{ interface }} Intervals
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval is defined %}
+"Dead" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval is defined %}
+"Hello" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval is defined %}
+"Retransmit" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}
+{%- endif %}
+```
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics is defined %}
+```mermaid
+pie
+title {{ hostname }} OSPF {{ interface }} Statistics
+"LSA Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }}
+"Adjacent Neighbors" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_adjacent }}
+"Neighbors Flooding" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_flooding }}
+"Total Neighbors" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.total_neighbors }}
+```
+{% endif %}
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
 {%- else %}
 {%- if command == "show ip ospf interface vrf all" %}
-
+{%- for vrf in data_to_template['vrf'] %}{%- for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+```mermaid
+pie
+title {{ hostname }} OSPF {{ interface }} Intervals
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval is defined %}
+"Dead" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval is defined %}
+"Hello" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval is defined %}
+"Retransmit" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}
+{%- endif %}
+```
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics is defined %}
+```mermaid
+pie
+title {{ hostname }} OSPF {{ interface }} Statistics
+"LSA Count" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }}
+"Adjacent Neighbors" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_adjacent }}
+"Neighbors Flooding" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.num_nbrs_flooding }}
+"Total Neighbors" : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.total_neighbors }}
+```
+{% endif %}
+{%- endfor %}{% endfor %}{% endfor %}{% endfor %}{% endfor %}
 {%- else %}
 {%- if command == "show ip ospf neighbors detail" %}
-
+Show IP OSPF Neighbors Detail Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip ospf neighbors detail vrf all" %}
-
+Show IP OSPF Neighbors Detail VRF All Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip route" %}
-
+Show IP Route Does Not Create a PieChart
 {%- else %}
 {%- if command == "show ip route vrf all" %}
-
+Show IP Route VRF All Does Not Create a PieChart
 {%- else %}
 {%- if command == "show mac address-table" %}
-
+Show MAC Address-Table Does Not Create a PieChart
 {%- else %}
 {%- if command == "show version" %}
-
+Show Version Does Not Create a PieChart
 {%- else %}
 {%- if command == "show vlan" %}
-
+Show VLAN Not Create a PieChart
 {%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

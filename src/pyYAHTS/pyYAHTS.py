@@ -63,6 +63,7 @@ class GetJson():
                             'show ip arp vrf all',
                             'show ip interface brief',
                             'show ip ospf',
+                            'show ip ospf interface',
                             'show ip ospf interface vrf all',
                             'show ip ospf neighbors detail',
                             'show ip ospf neighbors detail vrf all',
