@@ -13,8 +13,8 @@ Auto Negotiate: True
 Port Speed: 1000mbps
 Duplex Mode: full
 MTU: 1500
-MAC Address: 5254.001f.b4db
-Physical Address: 5254.001f.b4db
+MAC Address: 5254.0013.71d0
+Physical Address: 5254.0013.71d0
 IP Address: 10.10.20.175/24
 Delay: 10
 Encapsulation: arpa
@@ -28,17 +28,17 @@ Input CRC Errors: 0
 Input Errors: 0
 Input MAC Pause Frames: 0
 Input Multicast: 0
-Input Octects: 3317068
-Input Packets: 48460
+Input Octects: 3627262
+Input Packets: 50272
 Output Broadcast: 0
 Output Errors: 0
 Output MAC Pause Frames: 0
 Output Multicast: 0
-Output Packets: 47090
+Output Packets: 48228
 Output Last Clear: never
 Input Rate: 8000
 Load Interval: 300
-Output Rate: 21000
+Output Rate: 17000
 }
 ```
 ```mermaid
@@ -54,8 +54,8 @@ Auto Negotiate: True
 Port Speed: 1000mbps
 Duplex Mode: full
 MTU: 1500
-MAC Address: 5254.001e.d479
-Physical Address: 5254.001e.d479
+MAC Address: 5254.0007.e627
+Physical Address: 5254.0007.e627
 IP Address: 172.16.252.21/30
 Delay: 10
 Encapsulation: arpa
@@ -75,7 +75,7 @@ Output Broadcast: 0
 Output Errors: 0
 Output MAC Pause Frames: 0
 Output Multicast: 0
-Output Packets: 888
+Output Packets: 4755
 Output Last Clear: never
 Input Rate: 0
 Load Interval: 300
@@ -95,8 +95,8 @@ Auto Negotiate: True
 Port Speed: 1000mbps
 Duplex Mode: full
 MTU: 1500
-MAC Address: 5254.0006.f7ce
-Physical Address: 5254.0006.f7ce
+MAC Address: 5254.000f.e032
+Physical Address: 5254.000f.e032
 IP Address: 172.16.252.25/30
 Delay: 10
 Encapsulation: arpa
@@ -116,7 +116,7 @@ Output Broadcast: 0
 Output Errors: 0
 Output MAC Pause Frames: 0
 Output Multicast: 0
-Output Packets: 888
+Output Packets: 4756
 Output Last Clear: never
 Input Rate: 0
 Load Interval: 300
@@ -136,8 +136,8 @@ Auto Negotiate: True
 Port Speed: 1000mbps
 Duplex Mode: full
 MTU: 1500
-MAC Address: 5254.000e.7bb9
-Physical Address: 5254.000e.7bb9
+MAC Address: 5254.0016.f297
+Physical Address: 5254.0016.f297
 IP Address: 172.16.252.2/30
 Delay: 10
 Encapsulation: arpa
@@ -151,13 +151,13 @@ Input CRC Errors: 0
 Input Errors: 0
 Input MAC Pause Frames: 0
 Input Multicast: 0
-Input Octects: 123900
-Input Packets: 1126
+Input Octects: 696820
+Input Packets: 5124
 Output Broadcast: 0
 Output Errors: 0
 Output MAC Pause Frames: 0
 Output Multicast: 0
-Output Packets: 933
+Output Packets: 4877
 Output Last Clear: never
 Input Rate: 0
 Load Interval: 300
@@ -177,8 +177,8 @@ Auto Negotiate: True
 Port Speed: 1000mbps
 Duplex Mode: full
 MTU: 1500
-MAC Address: 5254.0016.7077
-Physical Address: 5254.0016.7077
+MAC Address: 5254.0002.0962
+Physical Address: 5254.0002.0962
 IP Address: 172.16.252.10/30
 Delay: 10
 Encapsulation: arpa
@@ -192,13 +192,13 @@ Input CRC Errors: 0
 Input Errors: 0
 Input MAC Pause Frames: 0
 Input Multicast: 0
-Input Octects: 109414
-Input Packets: 1069
+Input Octects: 423014
+Input Packets: 4134
 Output Broadcast: 0
 Output Errors: 0
 Output MAC Pause Frames: 0
 Output Multicast: 0
-Output Packets: 930
+Output Packets: 4862
 Output Last Clear: never
 Input Rate: 0
 Load Interval: 300
@@ -218,8 +218,8 @@ Auto Negotiate: True
 Port Speed: 1000mbps
 Duplex Mode: full
 MTU: 1500
-MAC Address: 5254.0015.ac8a
-Physical Address: 5254.0015.ac8a
+MAC Address: 5254.000b.1625
+Physical Address: 5254.000b.1625
 IP Address: 172.16.252.17/30
 Delay: 10
 Encapsulation: arpa
@@ -233,13 +233,13 @@ Input CRC Errors: 0
 Input Errors: 0
 Input MAC Pause Frames: 0
 Input Multicast: 0
-Input Octects: 123161
-Input Packets: 914
+Input Octects: 949861
+Input Packets: 4838
 Output Broadcast: 0
 Output Errors: 0
 Output MAC Pause Frames: 0
 Output Multicast: 0
-Output Packets: 932
+Output Packets: 4862
 Output Last Clear: never
 Input Rate: 0
 Load Interval: 300
