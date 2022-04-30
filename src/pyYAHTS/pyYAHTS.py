@@ -1,13 +1,17 @@
 import sys
 import os
-import rich_click as click
 import json
-import yaml
-import tabulate
 import logging
-import email
 import smtplib
 import ssl
+from pathlib import Path
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from gtts import gTTS
+import rich_click as click
+import yaml
 import networkx as nx
 import pandas as pd
 from pyats.topology import Testbed, Device
@@ -16,17 +20,22 @@ from rich import print_json
 from rich.console import Console
 from rich.progress import track
 from json2table import convert
-from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from fpdf import FPDF
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from pyvis.network import Network
 
 class GetJson():
-    def __init__(self, hostname, os, username, password, command, filetype, from_email, email_password, to_email, verbose):
+    def __init__(self,
+                hostname,
+                os,
+                username,
+                password,
+                command,
+                filetype,
+                from_email,
+                email_password,
+                to_email,
+                verbose):
         self.hostname = hostname
         self.os = os
         self.username = username
@@ -125,9 +134,11 @@ class GetJson():
                 else:
                     if self.filetype:
                         self.pick_filetype(parsed_json)
-                    if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
+                    if (self.from_email != 'none'
+                        and self.email_password != 'none'
+                        and self.to_email != 'none'):
                         self.send_email(parsed_json)
-        else:         
+        else:
             parsed_json = json.dumps(self.capture_state(), indent=4, sort_keys=True)
             print_json(parsed_json)
             if "Cannot" in parsed_json:
@@ -135,8 +146,10 @@ class GetJson():
             else:
                 if self.filetype:
                     self.pick_filetype(parsed_json)
-                if self.from_email != 'none' and self.email_password != 'none' and self.to_email != 'none':
-                    self.send_email(parsed_json)            
+                if (self.from_email != 'none'
+                    and self.email_password != 'none'
+                    and self.to_email != 'none'):
+                    self.send_email(parsed_json)
 
     def pick_filetype(self, parsed_json):
         if self.filetype == "none":
@@ -168,39 +181,47 @@ class GetJson():
         elif self.filetype == 'relationship':
             self.relationship_file(parsed_json)
         elif self.filetype == 'piechart':
-            self.piechart_file(parsed_json)            
+            self.piechart_file(parsed_json)
+        elif self.filetype == 'mp3':
+            self.mp3_file(parsed_json)            
         elif self.filetype == 'all':
             self.all_files(parsed_json)
-    
+
     def json_file(self, parsed_json):
         with open(f'{self.hostname} {self.command}.json', 'w') as f:
             f.write(parsed_json)
-        click.secho(f"JSON file created at { sys.path[0] }/{self.hostname} {self.command}.json", fg='green')
+        click.secho(f"JSON file created at { sys.path[0] }/{self.hostname} {self.command}.json",
+        fg='green')
 
     def yaml_file(self, parsed_json):
         clean_yaml = yaml.dump(json.loads(parsed_json), default_flow_style=False)
         with open(f'{self.hostname} {self.command}.yaml', 'w') as f:
             f.write(clean_yaml)
-        click.secho(f"YAML file created at { sys.path[0] }/{self.hostname} {self.command}.yaml", fg='green')
+        click.secho(f"YAML file created at { sys.path[0] }/{self.hostname} {self.command}.yaml",
+        fg='green')
 
     def html_file(self, parsed_json):
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                html_template = env.get_template(f'{self.os} html.j2')              
-                html_output = html_template.render(command = self.command, data_to_template=json.loads(parsed_json))
+                html_template = env.get_template(f'{self.os} html.j2')
+                html_output = html_template.render(command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command}.html', 'w') as f:
                     f.write(html_output)
-                break          
-            else:        
+                break
+            else:
                 good_json = json.loads(parsed_json)
                 build_direction = "TOP_TO_BOTTOM"
                 table_attributes = {"style" : "width:100%"}
-                html_version = convert(good_json, build_direction=build_direction, table_attributes=table_attributes)                 
+                html_version = convert(good_json,
+                    build_direction=build_direction,
+                    table_attributes=table_attributes)
                 with open(f'{self.hostname} {self.command}.html', 'w') as f:
                     f.write(html_version)
-        click.secho(f"HTML file created at { sys.path[0] }/{self.hostname} {self.command}.html", fg='green') 
+        click.secho(f"HTML file created at { sys.path[0] }/{self.hostname} {self.command}.html",
+            fg='green')
 
     def pdf_file(self, parsed_json):
         pdf = FPDF()
@@ -209,53 +230,63 @@ class GetJson():
         pdf.cell(200, 10, txt = f"{self.hostname} {self.command}", ln = 1, align = 'C')
         pdf.multi_cell(200, 10, txt = parsed_json)
         pdf.output(f'{self.hostname} {self.command}.pdf')
-        click.secho(f"PDF file created at { sys.path[0] }/{self.hostname} {self.command}.pdf", fg='green')
+        click.secho(f"PDF file created at { sys.path[0] }/{self.hostname} {self.command}.pdf",
+            fg='green')
 
     def markdown_file(self, parsed_json):
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                markdown_template = env.get_template(f'{self.os} md.j2')              
-                markdown_output = markdown_template.render(command = self.command, data_to_template=json.loads(parsed_json))
+                markdown_template = env.get_template(f'{self.os} md.j2')
+                markdown_output = markdown_template.render(command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command}.md', 'w') as f:
                     f.write(markdown_output)
-                break          
+                break
             else:
                 df = pd.json_normalize(json.loads(parsed_json),max_level=2)
                 markdown_table = df.to_markdown(index='false')
                 with open(f'{self.hostname} {self.command}.md', 'w') as f:
                     f.write(markdown_table)
-        click.secho(f"Markdown file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
+        click.secho(f"Markdown file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+            fg='green')
 
     def csv_file(self, parsed_json):
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                csv_template = env.get_template(f'{self.os} csv.j2')              
-                csv_output = csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
+                csv_template = env.get_template(f'{self.os} csv.j2')
+                csv_output = csv_template.render(command = self.command,
+                    data_to_template=json.loads(parsed_json),
+                    hostname=self.hostname)
                 with open(f'{self.hostname} {self.command}.csv', 'w') as f:
                     f.write(csv_output)
-                break          
+                break
             else:
                 df = pd.json_normalize(json.loads(parsed_json))
                 df.to_csv(f'{self.hostname} {self.command}.csv', index=False)
-        click.secho(f"CSV file created at { sys.path[0] }/{self.hostname} {self.command}.csv", fg='green')
+        click.secho(f"CSV file created at { sys.path[0] }/{self.hostname} {self.command}.csv",
+            fg='green')
 
     def svg_file(self, parsed_json):
         console = Console(record=True)
         console.print(parsed_json)
-        console.save_svg(f"{self.hostname} {self.command}.svg", title=f"{self.hostname} {self.command}")
-        click.secho(f"SVG file created at { sys.path[0] }/{self.hostname} {self.command}.svg", fg='green')
+        console.save_svg(f"{self.hostname} {self.command}.svg",
+            title=f"{self.hostname} {self.command}")
+        click.secho(f"SVG file created at { sys.path[0] }/{self.hostname} {self.command}.svg",
+            fg='green')
 
     def graph_csv_file(self, parsed_json):
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                graph_csv_template = env.get_template(f'{self.os} graph_csv.j2')              
-                graph_csv_output = graph_csv_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
+                graph_csv_template = env.get_template(f'{self.os} graph_csv.j2')
+                graph_csv_output = graph_csv_template.render(command = self.command,
+                    data_to_template=json.loads(parsed_json),
+                    hostname=self.hostname)
                 with open(f'{self.hostname} {self.command}_graph.csv', 'w') as f:
                     f.write(graph_csv_output)
                 break
@@ -269,29 +300,40 @@ class GetJson():
         net.from_nx(G)
         net.show(f'{self.hostname} {self.command} graph.html')
         os.remove(f'{self.hostname} {self.command}_graph.csv')
-        click.secho(f"Network Graph file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
+        click.secho(
+            f"Network Graph file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+            fg='green')
 
     def mindmap_file(self, parsed_json):
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                mindmap_template = env.get_template(f'{self.os} mindmap.j2')              
-                mindmap_output = mindmap_template.render(command = self.command, data_to_template=json.loads(parsed_json), hostname=self.hostname)
+                mindmap_template = env.get_template(f'{self.os} mindmap.j2')
+                mindmap_output = mindmap_template.render(command = self.command,
+                    data_to_template=json.loads(parsed_json),
+                    hostname=self.hostname)
                 with open(f'{self.hostname} {self.command} mindmap.md', 'w') as f:
                     f.write(mindmap_output)
-                click.secho(f"Mindmap file created at { sys.path[0] }/{self.hostname} {self.command}.md", fg='green')
-                break        
+                click.secho(
+                    f"Mindmap file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
+                break
 
     def flowchart_file(self, parsed_json):
         for template in self.supported_templates:
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                flowchart_template = env.get_template(f'{self.os} flowchart.j2')              
-                flowchart_output = flowchart_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                flowchart_template = env.get_template(f'{self.os} flowchart.j2')
+                flowchart_output = flowchart_template.render(hostname = self.hostname,
+                    command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command} flowchart.md', 'w') as f:
                     f.write(flowchart_output)
+                click.secho(
+                    f"Mermaid Flowchart file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
                 break
 
     def class_file(self, parsed_json):
@@ -299,10 +341,15 @@ class GetJson():
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                class_template = env.get_template(f'{self.os} class.j2')              
-                class_output = class_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                class_template = env.get_template(f'{self.os} class.j2')
+                class_output = class_template.render(hostname = self.hostname,
+                    command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command} class.md', 'w') as f:
                     f.write(class_output)
+                click.secho(
+                    f"Mermaid Class file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
                 break
 
     def state_file(self, parsed_json):
@@ -310,10 +357,15 @@ class GetJson():
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                state_template = env.get_template(f'{self.os} state.j2')              
-                state_output = state_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                state_template = env.get_template(f'{self.os} state.j2')
+                state_output = state_template.render(hostname = self.hostname,
+                    command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command} state.md', 'w') as f:
                     f.write(state_output)
+                click.secho(
+                    f"Mermaid State file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
                 break
 
     def relationship_file(self, parsed_json):
@@ -321,10 +373,15 @@ class GetJson():
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                relationship_template = env.get_template(f'{self.os} relationship.j2')              
-                relationship_output = relationship_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                relationship_template = env.get_template(f'{self.os} relationship.j2')
+                relationship_output = relationship_template.render(hostname = self.hostname,
+                    command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command} relationship.md', 'w') as f:
                     f.write(relationship_output)
+                click.secho(
+                    f"Mermaid Relationship file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
                 break
 
     def piechart_file(self, parsed_json):
@@ -332,10 +389,33 @@ class GetJson():
             if self.command == template:
                 template_dir = Path(__file__).resolve().parent
                 env = Environment(loader=FileSystemLoader(str(template_dir)))
-                pie_template = env.get_template(f'{self.os} pie.j2')              
-                pie_output = pie_template.render(hostname = self.hostname, command = self.command, data_to_template=json.loads(parsed_json))
+                pie_template = env.get_template(f'{self.os} pie.j2')
+                pie_output = pie_template.render(hostname = self.hostname,
+                    command = self.command,
+                    data_to_template=json.loads(parsed_json))
                 with open(f'{self.hostname} {self.command} piechart.md', 'w') as f:
                     f.write(pie_output)
+                click.secho(
+                    f"Mermaid Piechart file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
+                break
+
+    def mp3_file(self, parsed_json):
+        for template in self.supported_templates:
+            if self.command == template:
+                template_dir = Path(__file__).resolve().parent
+                env = Environment(loader=FileSystemLoader(str(template_dir)))
+                mp3_template = env.get_template(f'{self.os} mp3.j2')
+                mp3_output = mp3_template.render(hostname = self.hostname,
+                    command = self.command,
+                    data_to_template=json.loads(parsed_json))
+                language = 'en-US'
+                mp3 = gTTS(text = mp3_output, lang=language)
+                # Save MP3
+                mp3.save(f'{self.hostname} {self.command}.mp3')
+                click.secho(
+                    f"MP3 file created at { sys.path[0] }/{self.hostname} {self.command}.md",
+                    fg='green')
                 break
 
     def all_files(self, parsed_json):
@@ -351,7 +431,8 @@ class GetJson():
         self.class_file(parsed_json)
         self.state_file(parsed_json)
         self.relationship_file(parsed_json)
-        self.piechart_file(parsed_json)        
+        self.piechart_file(parsed_json)
+        self.mp3_file(parsed_json)
         self.svg_file(parsed_json)
 
     def send_email(self, parsed_json):
@@ -374,7 +455,7 @@ class GetJson():
             with open(filename, "rb") as attachment:
                 part = MIMEBase("application", "octet-stream")
                 part.set_payload(attachment.read())
-                
+
             encoders.encode_base64(part)
             part.add_header(
                 "Content-Disposition",
@@ -420,7 +501,7 @@ class GetJson():
             new_testbed = testbed.load(first_testbed)
         except Exception as e:
             logging.exception(e)
-        return(new_testbed)
+        return new_testbed
 
     def capture_state(self):
         # ---------------------------------------
@@ -459,21 +540,96 @@ class GetJson():
                 except:
                     command_output = f"Cannot Parse { self.command }"
             device.disconnect()
-            return(command_output)
+            return command_output
 
 @click.command()
-@click.option('--hostname', prompt='Hostname', help='Hostname of device - must match the device', required=True, envvar="HOSTNAME")
-@click.option('--os', prompt='OS', type=click.Choice(['ios', 'iosxe', 'iosxr', 'nxos'], case_sensitive=True), help='OS of device - must match the device', required=True, envvar="OS")
-@click.option('--username', prompt='Username', help='Username', required=True, envvar="USERNAME")
-@click.option('--password', prompt=True, hide_input=True, help="User Password", required=True, envvar="PASSWORD")
-@click.option('--command', prompt='Command', help='A valid pyATS Learn Function (i.e. ospf) or valid CLI Show Command (i.e. "show ip interface brief")', required=True)
-@click.option('--filetype', prompt='Filetype', type=click.Choice(['none','json','yaml','html','csv','markdown','pdf','svg','graph','mindmap','flowchart','class','state','relationship','piechart','all'], case_sensitive=True), help='Filetype to output captured network state to', required=False, default='none')
-@click.option('--from_email', help='Email address to send output from', required=False, default='none')
-@click.option('--email_password', hide_input=True, help='Email account password', required=False, default='none')
-@click.option('--to_email', help='Email address to send output to', required=False, default='none')
-@click.option('-v','--verbose', help='Display pyATS Logging', required=False, is_flag=True)
-def cli(hostname, os, username, password, command, filetype, from_email, email_password, to_email, verbose):
-    invoke_class = GetJson(hostname, os, username, password, command, filetype, from_email, email_password, to_email, verbose)
+@click.option('--hostname',
+    prompt='Hostname',
+    help='Hostname of device - must match the device',
+    required=True, envvar="HOSTNAME")
+@click.option('--os',
+    prompt='OS',
+    type=click.Choice(['ios', 'iosxe', 'iosxr', 'nxos'],
+        case_sensitive=True),
+    help='OS of device - must match the device',
+    required=True,
+    envvar="OS")
+@click.option('--username',
+    prompt='Username',
+    help='Username',
+    required=True,
+    envvar="USERNAME")
+@click.option('--password',
+    prompt=True,
+    hide_input=True,
+    help="User Password",
+    required=True,
+    envvar="PASSWORD")
+@click.option('--command',
+    prompt='Command',
+    help=('''A valid pyATS Learn Function (i.e. ospf)
+             or valid CLI Show Command (i.e. "show ip interface brief")'''),
+    required=True)
+@click.option('--filetype',
+    prompt='Filetype',
+    type=click.Choice(['none',
+                        'json',
+                        'yaml',
+                        'html',
+                        'csv',
+                        'markdown',
+                        'pdf',
+                        'svg',
+                        'graph',
+                        'mindmap',
+                        'flowchart',
+                        'class',
+                        'state',
+                        'relationship',
+                        'piechart',
+                        'mp3',
+                        'all'],
+        case_sensitive=True),
+    help='Filetype to output captured network state to',
+    required=False,
+    default='none')
+@click.option('--from_email',
+    help='Email address to send output from',
+    required=False,
+    default='none')
+@click.option('--email_password',
+    hide_input=True,
+    help='Email account password',
+    required=False,
+    default='none')
+@click.option('--to_email',
+    help='Email address to send output to',
+    required=False,
+    default='none')
+@click.option('-v','--verbose',
+    help='Display pyATS Logging',
+    required=False,
+    is_flag=True)
+def cli(hostname,
+        os,
+        username,
+        password,
+        command,
+        filetype,
+        from_email,
+        email_password,
+        to_email,
+        verbose):
+    invoke_class = GetJson(hostname,
+                            os,
+                            username,
+                            password,
+                            command,
+                            filetype,
+                            from_email,
+                            email_password,
+                            to_email,
+                            verbose)
     invoke_class.print_json()
 
 if __name__ == "__main__":
