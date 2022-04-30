@@ -1,0 +1,421 @@
+
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.101.0/24
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.101.2
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.101.1/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.101.1
+Route Prference : 0
+Source Protocol : hsrp
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.101.2/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.101.2
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.102.0/24
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.102.2
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.102.1/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.102.1
+Route Prference : 0
+Source Protocol : hsrp
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.102.2/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.102.2
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.103.0/24
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.103.2
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.103.1/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.103.1
+Route Prference : 0
+Source Protocol : hsrp
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.103.2/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.103.2
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.104.0/24
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.104.2
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.104.1/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.104.1
+Route Prference : 0
+Source Protocol : hsrp
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.104.2/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.104.2
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.105.0/24
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.105.2
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.105.1/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.105.1
+Route Prference : 0
+Source Protocol : hsrp
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.105.2/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.105.2
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.0/30
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.252.1
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.1/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.252.1
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.12/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.6
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.16/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.2
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.16/30
+Active : True
+Metric : 41
+Next Hop Number : 2
+Next Hop : 172.16.252.6
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.20/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.2
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.24/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.2
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.28/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.6
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.32/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.6
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.4/30
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.252.5
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.5/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 172.16.252.5
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class default_Routing {
+Address Family : ipv4
+Route : 172.16.252.8/30
+Active : True
+Metric : 41
+Next Hop Number : 1
+Next Hop : 172.16.252.2
+Route Prference : 110
+Source Protocol : ospf
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class management_Routing {
+Address Family : ipv4
+Route : 0.0.0.0/0
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 10.10.20.254
+Route Prference : 1
+Source Protocol : static
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class management_Routing {
+Address Family : ipv4
+Route : 10.10.20.0/24
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 10.10.20.177
+Route Prference : 0
+Source Protocol : direct
+Source Protocol Codes : 
+}
+```
+```mermaid
+classDiagram
+class management_Routing {
+Address Family : ipv4
+Route : 10.10.20.177/32
+Active : True
+Metric : 0
+Next Hop Number : 1
+Next Hop : 10.10.20.177
+Route Prference : 0
+Source Protocol : local
+Source Protocol Codes : 
+}
+```
