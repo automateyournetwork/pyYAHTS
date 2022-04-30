@@ -1,0 +1,129 @@
+{%- if command == "acl" %}
+
+{%- else %}
+{%- if command == "arp" %}
+
+{%- else %}
+{%- if command == "bgp" %}
+
+{%- else %}
+{%- if command == 'dot1x' %}
+
+{%- else %}
+{%- if command == "hsrp" %}
+
+{%- else %}
+{%- if command == 'interface' %}
+
+{%- else %}
+{%- if command == "lldp" %}
+
+{%- else %}
+{%- if command == "ntp" %}
+
+{%- else %}
+{%- if command == "ospf" %}
+
+{%- else %}
+{%- if command == "platform" %}
+
+{%- else %}
+{%- if command == "routing" %}
+
+{%- else %}
+{%- if command == 'stp' %}
+
+{%- else %}
+{%- if command == "vlan" %}
+
+{%- else %}
+{%- if command == 'vrf' %}
+
+{%- else %}
+{%- if command == "show access-lists" %}
+
+{%- else %}
+{%- if command == "show bgp process vrf all" %}
+
+{%- else %}
+{%- if command == "show bgp sessions" %}
+
+{%- else %}
+{%- if command == "show cdp neighbors" %}
+
+{%- else %}
+{%- if command == "show cdp neighbors detail" %}
+
+{%- else %}
+{%- if command == 'show environment all' %}
+
+{%- else %}
+{%- if command == "show etherchannel summary" %}
+
+{%- else %}
+{%- if command == "show interfaces" %}
+
+{%- else %}
+{%- if command == "show interfaces status" %}
+
+{%- else %}
+{%- if command == "show interfaces trunk" %}
+
+{%- else %}
+{%- if command == "show inventory" %}
+
+{%- else %}
+{%- if command == 'show ip arp' %}
+
+{%- else %}
+{%- if command == "show ip interface brief" %}
+
+{%- else %}
+{%- if command == "show ip ospf" %}
+
+{%- else %}
+{%- if command == "show ip ospf database" %}
+
+{%- else %}
+{%- if command == "show ip ospf interface" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor" %}
+
+{%- else %}
+{%- if command == "show ip ospf neighbor detail" %}
+
+{%- else %}
+{%- if command == "show ip route" %}
+
+{%- else %}
+{%- if command == 'show license summary' %}
+
+{%- else %}
+{%- if command == "show mac address-table" %}
+
+{%- else %}
+{%- if command == "show ntp associations" %}
+
+{%- else %}
+{%- if command == "show version" %}
+Hello! pie A T S has parsed the following information from the {{ command }} command. 
+The hostname of the device is {{ data_to_template['version'].hostname }}. 
+The platform is a {{ data_to_template['version'].platform }}.
+The chassis is a {{ data_to_template['version'].chassis }}.
+The chassis serial number is {{ data_to_template['version'].chassis_sn }}.
+The software version is {{ data_to_template['version'].version }}.
+The software image is {{ data_to_template['version'].image_id }}.
+The operating system is {{ data_to_template['version'].os }}.
+The device has been up for {{ data_to_template['version'].uptime }}.
+The device was last reloaded at {{ data_to_template['version'].system_restarted_at }} becase {{ data_to_template['version'].last_reload_reason }}.
+The device has {{ data_to_template['version'].number_of_intfs | replace("{","") | replace("}","") }} interfaces.
+The device has {{ data_to_template['version'].main_mem | int // 1024 }} megabytes of main memory, {{ data_to_template['version'].mem_size["non-volatile configuration"] | int // 1024 }} megabytes of non-volatile memory and {{ data_to_template['version'].mem_size.physical | int // 1024 }} megabytes of physical memory.
+The device license type is {{ data_to_template['version'].license_type }}.
+{%- else %}
+{%- if command == "show vlan" %}
+
+{%- else %}
+{%- if command == "show vrf" %}
+
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}
