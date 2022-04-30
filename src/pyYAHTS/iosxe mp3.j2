@@ -116,10 +116,10 @@ The software version is {{ data_to_template['version'].version }}.
 The software image is {{ data_to_template['version'].image_id }}.
 The operating system is {{ data_to_template['version'].os }}.
 The device has been up for {{ data_to_template['version'].uptime }}.
-The device waslkast reloaded at {{ data_to_template['version'].system_restarted_at }} becase {{ data_to_template['version'].last_reload_reason }}.
+The device was last reloaded at {{ data_to_template['version'].system_restarted_at }} becase {{ data_to_template['version'].last_reload_reason }}.
 The device has {{ data_to_template['version'].number_of_intfs | replace("{","") | replace("}","") }} interfaces.
-The device has {{ data_to_template['version'].main_mem | int // 1024 }} megabytes of main memory, {{ data_to_template['version'].mem_size["non-volatile configuration"] | int // 1024 }} megabytes of non-volatile memory and {{ data_to_template['version'].mem_size.physical | int // 1024 }} physical memory.
-The device has a {{ data_to_template['version'].license_type }} license type.
+The device has {{ data_to_template['version'].main_mem | int // 1024 }} megabytes of main memory, {{ data_to_template['version'].mem_size["non-volatile configuration"] | int // 1024 }} megabytes of non-volatile memory and {{ data_to_template['version'].mem_size.physical | int // 1024 }} megabytes of physical memory.
+The device license type is {{ data_to_template['version'].license_type }}.
 {%- else %}
 {%- if command == "show vlan" %}
 
