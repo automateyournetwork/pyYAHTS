@@ -159,7 +159,7 @@ BGP Version: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbo
 Holdtime: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].holdtime }}
 Keepalive Interval: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].keepalive_interval }}
 Local AS Number: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].local_as_as_no }}
-Remoate AS Number: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].remote_as }}
+Remote AS Number: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].remote_as }}
 {%-                 if data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters is defined %}    
 Received Messages: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }}
 Sent Messages: {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }}
@@ -247,7 +247,7 @@ classDiagram
 class VLAN_{{ vlan }} {
 Address Family : {{ address_family }}
 Version : {{ version }}
-Group :{{ group }}
+Group : {{ group }}
 Active Router : {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].active_router }}
 HSRP Router State : {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].hsrp_router_state }}
 Preempt : {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].preempt }}
@@ -397,7 +397,7 @@ Output Unicast: {{ data_to_template[interface].counters.out_unicast_pkts }}
 Output Packets: {{ data_to_template[interface].counters.out_pkts }}
 {%-                      endif %}
 {%-                      if data_to_template[interface].counters.last_clear is defined %}
-Output Last Clear: {{ data_to_template[interface].counters.last_clear }}
+Last Clear: {{ data_to_template[interface].counters.last_clear }}
 {%-                      endif %}
 {%-                      if data_to_template[interface].counters.rate is defined %}
 Input Rate: {{ data_to_template[interface].counters.rate.in_rate }}

@@ -4,6 +4,7 @@ import json
 import logging
 import smtplib
 import ssl
+import webbrowser
 from pathlib import Path
 from email import encoders
 from email.mime.base import MIMEBase
@@ -416,6 +417,7 @@ class GetJson():
                 click.secho(
                     f"MP3 file created at { sys.path[0] }/{self.hostname} {self.command}.md",
                     fg='green')
+                webbrowser.open(f"{self.hostname} {self.command}.mp3")
                 break
 
     def all_files(self, parsed_json):

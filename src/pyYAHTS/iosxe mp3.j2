@@ -1,23 +1,294 @@
 {%- if command == "acl" %}
-
+Hello! pie A T S has learned the following access control list information.
+{%- for list in data_to_template['acls'] %}{%- if data_to_template['acls'][list].aces is defined %}{%- for ace in data_to_template['acls'][list].aces %}{%- if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}{%- for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }} and the destination network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }} using protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}
+{%- endfor %}{%- else %}{%- for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }} using protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}.
+{%- endfor %}{%- endif %}{%- endif %}{%- endif %}{%- endfor %}{%- else %}
+The access control list {{ list }} has no access control entries.
+{%- endif %}{%- endfor %}{%- for list in data_to_template['acls'] %}{%- if data_to_template['acls'][list].aces is defined %}{%- for ace in data_to_template['acls'][list].aces %}{%- if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source protocol is U D P {%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}.{%- endif %}
+{%- else %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination protocol is U D P {%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}.
+{%- endif %}
+{%- endif %}{%- endif %}{%- else %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source protocol is T C P {%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %} using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}.{% else %}
+{%- endif %}
+{%- else %}
+{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination protocol is T C P {%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %} using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}.{%- endif %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endfor %}{%- else %}
+The access control list {{ list }} has no access control entries.
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "arp" %}
-
+Hello! pie A T S has learned the following address resolution protocol information.
+The device {{ hostname }} has the following address resolution protocol statistics:
+Total Entries: {{ data_to_template['statistics'].entries_total }}.
+Input drops: {{ data_to_template['statistics'].in_drops }}.
+Input reply packets: {{ data_to_template['statistics'].in_replies_pkts }}.
+Input request packets: {{ data_to_template['statistics'].in_requests_pkts }}.
+Total input: {{ data_to_template['statistics'].in_total | default("N/A") }}.
+Incomplete total: {{ data_to_template['statistics'].incomplete_total }}.
+Output drops: {{ data_to_template['statistics'].out_drops | default("N/A") }}.
+Output gratuitious packets: {{ data_to_template['statistics'].out_gratuitous_pkts | default("N/A") }}.
+Output reply packets: {{ data_to_template['statistics'].out_replies_pkts }}.
+Output request packets: {{ data_to_template['statistics'].out_requests_pkts }}.
+Total output packets: {{ data_to_template['statistics'].out_total| default("N/A") }}.
+Per interface information:
+{%- for interface in data_to_template['interfaces'] %}
+{%-     if data_to_template['interfaces'][interface].ipv4 is defined %}
+{%-         for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+The interface {{ interface }} has the neighboring IP address {{ neighbor }} with a MAC address of {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }} originating from {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }}.
+Address resolution protocol dynamic learning local proxy is enabled? {{ data_to_template['interfaces'][interface].arp_dynamic_learning.local_proxy_enable }}.
+Address resolution protocol dynamic learning proxy is enabled? {{ data_to_template['interfaces'][interface].arp_dynamic_learning.proxy_enable }}.
+{%-        endfor %}
+{%-     endif %}
+{%- endfor %}
 {%- else %}
 {%- if command == "bgp" %}
-
+Hello! pie A T S has learned the following border gateway protocol information.
+{%-             for instance in data_to_template['instance'] %}
+{%-                 for vrf in data_to_template['instance'][instance].vrf %}
+{%-                     for neighbor in data_to_template['instance'][instance].vrf[vrf].neighbor %}
+Instance {{ instance }} has an ID of {{ data_to_template['instance'][instance].bgp_id }} and is in the {{ data_to_template['instance'][instance].protocol_state }} state.
+The virtual route forwarder {{ vrf }} has a router ID of {{ data_to_template['instance'][instance].vrf[vrf].router_id }}, a cluster ID of {{ data_to_template['instance'][instance].vrf[vrf].cluster_id }} and a confederation ID of {{ data_to_template['instance'][instance].vrf[vrf].confederation_identifier }}.
+The following neighbor {{ neighbor }} was detected using version {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_version }}. 
+The holdtime is {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].holdtime }} with a keep alive interval of {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].keepalive_interval }}.
+The local autonomous system number is {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].local_as_as_no }} and the remote autonomous system number is {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].remote_as }}.
+{%-                 if data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters is defined %}    
+We have received {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.received.total }} messages and sent {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_neighbor_counters.messages.sent.total }} messages.
+{%                  endif %}
+The last reset was at {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.last_reset }} with the following reason {{ data_to_template['instance'][instance].vrf[vrf].neighbor[neighbor].bgp_session_transport.connection.reset_reason }}.
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
 {%- else %}
 {%- if command == 'dot1x' %}
-
+Hello! pie A T S has learned the following 8 0 2 dot 1 x information.
+The device {{ hostname }} 8 0 2 dot 1 x summary information:
+Auth Control is set to {{ data_to_template.system_auth_control }}.
+There are {{ data_to_template.sessions.authorized_clients }} authorized clients and {{ data_to_template.sessions.unauthorized_clients }} unauthorized clients and {{ data_to_template.sessions.total }} total sessions.
+The details for 8 0 2 dot 1 x per interface:
+{%- for interface in data_to_template.interfaces %}{%- if data_to_template.interfaces[interface].clients is defined %}{%- for client in data_to_template.interfaces[interface].clients %}{%- for session in data_to_template.interfaces[interface].clients[client].session %}
+The interface {{ interface }} has the following client {{ client }} using E A P method is {{ data_to_template.interfaces[interface].clients[client].eap_method }} with a port access entity of {{ data_to_template.interfaces[interface].clients[client].pae }}.
+The client status is {{ data_to_template.interfaces[interface].clients[client].status }}. 
+The client session is {{ session }}.
+The auth bend S M state is {{ data_to_template.interfaces[interface].clients[client].session[session].auth_bend_sm_state }} and the auth S M state is {{ data_to_template.interfaces[interface].clients[client].session[session].auth_sm_state }}.
+The maximum re-auth requests are {{ data_to_template.interfaces[interface].max_reauth_req }} and maximum requests are {{ data_to_template.interfaces[interface].max_req }}.
+The last R X source MAC address was {{ data_to_template.interfaces[interface].statistics.lastrxsrcmac }}.
+The interface statitics are as follows:
+R X invalid {{ data_to_template.interfaces[interface].statistics.rxinvalid }}.
+R X length error {{ data_to_template.interfaces[interface].statistics.rxlenerr }}.
+R X logoff {{ data_to_template.interfaces[interface].statistics.rxlogoff }}.
+R X response {{ data_to_template.interfaces[interface].statistics.rxresp }}.
+R X state is {{ data_to_template.interfaces[interface].statistics.rxstart }}.
+With a total RX of {{ data_to_template.interfaces[interface].statistics.rxtotal }}.
+T X requests {{ data_to_template.interfaces[interface].statistics.txreq }}.
+The T X request I D is {{ data_to_template.interfaces[interface].statistics.txreqid }}.
+With a total T X of {{ data_to_template.interfaces[interface].statistics.txtotal }}.
+The T X period is {{ data_to_template.interfaces[interface].timeout.tx_period }} with a quiet period of {{ data_to_template.interfaces[interface].timeout.quiet_period }} and server timeout of {{ data_to_template.interfaces[interface].timeout.server_timeout }} and supplicant timeout of {{ data_to_template.interfaces[interface].timeout.supp_timeout }}.
+{%- endfor %}{%- endfor %}{%- else %}
+The interface {{ interface }} has the following client {{ client }} using E A P method is {{ data_to_template.interfaces[interface].clients[client].eap_method }} with a port access entity of {{ data_to_template.interfaces[interface].clients[client].pae }}.
+The interface has no 8 0 2 dot 1 x clients and no sessions
+The maximum re-auth requests are {{ data_to_template.interfaces[interface].max_reauth_req }} and maximum requests are {{ data_to_template.interfaces[interface].max_req }}.
+The last R X source MAC address was {{ data_to_template.interfaces[interface].statistics.lastrxsrcmac }}.
+The interface statitics are as follows:
+R X invalid {{ data_to_template.interfaces[interface].statistics.rxinvalid }}.
+R X length error {{ data_to_template.interfaces[interface].statistics.rxlenerr }}.
+R X logoff {{ data_to_template.interfaces[interface].statistics.rxlogoff }}.
+R X response {{ data_to_template.interfaces[interface].statistics.rxresp }}.
+R X state is {{ data_to_template.interfaces[interface].statistics.rxstart }}.
+With a total RX of {{ data_to_template.interfaces[interface].statistics.rxtotal }}.
+T X requests {{ data_to_template.interfaces[interface].statistics.txreq }}.
+The T X request I D is {{ data_to_template.interfaces[interface].statistics.txreqid }}.
+With a total T X of {{ data_to_template.interfaces[interface].statistics.txtotal }}.
+The T X period is {{ data_to_template.interfaces[interface].timeout.tx_period }} with a quiet period of {{ data_to_template.interfaces[interface].timeout.quiet_period }} and server timeout of {{ data_to_template.interfaces[interface].timeout.server_timeout }} and supplicant timeout of {{ data_to_template.interfaces[interface].timeout.supp_timeout }}.
+{% endif %}{% endfor %}
 {%- else %}
 {%- if command == "hsrp" %}
-
+Hello! pie A T S has learned the following hot standby redundancy protocol information.
+{%-             for vlan in data_to_template %}
+{%-                 for address_family in data_to_template[vlan].address_family %}
+{%-                     for version in data_to_template[vlan].address_family[address_family].version %}
+{%-                         for group in data_to_template[vlan].address_family[address_family].version[version].groups %}
+The vee LAN {{ vlan }} using address family {{ address_family }} and version {{ version }} is part of group {{ group }}.
+The active router is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].active_router }}.
+The H S R P router state is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].hsrp_router_state }}.
+The primary I P v 4 address is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }}.
+Virtual I P learn is set to {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.virtual_ip_learn }}.
+The priority is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].priority }}.
+The current session name is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].session_name }}.
+The standby I P address is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_ip_address }} and the standby router is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].standby_router }}.
+The hello timer is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].timers.hello_sec }} and the hold timer is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].timers.hold_sec }}.
+The virtual MAC address is {{ data_to_template[vlan].address_family[address_family].version[version].groups[group].virtual_mac_address }} and sse burned in address is set to {{ data_to_template[vlan].use_bia }}.
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
 {%- else %}
 {%- if command == 'interface' %}
-
+Hello! pie A T S has learned the following interface information.
+{%- for interface in data_to_template %}
+The interface {{ interface }}, with the description {{ data_to_template[interface].description }}, has the following settings and status:
+The interface is enabled? {{ data_to_template[interface].enabled }}. 
+The operational status is {{ data_to_template[interface].oper_status }}.
+{%-                  if data_to_template[interface].access_vlan is defined %}
+The access vee LAN is {{ data_to_template[interface].access_vlan }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].native_vlan is defined %}
+The native vee LAN is {{ data_to_template[interface].native_vlan }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].switchport_enable is defined %}
+Switchport enable is {{ data_to_template[interface].switchport_enable }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].switchport_mode is defined %}
+The switchport mode is {{ data_to_template[interface].switchport_mode }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].type is defined %}
+The type is {{ data_to_template[interface].type }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].bandwidth is defined %}
+The bandwidth is {{ data_to_template[interface].bandwidth }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].auto_negotiate is defined %}
+Auto negotiate is set to {{ data_to_template[interface].auto_negotiate }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].port_speed is defined %}
+The port speed is {{ data_to_template[interface].port_speed }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].duplex_mode is defined %}
+The duplex mode is {{ data_to_template[interface].duplex_mode }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].mtu is defined %}
+The M T U is {{ data_to_template[interface].mtu }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].mac_address is defined %}
+The MAC address is {{ data_to_template[interface].mac_address }}{%- endif %}{%- if data_to_template[interface].phys_address is defined %} with a physical address of {{ data_to_template[interface].phys_address }}{%- endif %}
+{%-                  if data_to_template[interface].ipv4 is defined %}
+{%-                      for ip_address in data_to_template[interface].ipv4 %}
+The I P address is {{ ip_address }}.
+{%-                      endfor %}
+{%-                  endif %}
+{%-                  if data_to_template[interface].medium is defined %}
+The medium is {{ data_to_template[interface].medium }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].delay is defined %}
+The delay is {{ data_to_template[interface].delay }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].encapsulation is defined %}
+The encapsulation is {{ data_to_template[interface].encapsulation.encapsulation }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].flow_control is defined %}
+Flow control receive is {{ data_to_template[interface].flow_control.receive }} and flow control send is {{ data_to_template[interface].flow_control.send }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].port_channel is defined %}
+{%                       if data_to_template[interface].port_channel.port_channel_int is defined %}
+The port channel interface is {{ data_to_template[interface].port_channel.port_channel_int }}.
+{%                       endif %}
+{%                       if data_to_template[interface].port_channel.port_channel_member_intfs is defined %}
+{%-                          for member in data_to_template[interface].port_channel.port_channel_member_intfs %}
+The port channel has the following members {{ member }}.
+{%-                          endfor %}
+{%                       else %}
+{%-                          if data_to_template[interface].port_channel.port_channel_member is defined %}
+This interface is a port channel member {{ data_to_template[interface].port_channel.port_channel_member }}.
+{%-                          endif %}
+{%-                      endif %}
+{%-                  endif %}
+{%-                  if data_to_template[interface].last_change is defined %}
+The interface changed last at {{ data_to_template[interface].last_change }}.
+{%-                  endif %}
+{%-                  if data_to_template[interface].counters is defined %}
+Here are the interface input counters:
+{%-                      if data_to_template[interface].counters.in_broadcast_pkts is defined %}
+Input broadcast packets {{ data_to_template[interface].counters.in_broadcast_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_crc_errors is defined %}
+Input C R C errors {{ data_to_template[interface].counters.in_crc_errors }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_errors is defined %}
+Input errors {{ data_to_template[interface].counters.in_errors }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_mac_pause_frames is defined %}
+Input MAC pause frames {{ data_to_template[interface].counters.in_mac_pause_frames }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_multicast_pkts is defined %}
+Input multicast packets {{ data_to_template[interface].counters.in_multicast_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_octets is defined %}
+Input octects {{ data_to_template[interface].counters.in_octets }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_unicast_pkts is defined %}
+Input unicast packets {{ data_to_template[interface].counters.in_unicast_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_unknown_protos is defined %}
+Input unknown protocols {{ data_to_template[interface].counters.in_unknown_protos }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.in_pkts is defined %}
+Total input packets {{ data_to_template[interface].counters.in_pkts }}.
+{%-                      endif %}
+Here are the interface output counters:
+{%-                      if data_to_template[interface].counters.out_broadcast_pkts is defined %}
+Output broadcast packets {{ data_to_template[interface].counters.out_broadcast_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_discard is defined %}
+Output discards {{ data_to_template[interface].counters.out_discard }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_errors is defined %}
+Output errors {{ data_to_template[interface].counters.out_errors }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_mac_pause_frames is defined %}
+Output MAC pause frames {{ data_to_template[interface].counters.out_mac_pause_frames }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_multicast_pkts is defined %}
+Output multicast packets {{ data_to_template[interface].counters.out_multicast_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_unicast_pkts is defined %}
+Output unicast packets {{ data_to_template[interface].counters.out_unicast_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.out_pkts is defined %}
+Total output packets {{ data_to_template[interface].counters.out_pkts }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.last_clear is defined %}
+The counters were last cleared at {{ data_to_template[interface].counters.last_clear }}.
+{%-                      endif %}
+{%-                      if data_to_template[interface].counters.rate is defined %}
+The input rate is {{ data_to_template[interface].counters.rate.in_rate }} packets.
+The output rate is {{ data_to_template[interface].counters.rate.out_rate }} packets.
+The load interval is {{ data_to_template[interface].counters.rate.load_interval }}
+{%-                      endif %}
+{%-                  endif %}
+{%- endfor %}
 {%- else %}
 {%- if command == "lldp" %}
-
+Hello! pie A T S has learned the following link layer discovery protocol information.
+The device {{ hostname }} has the following L L D P details:
+LLDP is enabled? {{ data_to_template.enabled }}.
+The hello timer is {{ data_to_template.hello_timer }} and the hold timer is {{ data_to_template.hold_timer }}.
+The following number of entries have aged out {{ data_to_template.counters.entries_aged_out }}.
+{{ data_to_template.counters.frame_discard }} frames have been discarded with {{ data_to_template.counters.frame_error_in }} frame input errors.
+There have been {{ data_to_template.counters.frame_in }} frames input and {{ data_to_template.counters.frame_out }} frames output.
+There have been {{ data_to_template.counters.tlv_discard }} T L Vee discards and {{ data_to_template.counters.tlv_unknown }} unknown T L Vees.
+Per interface LLDP information: 
+{%- for interface in data_to_template['interfaces'] %}{%- if data_to_template['interfaces'][interface].port_id is defined %}{%- for port in data_to_template['interfaces'][interface].port_id %}{%- for neighbor in data_to_template['interfaces'][interface].port_id[port].neighbors %}{%- for capability in data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].capabilities %}
+The interface {{ interface }} is enabled? {{ data_to_template['interfaces'][interface].enabled }} with a neighbor of {{ neighbor }} on port {{ port }} with a description of {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].port_description }}.
+The neighbor capabilities are {{ capability }} with a chassis ID of {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].chassis_id }}, management address of {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].management_address }} and system description of {{ data_to_template['interfaces'][interface].port_id[port].neighbors[neighbor].system_description | replace("\n"," ") }}.
+{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}
+Interface {{ interface }} is enabled? {{ data_to_template['interfaces'][interface].enabled }} but has no neighbors.
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "ntp" %}
 
@@ -77,7 +348,12 @@
 
 {%- else %}
 {%- if command == "show ip interface brief" %}
-
+Hello! pie A T S has parsed the following information from the show IP interface brief command.
+{%-    for interface in data_to_template['interface'] %}  
+The interface {{ interface }} has the following IP address {{ data_to_template['interface'][interface].ip_address }} via {{ data_to_template['interface'][interface].method }}.
+The protocol is {{ data_to_template['interface'][interface].protocol }} and the status of the interface is {{ data_to_template['interface'][interface].status }}. 
+Is the Interface OK? {{ data_to_template['interface'][interface].interface_is_ok }}.
+{%-    endfor %}
 {%- else %}
 {%- if command == "show ip ospf" %}
 
@@ -107,7 +383,7 @@
 
 {%- else %}
 {%- if command == "show version" %}
-Hello! pie A T S has parsed the following information from the {{ command }} command. 
+Hello! pie A T S has parsed the following information from the {{ command }} command.
 The hostname of the device is {{ data_to_template['version'].hostname }}. 
 The platform is a {{ data_to_template['version'].platform }}.
 The chassis is a {{ data_to_template['version'].chassis }}.
