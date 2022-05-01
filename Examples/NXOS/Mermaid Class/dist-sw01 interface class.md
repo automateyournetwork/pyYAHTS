@@ -43,7 +43,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -89,7 +89,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -135,7 +135,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -181,7 +181,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -227,7 +227,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -273,7 +273,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -319,7 +319,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -365,7 +365,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -411,7 +411,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -457,7 +457,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -503,7 +503,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -549,7 +549,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -597,7 +597,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -643,7 +643,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -689,7 +689,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -735,7 +735,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -781,7 +781,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -827,7 +827,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -873,7 +873,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -919,7 +919,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -965,7 +965,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1011,7 +1011,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1057,7 +1057,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1103,7 +1103,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1149,7 +1149,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1195,7 +1195,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1241,7 +1241,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1287,7 +1287,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1333,7 +1333,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1379,7 +1379,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1425,7 +1425,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1471,7 +1471,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1517,7 +1517,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1563,7 +1563,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1609,7 +1609,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1655,7 +1655,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1701,7 +1701,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1747,7 +1747,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1793,7 +1793,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1839,7 +1839,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1889,7 +1889,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1935,7 +1935,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -1981,7 +1981,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2027,7 +2027,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2073,7 +2073,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2119,7 +2119,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2165,7 +2165,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2211,7 +2211,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2257,7 +2257,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2303,7 +2303,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2349,7 +2349,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2394,7 +2394,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2440,7 +2440,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2486,7 +2486,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2532,7 +2532,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2578,7 +2578,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2624,7 +2624,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2670,7 +2670,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2716,7 +2716,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2762,7 +2762,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2808,7 +2808,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2854,7 +2854,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2899,7 +2899,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2945,7 +2945,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -2991,7 +2991,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3037,7 +3037,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3083,7 +3083,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3129,7 +3129,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3175,7 +3175,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3221,7 +3221,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3267,7 +3267,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3313,7 +3313,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3359,7 +3359,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3405,7 +3405,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3451,7 +3451,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3497,7 +3497,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3543,7 +3543,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3589,7 +3589,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3635,7 +3635,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3681,7 +3681,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3727,7 +3727,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3773,7 +3773,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3819,7 +3819,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3865,7 +3865,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3911,7 +3911,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -3957,7 +3957,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4003,7 +4003,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4049,7 +4049,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4095,7 +4095,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4141,7 +4141,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4187,7 +4187,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4233,7 +4233,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4279,7 +4279,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4325,7 +4325,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4371,7 +4371,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4417,7 +4417,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4463,7 +4463,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4509,7 +4509,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4555,7 +4555,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4601,7 +4601,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4647,7 +4647,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4693,7 +4693,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4739,7 +4739,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4785,7 +4785,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4831,7 +4831,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4877,7 +4877,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4923,7 +4923,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -4969,7 +4969,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5015,7 +5015,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5061,7 +5061,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5107,7 +5107,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5153,7 +5153,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5199,7 +5199,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5245,7 +5245,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5291,7 +5291,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5337,7 +5337,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5383,7 +5383,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5429,7 +5429,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5475,7 +5475,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5521,7 +5521,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5567,7 +5567,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5613,7 +5613,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5659,7 +5659,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5705,7 +5705,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5751,7 +5751,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5797,7 +5797,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5843,7 +5843,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5889,7 +5889,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
@@ -5982,7 +5982,7 @@ Output MAC Pause Frames: 0
 Output Multicast: 0
 Output Unicast: 0
 Output Packets: 0
-Output Last Clear: never
+Last Clear: never
 Input Rate: 0
 Load Interval: 300
 Output Rate: 0
