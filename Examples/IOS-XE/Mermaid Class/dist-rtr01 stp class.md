@@ -6,7 +6,7 @@ classDiagram
 class dist_rtr01_STP_Summary {
 BPDU Filter : False
 BPDU Guard : False
-BDPU Guard Timeout Recovery : 
+BPDU Guard Timeout Recovery : 
 Etherchannel Misconfigure Guard : True
 Loopguard : False
 }

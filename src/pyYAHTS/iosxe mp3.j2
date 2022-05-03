@@ -291,28 +291,291 @@ Interface {{ interface }} is enabled? {{ data_to_template['interfaces'][interfac
 {%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "ntp" %}
-
+Hello! pie A T S has learned the following network time protocol information.
+The device {{ hostname }} has the following NTP information
+The associations address is {{ data_to_template['clock_state'].system_status.associations_address }} with an associations local mode of {{ data_to_template['clock_state'].system_status.associations_local_mode }}.
+The clock offset is {{ data_to_template['clock_state'].system_status.clock_offset }}, precision is {{ data_to_template['clock_state'].system_status.clock_precision }}, reference ID is {{ data_to_template['clock_state'].system_status.clock_refid }}, state is {{ data_to_template['clock_state'].system_status.clock_state }} and stratum  of {{ data_to_template['clock_state'].system_status.clock_stratum }}.
+The reference time is {{ data_to_template['clock_state'].system_status.reference_time }} with a root delay of {{ data_to_template['clock_state'].system_status.root_delay }} and root dispersion of {{ data_to_template['clock_state'].system_status.root_dispersion }}.
+{%- for vrf in data_to_template['vrf'] %}{%- for address in data_to_template['vrf'][vrf].associations.address %}{%- for is_conf,value in data_to_template['vrf'][vrf].associations.address[address].local_mode.client.isconfigured.items() %}
+Is N T P configured? {{ value.isconfigured }}.
+The V R F is {{ vrf }} with an address of {{ address }}.
+The delay is {{ value.delay }} with a local mode of {{ value.local_mode }}, offset of {{ value.offset }}, poll of {{ value.poll }}, and reach of {{ value.reach }}.
+The received time is {{ value.receive_time }} with a reference ID of {{ value.refid }} and stratum of {{ value.stratum }}.
+{%- endfor %}{%- endfor %}{%- endfor %}
+{%- for vrf in data_to_template['vrf'] %}{%- for address in data_to_template['vrf'][vrf].unicast_configuration.address %}
+The V R F is {{ vrf }} with an address of {{ address }} with a preferred server : {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.preferred }} and server type of {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.type }}.
+{%- endfor %}{%- endfor %}
 {%- else %}
 {%- if command == "ospf" %}
-
+Hello! pie A T S has learned the following open shortest path first protocol information.
+{%- for vrf in data_to_template['vrf'] %}{%- if vrf == "default" %}{%- for address_family in data_to_template['vrf'][vrf].address_family %}{%- for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{%- for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}{%- for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{%- for lsa_type in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}{%- for lsa in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router is defined %}{%- for link in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}{%- for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}{%- for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{%- for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+The V R F {{ vrf }} using address family {{ address_family }} has an instance number {{ instance }} with router ID {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }}.
+Is auto cost enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }}.
+Is B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].bfd.enable }}.
+Graceful Restart {{ graceful_restart }} is enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}.
+Is M P L S L D P auto config enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].mpls.ldp.autoconfig }}.
+Is N S R enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].preference is defined %}
+The preference single value all is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].preference.single_value.all }}.
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+S P F has {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }} control paths.
+{%- endif %}
+S P F start is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}, hold is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }} and maximum is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}.
+The area is {{ area }} and is a {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }}.
+S P F has run {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }} times.
+Is M P L S T E enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].mpls.te.enable }}.
+The link state advertisement type is {{ lsa_type }}.
+The advertising router is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}.
+The link state advertisement ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }} links.
+The link is {{ link }} with a link ID of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }} and link data of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }} and link type {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}.
+The topology number is {{ topology }} with a metric of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+The header age is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}, checksum of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }}, length of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}, with options {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}.
+The sequence number is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}.
+The Interface {{ interface }} has O S P F enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}. And has B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}.
+The interface cost is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive is defined %}
+The interface is passive? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}
+{%- endif %}
+The interface state is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}.
+The interface type is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}.
+The interface hello timer is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer| default ("N/A") }}, hello interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval| default ("N/A") }}, dead interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval| default ("N/A") }} and retransmit interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval| default ("N/A") }}.
+The interface D R IP address is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_ip_addr| default ("N/A") }} and D R router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_router_id| default ("N/A") }}.
+The interface priority is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority| default ("N/A") }}.
+The interface transmit delay is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay| default ("N/A") }}.
+The neighbor {{ neighbor }} has an address of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}, B D R IP address of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].bdr_ip_addr }}, D R IP address : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dr_ip_addr }}, router ID of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}, dead timer of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }} and has the state of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}
+There have been {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }} neighbor events.
+The retransmit queue length is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_retrans_qlen }}
+{%- endfor %}{%- else %}
+The V R F {{ vrf }} using address family {{ address_family }} has an instance number {{ instance }} with router ID {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }}.
+Is auto cost enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }}.
+Is B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].bfd.enable }}.
+Graceful Restart {{ graceful_restart }} is enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}.
+Is M P L S L D P auto config enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].mpls.ldp.autoconfig }}.
+Is N S R enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].preference is defined %}
+The preference single value all is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].preference.single_value.all }}.
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+S P F has {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }} control paths.
+{%- endif %}
+S P F start is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}, hold is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }} and maximum is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}.
+The area is {{ area }} and is a {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }}.
+S P F has run {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }} times.
+Is M P L S T E enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].mpls.te.enable }}.
+The link state advertisement type is {{ lsa_type }}.
+The advertising router is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}.
+The link state advertisement ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }} links.
+The link is {{ link }} with a link ID of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }} and link data of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }} and link type {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}.
+The topology number is {{ topology }} with a metric of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+The header age is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}, checksum of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }}, length of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}, with options {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}.
+The sequence number is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}.
+The Interface {{ interface }} has O S P F enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}. And has B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}.
+The interface cost is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive is defined %}
+The interface is passive? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}
+{%- endif %}
+The interface state is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}.
+The interface type is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}.
+The interface hello timer is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer| default ("N/A") }}, hello interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval| default ("N/A") }}, dead interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval| default ("N/A") }} and retransmit interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval| default ("N/A") }}.
+The interface D R IP address is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_ip_addr| default ("N/A") }} and D R router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_router_id| default ("N/A") }}.
+The interface priority is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority| default ("N/A") }}.
+The interface transmit delay is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay| default ("N/A") }}.
+There are no neighbors
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary is defined %}{% for topology in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+The V R F {{ vrf }} using address family {{ address_family }} has an instance number {{ instance }} with router ID {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }}.
+Is auto cost enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }}.
+Is B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].bfd.enable }}.
+Graceful Restart {{ graceful_restart }} is enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}.
+Is M P L S L D P auto config enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].mpls.ldp.autoconfig }}.
+Is N S R enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].preference is defined %}
+The preference single value all is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].preference.single_value.all }}.
+{%- endif %}
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+S P F has {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.paths }} control paths.
+{%- endif %}
+S P F start is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}, hold is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }} and maximum is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}.
+The area is {{ area }} and is a {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }}.
+S P F has run {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }} times.
+Is M P L S T E enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].mpls.te.enable }}.
+The link state advertisement type is {{ lsa_type }}.
+The advertising router is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}.
+The link state advertisement ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }} links.
+The link is {{ link }} with a link ID of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }} and link data of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }} and link type {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}.
+The topology number is {{ topology }} with a metric of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+The header age is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}, checksum of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }}, length of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}, with options {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}.
+The sequence number is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}.
+There are no interfaces participating in OSPF and there are no neighbors.
+{%- endfor %}{%- endif %}{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- else %}{%- for address_family in data_to_template['vrf'][vrf].address_family %}{% for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}{% for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}{% for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}{% if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}{% for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+The V R F {{ vrf }} using address family {{ address_family }} has an instance number {{ instance }}
+The area is {{ area }}.
+Is M P L S L D P auto config enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].mpls.ldp.autoconfig }}.
+The Interface {{ interface }} has O S P F enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}. And has B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}.
+The interface cost is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive is defined %}
+The interface is passive? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}
+{%- endif %}
+The interface state is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}.
+The interface type is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}.
+The interface hello timer is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer| default ("N/A") }}, hello interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval| default ("N/A") }}, dead interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval| default ("N/A") }} and retransmit interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval| default ("N/A") }}.
+The interface D R IP address is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_ip_addr| default ("N/A") }} and D R router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_router_id| default ("N/A") }}.
+The interface priority is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority| default ("N/A") }}.
+The interface transmit delay is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay| default ("N/A") }}.
+The neighbor {{ neighbor }} has an address of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}, B D R IP address of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].bdr_ip_addr }}, D R IP address : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dr_ip_addr }}, router ID of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}, dead timer of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }} and has the state of {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}
+There have been {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }} neighbor events.
+The retransmit queue length is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_retrans_qlen }}
+{%- endfor %}{%- else %}
+The V R F {{ vrf }} using address family {{ address_family }} has an instance number {{ instance }}
+The area is {{ area }}.
+Is M P L S L D P auto config enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].mpls.ldp.autoconfig }}.
+The Interface {{ interface }} has O S P F enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}. And has B F D enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}.
+The interface cost is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}.
+{%- if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive is defined %}
+The interface is passive? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}
+{%- endif %}
+The interface state is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}.
+The interface type is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}.
+The interface hello timer is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer| default ("N/A") }}, hello interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval| default ("N/A") }}, dead interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval| default ("N/A") }} and retransmit interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval| default ("N/A") }}.
+The interface D R IP address is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_ip_addr| default ("N/A") }} and D R router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_router_id| default ("N/A") }}.
+The interface priority is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority| default ("N/A") }}.
+The interface transmit delay is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay| default ("N/A") }}.
+{%- endif %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endfor %}{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "platform" %}
-
+Hello! pie A T S has learned the following platform information.
+The device {{ hostname }} is a {{ data_to_template.chassis }} chassis with serial number {{ data_to_template.chassis_sn }} and is a {{ data_to_template.rtr_type }} router.
+The config register is set to {{ data_to_template.config_register }}. 
+The directory is {{ data_to_template.dir }}.
+The system image is {{ data_to_template.image }}.
+The I S SU Rollback Timer Reason is {{ data_to_template.issu_rollback_timer_reason }} with an I S S U rollback timer state of {{ data_to_template.issu_rollback_timer_state }}.
+The main memory is {{ data_to_template.main_mem | int // 1024 }} megabytes.
+The operating system is {{ data_to_template.os }}.
+The redundancy communication is {{ data_to_template.redundancy_communication }} and redundancy mode is {{ data_to_template.redundancy_mode }} and a switchover reason of {{ data_to_template.switchover_reason }}.
+The R P uptime is {{ data_to_template.rp_uptime }}.
+The version is {{ data_to_template.version }}.
 {%- else %}
 {%- if command == "routing" %}
-
+Hello! pie A T S has learned the following routing information.
+{%- for vrf in data_to_template['vrf'] %}
+{%-     for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-         for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-             if data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list is defined %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+The virtual route forwarder {{ vrf }} using address family {{ address_family }} has the following route {{ route }} that is active {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }} with a metric of {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }}.
+The next hop number {{ next_hop }} has a next hop of {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }} with a route preference of {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }}. 
+The source protocol is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }} with the codes {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }}
+{%-                 endfor %}
+{%-             else %}
+{%-                 for outgoing_interface in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.outgoing_interface %}
+The virtual route forwarder {{ vrf }} using address family {{ address_family }} has the following route {{ route }} using the outgoing interface : {{ outgoing_interface }}.
+The source protocol is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }} with the codes {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }}
+{%-                 endfor %}
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+{%- endfor %}
 {%- else %}
 {%- if command == 'stp' %}
-
+Hello! pie A T S has learned the following spanning tree protocol information.
+The hostname {{ hostname }} spanning tree protocol summary:
+Is B P D U filter enabled? {{ data_to_template['global'].bpdu_filter }}.
+Is B P D U guard enabled? {{ data_to_template['global'].bpdu_guard }}.
+The B P D U guard timeout recovery is {{ data_to_template['global'].bpduguard_timeout_recovery }}.
+Is ether channel misconfigure guard enabled? {{ data_to_template['global'].etherchannel_misconfig_guard }}.
+Is loop guard enabled? {{ data_to_template['global'].loop_guard }}.
+{%- for id in data_to_template['rapid_pvst'] %}{%- for vlan in data_to_template['rapid_pvst'][id].vlans %}{%- for interface in data_to_template['rapid_pvst'][id].vlans[vlan].interfaces %}
+The following rapid per Vee LAN spanning tree plus information has been parsed:
+Vee LAN {{ vlan }}.
+The forwarding delay is {{ data_to_template['rapid_pvst'][id].forwarding_delay }}, hello time is {{ data_to_template['rapid_pvst'][id].hello_time }}, hold count is {{ data_to_template['rapid_pvst'][id].hold_count }} and max age is {{ data_to_template['rapid_pvst'][id].max_age }}.
+The bridge address for this Vee LAN is {{ data_to_template['rapid_pvst'][id].vlans[vlan].bridge_address }} with a bridge priority of {{ data_to_template['rapid_pvst'][id].vlans[vlan].bridge_priority }}.
+The configured bridge priority is {{ data_to_template['rapid_pvst'][id].vlans[vlan].configured_bridge_priority }}.
+The designated root address is {{ data_to_template['rapid_pvst'][id].vlans[vlan].designated_root_address }} and the designated root priority is {{ data_to_template['rapid_pvst'][id].vlans[vlan].designated_root_priority }}.
+The Vee LAN forwarding delay is {{ data_to_template['rapid_pvst'][id].vlans[vlan].forwarding_delay }}, Vee LAN hello time is {{ data_to_template['rapid_pvst'][id].vlans[vlan].hello_time }}, Vee LAN hold count is {{ data_to_template['rapid_pvst'][id].vlans[vlan].hold_count }}, Vee LAN hold time is {{ data_to_template['rapid_pvst'][id].vlans[vlan].hold_time }} and Vee LAN max age is {{ data_to_template['rapid_pvst'][id].vlans[vlan].max_age }}.
+The time since the last topology change is {{ data_to_template['rapid_pvst'][id].vlans[vlan].time_since_topology_change }}.
+There have been {{ data_to_template['rapid_pvst'][id].vlans[vlan].topology_changes }} topology changes.
+The interface {{ interface }} has a cost of {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].cost | default("N/A") }}.
+{%- if data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters is defined %}
+The interface has received {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters.bpdu_received }} B P D Us and sent {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].counters.bpdu_sent }} B P D Us.
+{%- endif %}
+The interface designated bridge address is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_bridge_address | default("N/A") }}  and designated bridge priority is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_bridge_priority | default("N/A") }}.
+The interface designated cost is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_cost | default("N/A") }}.
+The interface designated port number is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_port_num }} and designated port priority is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_port_priority }}.
+The interface designated root address is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_root_address | default("N/A") }} and designated root priority is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].designated_root_priority | default("N/A") }}.
+There have been {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].forward_transitions | default("N/A") }} interface forward transitions.
+The port state is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].port_state }} and role is {{ data_to_template['rapid_pvst'][id].vlans[vlan].interfaces[interface].role }}.
+{%- endfor %}{%- endfor %}{%- endfor %}  
+{%-     for domain in data_to_template['mstp'] %}  
+The following multiple spanning tree information has been parsed:
+The domain is {{ domain }} named {{ data_to_template['mstp'][domain].name | default("Not named") }} with a revision of {{ data_to_template['mstp'][domain].revision }}.
+{%-     endfor %}
 {%- else %}
 {%- if command == "vlan" %}
-
+{%- for vlan in data_to_template['vlans'] if (vlan != "configuration") or (vlan != "interface_vlan_enabled") or (vlan != "vn_segment_vlan_based_enabled")  %}
+Hello! pie A T S has learned the following virtual local area network information.
+The Vee LAN {{ vlan }} named {{ data_to_template['vlans'][vlan].name }} is {{ data_to_template['vlans'][vlan].state }}. 
+Is the Vee LAN shutdown? {{ data_to_template['vlans'][vlan].shutdown }}.
+{%- if data_to_template['vlans'][vlan].interfaces is defined %}
+The following interfaces are on this VLAN
+{%- for interface in data_to_template['vlans'][vlan].interfaces %}
+ {{ interface }}
+{%- endfor %}{%- else %}
+The Vee LAN {{ vlan }} named {{ data_to_template['vlans'][vlan].name }} is {{ data_to_template['vlans'][vlan].state }}. 
+Is the Vee LAN shutdown? {{ data_to_template['vlans'][vlan].shutdown }}.
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == 'vrf' %}
-
+Hello! pie A T S has learned the following virtual route forwarder information.
+{%- for vrf in data_to_template['vrfs'] %}
+{%-     for address_family in data_to_template['vrfs'][vrf].address_family %}
+{%-         if data_to_template['vrfs'][vrf].address_family[address_family].route_targets is defined %}
+{%-             for target in data_to_template['vrfs'][vrf].address_family[address_family].route_targets %}
+The virtual route forwarder {{ vrf }} with a description of {{ data_to_template['vrfs'][vrf].description | default("No Description") }} and address family {{ address_family }} has the following target {{ target | default("No Target") }}.
+The router type is {{ data_to_template['vrfs'][vrf].address_family[address_family].route_targets[target].rt_type }} and route distinguisher is {{ data_to_template['vrfs'][vrf].route_distinguisher }}
+{%-             endfor %}
+{%-         else %}
+The virtual route forwarder {{ vrf }} with a description of {{ data_to_template['vrfs'][vrf].description | default("No Description") }} and address family {{ address_family }} has a route distinguisher of {{ data_to_template['vrfs'][vrf].route_distinguisher }}
+{%-         endif %}
+{%-     endfor %}
+{%- endfor %}
 {%- else %}
 {%- if command == "show access-lists" %}
-
+Hello! pie A T S has parsed the following show access-lists information.
+{%- for list in data_to_template['acls'] %}{%- if data_to_template['acls'][list].aces is defined %}{%- for ace in data_to_template['acls'][list].aces %}{%- if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}{%- for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }} and the destination network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }} using protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}
+{%- endfor %}{%- else %}{%- for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }} using protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}.
+{%- endfor %}{%- endif %}{%- endif %}{%- endif %}{%- endfor %}{%- else %}
+The access control list {{ list }} has no access control entries.
+{%- endif %}{%- endfor %}{%- for list in data_to_template['acls'] %}{%- if data_to_template['acls'][list].aces is defined %}{%- for ace in data_to_template['acls'][list].aces %}{%- if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source protocol is U D P {%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}.{%- endif %}
+{%- else %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination protocol is U D P {%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}.
+{%- endif %}
+{%- endif %}{%- endif %}{%- else %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source protocol is T C P {%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %} using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}.{% else %}
+{%- endif %}
+{%- else %}
+{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination protocol is T C P {%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %} using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}.{%- endif %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endfor %}{%- else %}
+The access control list {{ list }} has no access control entries.
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "show bgp process vrf all" %}
 
@@ -321,7 +584,10 @@ Interface {{ interface }} is enabled? {{ data_to_template['interfaces'][interfac
 
 {%- else %}
 {%- if command == "show cdp neighbors" %}
-
+Hello! pie A T S has parsed the following show c d p neighbors information.
+{%-     for neighbor in data_to_template['cdp'].index %}
+The device {{ hostname }}'s local interface {{ data_to_template['cdp'].index[neighbor].local_interface }} is connected to device {{ data_to_template['cdp'].index[neighbor].device_id }}, which is a {{ data_to_template['cdp'].index[neighbor].platform }}, with capabilities {{ data_to_template['cdp'].index[neighbor].capability }} on {{ data_to_template['cdp'].index[neighbor].port_id }} with a hold time of {{ data_to_template['cdp'].index[neighbor].hold_time }}.
+{%-     endfor %}
 {%- else %}
 {%- if command == "show cdp neighbors detail" %}
 
@@ -398,8 +664,26 @@ The device has {{ data_to_template['version'].main_mem | int // 1024 }} megabyte
 The device license type is {{ data_to_template['version'].license_type }}.
 {%- else %}
 {%- if command == "show vlan" %}
-
+Hello! pie A T S has parsed the following show vee lan information.
+{%-         for vlan in data_to_template['vlans'] %}
+The vee vlan {{ vlan }} named {{ data_to_template['vlans'][vlan].name }} is in the following state {{ data_to_template['vlans'][vlan].state }}. 
+Is the Vee VLAN shutdown? {{ data_to_template['vlans'][vlan].shutdown }}.The M T U is {{ data_to_template['vlans'][vlan].mtu }}
+The Vee VLAN is on the following interfaces:
+{%-             for interface in data_to_template['vlans'][vlan].interfaces %}
+{{ interface }}
+{%-             endfor %}
+{%-         endfor %}
 {%- else %}
 {%- if command == "show vrf" %}
-
+Hello! pie A T S has parsed the following show v r f information.
+{%-             for vrf in data_to_template['vrf'] %}
+{%-                 for protocol in data_to_template['vrf'][vrf].protocols %}
+The virtual route forwarder {{ vrf }} using the {{ protocol }} protocol is present on the following interfaces:
+{%-                     for interface in data_to_template['vrf'][vrf].interfaces %}
+{%-                         if interface != "ipv4" %}
+{{ interface }}
+{%-                         endif %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
 {%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}

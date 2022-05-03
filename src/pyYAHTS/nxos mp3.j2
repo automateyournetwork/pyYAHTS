@@ -249,7 +249,20 @@ Interface {{ interface }} is enabled? {{ data_to_template['interfaces'][interfac
 {%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "ntp" %}
-
+Hello! pie A T S has learned the following network time protocol information.
+The device {{ hostname }} has the following NTP information
+The associations address is {{ data_to_template['clock_state'].system_status.associations_address }} with an associations local mode of {{ data_to_template['clock_state'].system_status.associations_local_mode }}.
+The clock offset is {{ data_to_template['clock_state'].system_status.clock_offset }}, precision is {{ data_to_template['clock_state'].system_status.clock_precision }}, reference ID is {{ data_to_template['clock_state'].system_status.clock_refid }}, state is {{ data_to_template['clock_state'].system_status.clock_state }} and stratum  of {{ data_to_template['clock_state'].system_status.clock_stratum }}.
+The reference time is {{ data_to_template['clock_state'].system_status.reference_time }} with a root delay of {{ data_to_template['clock_state'].system_status.root_delay }} and root dispersion of {{ data_to_template['clock_state'].system_status.root_dispersion }}.
+{%- for vrf in data_to_template['vrf'] %}{%- for address in data_to_template['vrf'][vrf].associations.address %}{%- for is_conf,value in data_to_template['vrf'][vrf].associations.address[address].local_mode.client.isconfigured.items() %}
+Is N T P configured? {{ value.isconfigured }}.
+The V R F is {{ vrf }} with an address of {{ address }}.
+The delay is {{ value.delay }} with a local mode of {{ value.local_mode }}, offset of {{ value.offset }}, poll of {{ value.poll }}, and reach of {{ value.reach }}.
+The received time is {{ value.receive_time }} with a reference ID of {{ value.refid }} and stratum of {{ value.stratum }}.
+{%- endfor %}{%- endfor %}{%- endfor %}
+{%- for vrf in data_to_template['vrf'] %}{%- for address in data_to_template['vrf'][vrf].unicast_configuration.address %}
+The V R F is {{ vrf }} with an address of {{ address }} with a preferred server : {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.preferred }} and server type of {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.type }}.
+{%- endfor %}{%- endfor %}
 {%- else %}
 {%- if command == 'ospf' %}
 
@@ -258,16 +271,89 @@ Interface {{ interface }} is enabled? {{ data_to_template['interfaces'][interfac
 
 {%- else %}
 {%- if command == "routing" %}
-
+Hello! pie A T S has learned the following routing information.
+{%- for vrf in data_to_template['vrf'] %}
+{%-     for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-         for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+{%-             if data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list is defined %}
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+The virtual route forwarder {{ vrf }} using address family {{ address_family }} has the following route {{ route }} that is active {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }} with a metric of {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }}.
+The next hop number {{ next_hop }} has a next hop of {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }} with a route preference of {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }}. 
+The source protocol is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }} with the codes {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }}
+{%-                 endfor %}
+{%-             else %}
+{%-                 for outgoing_interface in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.outgoing_interface %}
+The virtual route forwarder {{ vrf }} using address family {{ address_family }} has the following route {{ route }} using the outgoing interface : {{ outgoing_interface }}.
+The source protocol is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }} with the codes {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }}
+{%-                 endfor %}
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+{%- endfor %}
 {%- else %}
 {%- if command == "vlan" %}
-
+{%- for vlan in data_to_template['vlans'] if (vlan != "configuration") or (vlan != "interface_vlan_enabled") or (vlan != "vn_segment_vlan_based_enabled")  %}
+Hello! pie A T S has learned the following virtual local area network information.
+The Vee LAN {{ vlan }} named {{ data_to_template['vlans'][vlan].name }} is {{ data_to_template['vlans'][vlan].state }}. 
+Is the Vee LAN shutdown? {{ data_to_template['vlans'][vlan].shutdown }}.
+{%- if data_to_template['vlans'][vlan].interfaces is defined %}
+The following interfaces are on this VLAN
+{%- for interface in data_to_template['vlans'][vlan].interfaces %}
+ {{ interface }}
+{%- endfor %}{%- else %}
+The Vee LAN {{ vlan }} named {{ data_to_template['vlans'][vlan].name }} is {{ data_to_template['vlans'][vlan].state }}. 
+Is the Vee LAN shutdown? {{ data_to_template['vlans'][vlan].shutdown }}.
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == 'vrf' %}
-
+Hello! pie A T S has learned the following virtual route forwarder information.
+{%- for vrf in data_to_template['vrfs'] %}
+{%-     for address_family in data_to_template['vrfs'][vrf].address_family %}
+{%-         if data_to_template['vrfs'][vrf].address_family[address_family].route_targets is defined %}
+{%-             for target in data_to_template['vrfs'][vrf].address_family[address_family].route_targets %}
+The virtual route forwarder {{ vrf }} with a description of {{ data_to_template['vrfs'][vrf].description | default("No Description") }} and address family {{ address_family }} has the following target {{ target | default("No Target") }}.
+The router type is {{ data_to_template['vrfs'][vrf].address_family[address_family].route_targets[target].rt_type }} and route distinguisher is {{ data_to_template['vrfs'][vrf].route_distinguisher }}
+{%-             endfor %}
+{%-         else %}
+The virtual route forwarder {{ vrf }} with a description of {{ data_to_template['vrfs'][vrf].description | default("No Description") }} and address family {{ address_family }} has a route distinguisher of {{ data_to_template['vrfs'][vrf].route_distinguisher }}
+{%-         endif %}
+{%-     endfor %}
+{%- endfor %}
 {%- else %}
 {%- if command == "show access-lists" %}
-
+Hello! pie A T S has parsed the following show access-lists information.
+{%- for list in data_to_template['acls'] %}{%- if data_to_template['acls'][list].aces is defined %}{%- for ace in data_to_template['acls'][list].aces %}{%- if data_to_template['acls'][list].aces[ace].matches.l3 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l3.ipv4 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network is defined %}{%- for source_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.source_network[source_network] | replace("{'source_network': ","") | replace("}","") | replace("'","") }} and the destination network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }} using protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}
+{%- endfor %}{%- else %}{%- for destination_network in data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination network is {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.destination_network | replace(" {'destination_network':","") | replace("}","") | replace("{","") | replace("'","") | replace(":","") | default("N/A") }} using protocol: {{ data_to_template['acls'][list].aces[ace].matches.l3.ipv4.protocol | default("N/A") }}.
+{%- endfor %}{%- endif %}{%- endif %}{%- endif %}{%- endfor %}{%- else %}
+The access control list {{ list }} has no access control entries.
+{%- endif %}{%- endfor %}{%- for list in data_to_template['acls'] %}{%- if data_to_template['acls'][list].aces is defined %}{%- for ace in data_to_template['acls'][list].aces %}{%- if data_to_template['acls'][list].aces[ace].matches.l4 is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port is defined %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source protocol is U D P {%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator is defined %}using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.source_port.operator.port }}.{%- endif %}
+{%- else %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port is defined%}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination protocol is U D P {%- if data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator is defined %}using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.udp.destination_port.operator.port }}.
+{%- endif %}
+{%- endif %}{%- endif %}{%- else %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp is defined %}{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port is defined %}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The source protocol is T C P {%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %} using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}.{% else %}
+{%- endif %}
+{%- else %}
+{%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port is defined%}
+The access control list {{ list }} has an access control entry {{ ace }} that is forwarding {{ data_to_template['acls'][list].aces[ace].actions.forwarding }}. 
+Logging is set to {{ data_to_template['acls'][list].aces[ace].actions.logging | default ("No Logging") }}.
+The destination protocol is T C P {%- if data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator is defined %} using operator {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.operator }} for port {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.destination_port.operator.port }}.{%- endif %}
+{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endif %}{%- endfor %}{%- else %}
+The access control list {{ list }} has no access control entries.
+{%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "show bgp process vrf all" %}
 

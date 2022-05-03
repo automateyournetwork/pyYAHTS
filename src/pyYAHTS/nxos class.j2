@@ -399,7 +399,7 @@ Poll : {{ value.poll }}
 Reach : {{ value.reach }}
 Receive Time : {{ value.receive_time }}
 Reference ID : {{ value.refid }}
-Statum : {{ value.stratum }}
+Stratum : {{ value.stratum }}
 }
 ``` 
 {%- endfor %}{%- endfor %}{%- endfor %}
@@ -422,7 +422,7 @@ Clock Offset : {{ data_to_template['clock_state'].system_status.clock_offset }}
 Clock Precision : {{ data_to_template['clock_state'].system_status.clock_precision }}
 Clock Reference ID : {{ data_to_template['clock_state'].system_status.clock_refid }}
 Clock State : {{ data_to_template['clock_state'].system_status.clock_state }}
-Clock Statum : {{ data_to_template['clock_state'].system_status.clock_stratum }}
+Clock Stratum : {{ data_to_template['clock_state'].system_status.clock_stratum }}
 Reference Time : {{ data_to_template['clock_state'].system_status.reference_time }}
 Root Delay : {{ data_to_template['clock_state'].system_status.root_delay }}
 Root Dispersion : {{ data_to_template['clock_state'].system_status.root_dispersion }}

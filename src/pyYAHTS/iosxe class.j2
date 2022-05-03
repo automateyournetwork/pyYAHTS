@@ -463,7 +463,7 @@ Poll : {{ value.poll }}
 Reach : {{ value.reach }}
 Receive Time : {{ value.receive_time }}
 Reference ID : {{ value.refid }}
-Statum : {{ value.stratum }}
+Stratum : {{ value.stratum }}
 }
 ``` 
 {%- endfor %}{%- endfor %}{%- endfor %}
@@ -486,7 +486,7 @@ Clock Offset : {{ data_to_template['clock_state'].system_status.clock_offset }}
 Clock Precision : {{ data_to_template['clock_state'].system_status.clock_precision }}
 Clock Reference ID : {{ data_to_template['clock_state'].system_status.clock_refid }}
 Clock State : {{ data_to_template['clock_state'].system_status.clock_state }}
-Clock Statum : {{ data_to_template['clock_state'].system_status.clock_stratum }}
+Clock Stratum : {{ data_to_template['clock_state'].system_status.clock_stratum }}
 Reference Time : {{ data_to_template['clock_state'].system_status.reference_time }}
 Root Delay : {{ data_to_template['clock_state'].system_status.root_delay }}
 Root Dispersion : {{ data_to_template['clock_state'].system_status.root_dispersion }}
@@ -525,7 +525,7 @@ Advertising Router : {{ data_to_template['vrf'][vrf].address_family[address_fami
 LSA ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}
 Number of Links : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }}
 Link : {{ link }}
-Lind ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
+Link ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
 Link Data : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }}
 Type : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}
 Topology : {{ topology }}
@@ -594,7 +594,7 @@ Advertising Router : {{ data_to_template['vrf'][vrf].address_family[address_fami
 LSA ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}
 Number of Links : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }}
 Link : {{ link }}
-Lind ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
+Link ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
 Link Data : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }}
 Type : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}
 Topology : {{ topology }}
@@ -655,7 +655,7 @@ Advertising Router : {{ data_to_template['vrf'][vrf].address_family[address_fami
 LSA ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}
 Number of Links : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }}
 Link : {{ link }}
-Lind ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
+Link ID : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
 Link Data : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }}
 Type : {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}
 Topology : {{ topology }}
@@ -806,7 +806,7 @@ classDiagram
 class {{ hostname | replace("-","_") }}_STP_Summary {
 BPDU Filter : {{ data_to_template['global'].bpdu_filter }}
 BPDU Guard : {{ data_to_template['global'].bpdu_guard }}
-BDPU Guard Timeout Recovery : {{ data_to_template['global'].bpduguard_timeout_recovery }}
+BPDU Guard Timeout Recovery : {{ data_to_template['global'].bpduguard_timeout_recovery }}
 Etherchannel Misconfigure Guard : {{ data_to_template['global'].etherchannel_misconfig_guard }}
 Loopguard : {{ data_to_template['global'].loop_guard }}
 }
