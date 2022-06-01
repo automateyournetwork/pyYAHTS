@@ -121,7 +121,7 @@ VRF,Server Address,Source,Type,VRF
 {{ vrf }},{{ address }},{{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.source }},{{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.type }},{{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.vrf }}
 {%-         endfor %}
 {%-     endfor %}
-Association Address,Clock State,Clock Statum,Root Delay
+Association Address,Clock State,Clock Stratum,Root Delay
 {{ data_to_template['clock_state'].system_status.associations_address }},{{ data_to_template['clock_state'].system_status.clock_state }},{{ data_to_template['clock_state'].system_status.clock_stratum }},{{ data_to_template['clock_state'].system_status.root_delay }}
 {%- else %}
 {%- if command == 'ospf' %}VRF,Address Family,Instance,Auto Cost Enabled,Reference Bandwidth,Instance Enable,Graceful Restart Type,Graceful Restart Enable,Restart Timer,NSR Enable,Preference,Router ID,SPF Paths,LSA Hold,LSA Max,LSA Start,SPF Hold,SPF Max,SPF Start,Area,Area Type,LSA Type,LSA,Advertising Router,Age,Checksum,Length,Option,Sequence Number,Subnet Mask,Number of Links,Link,Link Data,Link Type,Topology,Metric,Interface,Enabled,BFD,Cost,Dead Interval,Hello Interval,Hello Timer,Interface Type,Neighbor,Neighbor Address,Dead Timer,Last State Change,State,NBR Events,Passive,Retransmit Interval,Link LSA Checksum,Link LSA Count,Transmit Delay,MPLS LDP Auto Config,MPLS LDP Sync,Area LSA Checksum,Area LSA Count,SPF Count

@@ -892,7 +892,7 @@ TLV,Unknown: {{ data_to_template.counters.tlv_unknown }},1
 {{ address }},Reach: {{ value.reach }},2
 {{ address }},Receive Time: {{ value.receive_time }},2
 {{ address }},Reference ID: {{ value.refid }},2
-{{ address }},Statum: {{ value.stratum }},2
+{{ address }},Stratum: {{ value.stratum }},2
 {%-        endfor %}
 {%-    endfor %}
 {%- endfor %}
@@ -913,7 +913,7 @@ Clock State,Offset: {{ data_to_template['clock_state'].system_status.clock_offse
 Clock State,Precision: {{ data_to_template['clock_state'].system_status.clock_precision }},2
 Clock State,Reference ID: {{ data_to_template['clock_state'].system_status.clock_refid }},2
 Clock State,State: {{ data_to_template['clock_state'].system_status.clock_state }},2
-Clock State,Statum: {{ data_to_template['clock_state'].system_status.clock_stratum }},2
+Clock State,Stratum: {{ data_to_template['clock_state'].system_status.clock_stratum }},2
 {{ hostname }},Reference Time: {{ data_to_template['clock_state'].system_status.reference_time }},2
 {{ hostname }},Root,1
 Root,Delay: {{ data_to_template['clock_state'].system_status.root_delay }},2

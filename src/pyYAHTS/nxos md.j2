@@ -142,7 +142,7 @@
 | {{ vrf }} | {{ address }} | {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.source }} | {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.type }} | {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.vrf }} |
 {%-         endfor %}
 {%-     endfor %}
-| Association Address | Clock State | Clock Statum | Root Delay |
+| Association Address | Clock State | Clock Stratum | Root Delay |
 | ------------------- | ----------- | ------------ | ---------- |
 | {{ data_to_template['clock_state'].system_status.associations_address }} | {{ data_to_template['clock_state'].system_status.clock_state }} | {{ data_to_template['clock_state'].system_status.clock_stratum }} | {{ data_to_template['clock_state'].system_status.root_delay }} |
 {%- else %}

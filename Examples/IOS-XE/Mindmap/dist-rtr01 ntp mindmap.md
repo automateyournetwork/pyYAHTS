@@ -11,7 +11,7 @@
 #### ID: 
 #### Time 00000000.00000000 (00:00:00.000 UTC Mon Jan 1 1900)
 ### State: unsynchronized
-### Statum: 
+### Stratum: 
 ## Root
 ### Delay: 
 ### Dispersion 23.23
@@ -31,4 +31,4 @@
 ###### Reach: 0
 ###### Receive Time: -
 ###### Reference ID: .TIME.
-###### Statum: 16
+###### Stratum: 16

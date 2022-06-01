@@ -578,10 +578,47 @@ The access control list {{ list }} has no access control entries.
 {%- endif %}{%- endfor %}
 {%- else %}
 {%- if command == "show bgp process vrf all" %}
-
+Hello! pie A T S has parsed the following show b g p process v r f all information.
+{%-     for vrf in data_to_template.vrf %}
+{%-         for address_family in data_to_template.vrf[vrf].address_family %}
+{%-             for peer in data_to_template.vrf[vrf].address_family[address_family].peers %}
+The {{ hostname }} has the B G P tag {{ data_to_template.bgp_tag }}, router ID {{ data_to_template.vrf[vrf].router_id }}, P I D {{ data_to_template.bgp_pid }}, and is in the following state {{ data_to_template.bgp_protocol_state }}.
+The started reason is {{ data_to_template.bgp_protocol_started_reason }}. 
+There are {{ data_to_template.bgp_as_path_entries }} A S path entries using the A S format {{ data_to_template.bgp_asformat }}.
+The memory state is {{ data_to_template.bgp_memory_state }}. 
+M Mode is set to {{ data_to_template.bgp_mmode }}.
+There are {{ data_to_template.bgp_paths_per_hwm_attr }} paths per H W M attribute.
+There are {{ data_to_template.bytes_used }} bytes used.
+There are {{ data_to_template.entries_pending_delete }} entries pending deletion.
+The virtual route forwarder is {{ vrf }}. 
+The cluster ID is {{ data_to_template.vrf[vrf].cluster_id }}.
+The confederation router ID is {{ data_to_template.vrf[vrf].conf_router_id }}.
+The number of configured peers is {{ data_to_template.vrf[vrf].num_conf_peers }} and the number of established peers is {{ data_to_template.vrf[vrf].num_established_peers }} with {{ data_to_template.vrf[vrf].num_pending_conf_peers }} pending configured peers.
+The V R F ID is {{ data_to_template.vrf[vrf].vrf_id }} and V R F R D is {{ data_to_template.vrf[vrf].vrf_rd }}.
+The V R F state is {{ data_to_template.vrf[vrf].vrf_state }}.
+The address family is {{ address_family }}.
+The peer is {{ peer }}.
+There are {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].active_peers }} active peers.
+There are {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].aggregates }} aggregates.
+There are {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].networks }} networks.
+There are {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].paths }} paths.
+There are {{ data_to_template.vrf[vrf].address_family[address_family].peers[peer].routes }} routes.
+The table ID is {{ data_to_template.vrf[vrf].address_family[address_family].table_id }} and table state is {{ data_to_template.vrf[vrf].address_family[address_family].table_state }}.
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show bgp sessions" %}
-
+Hello! pie A T S has parsed the following show b g p sessions information.
+{%-     for vrf in data_to_template.vrf %}
+class {{ data_to_template.local_as }}_Local_AS {
+Total Established Peers : {{ data_to_template.total_established_peers }}
+Total Peers : {{ data_to_template.total_peers }}
+VRF : {{ vrf }}
+Router ID : {{ data_to_template.vrf[vrf].router_id }}
+VRF Established Peers : {{ data_to_template.vrf[vrf].vrf_established_peers }}
+VRF Peers : {{ data_to_template.vrf[vrf].vrf_peers }}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show cdp neighbors" %}
 Hello! pie A T S has parsed the following show c d p neighbors information.
@@ -590,28 +627,144 @@ The device {{ hostname }}'s local interface {{ data_to_template['cdp'].index[nei
 {%-     endfor %}
 {%- else %}
 {%- if command == "show cdp neighbors detail" %}
-
+Hello! pie A T S has parsed the following show c d p neighbors detail information.
+{%-             for neighbor in data_to_template['index'] %}
+The device {{ hostname }}'s local interface : {{ data_to_template['index'][neighbor].local_interface }} is connected to device {{ data_to_template['index'][neighbor].device_id }}, which is a {{ data_to_template['index'][neighbor].platform }}, with capabilities {{ data_to_template['index'][neighbor].capabilities }}, and software version {{ data_to_template['index'][neighbor].software_version | replace(","," ") | replace("\n"," ") }}, on port {{ data_to_template['index'][neighbor].port_id }} with a hold time of {{ data_to_template['index'][neighbor].hold_time }}. The native Vee LAN is {{ data_to_template['index'][neighbor].native_vlan | default("not set") }} and duplex mode is {{ data_to_template['index'][neighbor].duplex_mode }}.
+The remote device has the following IP addresses: 
+{%-                 for ip_address in data_to_template['index'][neighbor].entry_addresses %}
+{{ ip_address }}
+{%-                 endfor %}
+{%-             endfor %}
 {%- else %}
-{%- if command == 'show environment all' %}
-
+{%- if command == 'show environment' %}
+Hello! pie A T S has parsed the following show environment information.
+{%-     for switch in data_to_template['switch'] %}
+The device {{ switch }} has a System Temperature State of {{ data_to_template['switch'][switch].system_temperature_state }}.
+The Inlet Temperature State is {{ data_to_template['switch'][switch].inlet_temperature.state }} with a value of {{ data_to_template['switch'][switch].inlet_temperature.value }}.
+The Thresholds are as follows:
+Yellow: {{ data_to_template['switch'][switch].inlet_temperature.yellow_threshold }}
+Red: {{ data_to_template['switch'][switch].inlet_temperature.red_threshold }}
+The Hostspot Temperature State is {{ data_to_template['switch'][switch].hotspot_temperature.state }} with a value of {{ data_to_template['switch'][switch].hotspot_temperature.value }}.
+The Hotspot Thresholds are as follows:
+Yellow: {{ data_to_template['switch'][switch].hotspot_temperature.yellow_threshold }}
+Red: {{ data_to_template['switch'][switch].hotspot_temperature.red_threshold }}
+Power Supply
+{%-         for power_supply in data_to_template['switch'][switch].power_supply %}
+The power supply {{ power_supply }} has a P ID {{ data_to_template['switch'][switch].power_supply[power_supply].pid | default("N/A") }}.
+The PoE Power is {{ data_to_template['switch'][switch].power_supply[power_supply].poe_power | default("N/A") }}.
+The Serial Number is {{ data_to_template['switch'][switch].power_supply[power_supply].serial_number | default("N/A") }}.
+The State is {{ data_to_template['switch'][switch].power_supply[power_supply].state }} and status is {{ data_to_template['switch'][switch].power_supply[power_supply].status }}.
+The System Power is {{ data_to_template['switch'][switch].power_supply[power_supply].system_power | default("N/A") }} using {{ data_to_template['switch'][switch].power_supply[power_supply].watts | default("N/A") }} watts.
+{%-         endfor %}
+{%-         for fan in data_to_template['switch'][switch].fan %}
+The Fan {{ fan }} State is {{ data_to_template['switch'][switch].fan[fan].state }}.
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show etherchannel summary" %}
-
+Hello! pie A T S has parsed the following Show Etherchannel Summary information.
+{%-     for interface in data_to_template['interfaces'] %}
+The interface {{ interface }} Bundle ID is {{ data_to_template['interfaces'][interface].bundle_id }} named {{ data_to_template['interfaces'][interface].name }} with an Operational Status of {{ data_to_template['interfaces'][interface].oper_status }}.
+The Protocol is {{ data_to_template['interfaces'][interface].protocol | default("Mode On") }}.
+The Flags are {{ data_to_template['interfaces'][interface].flags }}
+The Members are 
+{%-         for member in data_to_template['interfaces'][interface].members %}
+Interface {{ data_to_template['interfaces'][interface].members[member].interface }}.
+Bundled {{ data_to_template['interfaces'][interface].members[member].bundled }} with flags {{ data_to_template['interfaces'][interface].members[member].flags }}.
+ {%-        endfor %}
+{%-     endfor %}
+The Number of Aggregators is {{ data_to_template.number_of_aggregators }} and the Number of LAG in Use is {{ data_to_template.number_of_lag_in_use }}.
 {%- else %}
 {%- if command == "show interfaces" %}
-
+Hello! pie A T S has parsed the following Show Interfaces command
+{%-     for interface in data_to_template %}
+The interface {{ interface }} has a description {{ data_to_template[interface].description | default ("No Description") }}.
+The Type is {{ data_to_template[interface].type }}.
+The interface is {{ data_to_template[interface].connected | default ("Not Connected") | replace(","," ") }}.
+The interface is  {{ data_to_template[interface].enabled | default ("Not Enabled" ) | replace(","," ")}}.
+The Bandwidth is {{ data_to_template[interface].bandwidth }}.
+The Port Speed is {{ data_to_template[interface].port_speed | default ("N/A")}}.
+The Duplex Mode is {{ data_to_template[interface].duplex_mode | default ("N/A") }}.
+The Line Protocol is {{ data_to_template[interface].line_protocol }}.
+The Operational Status is {{ data_to_template[interface].oper_status }}.
+The MAC Address is {{ data_to_template[interface].mac_address }}.
+The Media Type is {{ data_to_template[interface].media_type | default ("N/A")}}.
+The Delay is {{ data_to_template[interface].delay }}.
+The Encapsulation is {{ data_to_template[interface].encapsulations.encapsulation }}.
+The Keepalive is {{ data_to_template[interface].keepalive | default ("N/A")}}.
+The M T U is {{ data_to_template[interface].mtu }}.
+Is the interface a Port Channel Member? {{ data_to_template[interface].port_channel.port_channel_member }}.
+{%-         if data_to_template[interface].port_channel.port_channel_member_intfs is defined %}
+The  Port Channel Members are
+{%-             for member_interface in data_to_template[interface].port_channel.port_channel_member_intfs %}
+ {{ member_interface }}
+{%-             endfor %}
+{%          endif %}
+The interface has the following IP Addresses
+{%-         if data_to_template[interface].ipv4 is defined %}
+{%-             for ip_address in data_to_template[interface].ipv4 %}
+ {{ ip_address }}
+{%-             endfor %}
+{%-         endif %}
+{%-         if data_to_template[interface].counters is defined %}
+The interface input Counters are:
+CRC Errors: {{ data_to_template[interface].counters.in_crc_errors }}
+Errors: {{ data_to_template[interface].counters.in_errors }}
+Packets: {{ data_to_template[interface].counters.in_pkts }}
+The interface Output counters are:
+Errors: {{ data_to_template[interface].counters.out_errors }}
+Packets: {{ data_to_template[interface].counters.out_pkts }}
+{%-         endif %}
+{%-         if data_to_template[interface].queues is defined %}
+The interface Queue Strategy: {{ data_to_template[interface].queues.queue_strategy }}
+There are {{ data_to_template[interface].queues.input_queue_drops }} input drops and {{ data_to_template[interface].queues.total_output_drop }} output drops.
+{%-         endif %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show interfaces status" %}
-
+Hello! pie A T S has parsed the following Show Interfaces Status information:
+{%- for interface in data_to_template['interfaces'] %}  
+The interface {{ interface }} name is {{ data_to_template['interfaces'][interface].name | default("Not Named") }} with a status of {{ data_to_template['interfaces'][interface].status }}.
+The Port Speed is {{ data_to_template['interfaces'][interface].port_speed }} and duplex code is {{ data_to_template['interfaces'][interface].duplex_code }}.
+The interface is on V LAN {{ data_to_template['interfaces'][interface].vlan }}.
+{%- endfor %}
 {%- else %}
 {%- if command == "show interfaces trunk" %}
-
+Hello! pie A T S has parsed the following Show Interfaces Trunk information.
+{%-     for interface in data_to_template['interface'] %}
+Interface {{ interface }} 
+Encapsulation is {{ data_to_template['interface'][interface].encapsulation }} and Mode is {{ data_to_template['interface'][interface].mode }}.
+The Native VLAN is {{ data_to_template['interface'][interface].native_vlan }}.
+The interface Status is {{ data_to_template['interface'][interface].status }}.
+The following V LANs are Allowed on the Trunk: {{ data_to_template['interface'][interface].vlans_allowed_on_trunk }}.
+The following V LANs in S T P Forwarding are Not Pruned: {{ data_to_template['interface'][interface].vlans_in_stp_forwarding_not_pruned }}.
+{%-     endfor %}
 {%- else %}
 {%- if command == "show inventory" %}
-
+Hello! pie A T S has parsed the following Show Inventory information.
+{%-     for slot in data_to_template['main'] %}
+{%-        for part in data_to_template['main'][slot] %}
+Slot {{ slot }} is a {{ part }} with a description {{ data_to_template['main'][slot][part].descr }}.
+The part ID is {{ data_to_template['main'][slot][part].pid }} and the virtual ID is {{ data_to_template['main'][slot][part].sn }},{{ data_to_template['main'][slot][part].vid }}
+{%-         endfor %}
+{%-     endfor %}
+{%-     for slot in data_to_template['slot'] %}
+{%-         for part in data_to_template['slot'][slot] %}
+{%-             for part_number in data_to_template['slot'][slot][part] %}
+The slot {{ slot }} is a {{ part_number }} with a Description {{ data_to_template['slot'][slot][part][part_number].descr }}.
+The Part ID is {{ data_to_template['slot'][slot][part][part_number].pid }} with Serial Number {{ data_to_template['slot'][slot][part][part_number].sn }} and Virtual ID {{ data_to_template['slot'][slot][part][part_number].vid }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == 'show ip arp' %}
-
+Hello! pie A T S has parsed the following Show IP ARP information for the Global Routing Table.
+{%-     for interface in data_to_template['interfaces'] %}
+{%-         for neighbor in data_to_template['interfaces'][interface].ipv4.neighbors %}
+The interface {{ interface }} has a neighbor {{ neighbor }} with a Link Layer Address {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].link_layer_address }} that is type {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].type }} with an origin of {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].origin }}.
+The Age of this entry is {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].age }} using protocol {{ data_to_template['interfaces'][interface].ipv4.neighbors[neighbor].protocol }}.
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip interface brief" %}
 Hello! pie A T S has parsed the following information from the show IP interface brief command.
@@ -622,31 +775,176 @@ Is the Interface OK? {{ data_to_template['interface'][interface].interface_is_ok
 {%-    endfor %}
 {%- else %}
 {%- if command == "show ip ospf" %}
-
+Hello! pie A T S has parsed the following Show IP OSPF information.
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+The V R F {{ vrf }} with address family {{ address_family }} has the following instances.
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+Instance {{ instance }}.
+The Router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].router_id }}.
+Is the Area a Transit? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].area_transit }}.
+Is the area N S S A? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nssa }}.
+Is it Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].enable }}.
+Is Auto Cost Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.enable }}.
+The Reference Bandwidth is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}.
+Is B F D Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].bfd.enable }}.
+The Elapsed Time is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].elapsed_time }}.
+Is L L S? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].lls }}.
+Is N S R Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].nsr.enable }}.
+The External L S A is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].numbers.external_lsa }}.
+{%-                 if data_to_template['vrf'][vrf].address_family[address_family].instance[instance].event_log is defined %}
+Event Log is Enabled.
+{%-                 endif %}
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_normal_areas }} normal areas.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_nssa_areas }} N S S A areas.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_stub_areas }} stub areas. 
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].total_areas }} total areas.
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+The area {{ area }} has the following information.
+The Area Scope LSA Count is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }}.
+The Area Type is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].area_type }}.
+The Area Summary is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].summary }}.
+The Interface Count is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.interfaces_count }}.
+S P F Last Executed {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_last_executed }}. 
+There have been {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }} SPF Runs.
+{%-                 endfor %}
+{%-                 for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart %}
+Is Graceful Restart {{ graceful_restart }} Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf database" %}
-
+Hello! pie A T S has parsed the following Show IP OSPF Database information
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+The V R F {{ vrf }} address family {{ address_family }} Instance {{ instance }} has the following areas
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+Area {{ area }}
+{%-                     for lsa_type in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
+LSA Type {{ lsa_type }}
+{%-                         for lsa in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
+LSA {{ lsa }} Age {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.link_count }} links.
+The Checksum is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }} and sequence Number is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}.
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf interface" %}
-
+Hello! pie A T S has parsed the following Show IP OSPF Interface information.
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+The V R F {{ vrf }} address family {{ address_family }} Instance {{ instance }} Area {{ area }} interface {{ interface }} Name is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }}.
+The Type is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}.
+Is the interface Passive? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}.
+The IP Address is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }}.
+The Router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].router_id }}.
+Is B F D Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}.
+The Cost is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}.
+The Dead Interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}.
+Is the interface Enabled? {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}.
+The Hello Interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }} and Hello Timer is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}.
+The Index is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }}.
+The Retransmit Interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}.
+The State is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}.
+There are {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.nbr_count }} Neighbors on the interface.
+The Transmit Delay is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }} and wait interval is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }}.
+{%-                         for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].graceful_restart %}
+Graceful Restart: {{ graceful_restart }} has the Helper {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].graceful_restart[graceful_restart].helper }}.
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf neighbor" %}
-
+Hello! pie A T S has parsed the following Show IP OSPF Neighbor information.
+{%-     for interface in data_to_template['interfaces'] %}
+The interface {{ interface }} has the following neighbors:
+{%-         for neighbor in data_to_template['interfaces'][interface].neighbors %}
+Neighbor {{ neighbor }} with address {{ data_to_template['interfaces'][interface].neighbors[neighbor].address }}, dead time {{ data_to_template['interfaces'][interface].neighbors[neighbor].dead_time }}, priority {{ data_to_template['interfaces'][interface].neighbors[neighbor].priority }} and state {{ data_to_template['interfaces'][interface].neighbors[neighbor].state }}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip ospf neighbor detail" %}
-
+Hello! pie A T S has parsed the following Show IP OSPF Neighbor Detail information.
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+{%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
+{%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
+{%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+The V R F {{ vrf }} Instance {{ instance }} Area {{ area }} Interface {{ interface }} has neighbors
+{%-                         for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+Neighbor {{ neighbor }} with address {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}.
+The Router ID is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}.
+The Index is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].index | replace(",","") }} with a Priority {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].priority }}.
+The State is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}.
+The Dead Timer is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}.
+There have been {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.total_retransmission }} Total Retransmissions.
+The Uptime is {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].uptime }}.
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ip route" %}
-
+Hello! pie A T S has parsed the following Show IP Route information.
+{%-     for vrf in data_to_template['vrf'] %}
+{%-         for address_family in data_to_template['vrf'][vrf].address_family %}
+The V R F {{ vrf }} address family {{ address_family }} has the route
+{%-             for route in data_to_template['vrf'][vrf].address_family[address_family].routes %}
+Route {{ route }}.
+Is the route Active? {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].active }}
+The Metric is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].metric }} and preference is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].route_preference }}.
+The Source Protocol is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol }} and Code is {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].source_protocol_codes }}.
+The Next Hop number 
+{%-                 for next_hop in data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+{{ next_hop }} has a Next Hop {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].next_hop }} with an outgoing interface: {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].outgoing_interface }}.
+It was Updated {{ data_to_template['vrf'][vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].updated }} ago.
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == 'show license summary' %}
-
+Hello! pie A T S has parsed the following Show License Summary information.
+{%-     for license in data_to_template['license_usage'] %}
+The license {{ license }} is Entitled to {{ data_to_template['license_usage'][license].entitlement }}.
+There are {{ data_to_template['license_usage'][license].count }} licenses.
+The license status is {{ data_to_template['license_usage'][license].status }}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show mac address-table" %}
-
+Hello! pie A T S has parsed the following Show MAC Address Table information
+{%-     for vlan in data_to_template['mac_table'].vlans %}
+The V LAN {{ vlan }} 
+{%-         for mac in data_to_template['mac_table'].vlans[vlan].mac_addresses %}
+MAC address {{ mac }}
+{%-             for interface in data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces %}
+Interface {{ interface }}
+Is a {{ data_to_template['mac_table'].vlans[vlan].mac_addresses[mac].interfaces[interface].entry_type }} Entry Type.
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- else %}
 {%- if command == "show ntp associations" %}
-
+Hello! pie A T S has parsed the following Show NTP Associations information.
+{%-     for peer in data_to_template.peer %}
+The Peer {{ peer }} has a Reference ID {{ data_to_template['peer'][peer]['local_mode']['client']['refid'] }} and Stratum {{ data_to_template['peer'][peer]['local_mode']['client']['stratum'] }}.
+The Poll time is {{ data_to_template['peer'][peer]['local_mode']['client']['poll'] }} with a reach {{ data_to_template['peer'][peer]['local_mode']['client']['reach'] }}, delay {{ data_to_template['peer'][peer]['local_mode']['client']['delay'] }}, offset: {{ data_to_template['peer'][peer]['local_mode']['client']['offset'] }} and jitter: {{ data_to_template['peer'][peer]['local_mode']['client']['jitter'] }}.
+{%-     endfor %}
 {%- else %}
 {%- if command == "show version" %}
 Hello! pie A T S has parsed the following information from the {{ command }} command.

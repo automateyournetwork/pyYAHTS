@@ -364,7 +364,7 @@
 #### ID: {{ data_to_template['clock_state'].system_status.clock_refid }}
 #### Time {{ data_to_template['clock_state'].system_status.reference_time }}
 ### State: {{ data_to_template['clock_state'].system_status.clock_state }}
-### Statum: {{ data_to_template['clock_state'].system_status.clock_stratum }}
+### Stratum: {{ data_to_template['clock_state'].system_status.clock_stratum }}
 ## Root
 ### Delay: {{ data_to_template['clock_state'].system_status.root_delay }}
 ### Dispersion {{ data_to_template['clock_state'].system_status.root_dispersion }}
@@ -391,7 +391,7 @@
 ###### Reach: {{ value.reach }}
 ###### Receive Time: {{ value.receive_time }}
 ###### Reference ID: {{ value.refid }}
-###### Statum: {{ value.stratum }}
+###### Stratum: {{ value.stratum }}
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}

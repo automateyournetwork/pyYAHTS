@@ -70,7 +70,7 @@
 ##### Source Protocol
 ###### TCP
 {%-                             if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}
-###### Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}</td>
+###### Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}
 {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}
 {%                              endif %}
 {%-                         else %}
@@ -348,7 +348,7 @@
 #### ID: {{ data_to_template['clock_state'].system_status.clock_refid }}
 #### Time {{ data_to_template['clock_state'].system_status.reference_time }}
 ### State: {{ data_to_template['clock_state'].system_status.clock_state }}
-### Statum: {{ data_to_template['clock_state'].system_status.clock_stratum }}
+### Stratum: {{ data_to_template['clock_state'].system_status.clock_stratum }}
 ## Root
 ### Delay: {{ data_to_template['clock_state'].system_status.root_delay }}
 ### Dispersion {{ data_to_template['clock_state'].system_status.root_dispersion }}
@@ -357,7 +357,7 @@
 ### {{ vrf }}
 {%-         for address in data_to_template['vrf'][vrf].unicast_configuration.address %}
 #### Address: {{ address }}
-##### Preferred: {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.preferred }}</td>
+##### Preferred: {{ data_to_template['vrf'][vrf].unicast_configuration.address[address].type.server.preferred }}
 {%-         endfor %}
 {%-     endfor %}
 ## Associations
@@ -375,7 +375,7 @@
 ###### Reach: {{ value.reach }}
 ###### Receive Time: {{ value.receive_time }}
 ###### Reference ID: {{ value.refid }}
-###### Statum: {{ value.stratum }}
+###### Stratum: {{ value.stratum }}
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
@@ -671,7 +671,7 @@
 {%- if command == "vlan" %}
 # Learn VLAN
 {%- for vlan in data_to_template['vlans'] %}
-## {{ vlan }}</td>
+## {{ vlan }}
 ### Name: {{ data_to_template['vlans'][vlan].name }}
 ### State: {{ data_to_template['vlans'][vlan].state }}
 ### Shutdown: {{ data_to_template['vlans'][vlan].shutdown }}
@@ -769,7 +769,7 @@
 ##### Source Protocol
 ###### TCP
 {%-                             if data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator is defined %}
-###### Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}</td>
+###### Operator: {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.operator }}
 {{ data_to_template['acls'][list].aces[ace].matches.l4.tcp.source_port.operator.port }}
 {%                              endif %}
 {%-                         else %}
@@ -926,9 +926,11 @@
 ### Protocol: {{ data_to_template['interfaces'][interface].protocol | default("Mode On") }}
 ### Flags {{ data_to_template['interfaces'][interface].flags }}
 ### Members
+{%-         for member in data_to_template['interfaces'][interface].members %}
 #### {{ data_to_template['interfaces'][interface].members[member].interface }}
 ##### Bundled: {{ data_to_template['interfaces'][interface].members[member].bundled }}
 ##### Flags: {{ data_to_template['interfaces'][interface].members[member].flags }}
+{%-         endfor %}
 {%-     endfor %}
 ## Number of Aggregators: {{ data_to_template.number_of_aggregators }}
 ## Number of LAG in Use: {{ data_to_template.number_of_lag_in_use }}
@@ -977,10 +979,10 @@
 {%-         endif %}
 {%-         if data_to_template[interface].queues is defined %}
 ### Queues 
-#### Stategy: {{ data_to_template[interface].queues.queue_strategy }}</td>
+#### Strategy: {{ data_to_template[interface].queues.queue_strategy }}
 #### Drops
-#### Input: {{ data_to_template[interface].queues.input_queue_drops }}</td>
-#### Output: {{ data_to_template[interface].queues.total_output_drop }}</td>
+#### Input: {{ data_to_template[interface].queues.input_queue_drops }}
+#### Output: {{ data_to_template[interface].queues.total_output_drop }}
 {%-         endif %}
 {%-     endfor %}
 {%- else %}
@@ -1137,27 +1139,27 @@
 {%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
 #### Area: {{ area }}
 {%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
-##### {{ interface }}</td>
-###### Name: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }}</td>
-###### Type: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}</td>
-###### Passive: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}</td>
-###### IP Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }}</td>
-###### Router ID: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].router_id }}</td>
-###### BFD Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}</td>
-###### Cost: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}</td>
-###### Dead Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}</td>
-###### Enabled: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}</td>
-###### Hello Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}</td>
-###### Hello Timer: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}</td>
-###### Index: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }}</td>
-###### Retransmit Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}</td>
-###### State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}</td>
-###### Neighbor Count: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.nbr_count }}</td>
-###### Transmit Delay: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}</td>
-###### {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }}</td>
+##### {{ interface }}
+###### Name: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].name }}
+###### Type: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}
+###### Passive: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}
+###### IP Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].ip_address }}
+###### Router ID: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].router_id }}
+###### BFD Enable: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}
+###### Cost: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+###### Dead Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}
+###### Enabled: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}
+###### Hello Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}
+###### Hello Timer: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}
+###### Index: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].index }}
+###### Retransmit Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval }}
+###### State: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}
+###### Neighbor Count: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.nbr_count }}
+###### Transmit Delay: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}
+###### Wait Interval: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].wait_interval }}
 {%-                         for graceful_restart in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].graceful_restart %}
-###### Graceful Restart: {{ graceful_restart }}</td>
-###### Graceful Helper: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].graceful_restart[graceful_restart].helper }}</td>
+###### Graceful Restart: {{ graceful_restart }}
+###### Graceful Helper: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].graceful_restart[graceful_restart].helper }}
 {%-                         endfor %}
 {%-                     endfor %}
 {%-                 endfor %}
@@ -1185,9 +1187,9 @@
 {%-             for instance in data_to_template['vrf'][vrf].address_family[address_family].instance %}
 ## {{ vrf }} Instance: {{ instance }}
 {%-                 for area in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas %}
-### Area: {{ area }}</td>
+### Area: {{ area }}
 {%-                     for interface in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
-#### Interface: {{ interface }}</td>
+#### Interface: {{ interface }}
 {%-                         for neighbor in data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
 ##### Neighbor: {{ neighbor }}
 ###### Address: {{ data_to_template['vrf'][vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}
@@ -1256,7 +1258,7 @@
 {%-     for peer in data_to_template.peer %}
 ## Peer: {{ peer }}
 ### Reference ID: {{ data_to_template['peer'][peer]['local_mode']['client']['refid'] }}
-### Statum: {{ data_to_template['peer'][peer]['local_mode']['client']['stratum'] }}
+### Stratum: {{ data_to_template['peer'][peer]['local_mode']['client']['stratum'] }}
 ### Poll: {{ data_to_template['peer'][peer]['local_mode']['client']['poll'] }}
 ### Reach: {{ data_to_template['peer'][peer]['local_mode']['client']['reach'] }}
 ### Delay: {{ data_to_template['peer'][peer]['local_mode']['client']['delay'] }}

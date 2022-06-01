@@ -29,7 +29,7 @@
 ##### Errors: 0
 ##### Packets: 64872
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
@@ -61,7 +61,7 @@
 ##### Errors: 0
 ##### Packets: 989
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
@@ -93,7 +93,7 @@
 ##### Errors: 0
 ##### Packets: 990
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
@@ -125,7 +125,7 @@
 ##### Errors: 0
 ##### Packets: 1037
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
@@ -157,7 +157,7 @@
 ##### Errors: 0
 ##### Packets: 1034
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
@@ -189,7 +189,7 @@
 ##### Errors: 0
 ##### Packets: 1035
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
@@ -220,7 +220,7 @@
 ##### Errors: 0
 ##### Packets: 0
 ### Queues 
-#### Stategy: fifo</td>
+#### Strategy: fifo</td>
 #### Drops
 #### Input: 0</td>
 #### Output: 0</td>
